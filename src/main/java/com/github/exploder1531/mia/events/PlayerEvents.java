@@ -1,4 +1,4 @@
-package com.github.exploder1531.mia.events.thaumcraft;
+package com.github.exploder1531.mia.events;
 
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.config.ThaumcraftConfiguration;
@@ -20,6 +20,31 @@ import thaumcraft.common.config.ModConfig;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class PlayerEvents
 {
+//    // Hatchery
+//    @SubscribeEvent
+//    public static void onPlayerInteract(PlayerInteractEvent event)
+//    {
+//        if (!event.getWorld().isRemote)
+//            return;
+//
+//        final TileEntity entity = event.getWorld().getTileEntity(event.getPos());
+//
+//        if (entity instanceof NestPenTileEntity)
+//        {
+//            final NestPenTileEntity pen = (NestPenTileEntity) entity;
+//
+//            final EntityPlayer player = event.getEntityPlayer();
+//            final ItemStack item = player.getHeldItemMainhand();
+//
+//            if (pen.storedEntity() != null)
+//            {
+//
+//
+//            }
+//        }
+//    }
+    
+    // Thaumcraft
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
     {
@@ -29,6 +54,7 @@ public class PlayerEvents
         handleWussResearch(event.player);
     }
     
+    // Thaumcraft
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
     {
@@ -50,6 +76,7 @@ public class PlayerEvents
         }
     }
     
+    // Thaumcraft
     private static void handleWussResearch(EntityPlayer player)
     {
         if (player instanceof FakePlayer)

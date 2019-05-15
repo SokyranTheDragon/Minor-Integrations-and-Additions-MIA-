@@ -50,17 +50,26 @@ public class TileVoidCreator extends TileBaseInventory implements ITickable, ITi
             }
             
             final float flux = AuraHelper.getFlux(world, pos);
+            final float vis = AuraHelper.getVis(world, pos);
             
-            if (flux <= 25 || flux <= AuraHelper.getVis(world, pos))
+            if (flux <= 25 || flux <= vis)
                 return;
             
-            AuraHelper.drainFlux(world, pos, 5, false);
+            int drain = 5;
             progress++;
             
             if (world.rand.nextInt(33) == 0)
+            {
                 progress += 10;
+                drain += 10;
+            }
             if (counter % 40 == 0 && world.rand.nextInt(3) == 0)
+            {
                 progress += 2;
+                drain += 5;
+            }
+            
+            AuraHelper.drainFlux(world, pos, drain, false);
             
             boolean created = false;
             
