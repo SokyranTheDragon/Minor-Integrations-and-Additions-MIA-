@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "igi",
+    "ihi",
+    "iji"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "g": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "h": {
+      "item": "iceandfire:pixie_house",
+      "data": 32767
+    },
+    "j": {
+      "item": "iceandfire:jar_empty"
+    }
+  },
+  "result": {
+    "item": "mia:pixie_dust_extractor",
+    "count": 1
+  }
+}

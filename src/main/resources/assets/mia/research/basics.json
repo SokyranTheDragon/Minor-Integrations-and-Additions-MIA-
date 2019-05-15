@@ -1,0 +1,23 @@
+{
+  "entries": [
+    {
+      "key": "MIA.VOID_CREATOR",
+      "name": "research.void_creator.title",
+      "icons": ["thaumcraft:void_siphon"],
+      "category": "BASICS",
+      "parents": ["CrimsonRites","!WussMode"],
+      "meta": [ "HIDDEN" ],
+      "location": [-6,6],
+      "stages": [
+        {
+          "text": "research.void_creator.stage.1",
+          "required_knowledge":["OBSERVATION;BASICS;3","OBSERVATION;ELDRITCH;2"]
+        },
+        {
+          "text": "research.void_creator.stage.2",
+          "recipes": ["mia:void_creator"]
+        }
+      ]
+    }
+  ]
+}

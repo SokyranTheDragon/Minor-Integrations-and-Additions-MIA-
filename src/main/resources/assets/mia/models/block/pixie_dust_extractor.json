@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "minecraft:blocks/iron_block",
+    "side": "mia:blocks/pixie_dust_extractor_side"
+  }
+}

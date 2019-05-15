@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "pep",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "e": {
+      "item": "hatchery:hatcheryegg"
+    }
+  },
+  "result": {
+    "item": "mia:egg_sorter",
+    "count": 1
+  }
+}

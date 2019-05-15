@@ -1,0 +1,109 @@
+#####################
+### Configuration ###
+#####################
+
+## Titles
+
+# The first one is unused for now, but this might change in the future
+mia.config.base.title=Base settings
+mia.config.jer.title=Just Enough Resources
+mia.config.xu2.title=Extra Utilities 2
+mia.config.thermalexpansion.title=Thermal Expansion
+mia.config.thermalfoundation.title=Thermal Foundation
+mia.config.tconstruct.title=Tinker's Construct
+mia.config.iceandfire.title=Ice and Fire
+mia.config.hatchery.title=Hatchery
+mia.config.thaumcraft.title=Thaumcraft
+
+## Tooltips
+
+mia.config.base.title.tooltip=Browse and manage base MIA settings
+mia.config.jer.title.tooltip=Browse and manage Just Enough Resources settings
+mia.config.xu2.title.tooltip=Browse and manage Extra Utilities 2 settings
+mia.config.thermalexpansion.title.tooltip=Browse and manage Thermal Expansion settings
+mia.config.thermalfoundation.title.tooltip=Browse and manage Thermal Foundation settings
+mia.config.tconstruct.title.tooltip=Browse and manage Tinker's Construct settings
+mia.config.iceandfire.title.tooltip=Browse and manage Ice and Fire settings
+mia.config.hatchery.title.tooltip=Browse and manage Hatchery settings
+mia.config.thaumcraft.title.tooltip=Browse and manage Thaumcraft settings
+
+## Shared
+
+mia.config.shared.enable_external_integrations=Enable external integrations
+mia.config.shared.enable_jer_integration=Enable Just Enough Resources integration
+mia.config.shared.enable_thermal_expansion_integration=Enable Thermal Expansion integration
+mia.config.shared.enable_extra_utils_integration=Enable Extra Utilities 2 integration
+mia.config.shared.enable_hatchery_integration=Enable Hatchery integration
+
+
+## Additions text
+
+mia.config.iceandfire.additions_enabled=Enable Ice and Fire additions
+mia.config.tconstruct.additions_enabled=Enable Tinker's Construct additions
+mia.config.thermalexpansion.additions_enabled=Enable Thermal Expansion additions
+mia.config.thermalfoundation.additions_enabled=Enable Thermal Foundation additions
+mia.config.xu2.additions_enabled=Enable Extra Utilities 2 additions
+mia.config.hatchery.additions_enabled=Enable Hatchery additions
+mia.config.thaumcraft.additions_enabled=Enable Thaumcraft additions
+
+## Mod specific
+
+mia.config.hatchery.register_cusom_eggs=Register custom lucky eggs
+mia.config.iceandfire.fix_smelting_oredict=Fix smelting and ore dictionary registration in mod version 1.7.1
+
+
+
+#######################
+### JER integration ###
+#######################
+
+### Conditionals
+
+mia.jer.affected_by_research=Chance affected by doing Thaumic research
+mia.jer.less_chance_if_held=Chance affected by having this item in inventory
+mia.jer.if_last_one_killed=Only last enemy drops this item
+
+
+### Ice and fire
+
+# Dragon loot
+mia.jer.dungeon.fire_dragon=Fire Dragon Chests
+mia.jer.dungeon.ice_dragon=Ice Dragon Chests
+# Myrmex loot
+mia.jer.dungeon.myrmex_loot=Myrmex Loot
+mia.jer.dungeon.myrmex_desert_food=Desert Myrmex Food
+mia.jer.dungeon.myrmex_jungle_food=Jungle Myrmex Food
+mia.jer.dungeon.myrmex_trash=Myrmex Trash
+# Cyclops loot
+mia.jer.dungeon.cyclops_cave=Cyclops Cave
+
+
+
+#########################
+### Hatchery addition ###
+#########################
+
+tile.egg_sorter.name=Egg Sorter
+
+
+
+#############################
+### Ice and Fire addition ###
+#############################
+
+tile.pixie_dust_extractor.name=Pixie Dust Collector
+
+
+
+###########################
+### Thaumcraft addition ###
+###########################
+
+tile.void_creator.name=Void Creator
+
+
+# Thaumcraft research
+
+research.void_creator.title=Void creator
+research.void_creator.stage.1=I have a strange feeling that I'm missing something, or rather, the world I'm in. It feels like it's too safe to access more... "advanced" research. I should try to to look deeper into that.
+research.void_creator.stage.2=That's it! Based on what I've gathered from the Crimson Cultists I managed to create a device that's going to create a rare and powerful material - Void Seeds - from the flux in the area it's placed in. It requires more Flux than Vis to be present, as well as enough of it to start the process.

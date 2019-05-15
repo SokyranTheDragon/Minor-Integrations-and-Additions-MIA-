@@ -1,0 +1,82 @@
+package com.github.exploder1531.mia.integrations.jer;
+
+import jeresources.api.conditionals.Conditional;
+import jeresources.api.drop.LootDrop;
+import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+
+@SuppressWarnings("unused")
+public class LootDropRandom extends LootDrop
+{
+    public List<ItemStack> items;
+    
+    public LootDropRandom(List<ItemStack> items)
+    {
+        super(items.get(0));
+        this.items = items;
+    }
+    
+    public LootDropRandom(List<ItemStack> items, float chance)
+    {
+        super(items.get(0), chance);
+        this.items = items;
+    }
+    
+    public LootDropRandom(List<ItemStack> items, float chance, int fortuneLevel)
+    {
+        super(items.get(0), chance, fortuneLevel);
+        this.items = items;
+    }
+    
+    public LootDropRandom(List<ItemStack> items, int minDrop, int maxDrop, Conditional... conditionals)
+    {
+        super(items.get(0), minDrop, maxDrop, conditionals);
+        this.items = items;
+    }
+    
+    public LootDropRandom(List<ItemStack> items, int minDrop, int maxDrop, float chance, int fortuneLevel, Conditional... conditionals)
+    {
+        super(items.get(0), minDrop, maxDrop, chance, fortuneLevel, conditionals);
+        this.items = items;
+    }
+    
+    public LootDropRandom(List<ItemStack> items, int minDrop, int maxDrop, float chance, Conditional... conditionals)
+    {
+        super(items.get(0), minDrop, maxDrop, chance, conditionals);
+        this.items = items;
+    }
+    
+    @Override
+    public boolean canBeCooked()
+    {
+        return false;
+    }
+    
+    @Override
+    public List<ItemStack> getDrops()
+    {
+        return items;
+    }
+    
+    @Override
+    public int compareTo(@Nonnull LootDrop other)
+    {
+        if (other instanceof LootDropRandom)
+        {
+            LootDropRandom otherRandom = (LootDropRandom) other;
+            
+            if (items.size() == 1 && otherRandom.items.size() == 1)
+                return super.compareTo(other);
+            else if (items.containsAll(otherRandom.items))
+                return Integer.compare(other.fortuneLevel, fortuneLevel);
+            else
+                return Integer.compare(otherRandom.items.size(), items.size());
+        }
+        else if (items.size() == 1)
+            return super.compareTo(other);
+        else
+            return 1;
+    }
+}

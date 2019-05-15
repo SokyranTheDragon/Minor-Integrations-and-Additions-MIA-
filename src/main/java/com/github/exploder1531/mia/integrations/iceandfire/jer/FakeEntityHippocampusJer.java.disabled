@@ -1,0 +1,19 @@
+package com.github.exploder1531.mia.integrations.iceandfire.jer;
+
+import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
+import net.minecraft.world.World;
+
+public class FakeEntityHippocampusJer extends EntityHippocampus
+{
+    
+    public FakeEntityHippocampusJer(World worldIn)
+    {
+        super(worldIn);
+    }
+    
+    @Override
+    public boolean isInWater()
+    {
+        return true;
+    }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "mia:pixie_dust_extractor"
+    }
+  }
+}
