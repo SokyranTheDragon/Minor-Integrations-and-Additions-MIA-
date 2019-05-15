@@ -12,7 +12,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class TileEggSorter extends TileBaseInventory implements ITickable
@@ -105,29 +104,28 @@ public class TileEggSorter extends TileBaseInventory implements ITickable
         return true;
     }
     
+    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack)
     {
         if (index > 2)
             return false;
-        ItemStack egg = stacks.get(index);
-        if (egg.isEmpty() || (egg.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(egg, stack)))
-            return true;
-        if (eggEntityId == null)
-            return false;
         if (!isItemValid(stack))
             return false;
-        return Objects.requireNonNull(stack.getTagCompound()).getCompoundTag("storedEntity").getString("Type").equals(eggEntityId);
+        if (eggEntityId != null && !stack.getTagCompound().getCompoundTag("storedEntity").getString("Type").equals(eggEntityId))
+            return false;
+        ItemStack egg = stacks.get(index);
+        return egg.isEmpty() || egg.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(egg, stack);
     }
     
-    @SuppressWarnings({"RedundantIfStatement", "BooleanMethodIsAlwaysInverted"})
+    @SuppressWarnings({"RedundantIfStatement", "BooleanMethodIsAlwaysInverted", "ConstantConditions"})
     public static boolean isItemValid(ItemStack stack)
     {
         if (stack.getItem() != ModItems.hatcheryEgg)
             return false;
         if (!stack.hasTagCompound())
             return false;
-        NBTTagCompound nbt = Objects.requireNonNull(stack.getTagCompound());
+        NBTTagCompound nbt = stack.getTagCompound();
         if (!nbt.hasKey("storedEntity"))
             return false;
         nbt = nbt.getCompoundTag("storedEntity");
