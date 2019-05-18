@@ -28,7 +28,7 @@ public class ThermalExpansionUtils
         if (!item.hasTagCompound())
             return false;
         NBTTagCompound nbt = item.getTagCompound();
-        if (!nbt.hasKey("id"))
+        if (!nbt.hasKey("id", 8))
             return false;
         
         return nbt.getString("id").equals(mobId);

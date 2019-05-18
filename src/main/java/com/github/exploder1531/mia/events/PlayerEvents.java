@@ -1,11 +1,25 @@
 package com.github.exploder1531.mia.events;
 
+import com.gendeathrow.hatchery.block.nestpen.NestPenTileEntity;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.config.ThaumcraftConfiguration;
 import com.github.exploder1531.mia.integrations.ModIds;
+import com.github.exploder1531.mia.utilities.ExtraUtilitiesUtils;
+import com.rwtema.extrautils2.backend.entries.XU2Entries;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
@@ -13,6 +27,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.common.config.ModConfig;
@@ -20,29 +35,70 @@ import thaumcraft.common.config.ModConfig;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class PlayerEvents
 {
-//    // Hatchery
-//    @SubscribeEvent
-//    public static void onPlayerInteract(PlayerInteractEvent event)
-//    {
-//        if (!event.getWorld().isRemote)
-//            return;
-//
-//        final TileEntity entity = event.getWorld().getTileEntity(event.getPos());
-//
-//        if (entity instanceof NestPenTileEntity)
-//        {
-//            final NestPenTileEntity pen = (NestPenTileEntity) entity;
-//
-//            final EntityPlayer player = event.getEntityPlayer();
-//            final ItemStack item = player.getHeldItemMainhand();
-//
-//            if (pen.storedEntity() != null)
-//            {
-//
-//
-//            }
-//        }
-//    }
+    // Hatchery
+    // Called multiple times for a single use?
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
+    {
+        if (event.getSide() == Side.CLIENT)
+            return;
+        
+        final TileEntity tile = event.getWorld().getTileEntity(event.getPos());
+        
+        if (tile instanceof NestPenTileEntity)
+        {
+            final NestPenTileEntity pen = (NestPenTileEntity) tile;
+            
+            final EntityPlayer player = event.getEntityPlayer();
+            final ItemStack item = player.getHeldItemMainhand();
+            
+            if (player.isSneaking() && ExtraUtilitiesUtils.isItemLasso(item))
+            {
+                try
+                {
+                    event.setCanceled(true);
+                    event.setCancellationResult(EnumActionResult.PASS);
+                }
+                catch (UnsupportedOperationException e)
+                {
+                    Mia.LOGGER.warn("Could not cancel nesting pen right click event.");
+                }
+                
+                if (event.isCanceled())
+                {
+                    if (pen.storedEntity() == null)
+                    {
+                        if (ExtraUtilitiesUtils.isItemLassoWithMob(item, "chickens:chickenschicken", "minecraft:chicken"))
+                        {
+                            Mia.LOGGER.info("Trying to put chicken into the pen.");
+                            NBTTagCompound nbt = item.getTagCompound();
+                            World world = event.getWorld();
+                            //noinspection ConstantConditions
+                            Entity chicken = EntityList.createEntityFromNBT(nbt.getCompoundTag("Animal"), world);
+
+                            pen.trySetEntity(chicken);
+                            world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
+
+                            nbt.removeTag("Animal");
+                            nbt.removeTag("Animal_Metadata");
+                            nbt.removeTag("No_Place");
+                            item.clearCustomName();
+                            player.inventory.markDirty();
+                        }
+                    }
+                    else
+                    {
+                        if (ExtraUtilitiesUtils.isItemLassoWithoutMob(item))
+                        {
+                            EntityAgeable chicken = (EntityAgeable)pen.tryGetRemoveEntity();
+                            XU2Entries.goldenLasso.value.addTargetToLasso(item, chicken);
+                            player.inventory.markDirty();
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     // Thaumcraft
     @SubscribeEvent

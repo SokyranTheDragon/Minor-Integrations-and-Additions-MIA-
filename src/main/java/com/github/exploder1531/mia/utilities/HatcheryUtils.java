@@ -24,10 +24,10 @@ public class HatcheryUtils
         if (!item.hasTagCompound())
             return false;
         NBTTagCompound nbt = item.getTagCompound();
-        if (!nbt.hasKey("storedEntity"))
+        if (!nbt.hasKey("storedEntity", 10))
             return false;
         nbt = nbt.getCompoundTag("storedEntity");
-        if (!nbt.hasKey("id"))
+        if (!nbt.hasKey("id", 8))
             return false;
         return nbt.getString("id").equals(mobId);
     }
