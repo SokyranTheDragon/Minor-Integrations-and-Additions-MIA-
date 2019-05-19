@@ -17,7 +17,7 @@ public class HatcheryUtils
     }
     
     @SuppressWarnings("ConstantConditions")
-    public static boolean isItemAnimalNetWithMob(ItemStack item, String mobId)
+    public static boolean isItemAnimalNetWithMob(ItemStack item, String... mobIds)
     {
         if (!isItemAnimalNet(item))
             return false;
@@ -29,6 +29,12 @@ public class HatcheryUtils
         nbt = nbt.getCompoundTag("storedEntity");
         if (!nbt.hasKey("id", 8))
             return false;
-        return nbt.getString("id").equals(mobId);
+        String id = nbt.getString("id");
+        for (String mob : mobIds)
+        {
+            if (id.equals(mob))
+                return true;
+        }
+        return false;
     }
 }

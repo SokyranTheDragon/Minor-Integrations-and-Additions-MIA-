@@ -21,7 +21,7 @@ public class ThermalExpansionUtils
     }
     
     @SuppressWarnings("ConstantConditions")
-    public static boolean isItemStackMorbWithMob(ItemStack item, String mobId)
+    public static boolean isItemStackMorbWithMob(ItemStack item, String... mobIds)
     {
         if (!isItemStackMorb(item))
             return false;
@@ -30,7 +30,12 @@ public class ThermalExpansionUtils
         NBTTagCompound nbt = item.getTagCompound();
         if (!nbt.hasKey("id", 8))
             return false;
-        
-        return nbt.getString("id").equals(mobId);
+        String id = nbt.getString("id");
+        for (String mob : mobIds)
+        {
+            if (id.equals(mob))
+                return true;
+        }
+        return false;
     }
 }

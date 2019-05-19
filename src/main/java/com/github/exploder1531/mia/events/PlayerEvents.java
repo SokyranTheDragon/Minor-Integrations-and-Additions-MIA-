@@ -36,23 +36,27 @@ import thaumcraft.common.config.ModConfig;
 public class PlayerEvents
 {
     // Hatchery
-    // Called multiple times for a single use?
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
     {
         if (event.getSide() == Side.CLIENT)
             return;
         
+        if (event.isCanceled())
+        {
+            return;
+        }
+        
         final TileEntity tile = event.getWorld().getTileEntity(event.getPos());
         
-        if (tile instanceof NestPenTileEntity)
+        if (Loader.isModLoaded(ModIds.HATCHERY) && tile instanceof NestPenTileEntity)
         {
             final NestPenTileEntity pen = (NestPenTileEntity) tile;
             
             final EntityPlayer player = event.getEntityPlayer();
-            final ItemStack item = player.getHeldItemMainhand();
+            final ItemStack item = player.getHeldItem(event.getHand());
             
-            if (player.isSneaking() && ExtraUtilitiesUtils.isItemLasso(item))
+            if (player.isSneaking() && (ExtraUtilitiesUtils.isItemLasso(item))) // || ThermalExpansionUtils.isItemStackMorb(item)
             {
                 try
                 {
@@ -75,22 +79,26 @@ public class PlayerEvents
                             World world = event.getWorld();
                             //noinspection ConstantConditions
                             Entity chicken = EntityList.createEntityFromNBT(nbt.getCompoundTag("Animal"), world);
-
+                            
                             pen.trySetEntity(chicken);
                             world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
-
+                            
                             nbt.removeTag("Animal");
                             nbt.removeTag("Animal_Metadata");
                             nbt.removeTag("No_Place");
                             item.clearCustomName();
                             player.inventory.markDirty();
                         }
+//                        else if (ThermalExpansionUtils.isItemStackMorbWithMob(item, "minecraft:chicken"))
+//                        {
+//
+//                        }
                     }
                     else
                     {
                         if (ExtraUtilitiesUtils.isItemLassoWithoutMob(item))
                         {
-                            EntityAgeable chicken = (EntityAgeable)pen.tryGetRemoveEntity();
+                            EntityAgeable chicken = (EntityAgeable) pen.tryGetRemoveEntity();
                             XU2Entries.goldenLasso.value.addTargetToLasso(item, chicken);
                             player.inventory.markDirty();
                         }
