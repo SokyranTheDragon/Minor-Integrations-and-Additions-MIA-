@@ -35,22 +35,18 @@ public class IceAndFireConfiguration
     @Config.LangKey("mia.config.shared.enable_extra_utils_integration")
     @Config.RequiresMcRestart
     public static boolean enableXu2Integration = true;
-    
+
     @Config.Name("Enable Hatchery integration")
     @Config.Comment("Set to false to completely disable integration with Hatchery")
     @Config.LangKey("mia.config.shared.enable_hatchery_integration")
     @Config.RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
-    
-    @Config.Name("Fix smelting and ore dictionary in Ice and Fire version 1.7.1")
-    @Config.Comment(
-            {"There's a bug in Ice and Fire 1.7.1 that prevents block smelting and registering of blocks in ore dictionary",
-            "This is going to have an effect only with Ice and Fire version 1.7.1",
-            "The ore dictionary registration bug could cause bugs with other mods",
-            "Hopefully, this should be fixed in the next update to Ice and Fire and will be removed from this mod in the future"})
-    @Config.LangKey("mia.config.iceandfire.fix_smelting_oredict")
+
+    @Config.Name("Enable Tinker's Construct integration")
+    @Config.Comment("Set to false to completely disable integration with Tinker's Construct")
+    @Config.LangKey("mia.config.shared.enable_tconstruct_integration")
     @Config.RequiresMcRestart
-    public static boolean fixSmeltingOredict171 = true;
+    public static boolean enableTConstructIntegration = true;
     
     
     /**

@@ -23,6 +23,7 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
     {
         // Silver tools and armor recycling (induction smelter)
         int energy = 6_000;
+        // Silver
         ItemStack ingot = new ItemStack(ModItems.silverIngot);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_sword), ingot, 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_pickaxe), ingot, 1);
@@ -34,6 +35,33 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_chestplate), ingot, 4);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_leggings), ingot, 3);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_boots), ingot, 2);
+
+        // Fire dragonsteel
+        ingot = new ItemStack(ModItems.dragonsteel_fire_ingot);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_sword), ingot, 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_pickaxe), ingot, 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_axe), ingot, 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_hoe), ingot, 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_shovel), ingot, 1);
+
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_helmet), ingot, 2);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_chestplate), ingot, 4);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_leggings), ingot, 3);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_boots), ingot, 2);
+
+        // Ice dragonsteel
+        ingot = new ItemStack(ModItems.dragonsteel_ice_ingot);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_sword), ingot, 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_pickaxe), ingot, 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_axe), ingot, 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_hoe), ingot, 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_shovel), ingot, 1);
+
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_helmet), ingot, 2);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_chestplate), ingot, 4);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_leggings), ingot, 3);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_boots), ingot, 2);
+
         
         
         // Pulverizer
@@ -65,20 +93,35 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         // Dragon armor recycling (Pulverized - diamond, Induction smelter - iron, gold)
         energy = 30_000;
         // Iron
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_iron, 1, 0), new ItemStack(Items.IRON_INGOT), 2 * 9 + 4);
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_iron, 1, 1), new ItemStack(Items.IRON_INGOT), 2 * 9 + 4);
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_iron, 1, 2), new ItemStack(Items.IRON_INGOT), 4 * 9);
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_iron, 1, 3), new ItemStack(Items.IRON_INGOT), 9 + 4);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_iron, 1, 0), new ItemStack(Items.IRON_INGOT), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_iron, 1, 1), new ItemStack(Items.IRON_INGOT), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_iron, 1, 2), new ItemStack(Items.IRON_INGOT), 4 * 9, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_iron, 1, 3), new ItemStack(Items.IRON_INGOT), 9 + 4, false);
         // Gold
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_gold, 1, 0), new ItemStack(Items.GOLD_INGOT), 2 * 9 + 4);
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_gold, 1, 1), new ItemStack(Items.GOLD_INGOT), 2 * 9 + 4);
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_gold, 1, 2), new ItemStack(Items.GOLD_INGOT), 4 * 9);
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_gold, 1, 3), new ItemStack(Items.GOLD_INGOT), 9 + 4);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_gold, 1, 0), new ItemStack(Items.GOLD_INGOT), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_gold, 1, 1), new ItemStack(Items.GOLD_INGOT), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_gold, 1, 2), new ItemStack(Items.GOLD_INGOT), 4 * 9, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_gold, 1, 3), new ItemStack(Items.GOLD_INGOT), 9 + 4, false);
         // Diamond
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_diamond, 1, 0), new ItemStack(Items.DIAMOND), 2 * 9 + 4);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_diamond, 1, 1), new ItemStack(Items.DIAMOND), 2 * 9 + 4);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_diamond, 1, 2), new ItemStack(Items.DIAMOND), 4 * 9);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_diamond, 1, 3), new ItemStack(Items.DIAMOND), 9 + 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_diamond, 1, 0), new ItemStack(Items.DIAMOND), 2 * 9 + 4, false);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_diamond, 1, 1), new ItemStack(Items.DIAMOND), 2 * 9 + 4, false);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_diamond, 1, 2), new ItemStack(Items.DIAMOND), 4 * 9, false);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_diamond, 1, 3), new ItemStack(Items.DIAMOND), 9 + 4, false);
+        // Silver
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_silver, 1, 0), new ItemStack(ModItems.silverIngot), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_silver, 1, 1), new ItemStack(ModItems.silverIngot), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_silver, 1, 2), new ItemStack(ModItems.silverIngot), 4 * 9, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_silver, 1, 3), new ItemStack(ModItems.silverIngot), 9 + 4, false);
+        // Fire Dragonsteel
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_dragonsteel_fire, 1, 0), new ItemStack(ModItems.dragonsteel_fire_ingot), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_dragonsteel_fire, 1, 1), new ItemStack(ModItems.dragonsteel_fire_ingot), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_dragonsteel_fire, 1, 2), new ItemStack(ModItems.dragonsteel_fire_ingot), 4 * 9, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_dragonsteel_fire, 1, 3), new ItemStack(ModItems.dragonsteel_fire_ingot), 9 + 4, false);
+        // Ice Dragonsteel
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_dragonsteel_ice, 1, 0), new ItemStack(ModItems.dragonsteel_ice_ingot), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_dragonsteel_ice, 1, 1), new ItemStack(ModItems.dragonsteel_ice_ingot), 2 * 9 + 4, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_dragonsteel_ice, 1, 2), new ItemStack(ModItems.dragonsteel_ice_ingot), 4 * 9, false);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragon_armor_dragonsteel_ice, 1, 3), new ItemStack(ModItems.dragonsteel_ice_ingot), 9 + 4, false);
         
         // Hippogryph armor recycling
         energy = 6_000;

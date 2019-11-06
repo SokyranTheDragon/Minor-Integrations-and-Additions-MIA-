@@ -26,7 +26,7 @@ class ExtraUtilsThaumcraftIntegration implements IExtraUtilsIntegration
         XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ItemsTC.brain), 32_000, 60));
         XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(BlocksTC.fleshBlock), 72_000, 20));
         
-        FluidStack fluid = FluidRegistry.getFluidStack("pyrotheum", 50);
+        FluidStack fluid = FluidRegistry.getFluidStack("liquid_death", 50);
         if (fluid != null)
         {
             ItemStack liquidDeathBucket = FluidUtil.getFilledBucket(fluid);

@@ -40,16 +40,16 @@ class ExtraUtilsTFIntegration implements IExtraUtilsIntegration
                             .setRFRate(100_000, 40.0F)
                             .setFluidInputFluidStack(XUMachineGenerators.INPUT_FLUID, fluid)
                             .build());
-        
+
             XUMachineGenerators.REDSTONE_GENERATOR.recipes_registry.addRecipe(
                     RecipeBuilder.newbuilder(XUMachineGenerators.REDSTONE_GENERATOR)
-                            .setRFRate(150_000, 160)
+                            .setRFRate(160_000, 160.0F)
                             .setItemInput(XUMachineGenerators.INPUT_ITEM, new ItemStack(Items.REDSTONE))
                             .setFluidInputFluidStack(XUMachineGenerators.INPUT_FLUID, fluid)
                             .build());
         }
-    
-    
+
+
         // Ice generator
         XUMachineGenerators.ICE_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ItemMaterial.rodBlizz), 700_000, 300));
         XUMachineGenerators.ICE_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ItemMaterial.dustBlizz), 200_000, 300));
@@ -70,7 +70,7 @@ class ExtraUtilsTFIntegration implements IExtraUtilsIntegration
         XUMachineGenerators.ENDER_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ItemMaterial.dustEnderium), 324_000, 120));
         XUMachineGenerators.ENDER_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ItemMaterial.ingotEnderium), 324_000, 120));
         XUMachineGenerators.ENDER_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ItemMaterial.nuggetEnderium), 36_000, 120));
-        fluid = FluidRegistry.getFluidStack("ender", 1000);
+        fluid = FluidRegistry.getFluidStack("ender", 1_000);
         if (fluid != null)
         {
             ItemStack bucket = FluidUtil.getFilledBucket(fluid);
@@ -78,7 +78,7 @@ class ExtraUtilsTFIntegration implements IExtraUtilsIntegration
             if (!bucket.isEmpty())
                 XUMachineGenerators.ENDER_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(bucket), 256_000, 80));
         }
-        fluid = FluidRegistry.getFluidStack("enderium", 1000);
+        fluid = FluidRegistry.getFluidStack("enderium", 1_000);
         if (fluid != null)
         {
             ItemStack bucket = FluidUtil.getFilledBucket(fluid);

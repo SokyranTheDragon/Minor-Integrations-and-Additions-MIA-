@@ -44,6 +44,8 @@ public class IceAndFire implements IBaseMod
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionIceAndFireIntegration());
         if (enableJerIntegration)
             modIntegration.accept(ModIds.JER, new JerIceAndFireIntegration());
+        if (enableTConstructIntegration)
+            modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
         modIntegration.accept(ModIds.HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
     }
     
@@ -87,39 +89,6 @@ public class IceAndFire implements IBaseMod
     @Override
     public void registerItems(RegistryEvent.Register<Item> event)
     {
-        // Fix smelting in Ice & Fire 1.7.1
-        // This should hopefully be fixed in the next version,
-        // and this wasn't an issue in the previous version,
-        // so it's only a fix for people on 1.7.1
-        if (fixSmeltingOredict171)
-        {
-            String version = null;
-            
-            try
-            {
-                // This workaround is needed as otherwise it checking the version directly would be compiled to this: "1.7.1".equals("1.7.1")
-                Field field = com.github.alexthe666.iceandfire.IceAndFire.class.getDeclaredField("VERSION");
-                version = (String) field.get(null);
-            }
-            catch (Exception ignored)
-            {
-            }
-            
-            if (version == null)
-                return;
-            
-            OreDictionary.registerOre("oreSilver", ModBlocks.silverOre);
-            OreDictionary.registerOre("blockSilver", ModBlocks.silverBlock);
-            OreDictionary.registerOre("gemSapphire", ModItems.sapphireGem);
-            OreDictionary.registerOre("oreSapphire", ModBlocks.sapphireOre);
-            OreDictionary.registerOre("blockSapphire", ModBlocks.sapphireBlock);
-            OreDictionary.registerOre("boneWither", ModItems.witherbone);
-            GameRegistry.addSmelting(ModBlocks.silverOre, new ItemStack(ModItems.silverIngot), 1.0F);
-            GameRegistry.addSmelting(ModBlocks.sapphireOre, new ItemStack(ModItems.sapphireGem), 1.0F);
-            GameRegistry.addSmelting(ModBlocks.myrmex_desert_resin_block, new ItemStack(ModBlocks.myrmex_desert_resin_glass), 1.0F);
-            GameRegistry.addSmelting(ModBlocks.myrmex_jungle_resin_block, new ItemStack(ModBlocks.myrmex_jungle_resin_glass), 1.0F);
-        }
-        
         if (!iceandfireAdditionsEnabled)
             return;
         

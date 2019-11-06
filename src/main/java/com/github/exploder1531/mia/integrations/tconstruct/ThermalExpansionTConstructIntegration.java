@@ -28,15 +28,15 @@ class ThermalExpansionTConstructIntegration implements IThermalExpansionIntegrat
         // Pulverizer
         energy = 3000;
     
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerCommons.blockDecoGround, 1, 0), TinkerCommons.mudBrick, 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerCommons.blockDecoGround, 1, 0), TinkerCommons.mudBrick, 4, false);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerCommons.stairsMudBrick, 2), TinkerCommons.mudBrick, 3);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerCommons.slabDecoGround, 1, 0), TinkerCommons.mudBrick, 2);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerSmeltery.searedBlock, 1, 3), TinkerCommons.searedBrick, 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerCommons.slabDecoGround, 1, 0), TinkerCommons.mudBrick, 2, false);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerSmeltery.searedBlock, 1, 3), TinkerCommons.searedBrick, 4, false);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerSmeltery.searedStairsBrick, 2), TinkerCommons.searedBrick, 3);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerSmeltery.searedSlab, 1, 3), TinkerCommons.searedBrick, 2);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerGadgets.driedClay, 1, 1), TinkerCommons.driedBrick, 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerSmeltery.searedSlab, 1, 3), TinkerCommons.searedBrick, 2, false);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerGadgets.driedClay, 1, 1), TinkerCommons.driedBrick, 4, false);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerGadgets.driedClayStairs, 2), TinkerCommons.driedBrick, 3);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerGadgets.driedClaySlab, 1, 1), TinkerCommons.driedBrick, 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(TinkerGadgets.driedClaySlab, 1, 1), TinkerCommons.driedBrick, 2, false);
         
         
         // Numismatic dynamo

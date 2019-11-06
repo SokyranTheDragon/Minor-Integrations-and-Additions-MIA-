@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.integrations.iceandfire;
 
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.xu2.IExtraUtilsIntegration;
 import com.rwtema.extrautils2.api.machine.MachineSlotItem;
@@ -27,7 +28,15 @@ class ExtraUtilsIceAndFireIntegration implements IExtraUtilsIntegration
         
         // Death generator
         XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ModItems.dragonbone), 64_000, 60));
+        XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ModBlocks.dragon_bone_block_wall), 64_000 * 6, 120));
+        XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ModBlocks.dragon_bone_block), 64_000 * 9, 180));
         XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ModItems.troll_tusk), 27_000, 40));
+        XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ModItems.wither_shard), 10_333, 80));
+        // Skulls
+        for (EnumSkullType skull : EnumSkullType.values())
+        {
+            XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(skull.skull_item), 120_000, 200));
+        }
         
         // Ice generator
         XUMachineGenerators.ICE_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(ModBlocks.frozenDirt), 1_600, 40));
