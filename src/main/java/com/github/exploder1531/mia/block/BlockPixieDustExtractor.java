@@ -34,7 +34,7 @@ public class BlockPixieDustExtractor extends BlockBase implements ITileEntityPro
         
         setHardness(2.5f);
         setHarvestLevel("pickaxe", 0);
-        setCreativeTab(IceAndFire.TAB);
+        setCreativeTab(IceAndFire.TAB_BLOCKS);
     }
     
     @Nullable
