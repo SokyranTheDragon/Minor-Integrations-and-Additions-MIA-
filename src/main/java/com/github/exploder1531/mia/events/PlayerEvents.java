@@ -143,7 +143,7 @@ public class PlayerEvents
     // Thaumcraft
     private static void handleWussResearch(EntityPlayer player)
     {
-        if (player instanceof FakePlayer)
+        if (!Loader.isModLoaded(ModIds.THAUMCRAFT) || player instanceof FakePlayer)
             return;
         
         IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);

@@ -38,6 +38,8 @@ public class ModIntegrator
     
     private boolean registeredBlocks = false;
     private boolean registeredItems = false;
+
+
     
     // TODO: add logs for incorrect status
     
@@ -139,15 +141,9 @@ public class ModIntegrator
     }
     
     @SideOnly(Side.CLIENT)
-    public void regiserRenders(ModelRegistryEvent event)
+    public void registerRenders(ModelRegistryEvent event)
     {
         for (IBaseMod mod : modIntegrations.values())
             mod.registerRenders(event);
-    }
-    
-    public void aspectRegistrationEvent(AspectRegistryEvent event)
-    {
-        for (IBaseMod mod : modIntegrations.values())
-            mod.aspectRegistrationEvent(event);
     }
 }

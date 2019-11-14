@@ -52,8 +52,4 @@ public interface IBaseMod
     default void registerRenders(ModelRegistryEvent event)
     {
     }
-    
-    default void aspectRegistrationEvent(AspectRegistryEvent event)
-    {
-    }
 }

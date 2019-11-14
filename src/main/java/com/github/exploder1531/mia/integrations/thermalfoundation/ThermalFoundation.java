@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.mantle.util.RecipeMatch;
@@ -26,11 +27,12 @@ public class ThermalFoundation implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration)
+        if (enableXu2Integration && Loader.isModLoaded(ModIds.EXTRA_UTILITIES))
             modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsTFIntegration());
-        if (enableJerIntegration)
+        if (enableJerIntegration && Loader.isModLoaded(ModIds.JER))
             modIntegration.accept(ModIds.JER, new JerTFIntegration());
-        modIntegration.accept(ModIds.HATCHERY, new HatcheryTFIntegration(enableHatcheryIntegration));
+        if (Loader.isModLoaded(ModIds.HATCHERY))
+            modIntegration.accept(ModIds.HATCHERY, new HatcheryTFIntegration(enableHatcheryIntegration));
     }
     
     @Override

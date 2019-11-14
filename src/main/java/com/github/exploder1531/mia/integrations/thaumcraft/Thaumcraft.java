@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -36,13 +37,14 @@ public class Thaumcraft implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (enableJerIntegration)
+        if (enableJerIntegration && Loader.isModLoaded(ModIds.JER))
             modIntegration.accept(ModIds.JER, new JerThaumcraftIntegration());
-        if (enableTeIntegration)
+        if (enableTeIntegration && Loader.isModLoaded(ModIds.THERMAL_EXPANSION))
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionThaumcraftIntegration());
-        if (enableXu2Integration)
+        if (enableXu2Integration && Loader.isModLoaded(ModIds.EXTRA_UTILITIES))
             modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsThaumcraftIntegration());
-        modIntegration.accept(ModIds.HATCHERY, new HatcheryThaumcraftIntegration(enableHatcheryIntegration));
+        if (Loader.isModLoaded(ModIds.HATCHERY))
+            modIntegration.accept(ModIds.HATCHERY, new HatcheryThaumcraftIntegration(enableHatcheryIntegration));
     }
     
     @Override
@@ -105,11 +107,5 @@ public class Thaumcraft implements IBaseMod
             return;
         
         RegisterUtils.registerItemblockRenderer(MiaBlocks.void_creator);
-    }
-    
-    @Override
-    public void aspectRegistrationEvent(AspectRegistryEvent event)
-    {
-    
     }
 }

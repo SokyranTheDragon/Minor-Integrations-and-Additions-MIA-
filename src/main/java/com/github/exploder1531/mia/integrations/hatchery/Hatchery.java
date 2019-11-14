@@ -106,10 +106,4 @@ public class Hatchery implements IBaseMod
 //        Item eggSorterItem = Item.getItemFromBlock(MiaBlocks.egg_sorter);
 //        ModelLoader.setCustomModelResourceLocation(eggSorterItem, 0, new ModelResourceLocation("mia:" + eggSorterItem.getRegistryName().getPath(), "inventory"));
     }
-    
-    @Override
-    public void aspectRegistrationEvent(AspectRegistryEvent event)
-    {
-    
-    }
 }

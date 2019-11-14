@@ -18,6 +18,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -38,15 +39,16 @@ public class IceAndFire implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration)
+        if (enableXu2Integration && Loader.isModLoaded(ModIds.EXTRA_UTILITIES))
             modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsIceAndFireIntegration());
-        if (enableTeIntegration)
+        if (enableTeIntegration && Loader.isModLoaded(ModIds.THERMAL_EXPANSION))
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionIceAndFireIntegration());
-        if (enableJerIntegration)
+        if (enableJerIntegration && Loader.isModLoaded(ModIds.JER))
             modIntegration.accept(ModIds.JER, new JerIceAndFireIntegration());
-        if (enableTConstructIntegration)
+        if (enableTConstructIntegration && Loader.isModLoaded(ModIds.TINKERS_CONSTRUCT))
             modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
-        modIntegration.accept(ModIds.HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
+        if (Loader.isModLoaded(ModIds.HATCHERY))
+            modIntegration.accept(ModIds.HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
     }
     
     @Override
@@ -106,13 +108,13 @@ public class IceAndFire implements IBaseMod
         RegisterUtils.registerItemblockRenderer(MiaBlocks.pixie_dust_extractor);
     }
     
-    @Override
-    public void aspectRegistrationEvent(AspectRegistryEvent event)
-    {
-        if (!iceandfireAdditionsEnabled)
-            return;
-    
-        Aspect MYTHICAL = Aspect.getAspect("mythus");
-        event.register.registerObjectTag(new ItemStack(ModBlocks.pixieHouse, 1, 0), (new AspectList()).add(Aspect.EARTH, 2).add(Aspect.CRAFT, 5).add(Aspect.PLANT, 2).add(MYTHICAL, 2).add(Aspect.MAGIC, 2).add(Aspect.METAL, 60).add(Aspect.LIGHT, 3).add(Aspect.SENSES, 1).add(Aspect.AIR, 1).add(Aspect.CRYSTAL, 1));
-    }
+//    @Override
+//    public void aspectRegistrationEvent(AspectRegistryEvent event)
+//    {
+//        if (!iceandfireAdditionsEnabled)
+//            return;
+//
+//        Aspect MYTHICAL = Aspect.getAspect("mythus");
+//        event.register.registerObjectTag(new ItemStack(ModBlocks.pixieHouse, 1, 0), (new AspectList()).add(Aspect.EARTH, 2).add(Aspect.CRAFT, 5).add(Aspect.PLANT, 2).add(MYTHICAL, 2).add(Aspect.MAGIC, 2).add(Aspect.METAL, 60).add(Aspect.LIGHT, 3).add(Aspect.SENSES, 1).add(Aspect.AIR, 1).add(Aspect.CRYSTAL, 1));
+//    }
 }

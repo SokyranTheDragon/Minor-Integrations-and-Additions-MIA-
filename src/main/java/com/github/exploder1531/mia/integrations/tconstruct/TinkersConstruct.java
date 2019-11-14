@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -38,13 +39,14 @@ public class TinkersConstruct implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration)
+        if (enableXu2Integration && Loader.isModLoaded(ModIds.EXTRA_UTILITIES))
             modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsTConstructIntegration());
-        if (enableJerIntegration)
+        if (enableJerIntegration && Loader.isModLoaded(ModIds.JER))
             modIntegration.accept(ModIds.JER, new JerTConstructIntegration());
-        if (enableTeIntegration)
+        if (enableTeIntegration && Loader.isModLoaded(ModIds.THERMAL_EXPANSION))
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionTConstructIntegration());
-        modIntegration.accept(ModIds.HATCHERY, new HatcheryTConstructIntegration(enableHatcheryIntegration));
+        if (Loader.isModLoaded(ModIds.HATCHERY))
+            modIntegration.accept(ModIds.HATCHERY, new HatcheryTConstructIntegration(enableHatcheryIntegration));
     }
     
     @Override

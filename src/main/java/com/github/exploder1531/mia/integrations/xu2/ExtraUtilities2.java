@@ -14,6 +14,7 @@ import com.rwtema.extrautils2.utils.datastructures.ItemRef;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockSlime;
@@ -31,7 +32,8 @@ public class ExtraUtilities2 implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        modIntegration.accept(ModIds.HATCHERY, new HatcheryExtraUtilsIntegration(enableHatcheryIntegration));
+        if (Loader.isModLoaded(ModIds.HATCHERY))
+            modIntegration.accept(ModIds.HATCHERY, new HatcheryExtraUtilsIntegration(enableHatcheryIntegration));
     }
     
     @Override

@@ -52,10 +52,9 @@ public class CommonProxy
     {
         modIntegrator.registerItems(event);
     }
-    
-    @SubscribeEvent
-    public static void aspectRegistrationEvent(AspectRegistryEvent event)
-    {
-        modIntegrator.aspectRegistrationEvent(event);
-    }
+
+//    @SubscribeEvent
+//    public static void aspectRegistrationEvent(AspectRegistryEvent event)
+//    {
+//    }
 }
