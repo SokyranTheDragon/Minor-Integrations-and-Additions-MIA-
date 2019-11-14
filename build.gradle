@@ -169,6 +169,11 @@ dependencies {
         compileOnly "curse.maven:ThermalExpansion_5.5.4.43:2715789"
     }
 
+    if (project.run_mocreatures)
+        compile "curse.maven:MoCreatures_12.0.5:2628698"
+    else
+        compileOnly "curse.maven:MoCreatures_12.0.5:2628698"
+
 
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

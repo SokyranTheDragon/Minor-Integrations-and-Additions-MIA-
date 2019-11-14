@@ -3,6 +3,7 @@ package com.github.exploder1531.mia.integrations.iceandfire;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import com.github.alexthe666.iceandfire.compat.tinkers.TinkersCompat;
 import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.entity.EntitySnowVillager;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.tconstruct.ITConstructIntegration;
 import net.minecraftforge.fluids.Fluid;
@@ -17,7 +18,11 @@ import slimeknights.tconstruct.shared.TinkerFluids;
 
 import javax.annotation.Nonnull;
 
-class TConstructIceAndFireIntegration implements ITConstructIntegration {
+class TConstructIceAndFireIntegration implements ITConstructIntegration
+{
+    // Can be obtained by either smelting sapphires, its block or ore, or by killing ice villagers
+//    public static FluidMolten moltenSapphire;
+
     @Override
     public void init(FMLInitializationEvent event)
     {
@@ -47,6 +52,10 @@ class TConstructIceAndFireIntegration implements ITConstructIntegration {
         TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(ModItems.dragonsteel_ice_pickaxe, Material.VALUE_Ingot * 3), TinkersCompat.MOLTEN_ICE_DRAGONSTEEL));
         TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(ModItems.dragonsteel_ice_shovel, Material.VALUE_Ingot), TinkersCompat.MOLTEN_ICE_DRAGONSTEEL));
         TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(ModItems.dragonsteel_ice_sword, Material.VALUE_Ingot * 2), TinkersCompat.MOLTEN_ICE_DRAGONSTEEL));
+
+
+
+//        TinkerRegistry.registerEntityMelting(EntitySnowVillager.class, moltenSapphire);
     }
 
     @Nonnull
