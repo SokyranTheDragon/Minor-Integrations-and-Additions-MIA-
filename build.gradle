@@ -14,6 +14,24 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: "com.wynprice.cursemaven"
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
+parseConfig(file('private.properties'))
+
+@SuppressWarnings("GrMethodMayBeStatic")
+def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+
+        def obj = new ConfigSlurper().parse(prop).iterator()
+
+        while (obj.hasNext()) {
+            def entry = obj.next()
+
+            ext.setProperty(entry.key.toString(), entry.value)
+        }
+    }
+}
+
 
 version = "1.12.2-0.1.5"
 group = "com.github.exploder1531.mia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -43,7 +61,7 @@ repositories {
 minecraft {
     version = "1.12.2-14.23.5.2836"
     runDir = "run"
-    
+
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
@@ -58,7 +76,7 @@ dependencies {
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
-      
+
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
@@ -77,27 +95,50 @@ dependencies {
     deobfCompile "curse.maven:ExtraUtilities_1.9.9:2678374"
 
     // Hatchery and chickens
-    deobfCompile "curse.maven:Hatchery_2.2.2:2715498"
-    deobfCompile "curse.maven:Chickens_6.1.0:2545467"
-    deobfCompile "curse.maven:MoreChickens_3.1.0:2521137"
+    if (project.run_chickens) {
+        deobfCompile "curse.maven:Hatchery_2.2.2:2715498"
+        deobfCompile "curse.maven:Chickens_6.1.0:2545467"
+        deobfCompile "curse.maven:MoreChickens_3.1.0:2521137"
+    } else {
+        compileOnly "curse.maven:Hatchery_2.2.2:2715498"
+        compileOnly "curse.maven:Chickens_6.1.0:2545467"
+        compileOnly "curse.maven:MoreChickens_3.1.0:2521137"
+    }
 
     // Thaumcraft and baubles
-    deobfCompile "curse.maven:Baubles_1.5.2:2518667"
-    deobfCompile "curse.maven:Thaumcraft_6.1.BETA26:2629023"
+    if (project.run_baubles == "true")
+        deobfCompile "curse.maven:Baubles_1.5.2:2518667"
+    else
+        compileOnly "curse.maven:Baubles_1.5.2:2518667"
+    if (project.run_thaumcraft == "true" && project.run_baubles == "true")
+        deobfCompile "curse.maven:Thaumcraft_6.1.BETA26:2629023"
+    else
+        compileOnly "curse.maven:Thaumcraft_6.1.BETA26:2629023"
 
     // JEI and addons
     deobfCompile "curse.maven:JEI_4.15.0.291:2803400"
     deobfCompile "curse.maven:JER_0.9.2.60:2728585"
 
     // Mantle, Tinker, and Tinker's submods
-    deobfCompile "curse.maven:Mantle_1.3.3.55:2713386"
-    deobfCompile "curse.maven:TinkersConstruct_12.0.157:2731543"
+    if (project.run_tinkers) {
+        deobfCompile "curse.maven:Mantle_1.3.3.55:2713386"
+        deobfCompile "curse.maven:TinkersConstruct_12.0.157:2731543"
+    } else {
+        compileOnly "curse.maven:Mantle_1.3.3.55:2713386"
+        compileOnly "curse.maven:TinkersConstruct_12.0.157:2731543"
+    }
 
     // Ice and Fire
 //    compile "llibrary:llibrary-1.7.18:1.12.2:dev"
-    deobfCompile "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
-    deobfCompile "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
-    deobfCompile "curse.maven:iceandfire-1.8.3:2803425"
+    if (project.run_iceandfire) {
+        deobfCompile "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
+        deobfCompile "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
+        deobfCompile "curse.maven:iceandfire-1.8.3:2803425"
+    } else {
+        compileOnly "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
+        compileOnly "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
+        compileOnly "curse.maven:iceandfire-1.8.3:2803425"
+    }
 
     // Ender IO
 //    deobfCompile "com.enderio.core:EnderCore:1.12.2-0.5.57"
@@ -106,15 +147,27 @@ dependencies {
 //    deobfCompile "ender-io:EnderIO:1.12.2:5.0.43"
 
     // Thermal Expansion and dependencies
-    deobfCompile "curse.maven:CodeChickenLib_3.2.3.358:2779848"
-    deobfCompile "curse.maven:RedstoneFlux_2.1.0.6:2623090"
+    if (project.run_thermal) {
+        deobfCompile "curse.maven:CodeChickenLib_3.2.3.358:2779848"
+        deobfCompile "curse.maven:RedstoneFlux_2.1.0.6:2623090"
 
-    deobfCompile "curse.maven:CoFHCore_4.6.3.27:2716100"
-    deobfCompile "curse.maven:CoFHWorld_1.3.1.7:2715784"
+        deobfCompile "curse.maven:CoFHCore_4.6.3.27:2716100"
+        deobfCompile "curse.maven:CoFHWorld_1.3.1.7:2715784"
 
-    deobfCompile "curse.maven:ThermalDynamics_2.5.5.21:2716138"
-    deobfCompile "curse.maven:ThermalFoundation_2.6.3.27:2715788"
-    deobfCompile "curse.maven:ThermalExpansion_5.5.4.43:2715789"
+        deobfCompile "curse.maven:ThermalDynamics_2.5.5.21:2716138"
+        deobfCompile "curse.maven:ThermalFoundation_2.6.3.27:2715788"
+        deobfCompile "curse.maven:ThermalExpansion_5.5.4.43:2715789"
+    } else {
+        compileOnly "curse.maven:CodeChickenLib_3.2.3.358:2779848"
+        compileOnly "curse.maven:RedstoneFlux_2.1.0.6:2623090"
+
+        compileOnly "curse.maven:CoFHCore_4.6.3.27:2716100"
+        compileOnly "curse.maven:CoFHWorld_1.3.1.7:2715784"
+
+        compileOnly "curse.maven:ThermalDynamics_2.5.5.21:2716138"
+        compileOnly "curse.maven:ThermalFoundation_2.6.3.27:2715788"
+        compileOnly "curse.maven:ThermalExpansion_5.5.4.43:2715789"
+    }
 
 
     // for more info...
@@ -131,11 +184,11 @@ processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
+
     // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
