@@ -24,6 +24,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTableManager;
@@ -32,6 +33,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
+
+import static com.github.exploder1531.mia.integrations.jer.JustEnoughResources.loadResource;
 
 class JerIceAndFireIntegration implements IJerIntegration
 {
@@ -60,8 +63,8 @@ class JerIceAndFireIntegration implements IJerIntegration
         {
             // ResourceLocation is used as a key in HashMap, so we need to create our own to prevent replacing entries,
             // leaving us with drops for only a single dragon of each type.
-            builder.add(new ResourceLocation("mia", "dragon/fire_dragon_" + i), EntityFireDragon.class, new DragonSetter(i));
-            builder.add(new ResourceLocation("mia", "dragon/ice_dragon_" + i), EntityIceDragon.class, new DragonSetter(i));
+            builder.add(loadResource("dragon/iceandfire/fire_dragon_" + i), EntityFireDragon.class, new DragonSetter(i));
+            builder.add(loadResource("dragon/iceandfire/ice_dragon_" + i), EntityIceDragon.class, new DragonSetter(i));
         }
         builder.add(EntityHippocampus.LOOT, EntityHippocampus.class);
         builder.add(EntityHippogryph.LOOT, EntityHippogryph.class);
@@ -78,7 +81,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         builder.add(EntityMyrmexWorker.JUNGLE_LOOT, EntityMyrmexWorker.class, new MyrmexSetter(true));
         builder.add(EntityPixie.LOOT, EntityPixie.class);
         for (int i = 0; i <= 6; i++)
-            builder.add(new ResourceLocation("mia", "seaserpent/sea_serpent_" + i), EntitySeaSerpent.class);
+            builder.add(loadResource("seaserpent/iceandfire/sea_serpent_" + i), EntitySeaSerpent.class, new SeaSerpentSetter(i));
         builder.add(EntitySiren.LOOT, EntitySiren.class);
         builder.add(EntityStymphalianBird.LOOT, EntityStymphalianBird.class);
         builder.add(EntityTroll.FOREST_LOOT, EntityTroll.class, new TrollSetter(EnumTroll.FOREST));
@@ -309,8 +312,9 @@ class JerIceAndFireIntegration implements IJerIntegration
         mobRegistry.registerRenderHook(EntityFireDragon.class, RENDER_HOOK_DRAGON);
         mobRegistry.registerRenderHook(EntityIceDragon.class, RENDER_HOOK_DRAGON);
         mobRegistry.registerRenderHook(EntityAmphithere.class, RENDER_HOOK_DRAGON);
+        mobRegistry.registerRenderHook(EntitySeaSerpent.class, RENDER_HOOK_SEA_SERPENT);
         mobRegistry.registerRenderHook(EntityTroll.class, RENDER_HOOK_TROLL);
-        mobRegistry.registerRenderHook(EntityCyclops.class, RENDER_HOOK_TROLL);
+        mobRegistry.registerRenderHook(EntityCyclops.class, RENDER_HOOK_CYCLOPS);
     }
     
     @Override
@@ -357,7 +361,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         return ModIds.ICE_AND_FIRE;
     }
     
-    private class DeathWormSetter implements MobTableBuilder.EntityPropertySetter<EntityDeathWorm>
+    private static class DeathWormSetter implements MobTableBuilder.EntityPropertySetter<EntityDeathWorm>
     {
         private final int variant;
         
@@ -373,7 +377,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
     }
     
-    private class DragonSetter implements MobTableBuilder.EntityPropertySetter
+    private static class DragonSetter implements MobTableBuilder.EntityPropertySetter
     {
         private final int variant;
         
@@ -393,7 +397,26 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
     }
     
-    private class MyrmexSetter implements MobTableBuilder.EntityPropertySetter
+    private static class SeaSerpentSetter implements MobTableBuilder.EntityPropertySetter<EntitySeaSerpent>
+    {
+        private final int variant;
+        
+        SeaSerpentSetter(int variant)
+        {
+            this.variant = variant;
+        }
+        
+        @Override
+        public void setProperties(EntitySeaSerpent entity)
+        {
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setFloat("Scale", 1f);
+            entity.readEntityFromNBT(tag);
+            entity.setVariant(variant);
+        }
+    }
+    
+    private static class MyrmexSetter implements MobTableBuilder.EntityPropertySetter
     {
         private final boolean jungle;
         
@@ -411,7 +434,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
     }
     
-    private class TrollSetter implements MobTableBuilder.EntityPropertySetter<EntityTroll>
+    private static class TrollSetter implements MobTableBuilder.EntityPropertySetter<EntityTroll>
     {
         private final EnumTroll variant;
         
@@ -433,9 +456,21 @@ class JerIceAndFireIntegration implements IJerIntegration
         return renderInfo;
     });
     
+    private static final IMobRenderHook RENDER_HOOK_SEA_SERPENT = ((renderInfo, entityLivingBase) ->
+    {
+        GlStateManager.translate(0f, 0.5f, 0f);
+        return renderInfo;
+    });
+    
     private static final IMobRenderHook RENDER_HOOK_TROLL = (((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, -1f, 0f);
+        return renderInfo;
+    }));
+    
+    private static final IMobRenderHook RENDER_HOOK_CYCLOPS = (((renderInfo, entityLivingBase) ->
+    {
+        GlStateManager.translate(0f, -2f, 0f);
         return renderInfo;
     }));
 }
