@@ -40,7 +40,7 @@ public class JustEnoughResources implements IBaseMod
         
         if (integration instanceof IJerIntegration)
             modIntegrations.put(integration.getModId(), (IJerIntegration) integration);
-    
+        
         Mia.LOGGER.warn("Incorrect JER integration with id of " + integration.getModId() + ": " + integration.toString());
     }
     
@@ -95,5 +95,10 @@ public class JustEnoughResources implements IBaseMod
             for (IJerIntegration mod : modIntegrations.values())
                 mod.overrideExistingMobDrops(mobEntry);
         }
+    }
+    
+    public static ResourceLocation loadResource(String path)
+    {
+        return new ResourceLocation("mia", path);
     }
 }
