@@ -48,6 +48,10 @@ repositories {
         url = "https://minecraft.curseforge.com/api/maven/"
     }
     maven {
+        name = "forge"
+        url = "http://files.minecraftforge.net/maven"
+    }
+    maven {
         // Using CurseForge did not work for me, so I'm using this maven repo instead.
         name = "EnderCore"
         url = "http://maven.tterrag.com"
@@ -72,33 +76,16 @@ minecraft {
 }
 
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
     //  Unrelated with others
-    deobfCompile "curse.maven:TheOneProbe_1.4.28:2667280"
+    deobfProvided "curse.maven:TheOneProbe_1.4.28:2667280"
 
-    deobfCompile "curse.maven:ExtraUtilities_1.9.9:2678374"
+    deobfProvided "curse.maven:ExtraUtilities_1.9.9:2678374"
 
     // Hatchery and chickens
     if (project.run_chickens == "true") {
-        deobfCompile "curse.maven:Hatchery_2.2.2:2715498"
-        deobfCompile "curse.maven:Chickens_6.1.0:2545467"
-        deobfCompile "curse.maven:MoreChickens_3.1.0:2521137"
+        deobfProvided "curse.maven:Hatchery_2.2.2:2715498"
+        deobfProvided "curse.maven:Chickens_6.1.0:2545467"
+        deobfProvided "curse.maven:MoreChickens_3.1.0:2521137"
     } else {
         compileOnly "curse.maven:Hatchery_2.2.2:2715498"
         compileOnly "curse.maven:Chickens_6.1.0:2545467"
@@ -107,22 +94,22 @@ dependencies {
 
     // Thaumcraft and baubles
     if (project.run_baubles == "true")
-        deobfCompile "curse.maven:Baubles_1.5.2:2518667"
+        deobfProvided "curse.maven:Baubles_1.5.2:2518667"
     else
         compileOnly "curse.maven:Baubles_1.5.2:2518667"
     if (project.run_thaumcraft == "true" && project.run_baubles == "true")
-        deobfCompile "curse.maven:Thaumcraft_6.1.BETA26:2629023"
+        deobfProvided "curse.maven:Thaumcraft_6.1.BETA26:2629023"
     else
         compileOnly "curse.maven:Thaumcraft_6.1.BETA26:2629023"
 
     // JEI and addons
-    deobfCompile "curse.maven:JEI_4.15.0.291:2803400"
-    deobfCompile "curse.maven:JER_0.9.2.60:2728585"
+    deobfProvided "curse.maven:JEI_4.15.0.291:2803400"
+    deobfProvided "curse.maven:JER_0.9.2.60:2728585"
 
     // Mantle, Tinker, and Tinker's submods
     if (project.run_tinkers == "true") {
-        deobfCompile "curse.maven:Mantle_1.3.3.55:2713386"
-        deobfCompile "curse.maven:TinkersConstruct_12.0.157:2731543"
+        deobfProvided "curse.maven:Mantle_1.3.3.55:2713386"
+        deobfProvided "curse.maven:TinkersConstruct_12.0.157:2731543"
     } else {
         compileOnly "curse.maven:Mantle_1.3.3.55:2713386"
         compileOnly "curse.maven:TinkersConstruct_12.0.157:2731543"
@@ -131,9 +118,9 @@ dependencies {
     // Ice and Fire
 //    compile "llibrary:llibrary-1.7.18:1.12.2:dev"
     if (project.run_iceandfire == "true") {
-        deobfCompile "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
-        deobfCompile "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
-        deobfCompile "curse.maven:iceandfire-1.8.3:2803425"
+        deobfProvided "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
+        deobfProvided "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
+        deobfProvided "curse.maven:iceandfire-1.8.3:2803425"
     } else {
         compileOnly "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
         compileOnly "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
@@ -148,15 +135,15 @@ dependencies {
 
     // Thermal Expansion and dependencies
     if (project.run_thermal == "true") {
-        deobfCompile "curse.maven:CodeChickenLib_3.2.3.358:2779848"
-        deobfCompile "curse.maven:RedstoneFlux_2.1.0.6:2623090"
+        deobfProvided "curse.maven:CodeChickenLib_3.2.3.358:2779848"
+        deobfProvided "curse.maven:RedstoneFlux_2.1.0.6:2623090"
 
-        deobfCompile "curse.maven:CoFHCore_4.6.3.27:2716100"
-        deobfCompile "curse.maven:CoFHWorld_1.3.1.7:2715784"
+        deobfProvided "curse.maven:CoFHCore_4.6.3.27:2716100"
+        deobfProvided "curse.maven:CoFHWorld_1.3.1.7:2715784"
 
-        deobfCompile "curse.maven:ThermalDynamics_2.5.5.21:2716138"
-        deobfCompile "curse.maven:ThermalFoundation_2.6.3.27:2715788"
-        deobfCompile "curse.maven:ThermalExpansion_5.5.4.43:2715789"
+        deobfProvided "curse.maven:ThermalDynamics_2.5.5.21:2716138"
+        deobfProvided "curse.maven:ThermalFoundation_2.6.3.27:2715788"
+        deobfProvided "curse.maven:ThermalExpansion_5.5.4.43:2715789"
     } else {
         compileOnly "curse.maven:CodeChickenLib_3.2.3.358:2779848"
         compileOnly "curse.maven:RedstoneFlux_2.1.0.6:2623090"
@@ -170,14 +157,9 @@ dependencies {
     }
 
     if (project.run_mocreatures == "true")
-        compile "curse.maven:MoCreatures_12.0.5:2628698"
+        provided "curse.maven:MoCreatures_12.0.5:2628698"
     else
         compileOnly "curse.maven:MoCreatures_12.0.5:2628698"
-
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
 }
 
