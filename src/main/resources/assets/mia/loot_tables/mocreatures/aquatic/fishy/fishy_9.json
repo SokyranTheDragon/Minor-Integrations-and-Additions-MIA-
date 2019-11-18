@@ -1,0 +1,42 @@
+{
+  "pools": [
+    {
+      "name": "fishy_",
+      "rolls": 9,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:fish",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mocreatures:mocegg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 9
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

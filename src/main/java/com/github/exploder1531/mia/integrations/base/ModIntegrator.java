@@ -4,6 +4,7 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.hatchery.Hatchery;
 import com.github.exploder1531.mia.integrations.iceandfire.IceAndFire;
 import com.github.exploder1531.mia.integrations.jer.JustEnoughResources;
+import com.github.exploder1531.mia.integrations.mocreatures.MoCreatures;
 import com.github.exploder1531.mia.integrations.tconstruct.TinkersConstruct;
 import com.github.exploder1531.mia.integrations.thaumcraft.Thaumcraft;
 import com.github.exploder1531.mia.integrations.theoneprobe.TheOneProbe;
@@ -67,6 +68,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.THAUMCRAFT, new Thaumcraft());
         if (Loader.isModLoaded(ModIds.THE_ONE_PROBE))
             modIntegrations.put(ModIds.THE_ONE_PROBE, new TheOneProbe());
+        if (Loader.isModLoaded(ModIds.MO_CREATURES))
+            modIntegrations.put(ModIds.MO_CREATURES, new MoCreatures());
         
         for (IBaseMod mod : modIntegrations.values())
             mod.register(this::registerIntegration);

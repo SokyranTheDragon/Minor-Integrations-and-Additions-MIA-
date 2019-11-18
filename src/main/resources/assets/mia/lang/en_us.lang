@@ -62,6 +62,9 @@ mia.config.iceandfire.fix_smelting_oredict=Fix smelting and ore dictionary regis
 mia.jer.affected_by_research=Chance affected by doing Thaumic research
 mia.jer.less_chance_if_held=Chance affected by having this item in inventory
 mia.jer.if_last_one_killed=Only last enemy drops this item
+mia.jer.named=Only when named one of the following: %s
+mia.jer.adult=Only when adult
+mia.jer.not_adult=Only when not adult
 
 
 ### Ice and fire

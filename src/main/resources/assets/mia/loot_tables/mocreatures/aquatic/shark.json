@@ -1,0 +1,42 @@
+{
+  "pools": [
+    {
+      "name": "shark",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "mocreatures:sharkteeth",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mocreatures:mocegg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 2
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 11
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
