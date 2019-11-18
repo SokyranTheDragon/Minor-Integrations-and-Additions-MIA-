@@ -1,12 +1,15 @@
 package com.github.exploder1531.mia.integrations.theoneprobe;
 
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
+import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
+import drzhark.mocreatures.entity.item.MoCEntityEgg;
 import mcjty.theoneprobe.api.*;
 import mcjty.theoneprobe.apiimpl.ProbeConfig;
 import mcjty.theoneprobe.apiimpl.elements.ElementProgress;
 import mcjty.theoneprobe.config.Config;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -17,9 +20,31 @@ import thaumcraft.common.tiles.devices.TileJarBrain;
 import thaumcraft.common.tiles.devices.TileVisGenerator;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
 
-public class ProgressProvider implements IProbeInfoProvider
+public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityProvider
 {
+    private static final Field moEggProgress;
+    
+    static
+    {
+        Field moEggField = null;
+        
+        if (Loader.isModLoaded(ModIds.MO_CREATURES))
+        {
+            try
+            {
+                moEggField = MoCEntityEgg.class.getDeclaredField("tCounter");
+                moEggField.setAccessible(true);
+            } catch (NoSuchFieldException e)
+            {
+                Mia.LOGGER.error("Cannot access MoCEntityEgg tCounter field, no hatching progress will be displayed");
+            }
+        }
+        
+        moEggProgress = moEggField;
+    }
+    
     @Override
     public String getID()
     {
@@ -79,6 +104,31 @@ public class ProgressProvider implements IProbeInfoProvider
                     else
                         addProgressData(probeInfo, jar.ticksExisted % 24_000, 24_000);
                 }
+                return;
+            }
+        }
+    }
+    
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    @Override
+    public void addProbeEntityInfo(ProbeMode probeMode, IProbeInfo iProbeInfo, EntityPlayer entityPlayer, World world, Entity entity, IProbeHitEntityData iProbeHitEntityData)
+    {
+        if (Loader.isModLoaded(ModIds.MO_CREATURES))
+        {
+            if (entity instanceof MoCEntityEgg)
+            {
+                if (moEggProgress != null)
+                {
+                    try
+                    {
+                        addProgressData(iProbeInfo, moEggProgress.getInt(entity), 30);
+                    } catch (IllegalAccessException e)
+                    {
+                        Mia.LOGGER.error("Cannot access MoCEntityEgg progress counter, even though it was found");
+                        e.printStackTrace();
+                    }
+                }
+                
                 return;
             }
         }

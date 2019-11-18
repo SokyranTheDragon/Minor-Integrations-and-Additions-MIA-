@@ -5,6 +5,7 @@ import mcjty.theoneprobe.api.ITheOneProbe;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("unused")
 public class GetTheOneProbe implements Function<ITheOneProbe, Void>
 {
     @Nullable
@@ -12,7 +13,12 @@ public class GetTheOneProbe implements Function<ITheOneProbe, Void>
     public Void apply(@Nullable ITheOneProbe probe)
     {
         if (probe != null)
-            probe.registerProvider(new ProgressProvider());
+        {
+            ProgressProvider progressProvider = new ProgressProvider();
+    
+            probe.registerProvider(progressProvider);
+            probe.registerEntityProvider(progressProvider);
+        }
         
         return null;
     }
