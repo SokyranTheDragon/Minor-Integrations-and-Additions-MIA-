@@ -65,7 +65,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
         builder.add(loadResource("mocreatures/passive/mole"), MoCEntityMole.class);
         builder.add(loadResource("mocreatures/passive/mouse"), MoCEntityMouse.class);
         builder.add(loadResource("mocreatures/passive/raccoon"), MoCEntityRaccoon.class);
-        builder.add(loadResource("mocreatures/passive/turtle"), MoCEntityTurtle.class);
+//        builder.add(loadResource("mocreatures/passive/turtle"), MoCEntityTurtle.class);
         // Bears
         builder.add(loadResource("mocreatures/passive/bear/black"), MoCEntityBlackBear.class);
         builder.add(loadResource("mocreatures/passive/bear/grizzly"), MoCEntityGrizzlyBear.class);
@@ -124,8 +124,9 @@ public class JerMoCreaturesIntegration implements IJerIntegration
         builder.add(loadResource("mocreatures/aquatic/jellyfish"), MoCEntityJellyFish.class);
         builder.add(loadResource("mocreatures/aquatic/shark"), MoCEntityShark.class);
         // Medium fish
-        builder.add(loadResource("mocreatures/aquatic/fish_medium/bass"), MoCEntityBass.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_medium/cod"), MoCEntityCod.class);
+//        builder.add(loadResource("mocreatures/aquatic/fish_medium/bass"), MoCEntityBass.class);
+//        builder.add(loadResource("mocreatures/aquatic/fish_medium/cod"), MoCEntityCod.class);
+//        builder.add(loadResource("mocreatures/aquatic/fish_medium/salmon"), MoCEntitySalmon.class);
         // Small fish
         builder.add(loadResource("mocreatures/aquatic/fish_small/anchovy"), MoCEntityAnchovy.class);
         builder.add(loadResource("mocreatures/aquatic/fish_small/angel_fish"), MoCEntityAngelFish.class);
@@ -135,7 +136,6 @@ public class JerMoCreaturesIntegration implements IJerIntegration
         builder.add(loadResource("mocreatures/aquatic/fish_small/hippo_tang"), MoCEntityHippoTang.class);
         builder.add(loadResource("mocreatures/aquatic/fish_small/manderin"), MoCEntityManderin.class);
         builder.add(loadResource("mocreatures/aquatic/fish_small/piranha"), MoCEntityPiranha.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_small/salmon"), MoCEntitySalmon.class);
         
         
         return Sets.newHashSet(
@@ -154,7 +154,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityMole.class,
                 MoCEntityMouse.class,
                 MoCEntityRaccoon.class,
-                MoCEntityTurtle.class,
+//                MoCEntityTurtle.class,
                 MoCEntityOstrich.class,
                 MoCEntityPetScorpion.class,
 //                MoCEntitySnake.class,
@@ -200,8 +200,9 @@ public class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityJellyFish.class,
                 MoCEntityShark.class,
                 // Medium fish
-                MoCEntityBass.class,
-                MoCEntityCod.class,
+//                MoCEntityBass.class,
+//                MoCEntityCod.class,
+//                MoCEntitySalmon.class,
                 // Small fish
                 MoCEntityAnchovy.class,
                 MoCEntityAngelFish.class,
@@ -210,8 +211,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityGoldFish.class,
                 MoCEntityHippoTang.class,
                 MoCEntityManderin.class,
-                MoCEntityPiranha.class,
-                MoCEntitySalmon.class
+                MoCEntityPiranha.class
         );
     }
     
