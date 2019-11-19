@@ -53,6 +53,8 @@ mia.config.mocreatures.additions_enabled=Enable Mo' Creatures additions
 
 mia.config.hatchery.register_cusom_eggs=Register custom lucky eggs
 mia.config.mocreatures.buff_silver_weapons=Buff silver weapons from other mods
+mia.config.mocreatures.replace_fish_drops=Replace fish drops
+mia.config.mocreatures.add_cooked_drops=Replace raw meat drops with cooked one while mob is on fire
 
 
 

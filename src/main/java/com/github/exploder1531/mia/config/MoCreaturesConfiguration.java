@@ -43,6 +43,16 @@ public class MoCreaturesConfiguration
     @Config.LangKey("mia.config.mocreatures.buff_silver_weapons")
     public static boolean buffOtherModSilverWeapons = true;
     
+    @Config.Name("Replace cod and clownfish drops with their corresponding item")
+    @Config.Comment("Replaces items dropped from cod and clownfish animals from the original, normal fish item, into actual cod and clownfish items")
+    @Config.LangKey("mia.config.mocreatures.replace_fish_drops")
+    public static boolean replaceFishDrops = true;
+    
+    @Config.Name("Replaces all raw meat drops with cooked ones while animal died on fire")
+    @Config.Comment("Replaces any raw meat dropped by enemies that were set on fire with their cooked version, similarly to vanilla mobs")
+    @Config.LangKey("mia.config.mocreatures.add_cooked_drops")
+    public static boolean addCookedDrops = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

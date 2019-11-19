@@ -3,17 +3,18 @@ package com.github.exploder1531.mia.integrations.mocreatures;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
+import com.pam.harvestcraft.item.ItemRegistry;
 import drzhark.mocreatures.init.MoCBlocks;
 import drzhark.mocreatures.init.MoCItems;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.*;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.jerLoaded;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.thermalExpansionLoaded;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class MoCreatures implements IBaseMod
 {
@@ -31,6 +32,9 @@ public class MoCreatures implements IBaseMod
     {
         if (!moCreaturesAdditionsEnabled)
             return;
+        
+        if (harvestcraftLoaded)
+            FurnaceRecipes.instance().addSmelting(MoCItems.turtleraw, new ItemStack(ItemRegistry.turtlecookedItem), 0.1f);
         
         OreDictionary.registerOre("foodTurtleraw", MoCItems.turtleraw);
         OreDictionary.registerOre("foodTurtlesoup", MoCItems.turtlesoup);

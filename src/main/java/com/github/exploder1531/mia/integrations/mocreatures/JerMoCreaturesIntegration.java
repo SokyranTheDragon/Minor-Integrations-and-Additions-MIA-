@@ -4,6 +4,7 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.ExtraConditional;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
 import com.google.common.collect.Sets;
+import com.pam.harvestcraft.item.ItemRegistry;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
@@ -14,6 +15,7 @@ import drzhark.mocreatures.entity.monster.*;
 import drzhark.mocreatures.entity.passive.*;
 import drzhark.mocreatures.init.MoCItems;
 import jeresources.api.IMobRegistry;
+import jeresources.api.conditionals.Conditional;
 import jeresources.api.conditionals.ExtendedConditional;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
@@ -27,6 +29,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTable;
@@ -37,6 +40,9 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
+import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.addCookedDrops;
+import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.replaceFishDrops;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.harvestcraftLoaded;
 import static com.github.exploder1531.mia.integrations.jer.JustEnoughResources.loadResource;
 
 public class JerMoCreaturesIntegration implements IJerIntegration
@@ -65,6 +71,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
         builder.add(loadResource("mocreatures/passive/mole"), MoCEntityMole.class);
         builder.add(loadResource("mocreatures/passive/mouse"), MoCEntityMouse.class);
         builder.add(loadResource("mocreatures/passive/raccoon"), MoCEntityRaccoon.class);
+        builder.add(loadResource("mocreatures/passive/turkey"), MoCEntityTurkey.class);
 //        builder.add(loadResource("mocreatures/passive/turtle"), MoCEntityTurtle.class);
         // Bears
         builder.add(loadResource("mocreatures/passive/bear/black"), MoCEntityBlackBear.class);
@@ -154,6 +161,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityMole.class,
                 MoCEntityMouse.class,
                 MoCEntityRaccoon.class,
+                MoCEntityTurkey.class,
 //                MoCEntityTurtle.class,
                 MoCEntityOstrich.class,
                 MoCEntityPetScorpion.class,
@@ -237,7 +245,39 @@ public class JerMoCreaturesIntegration implements IJerIntegration
             Item item = lootDrop.item.getItem();
             Block block = Block.getBlockFromItem(item);
             
-            if (item == MoCItems.bo && entity instanceof MoCEntityTurtle)
+            if (item == Items.FISH)
+            {
+                if (replaceFishDrops && entity instanceof MoCEntityCod)
+                {
+                    lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 1);
+                    if (addCookedDrops)
+                        lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH, lootDrop.item.getCount(), 1);
+                }
+                else if (replaceFishDrops && entity instanceof MoCEntityClownFish)
+                {
+                    lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 2);
+                    if (addCookedDrops)
+                        lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH, lootDrop.item.getCount(), 2);
+                }
+                else if (harvestcraftLoaded && entity instanceof MoCEntityAnchovy)
+                    lootDrop.item = new ItemStack(ItemRegistry.anchovyrawItem);
+                else if (harvestcraftLoaded && entity instanceof MoCEntityBass)
+                    lootDrop.item = new ItemStack(ItemRegistry.bassrawItem);
+                else
+                    lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH);
+                
+            }
+            else if (item == MoCItems.rawTurkey && addCookedDrops)
+                lootDrop.smeltedItem = new ItemStack(MoCItems.cookedTurkey);
+            else if (item == MoCItems.ratRaw && addCookedDrops)
+                lootDrop.smeltedItem = new ItemStack(MoCItems.ratCooked);
+            else if (item == MoCItems.ostrichraw && addCookedDrops)
+                lootDrop.smeltedItem = new ItemStack(MoCItems.ostrichcooked);
+            else if (item == MoCItems.crabraw && addCookedDrops)
+                lootDrop.smeltedItem = new ItemStack(MoCItems.crabcooked);
+            else if (item == MoCItems.turtleraw && addCookedDrops && harvestcraftLoaded)
+                lootDrop.smeltedItem = new ItemStack(ItemRegistry.turtlecookedItem);
+            else if (item == MoCItems.bo && entity instanceof MoCEntityTurtle)
                 lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Donatello', 'donatello'"));
             else if (item == MoCItems.katana && entity instanceof MoCEntityTurtle)
                 lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Leonardo', 'leonardo'"));
@@ -271,6 +311,21 @@ public class JerMoCreaturesIntegration implements IJerIntegration
                     block == Blocks.FIRE)
                 lootDrop.chance = MoCreatures.proxy.rareItemDropChance / 100f;
         });
+        
+        if (harvestcraftLoaded)
+        {
+            if (entity instanceof MoCEntityDeer)
+                drops.add(new LootDrop(new ItemStack(ItemRegistry.venisonrawItem), 0, 2, Conditional.affectedByLooting));
+            else if (entity instanceof MoCEntityDuck)
+                drops.add(new LootDrop(new ItemStack(ItemRegistry.duckrawItem), 0, 2, Conditional.affectedByLooting));
+            else if (entity instanceof MoCEntityJellyFish)
+            {
+                LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.calamarirawItem), 0, 2, Conditional.affectedByLooting);
+                if (addCookedDrops)
+                    drop.smeltedItem = new ItemStack(ItemRegistry.calamaricookedItem);
+                drops.add(drop);
+            }
+        }
         
         if (entity instanceof MoCEntityMob)
             lightLevel = LightLevel.hostile;
