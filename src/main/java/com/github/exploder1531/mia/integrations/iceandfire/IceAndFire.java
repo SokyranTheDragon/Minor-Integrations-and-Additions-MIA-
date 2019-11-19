@@ -1,6 +1,5 @@
 package com.github.exploder1531.mia.integrations.iceandfire;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.block.BlockPixieDustExtractor;
@@ -22,16 +21,12 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.AspectRegistryEvent;
 
-import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.IceAndFireConfiguration.*;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class IceAndFire implements IBaseMod
@@ -39,15 +34,15 @@ public class IceAndFire implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration && Loader.isModLoaded(ModIds.EXTRA_UTILITIES))
+        if (enableXu2Integration && extraUtilitiesLoaded)
             modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsIceAndFireIntegration());
-        if (enableTeIntegration && Loader.isModLoaded(ModIds.THERMAL_EXPANSION))
+        if (enableTeIntegration && thermalExpansionLoaded)
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionIceAndFireIntegration());
-        if (enableJerIntegration && Loader.isModLoaded(ModIds.JER))
+        if (enableJerIntegration && jerLoaded)
             modIntegration.accept(ModIds.JER, new JerIceAndFireIntegration());
-        if (enableTConstructIntegration && Loader.isModLoaded(ModIds.TINKERS_CONSTRUCT))
+        if (enableTConstructIntegration && tinkersConstructLoaded)
             modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
-        if (Loader.isModLoaded(ModIds.HATCHERY))
+        if (hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
     }
     

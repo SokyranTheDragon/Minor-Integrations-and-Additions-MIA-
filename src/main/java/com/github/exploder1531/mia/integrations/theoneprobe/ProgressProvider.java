@@ -22,6 +22,8 @@ import thaumcraft.common.tiles.devices.TileVisGenerator;
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+
 public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityProvider
 {
     private static final Field moEggProgress;
@@ -64,7 +66,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             return;
         }
         
-        if (Loader.isModLoaded(ModIds.THAUMCRAFT))
+        if (thaumcraftLoaded)
         {
             if (blockState.getBlock() instanceof BlockVisBattery)
             {
@@ -91,7 +93,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             }
         }
         
-        if (Loader.isModLoaded(ModIds.ICE_AND_FIRE))
+        if (iceAndFireLoaded)
         {
             if (tile instanceof TileEntityJar)
             {
@@ -113,7 +115,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
     @Override
     public void addProbeEntityInfo(ProbeMode probeMode, IProbeInfo iProbeInfo, EntityPlayer entityPlayer, World world, Entity entity, IProbeHitEntityData iProbeHitEntityData)
     {
-        if (Loader.isModLoaded(ModIds.MO_CREATURES))
+        if (moCreaturesLoaded)
         {
             if (entity instanceof MoCEntityEgg)
             {

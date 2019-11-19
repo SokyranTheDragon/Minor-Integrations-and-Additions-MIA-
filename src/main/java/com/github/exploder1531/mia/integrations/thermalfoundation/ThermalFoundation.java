@@ -10,7 +10,6 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.mantle.util.RecipeMatch;
@@ -21,17 +20,18 @@ import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.TfConfiguration.*;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class ThermalFoundation implements IBaseMod
 {
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration && Loader.isModLoaded(ModIds.EXTRA_UTILITIES))
+        if (enableXu2Integration && extraUtilitiesLoaded)
             modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsTFIntegration());
-        if (enableJerIntegration && Loader.isModLoaded(ModIds.JER))
+        if (enableJerIntegration && jerLoaded)
             modIntegration.accept(ModIds.JER, new JerTFIntegration());
-        if (Loader.isModLoaded(ModIds.HATCHERY))
+        if (hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryTFIntegration(enableHatcheryIntegration));
     }
     
@@ -71,7 +71,7 @@ public class ThermalFoundation implements IBaseMod
                 if (items.size() > 0)
                 {
                     ItemStack nugget = items.get(0);
-        
+                    
                     furnaceRecipes.addSmeltingRecipe(armor.armorHelmet, nugget, 0.1f);
                     furnaceRecipes.addSmeltingRecipe(armor.armorChestplate, nugget, 0.1f);
                     furnaceRecipes.addSmeltingRecipe(armor.armorLegs, nugget, 0.1f);
@@ -91,11 +91,11 @@ public class ThermalFoundation implements IBaseMod
                 
                 String suffix = tool.ingot.substring(5);
                 NonNullList<ItemStack> items = OreDictionary.getOres("nugget" + suffix);
-        
+                
                 if (items.size() > 0)
                 {
                     ItemStack nugget = items.get(0);
-        
+                    
                     furnaceRecipes.addSmeltingRecipe(tool.toolBow, nugget, 0.1f);
                     furnaceRecipes.addSmeltingRecipe(tool.toolExcavator, nugget, 0.1f);
                     furnaceRecipes.addSmeltingRecipe(tool.toolFishingRod, nugget, 0.1f);
@@ -105,7 +105,7 @@ public class ThermalFoundation implements IBaseMod
                     furnaceRecipes.addSmeltingRecipe(tool.toolSickle, nugget, 0.1f);
                 }
             }
-    
+            
             // Thermal tools tools to nugget
             for (TFEquipment.ToolSet tool : TFEquipment.ToolSet.values())
             {
@@ -118,7 +118,7 @@ public class ThermalFoundation implements IBaseMod
                 if (items.size() > 0)
                 {
                     ItemStack nugget = items.get(0);
-        
+                    
                     furnaceRecipes.addSmeltingRecipe(tool.toolShovel, nugget, 0.1f);
                     furnaceRecipes.addSmeltingRecipe(tool.toolPickaxe, nugget, 0.1f);
                     furnaceRecipes.addSmeltingRecipe(tool.toolAxe, nugget, 0.1f);

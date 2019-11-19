@@ -22,7 +22,6 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,6 +30,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.common.config.ModConfig;
+
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.hatcheryLoaded;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.thaumcraftLoaded;
 
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class PlayerEvents
@@ -49,7 +51,7 @@ public class PlayerEvents
         
         final TileEntity tile = event.getWorld().getTileEntity(event.getPos());
         
-        if (Loader.isModLoaded(ModIds.HATCHERY) && tile instanceof NestPenTileEntity)
+        if (hatcheryLoaded && tile instanceof NestPenTileEntity)
         {
             final NestPenTileEntity pen = (NestPenTileEntity) tile;
             
@@ -112,7 +114,7 @@ public class PlayerEvents
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
     {
-        if (!Loader.isModLoaded(ModIds.THAUMCRAFT) && !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
+        if (!thaumcraftLoaded && !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
             return;
         
         handleWussResearch(event.player);
@@ -122,7 +124,7 @@ public class PlayerEvents
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
     {
-        if (!Loader.isModLoaded(ModIds.THAUMCRAFT) && !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
+        if (!thaumcraftLoaded && !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
             return;
         
         if (event.getModID().equals(ModIds.THAUMCRAFT))
@@ -143,7 +145,7 @@ public class PlayerEvents
     // Thaumcraft
     private static void handleWussResearch(EntityPlayer player)
     {
-        if (!Loader.isModLoaded(ModIds.THAUMCRAFT) || player instanceof FakePlayer)
+        if (!thaumcraftLoaded || player instanceof FakePlayer)
             return;
         
         IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);

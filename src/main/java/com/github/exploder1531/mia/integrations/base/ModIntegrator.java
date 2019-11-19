@@ -23,9 +23,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import java.util.Map;
+
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class ModIntegrator
 {
@@ -50,25 +51,25 @@ public class ModIntegrator
             return;
         modsRegistered = true;
         
-        if (Loader.isModLoaded(ModIds.EXTRA_UTILITIES))
+        if (extraUtilitiesLoaded)
             modIntegrations.put(ModIds.EXTRA_UTILITIES, new ExtraUtilities2());
-        if (Loader.isModLoaded(ModIds.THERMAL_FOUNDATION))
+        if (thermalFoundationLoaded)
             modIntegrations.put(ModIds.THERMAL_FOUNDATION, new ThermalFoundation());
-        if (Loader.isModLoaded(ModIds.THERMAL_EXPANSION))
+        if (thermalExpansionLoaded)
             modIntegrations.put(ModIds.THERMAL_EXPANSION, new ThermalExpansion());
-        if (Loader.isModLoaded(ModIds.TINKERS_CONSTRUCT))
+        if (tinkersConstructLoaded)
             modIntegrations.put(ModIds.TINKERS_CONSTRUCT, new TinkersConstruct());
-        if (Loader.isModLoaded(ModIds.JER))
+        if (jerLoaded)
             modIntegrations.put(ModIds.JER, new JustEnoughResources());
-        if (Loader.isModLoaded(ModIds.ICE_AND_FIRE))
+        if (iceAndFireLoaded)
             modIntegrations.put(ModIds.ICE_AND_FIRE, new IceAndFire());
-        if (Loader.isModLoaded(ModIds.HATCHERY))
+        if (hatcheryLoaded)
             modIntegrations.put(ModIds.HATCHERY, new Hatchery());
-        if (Loader.isModLoaded(ModIds.THAUMCRAFT))
+        if (thaumcraftLoaded)
             modIntegrations.put(ModIds.THAUMCRAFT, new Thaumcraft());
-        if (Loader.isModLoaded(ModIds.THE_ONE_PROBE))
+        if (theOneProbeLoaded)
             modIntegrations.put(ModIds.THE_ONE_PROBE, new TheOneProbe());
-        if (Loader.isModLoaded(ModIds.MO_CREATURES))
+        if (moCreaturesLoaded)
             modIntegrations.put(ModIds.MO_CREATURES, new MoCreatures());
         
         for (IBaseMod mod : modIntegrations.values())

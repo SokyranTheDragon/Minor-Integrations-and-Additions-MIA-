@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.proxy;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.ModIntegrator;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -21,6 +22,7 @@ public class CommonProxy
     
     public void preInit(FMLPreInitializationEvent event)
     {
+        ModLoadStatus.preInit();
         modIntegrator = new ModIntegrator();
         modIntegrator.registerMods();
         modIntegrator.preInit(event);

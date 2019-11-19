@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.integrations.xu2;
 
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
+import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.google.common.collect.Lists;
@@ -14,7 +15,6 @@ import com.rwtema.extrautils2.utils.datastructures.ItemRef;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockSlime;
@@ -32,7 +32,7 @@ public class ExtraUtilities2 implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (Loader.isModLoaded(ModIds.HATCHERY))
+        if (ModLoadStatus.hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryExtraUtilsIntegration(enableHatcheryIntegration));
     }
     
@@ -82,12 +82,11 @@ public class ExtraUtilities2 implements IBaseMod
                 
                 XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
                         RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                .setRFRate(432000, 400.0F)
-                                .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
-                                .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
-                                .build());
-            }
-            catch (Exception e)
+                                     .setRFRate(432000, 400.0F)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
+                                     .build());
+            } catch (Exception e)
             {
                 slimeSecondary = null;
             }

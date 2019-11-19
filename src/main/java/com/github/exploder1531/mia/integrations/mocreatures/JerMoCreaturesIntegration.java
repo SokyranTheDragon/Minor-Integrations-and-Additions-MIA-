@@ -285,7 +285,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
             boolean noBeachSwamp = entity instanceof MoCEntityJellyFish || entity instanceof MoCEntityShark;
             boolean noRiver = entity instanceof MoCEntityAngler || entity instanceof MoCEntityClownFish || entity instanceof MoCEntityHippoTang || entity instanceof MoCEntityManderin;
             boolean noOcean = entity instanceof MoCEntityGoldFish;
-    
+            
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.WATER));
             if (!noBeachSwamp)
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.BEACH));
@@ -321,7 +321,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS));
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.SWAMP));
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.WASTELAND));
-
+            
             if (entity instanceof MoCEntityHorseMob
                     || fireOgre
                     || manticore)
@@ -352,7 +352,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.FOREST));
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.JUNGLE));
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.PLAINS));
-    
+            
             //noinspection StatementWithEmptyBody
             if (entity instanceof MoCEntitySnail)
             {
@@ -365,7 +365,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.HILLS));
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.MESA));
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.MOUNTAIN));
-    
+                
                 //noinspection StatementWithEmptyBody
                 if (entity instanceof MoCEntityBee || entity instanceof MoCEntityButterfly)
                 {
@@ -398,7 +398,7 @@ public class JerMoCreaturesIntegration implements IJerIntegration
         mobRegistry.registerRenderHook(MoCEntityWraith.class, RENDER_HOOK_GENERIC_LOWER);
         mobRegistry.registerRenderHook(MoCEntityOgre.class, RENDER_HOOK_GENERIC_LOWER);
         mobRegistry.registerRenderHook(MoCEntitySilverSkeleton.class, RENDER_HOOK_GENERIC_LOWER);
-    
+        
         mobRegistry.registerRenderHook(MoCEntityCrocodile.class, RENDER_HOOK_GENERIC_HIGHER);
         mobRegistry.registerRenderHook(MoCEntityBird.class, RENDER_HOOK_GENERIC_HIGHER);
         mobRegistry.registerRenderHook(MoCEntityPetScorpion.class, RENDER_HOOK_GENERIC_HIGHER);

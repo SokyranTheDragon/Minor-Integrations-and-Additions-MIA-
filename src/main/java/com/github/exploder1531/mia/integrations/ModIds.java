@@ -5,7 +5,6 @@ import cofh.thermalfoundation.ThermalFoundation;
 import com.gendeathrow.hatchery.Hatchery;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.rwtema.extrautils2.ExtraUtils2;
-import drzhark.mocreatures.MoCreatures;
 import mcjty.theoneprobe.TheOneProbe;
 import slimeknights.tconstruct.TConstruct;
 import thaumcraft.Thaumcraft;
@@ -24,4 +23,5 @@ public class ModIds
     public static final String THAUMCRAFT = Thaumcraft.MODID;
     public static final String THE_ONE_PROBE = TheOneProbe.MODID;
     public static final String MO_CREATURES = "mocreatures";
+    public static final String HARVESTCRAFT = "harvestcraft";
 }
