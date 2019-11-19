@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.events;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.MoCreaturesConfiguration;
 import com.github.exploder1531.mia.integrations.ModIds;
 import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +19,7 @@ public class EntityEvents
     @SubscribeEvent
     public static void onEntityHit(LivingHurtEvent event)
     {
-        if (Loader.isModLoaded(ModIds.MO_CREATURES))
+        if (Loader.isModLoaded(ModIds.MO_CREATURES) && MoCreaturesConfiguration.buffOtherModSilverWeapons)
         {
             // Make it stronger when Tinker's weapon is holy?
             if (event.getAmount() < 10f && event.getSource() instanceof EntityDamageSource && event.getEntityLiving() instanceof MoCEntityWerewolf && !((MoCEntityWerewolf)event.getEntityLiving()).getIsHumanForm())
