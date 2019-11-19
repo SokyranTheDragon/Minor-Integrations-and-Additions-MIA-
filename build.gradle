@@ -128,9 +128,9 @@ dependencies {
     }
 
     // Ender IO
-//    deobfCompile "com.enderio.core:EnderCore:1.12.2-0.5.57"
+//    deobfProvided "curse.maven:EnderCore_1.12.2-0.5.73:2822401"
+//    deobfProvided "curse.maven:EnderCore_1.12.2-0.5.73-api:2822402"
 //    compile "endercore:EnderCore:1.12.2:0.5.57"
-//    deobfCompile "endercore:EnderCore-1.12.2:0.5.57:api"
 //    deobfCompile "ender-io:EnderIO:1.12.2:5.0.43"
 
     // Thermal Expansion and dependencies
@@ -161,6 +161,9 @@ dependencies {
     else
         compileOnly "curse.maven:MoCreatures_12.0.5:2628698"
 
+    // For use with deobfuscated code, provide the original source for IntelliJ Idea
+    // https://github.com/MatrexsVigil/harvestcraft
+    provided "curse.maven:PamsHarvestcraft_1.12.2zf:2771840"
 }
 
 processResources {

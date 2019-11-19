@@ -14,6 +14,7 @@ mia.config.tconstruct.title=Tinker's Construct
 mia.config.iceandfire.title=Ice and Fire
 mia.config.hatchery.title=Hatchery
 mia.config.thaumcraft.title=Thaumcraft
+mia.config.mocreatures.title=Mo' Creatures
 
 ## Tooltips
 
@@ -26,6 +27,7 @@ mia.config.tconstruct.title.tooltip=Browse and manage Tinker's Construct setting
 mia.config.iceandfire.title.tooltip=Browse and manage Ice and Fire settings
 mia.config.hatchery.title.tooltip=Browse and manage Hatchery settings
 mia.config.thaumcraft.title.tooltip=Browse and manage Thaumcraft settings
+mia.config.mocreatures.title.tooltip=Browse and manage Mo' Creatures settings
 
 ## Shared
 
@@ -45,11 +47,12 @@ mia.config.thermalfoundation.additions_enabled=Enable Thermal Foundation additio
 mia.config.xu2.additions_enabled=Enable Extra Utilities 2 additions
 mia.config.hatchery.additions_enabled=Enable Hatchery additions
 mia.config.thaumcraft.additions_enabled=Enable Thaumcraft additions
+mia.config.mocreatures.additions_enabled=Enable Mo' Creatures additions
 
 ## Mod specific
 
 mia.config.hatchery.register_cusom_eggs=Register custom lucky eggs
-mia.config.iceandfire.fix_smelting_oredict=Fix smelting and ore dictionary registration in mod version 1.7.1
+mia.config.mocreatures.buff_silver_weapons=Buff silver weapons from other mods
 
 
 
