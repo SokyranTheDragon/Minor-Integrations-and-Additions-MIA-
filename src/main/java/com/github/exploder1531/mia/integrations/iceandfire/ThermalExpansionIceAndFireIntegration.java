@@ -70,6 +70,44 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModBlocks.lectern), ItemMaterial.dustWood, 4);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModBlocks.podium, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.dustWood, 6);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.earplugs), ItemMaterial.dustWood, 1);
+        // Chitin
+        // Myrmex armor
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_helmet), new ItemStack(ModItems.myrmex_desert_chitin), 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_chestplate), new ItemStack(ModItems.myrmex_desert_chitin), 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_leggings), new ItemStack(ModItems.myrmex_desert_chitin), 3);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_boots), new ItemStack(ModItems.myrmex_desert_chitin), 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_helmet), new ItemStack(ModItems.myrmex_jungle_chitin), 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_chestplate), new ItemStack(ModItems.myrmex_jungle_chitin), 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_leggings), new ItemStack(ModItems.myrmex_jungle_chitin), 3);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_boots), new ItemStack(ModItems.myrmex_jungle_chitin), 2);
+        // Myrmex tools
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_axe), new ItemStack(ModItems.myrmex_desert_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_pickaxe), new ItemStack(ModItems.myrmex_desert_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_shovel), new ItemStack(ModItems.myrmex_desert_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_hoe), new ItemStack(ModItems.myrmex_desert_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_sword), new ItemStack(ModItems.myrmex_desert_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_sword_venom), new ItemStack(ModItems.myrmex_desert_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_desert_staff), new ItemStack(ModItems.myrmex_desert_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_axe), new ItemStack(ModItems.myrmex_jungle_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_pickaxe), new ItemStack(ModItems.myrmex_jungle_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_shovel), new ItemStack(ModItems.myrmex_jungle_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_hoe), new ItemStack(ModItems.myrmex_jungle_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_sword), new ItemStack(ModItems.myrmex_jungle_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_sword_venom), new ItemStack(ModItems.myrmex_jungle_chitin), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.myrmex_jungle_staff), new ItemStack(ModItems.myrmex_desert_chitin), 1);
+        // Death worm
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_yellow_helmet), new ItemStack(ModItems.deathworm_chitin, 2, 0), 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_yellow_chestplate), new ItemStack(ModItems.deathworm_chitin, 4, 0), 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_yellow_leggings), new ItemStack(ModItems.deathworm_chitin, 3, 0), 3);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_yellow_boots), new ItemStack(ModItems.deathworm_chitin, 2, 0), 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_white_helmet), new ItemStack(ModItems.deathworm_chitin, 2, 1), 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_white_chestplate), new ItemStack(ModItems.deathworm_chitin, 4, 1), 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_white_leggings), new ItemStack(ModItems.deathworm_chitin, 3, 1), 3);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_white_boots), new ItemStack(ModItems.deathworm_chitin, 2, 1), 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_red_helmet), new ItemStack(ModItems.deathworm_chitin, 2, 2), 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_red_chestplate), new ItemStack(ModItems.deathworm_chitin, 4, 2), 4);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_red_leggings), new ItemStack(ModItems.deathworm_chitin, 3, 2), 3);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ModItems.deathworm_red_boots), new ItemStack(ModItems.deathworm_chitin, 2, 2), 2);
         
         
         // Sawmill
