@@ -11,6 +11,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.*;
@@ -32,9 +33,14 @@ public class MoCreatures implements IBaseMod
     {
         if (!moCreaturesAdditionsEnabled)
             return;
+    
+        FurnaceRecipes smelting = FurnaceRecipes.instance();
         
         if (harvestcraftLoaded)
-            FurnaceRecipes.instance().addSmelting(MoCItems.turtleraw, new ItemStack(ItemRegistry.turtlecookedItem), 0.1f);
+            smelting.addSmelting(MoCItems.turtleraw, new ItemStack(ItemRegistry.turtlecookedItem), 0.1f);
+        List<ItemStack> nuggets = OreDictionary.getOres("nuggetSilver");
+        if (nuggets.size() > 0)
+            smelting.addSmelting(MoCItems.silversword, nuggets.get(0), 0.1f);
         
         OreDictionary.registerOre("foodTurtleraw", MoCItems.turtleraw);
         OreDictionary.registerOre("foodTurtlesoup", MoCItems.turtlesoup);
@@ -70,5 +76,7 @@ public class MoCreatures implements IBaseMod
         OreDictionary.registerOre("plankWood", new ItemStack(MoCBlocks.mocPlank, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("treeLeaves", new ItemStack(MoCBlocks.mocLeaf, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("dirt", new ItemStack(MoCBlocks.mocDirt, 1, OreDictionary.WILDCARD_VALUE));
+        
+        OreDictionary.registerOre("record", MoCItems.recordshuffle);
     }
 }

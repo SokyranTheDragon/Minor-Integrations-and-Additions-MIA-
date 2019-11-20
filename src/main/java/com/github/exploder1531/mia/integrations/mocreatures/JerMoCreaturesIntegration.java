@@ -45,7 +45,7 @@ import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.replac
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.harvestcraftLoaded;
 import static com.github.exploder1531.mia.integrations.jer.JustEnoughResources.loadResource;
 
-public class JerMoCreaturesIntegration implements IJerIntegration
+class JerMoCreaturesIntegration implements IJerIntegration
 {
     @SuppressWarnings("unchecked")
     @Override

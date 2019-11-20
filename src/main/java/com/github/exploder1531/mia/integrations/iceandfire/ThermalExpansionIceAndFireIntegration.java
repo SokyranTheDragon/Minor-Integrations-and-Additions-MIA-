@@ -30,12 +30,12 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_axe), ingot, 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_hoe), ingot, 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_shovel), ingot, 1);
-
+        
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_helmet), ingot, 2);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_chestplate), ingot, 4);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_leggings), ingot, 3);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.silver_boots), ingot, 2);
-
+        
         // Fire dragonsteel
         ingot = new ItemStack(ModItems.dragonsteel_fire_ingot);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_sword), ingot, 1);
@@ -43,12 +43,12 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_axe), ingot, 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_hoe), ingot, 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_shovel), ingot, 1);
-
+        
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_helmet), ingot, 2);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_chestplate), ingot, 4);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_leggings), ingot, 3);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_fire_boots), ingot, 2);
-
+        
         // Ice dragonsteel
         ingot = new ItemStack(ModItems.dragonsteel_ice_ingot);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_sword), ingot, 1);
@@ -56,12 +56,11 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_axe), ingot, 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_hoe), ingot, 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_shovel), ingot, 1);
-
+        
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_helmet), ingot, 2);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_chestplate), ingot, 4);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_leggings), ingot, 3);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ModItems.dragonsteel_ice_boots), ingot, 2);
-
         
         
         // Pulverizer

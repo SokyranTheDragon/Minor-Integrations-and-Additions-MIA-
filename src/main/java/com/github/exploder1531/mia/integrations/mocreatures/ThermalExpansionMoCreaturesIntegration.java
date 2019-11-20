@@ -9,7 +9,6 @@ import cofh.thermalfoundation.init.TFFluids;
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.thermalexpansion.IThermalExpansionIntegration;
-import drzhark.mocreatures.block.MoCBlock;
 import drzhark.mocreatures.init.MoCBlocks;
 import drzhark.mocreatures.init.MoCItems;
 import net.minecraft.init.Blocks;
@@ -19,7 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 
-public class ThermalExpansionMoCreaturesIntegration implements IThermalExpansionIntegration
+class ThermalExpansionMoCreaturesIntegration implements IThermalExpansionIntegration
 {
     @Override
     public void addRecipes()
@@ -57,6 +56,11 @@ public class ThermalExpansionMoCreaturesIntegration implements IThermalExpansion
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(MoCItems.scorpPlateNether), new ItemStack(MoCItems.chitinNether), 4);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(MoCItems.scorpLegsNether), new ItemStack(MoCItems.chitinNether), 3);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(MoCItems.scorpBootsNether), new ItemStack(MoCItems.chitinNether), 2);
+        // Stinger swords
+        PulverizerManager.addRecipe(energy, new ItemStack(MoCItems.scorpSwordCave), new ItemStack(Items.DIAMOND), new ItemStack(MoCItems.scorpStingCave));
+        PulverizerManager.addRecipe(energy, new ItemStack(MoCItems.scorpSwordDirt), new ItemStack(Items.DIAMOND), new ItemStack(MoCItems.scorpStingDirt));
+        PulverizerManager.addRecipe(energy, new ItemStack(MoCItems.scorpSwordFrost), new ItemStack(Items.DIAMOND), new ItemStack(MoCItems.scorpStingFrost));
+        PulverizerManager.addRecipe(energy, new ItemStack(MoCItems.scorpSwordNether), new ItemStack(Items.DIAMOND), new ItemStack(MoCItems.scorpStingNether));
         
         // Sawmill
         energy = 1_500;
