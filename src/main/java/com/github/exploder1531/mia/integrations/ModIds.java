@@ -6,6 +6,7 @@ import com.gendeathrow.hatchery.Hatchery;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.rwtema.extrautils2.ExtraUtils2;
 import mcjty.theoneprobe.TheOneProbe;
+import pegbeard.dungeontactics.reference.Reference;
 import slimeknights.tconstruct.TConstruct;
 import thaumcraft.Thaumcraft;
 
@@ -24,4 +25,5 @@ public class ModIds
     public static final String THE_ONE_PROBE = TheOneProbe.MODID;
     public static final String MO_CREATURES = "mocreatures";
     public static final String HARVESTCRAFT = "harvestcraft";
+    public static final String DUNGEON_TACTICS = Reference.MOD_ID;
 }

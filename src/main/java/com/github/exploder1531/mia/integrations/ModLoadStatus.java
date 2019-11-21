@@ -19,6 +19,7 @@ public class ModLoadStatus
     public static boolean theOneProbeLoaded = false;
     public static boolean moCreaturesLoaded = false;
     public static boolean harvestcraftLoaded = false;
+    public static boolean dungeonTacticsLoaded = false;
     
     public static void preInit()
     {
@@ -44,5 +45,7 @@ public class ModLoadStatus
             moCreaturesLoaded = true;
         if (Loader.isModLoaded(ModIds.HARVESTCRAFT))
             harvestcraftLoaded = true;
+        if (Loader.isModLoaded(ModIds.DUNGEON_TACTICS))
+            dungeonTacticsLoaded = true;
     }
 }

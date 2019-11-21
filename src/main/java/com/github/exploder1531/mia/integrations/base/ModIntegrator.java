@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.base;
 
 import com.github.exploder1531.mia.integrations.ModIds;
+import com.github.exploder1531.mia.integrations.dungeontactics.DungeonTactics;
 import com.github.exploder1531.mia.integrations.hatchery.Hatchery;
 import com.github.exploder1531.mia.integrations.iceandfire.IceAndFire;
 import com.github.exploder1531.mia.integrations.jer.JustEnoughResources;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
@@ -71,11 +73,14 @@ public class ModIntegrator
             modIntegrations.put(ModIds.THE_ONE_PROBE, new TheOneProbe());
         if (moCreaturesLoaded)
             modIntegrations.put(ModIds.MO_CREATURES, new MoCreatures());
+        if (dungeonTacticsLoaded)
+            modIntegrations.put(ModIds.DUNGEON_TACTICS, new DungeonTactics());
         
         for (IBaseMod mod : modIntegrations.values())
             mod.register(this::registerIntegration);
     }
     
+    @ParametersAreNonnullByDefault
     private void registerIntegration(String mod, IModIntegration integration)
     {
         IBaseMod baseMod = modIntegrations.get(mod);
