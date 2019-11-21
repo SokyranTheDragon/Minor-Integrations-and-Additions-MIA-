@@ -156,11 +156,16 @@ dependencies {
         compileOnly "curse.maven:ThermalExpansion_5.5.4.43:2715789"
     }
 
+    // Mo' Creatures
     if (project.run_mocreatures == "true")
         provided "curse.maven:MoCreatures_12.0.5:2628698"
     else
         compileOnly "curse.maven:MoCreatures_12.0.5:2628698"
 
+    // Dungeon tactics
+    deobfProvided "curse.maven:DungeonTactics_0.16.6:2771733"
+
+    // Harvestcraft
     // For use with deobfuscated code, provide the original source for IntelliJ Idea
     // https://github.com/MatrexsVigil/harvestcraft
     provided "curse.maven:PamsHarvestcraft_1.12.2zf:2771840"
