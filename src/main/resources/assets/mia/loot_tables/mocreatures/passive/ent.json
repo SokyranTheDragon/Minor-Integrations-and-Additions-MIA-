@@ -34,7 +34,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:sappling",
+          "name": "minecraft:sapling",
           "weight": 1,
           "functions": [
             {

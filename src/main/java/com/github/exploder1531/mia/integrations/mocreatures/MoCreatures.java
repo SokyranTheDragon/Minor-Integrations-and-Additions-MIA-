@@ -8,7 +8,7 @@ import drzhark.mocreatures.init.MoCBlocks;
 import drzhark.mocreatures.init.MoCItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -29,11 +29,11 @@ public class MoCreatures implements IBaseMod
     }
     
     @Override
-    public void postInit(FMLPostInitializationEvent event)
+    public void init(FMLInitializationEvent event)
     {
         if (!moCreaturesAdditionsEnabled)
             return;
-    
+        
         FurnaceRecipes smelting = FurnaceRecipes.instance();
         
         if (harvestcraftLoaded)
