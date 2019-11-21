@@ -59,6 +59,19 @@ mia.config.mocreatures.add_cooked_drops=Replace raw meat drops with cooked one w
 
 
 #######################
+### TOP integration ###
+#######################
+
+### Messages
+
+mia.top.progress=Progress
+mia.top.progress_speed=Speed: %s
+mia.top.not_enough_dirt=Not enough grass and dirt in vicinity
+mia.top.not_enough_water=Not enough water in vicinity
+
+
+
+#######################
 ### JER integration ###
 #######################
 
