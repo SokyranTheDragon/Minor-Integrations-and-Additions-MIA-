@@ -2,8 +2,8 @@ package com.github.exploder1531.mia.integrations.theoneprobe;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityEggInIce;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
+import com.github.alexthe666.iceandfire.entity.EntityMyrmexEgg;
+import com.github.alexthe666.iceandfire.entity.tile.*;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.pam.harvestcraft.HarvestCraft;
@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.Loader;
 import thaumcraft.common.blocks.devices.BlockVisBattery;
 import thaumcraft.common.tiles.crafting.TileVoidSiphon;
@@ -36,17 +37,22 @@ import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityProvider
 {
     private static final Field moEggProgress;
+    private static final Field iceFireDragonforgeInputCore;
     
     private static final Method harvestApiaryRunTime;
     private static final Method harvestGroundTrapRunTime;
     private static final Method harvestWaterTrapRunTime;
+    private static final Method iceFireDragonforgeBrickCore;
     
     static
     {
         Field moEggField = null;
+        Field iceFireDragonforgeInput = null;
+        
         Method harvestApiaryMethod = null;
         Method harvestGroundTrapMethod = null;
         Method harvestWaterTrapMethod = null;
+        Method iceFireDragonforgeBrick = null;
         
         if (Loader.isModLoaded(ModIds.MO_CREATURES))
         {
@@ -59,6 +65,25 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 Mia.LOGGER.error("Cannot access MoCEntityEgg tCounter field, no hatching progress will be displayed");
             }
         }
+        if (Loader.isModLoaded(ModIds.ICE_AND_FIRE))
+        {
+            try
+            {
+                iceFireDragonforgeInput = TileEntityDragonforgeInput.class.getDeclaredField("core");
+                iceFireDragonforgeInput.setAccessible(true);
+            } catch (NoSuchFieldException e)
+            {
+                Mia.LOGGER.error("Cannot access TileEntityDragonforgeInput core field, no smelting progress will be displayed");
+            }
+            try
+            {
+                iceFireDragonforgeBrick = TileEntityDragonforgeBrick.class.getDeclaredMethod("getConnectedTileEntity");
+                iceFireDragonforgeBrick.setAccessible(true);
+            } catch (NoSuchMethodException e)
+            {
+                Mia.LOGGER.error("Cannot access TileEntityDragonforgeBrick getConnectedTileEntity() method, no smelting progress will be displayed");
+            }
+        }
         if (Loader.isModLoaded(ModIds.HARVESTCRAFT))
         {
             try
@@ -67,7 +92,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 harvestApiaryMethod.setAccessible(true);
             } catch (NoSuchMethodException e)
             {
-                Mia.LOGGER.error("Cannot access TileEntityApiary getRunTime() field, no progress will be displayed");
+                Mia.LOGGER.error("Cannot access TileEntityApiary getRunTime() method, no progress will be displayed");
             }
             try
             {
@@ -75,7 +100,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 harvestGroundTrapMethod.setAccessible(true);
             } catch (NoSuchMethodException e)
             {
-                Mia.LOGGER.error("Cannot access TileEntityGroundTrap getRunTime() field, no progress will be displayed");
+                Mia.LOGGER.error("Cannot access TileEntityGroundTrap getRunTime() method, no progress will be displayed");
             }
             try
             {
@@ -83,14 +108,17 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 harvestWaterTrapMethod.setAccessible(true);
             } catch (NoSuchMethodException e)
             {
-                Mia.LOGGER.error("Cannot access TileEntityWaterTrap getRunTime() field, no progress will be displayed");
+                Mia.LOGGER.error("Cannot access TileEntityWaterTrap getRunTime() method, no progress will be displayed");
             }
         }
         
         moEggProgress = moEggField;
+        iceFireDragonforgeInputCore = iceFireDragonforgeInput;
+        
         harvestApiaryRunTime = harvestApiaryMethod;
         harvestGroundTrapRunTime = harvestGroundTrapMethod;
         harvestWaterTrapRunTime = harvestWaterTrapMethod;
+        iceFireDragonforgeBrickCore = iceFireDragonforgeBrick;
     }
     
     @Override
@@ -157,6 +185,51 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             {
                 TileEntityEggInIce egg = (TileEntityEggInIce) tile;
                 addProgressData(probeInfo, egg.age, IceAndFire.CONFIG.dragonEggTime);
+                return;
+            }
+            else if (tile instanceof TileEntityDragonforgeBrick)
+            {
+                if (iceFireDragonforgeBrickCore != null)
+                {
+                    try
+                    {
+                        TileEntityDragonforgeBrick input = (TileEntityDragonforgeBrick) tile;
+                        ICapabilityProvider capacity = (ICapabilityProvider)iceFireDragonforgeBrickCore.invoke(input);
+                        
+                        if (capacity instanceof TileEntityDragonforge)
+                        {
+                            TileEntityDragonforge forge = (TileEntityDragonforge) capacity;
+                            addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime());
+                        }
+                    } catch (IllegalAccessException | InvocationTargetException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                
+                return;
+            }
+            else if (tile instanceof TileEntityDragonforgeInput)
+            {
+                if (iceFireDragonforgeInputCore != null)
+                {
+                    try
+                    {
+                        TileEntityDragonforgeInput input = (TileEntityDragonforgeInput) tile;
+                        TileEntityDragonforge forge = (TileEntityDragonforge) iceFireDragonforgeInputCore.get(input);
+                        addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime());
+                    } catch (IllegalAccessException e)
+                    {
+                        Mia.LOGGER.error("Cannot access TileEntityDragonforgeInput core, even though it was found");
+                    }
+                }
+                
+                return;
+            }
+            else if (tile instanceof TileEntityDragonforge)
+            {
+                TileEntityDragonforge forge = (TileEntityDragonforge) tile;
+                addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime());
                 return;
             }
         }
@@ -255,7 +328,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 }
                 else
                     addProgressData(probeInfo, filter.cookTime, HarvestCraft.config.waterfilterTime);
-    
+                
                 return;
             }
             if (tile instanceof TileEntityPresser)
@@ -299,6 +372,40 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             {
                 EntityDragonEgg egg = (EntityDragonEgg) entity;
                 addProgressData(probeInfo, egg.getDragonAge(), IceAndFire.CONFIG.dragonEggTime);
+                return;
+            }
+            else if (entity instanceof EntityMyrmexEgg)
+            {
+                EntityMyrmexEgg egg = (EntityMyrmexEgg) entity;
+                
+                StringBuilder name = new StringBuilder(19);
+                if (egg.isJungle())
+                    name.append("Jungle ");
+                else
+                    name.append("Desert ");
+
+                switch (egg.getMyrmexCaste())
+                {
+                    case 1:
+                        name.append(I18n.format("myrmex.caste_soldier.name"));
+                        break;
+                    case 2:
+                        name.append(I18n.format("myrmex.caste_royal.name"));
+                        break;
+                    case 3:
+                        name.append(I18n.format("myrmex.caste_sentinel.name"));
+                        break;
+                    case 4:
+                        name.append(I18n.format("myrmex.caste_queen.name"));
+                        break;
+                    default:
+                        name.append(I18n.format("myrmex.caste_worker.name"));
+                        break;
+                }
+                
+                name.append(" Egg");
+                probeInfo.text(name.toString());
+                addProgressData(probeInfo, egg.getMyrmexAge(), IceAndFire.CONFIG.myrmexEggTicks);
                 return;
             }
         }
