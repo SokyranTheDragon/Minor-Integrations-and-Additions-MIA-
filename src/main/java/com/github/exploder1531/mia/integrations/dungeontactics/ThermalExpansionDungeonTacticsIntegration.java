@@ -1,9 +1,6 @@
 package com.github.exploder1531.mia.integrations.dungeontactics;
 
-import cofh.thermalexpansion.util.managers.machine.EnchanterManager;
-import cofh.thermalexpansion.util.managers.machine.InsolatorManager;
-import cofh.thermalexpansion.util.managers.machine.PulverizerManager;
-import cofh.thermalexpansion.util.managers.machine.SmelterManager;
+import cofh.thermalexpansion.util.managers.machine.*;
 import cofh.thermalfoundation.item.ItemFertilizer;
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.integrations.ModIds;
@@ -114,8 +111,7 @@ public class ThermalExpansionDungeonTacticsIntegration implements IThermalExpans
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.WRENCH_STEEL), new ItemStack(DTItems.INGOT_STEEL), 2);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTBlocks.POWERED_FENCE), new ItemStack(Items.IRON_NUGGET), 2);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTBlocks.TRAP_CLAMP), new ItemStack(Items.IRON_INGOT), 2);
-        
-        
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTBlocks.ALCHEMYCAULDRON), new ItemStack(Items.IRON_INGOT), 7);
         
         
         // Pulverizer
@@ -166,8 +162,53 @@ public class ThermalExpansionDungeonTacticsIntegration implements IThermalExpans
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTBlocks.CLIMBINGROPE), new ItemStack(Items.STRING), 1);
         
         
+        // Sawmill
+        energy = 1_500;
+        SawmillManager.addRecycleRecipe(energy, new ItemStack(DTBlocks.WOODCHAIR), ItemMaterial.dustWood, 1);
+        SawmillManager.addRecycleRecipe(energy, new ItemStack(DTBlocks.WOODCHAIR), ItemMaterial.dustWood, 1);
+        SawmillManager.addRecycleRecipe(energy, new ItemStack(DTBlocks.BARREL), ItemMaterial.dustWood, 6);
+        
+        
         // Arcane Enscroller
-//        EnchanterManager.addDefaultEnchantmentRecipe();
+        // Normal enchants
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.DUCT_TAPE), "dungeontactics:ducttaped", 0);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.BOMB_PORTING_CLUSTER), "dungeontactics:sonicboom", 4);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.BOMB_FRAG_CLUSTER), "dungeontactics:clustered", 4);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.POWDERKEG), "dungeontactics:explosive", 4);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.FLOWER_CINDER), "dungeontactics:debilitating", 4);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.BOMB_PYRO_CLUSTER), "dungeontactics:smelting", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.FLOWER_BARK), "dungeontactics:berserking", 3);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.FLOWER_SANGUINE), "dungeontactics:lifesteal", 3);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.MAGIC_POWDER), "dungeontactics:runed", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.MAGIC_SCROLL), "dungeontactics:mage_affinity", 2);
+        // Scrolls
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.HEART_GOLDEN), "dungeontactics:restoration", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.JAMSLICE), "dungeontactics:satiate", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.IRON_HAMMER), "dungeontactics:forging", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.TRAP_FIRE), "dungeontactics:cooking", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.BOMB_CRYO_CLUSTER), "dungeontactics:freezing", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.GLOWCURRENT, 9), "dungeontactics:uncover", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.CHERRYBOMB, 9), "dungeontactics:disarm", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.FLOWER_FADE), "dungeontactics:disorient", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.INCINDIBERRY, 9), "dungeontactics:punish", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.WITHER_WEB), "dungeontactics:wither", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.BLOCK_SILVER), "dungeontactics:smite", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.POTSHOTAMMO), "dungeontactics:magicmissile", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.THROWINGKNIFE, 10), "dungeontactics:pinmissile", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.BONE_CHESTPLATE), "dungeontactics:transport", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.BONE_HAMMER), "dungeontactics:companion", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.FLOWER_BRAMBLE), "dungeontactics:sunder", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTBlocks.FLOWER_TANGLE), "dungeontactics:rage", 2);
+        // Trinkets
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.FISH_SWIFT), "dungeontactics:trinket_speed", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.FISH_FLYING), "dungeontactics:trinket_jump", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.JAM), "dungeontactics:trinket_haste", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.FISH_LUNG), "dungeontactics:trinket_gills", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.FISH_TUNNEL), "dungeontactics:trinket_nightvision", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.FISH_LAVA), "dungeontactics:trinket_fireshield", 3);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.FISH_OBSIDIAN), "dungeontactics:trinket_resistance", 3);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.FISH_MUSCLE), "dungeontactics:trinket_strength", 4);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(DTItems.MAGIC_POUCH, 1, 640), "dungeontactics:trinket_invisibility", 4);
         
         
         // Phytogenic Insolator
@@ -188,12 +229,12 @@ public class ThermalExpansionDungeonTacticsIntegration implements IThermalExpans
         input = new ItemStack(DTBlocks.FLOWER_TANGLE);
         InsolatorManager.addDefaultRecipe(input, input, input, 5);
         input = new ItemStack(DTBlocks.CHERRYBOMB_BUSH);
-        InsolatorManager.addDefaultRecipe(input, new ItemStack(DTItems.CHERRYBOMB), input, 100);
+        InsolatorManager.addDefaultRecipe(input, new ItemStack(DTItems.CHERRYBOMB, 3), input, 100);
         input = new ItemStack(DTBlocks.INCINDIBERRY_BUSH);
-        InsolatorManager.addDefaultRecipe(input, new ItemStack(DTItems.INCINDIBERRY), input, 100);
+        InsolatorManager.addDefaultRecipe(input, new ItemStack(DTItems.INCINDIBERRY, 3), input, 100);
         input = new ItemStack(DTBlocks.GLOWCURRENT_BUSH);
-        InsolatorManager.addDefaultRecipe(input, new ItemStack(DTItems.GLOWCURRENT), input, 100);
-        // Since this flower lets you get XP bottles, I matched the recipe to Ender Lily from XU2
+        InsolatorManager.addDefaultRecipe(input, new ItemStack(DTItems.GLOWCURRENT, 3), input, 100);
+        // Since this flower lets you get XP bottles, I matched the recipe to Ender Lily/Red Orchid from XU2
         InsolatorManager.addRecipe(120_000, 4_000, new ItemStack(DTBlocks.FLOWER_XP), ItemFertilizer.fertilizerFlux, new ItemStack(Items.EXPERIENCE_BOTTLE), new ItemStack(DTBlocks.FLOWER_XP));
     }
     

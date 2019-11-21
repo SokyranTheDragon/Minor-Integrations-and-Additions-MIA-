@@ -32,7 +32,6 @@ public class DungeonTactics implements IBaseMod
     public void init(FMLInitializationEvent event)
     {
         OreDictionary.registerOre("blockGlass", DTBlocks.DUNGEON_GLASS);
-        OreDictionary.registerOre("blockGlassBlack", DTBlocks.DUNGEON_GLASS);
     
         OreDictionary.registerOre("listAllberry", DTItems.CHERRYBOMB);
         OreDictionary.registerOre("listAllfruit", DTItems.CHERRYBOMB);
