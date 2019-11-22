@@ -72,6 +72,14 @@ mia.top.not_enough_water=Not enough water in vicinity
 
 
 #######################
+### JEI integration ###
+#######################
+
+mia.jei.cauldron.title=Alchemical Cauldron
+
+
+
+#######################
 ### JER integration ###
 #######################
 
