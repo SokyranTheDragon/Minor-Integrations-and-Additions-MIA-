@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.integrations.base;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.dungeontactics.DungeonTactics;
+import com.github.exploder1531.mia.integrations.harvestcraft.Harvestcraft;
 import com.github.exploder1531.mia.integrations.hatchery.Hatchery;
 import com.github.exploder1531.mia.integrations.iceandfire.IceAndFire;
 import com.github.exploder1531.mia.integrations.jer.JustEnoughResources;
@@ -17,7 +18,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -42,8 +42,7 @@ public class ModIntegrator
     
     private boolean registeredBlocks = false;
     private boolean registeredItems = false;
-
-
+    
     
     // TODO: add logs for incorrect status
     
@@ -75,6 +74,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.MO_CREATURES, new MoCreatures());
         if (dungeonTacticsLoaded)
             modIntegrations.put(ModIds.DUNGEON_TACTICS, new DungeonTactics());
+        if (harvestcraftLoaded)
+            modIntegrations.put(ModIds.HARVESTCRAFT, new Harvestcraft());
         
         for (IBaseMod mod : modIntegrations.values())
             mod.register(this::registerIntegration);

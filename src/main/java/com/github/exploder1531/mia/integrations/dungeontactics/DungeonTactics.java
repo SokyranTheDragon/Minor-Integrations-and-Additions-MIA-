@@ -21,8 +21,7 @@ import pegbeard.dungeontactics.handlers.DTItems;
 
 import java.util.function.BiConsumer;
 
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.thermalExpansionLoaded;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.tinkersConstructLoaded;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class DungeonTactics implements IBaseMod
 {
@@ -33,8 +32,8 @@ public class DungeonTactics implements IBaseMod
             modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructDungeonTacticsIntegration());
         if (thermalExpansionLoaded)
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionDungeonTacticsIntegration());
-//        if (jerLoaded)
-//            modIntegration.accept(ModIds.JER, new JerDungeonTacticsIntegration());
+        if (jerLoaded)
+            modIntegration.accept(ModIds.JER, new JerDungeonTacticsIntegration());
     }
     
     @Override

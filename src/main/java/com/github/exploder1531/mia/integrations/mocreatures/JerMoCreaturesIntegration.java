@@ -320,10 +320,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 drops.add(new LootDrop(new ItemStack(ItemRegistry.duckrawItem), 0, 2, Conditional.affectedByLooting));
             else if (entity instanceof MoCEntityJellyFish)
             {
-                LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.calamarirawItem), 0, 2, Conditional.affectedByLooting);
-                if (addCookedDrops)
-                    drop.smeltedItem = new ItemStack(ItemRegistry.calamaricookedItem);
-                drops.add(drop);
+                drops.add(new LootDrop(new ItemStack(ItemRegistry.jellyfishrawItem), 0, 2, Conditional.affectedByLooting));
             }
         }
         

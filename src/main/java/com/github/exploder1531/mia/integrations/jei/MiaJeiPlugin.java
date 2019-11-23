@@ -13,6 +13,7 @@ import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
+import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTItems;
 
 import java.util.Arrays;
@@ -37,12 +38,25 @@ public class MiaJeiPlugin implements IModPlugin
                     new ItemStack(DTItems.FISH_FLYING),
                     new ItemStack(DTItems.FISH_SWIFT),
                     new ItemStack(DTItems.FISH_LUNG)),
-                    VanillaTypes.ITEM, "mia.jei.info.fishing");
+                    VanillaTypes.ITEM, "mia.jei.info.dt.fishing");
             
             registry.addIngredientInfo(Arrays.asList(
                     new ItemStack(DTItems.SLINGSHOT),
                     new ItemStack(DTItems.IRONRING)),
-                    VanillaTypes.ITEM, "mia.jei.info.fishing_treasure");
+                    VanillaTypes.ITEM, "mia.jei.info.dt.fishing_treasure");
+    
+            registry.addIngredientInfo(new ItemStack(DTItems.REXO_LEGGINGS), VanillaTypes.ITEM, "mia.jei.dt.info.leggings");
+            registry.addIngredientInfo(new ItemStack(DTItems.REXO_GOGGLES), VanillaTypes.ITEM, "mia.jei.dt.info.goggles");
+            registry.addIngredientInfo(new ItemStack(DTItems.REXO_BOOTS), VanillaTypes.ITEM, "mia.jei.dt.info.boots");
+    
+            registry.addIngredientInfo(new ItemStack(DTItems.ESCAPEROPE), VanillaTypes.ITEM, "mia.jei.dt.info.rope");
+//            registry.addIngredientInfo(new ItemStack(DTItems.PHYLACTERY), VanillaTypes.ITEM, "mia.jei.dt.info.phylactery");
+            registry.addIngredientInfo(new ItemStack(DTItems.ENDERBAG), VanillaTypes.ITEM, "mia.jei.dt.info.bag_of_hoarding");
+//            registry.addIngredientInfo(new ItemStack(DTItems.DUCT_TAPE), VanillaTypes.ITEM, "mia.jei.dt.info.duct_tape");
+            registry.addIngredientInfo(new ItemStack(DTItems.HEART_DROP), VanillaTypes.ITEM, "mia.jei.dt.info.heart_drop");
+            registry.addIngredientInfo(new ItemStack(DTBlocks.LANTERN_IRON), VanillaTypes.ITEM, "mia.jei.dt.info.lantern_iron");
+            registry.addIngredientInfo(new ItemStack(DTBlocks.LANTERN_MAGIC), VanillaTypes.ITEM, "mia.jei.dt.info.lantern_magic");
+            registry.addIngredientInfo(new ItemStack(DTItems.ENGINEERS_DUNGAREES), VanillaTypes.ITEM, "mia.jei.dt.info.engineer_pants");
         }
         if (ModLoadStatus.hatcheryLoaded)
             registry.addIngredientInfo(new ItemStack(MiaBlocks.egg_sorter), VanillaTypes.ITEM, "mia.jei.info.egg_sorter");
