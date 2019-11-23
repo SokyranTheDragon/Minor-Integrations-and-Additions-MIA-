@@ -11,18 +11,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTEffects;
 import pegbeard.dungeontactics.handlers.DTItems;
-import pegbeard.dungeontactics.items.unique.DTIcarusRing;
 
-import java.util.List;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.thermalExpansionLoaded;
@@ -37,6 +33,8 @@ public class DungeonTactics implements IBaseMod
             modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructDungeonTacticsIntegration());
         if (thermalExpansionLoaded)
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionDungeonTacticsIntegration());
+//        if (jerLoaded)
+//            modIntegration.accept(ModIds.JER, new JerDungeonTacticsIntegration());
     }
     
     @Override
@@ -55,11 +53,15 @@ public class DungeonTactics implements IBaseMod
         OreDictionary.registerOre("foodToastslice", DTItems.TOASTSLICE);
         OreDictionary.registerOre("foodJamtoast", DTItems.JAMSLICE);
         OreDictionary.registerOre("foodBreadslice", DTItems.BREADSLICE);
-        
+    }
+    
+    @Override
+    public void postInit(FMLPostInitializationEvent event)
+    {
         if (Loader.isModLoaded("jei"))
         {
             CauldronRegistry registry = CauldronRegistry.getInstance();
-            
+        
             if (registry != null)
             {
                 // Weapon imbuing
@@ -83,7 +85,6 @@ public class DungeonTactics implements IBaseMod
                 // Any (vanilla) leaves
                 registerCooking(registry, Items.IRON_SHOVEL, new ItemStack(Blocks.DIRT), new ItemStack(Blocks.LEAVES, 2, OreDictionary.WILDCARD_VALUE), new ItemStack(Blocks.SAND));
                 registerCooking(registry, Items.IRON_SHOVEL, new ItemStack(Blocks.MYCELIUM), new ItemStack(Blocks.DIRT), new ItemStack(Blocks.RED_MUSHROOM, 2), new ItemStack(Blocks.BROWN_MUSHROOM, 2));
-                
             }
             else
                 Mia.LOGGER.error("Could not access Alchemical Cauldron recipe registry, this shouldn't have happened as Dungeon Tactics is loaded. Something is very wrong.");
