@@ -12,6 +12,8 @@ public class Harvestcraft implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
+        if (ModLoadStatus.thermalExpansionLoaded)
+            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionHarvestcraftIntegration());
         if (ModLoadStatus.jerLoaded)
             modIntegration.accept(ModIds.JER, new JerHarvestcraftIntegration());
     }
