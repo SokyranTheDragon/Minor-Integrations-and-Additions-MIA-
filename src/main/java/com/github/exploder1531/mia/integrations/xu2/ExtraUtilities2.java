@@ -45,7 +45,10 @@ public class ExtraUtilities2 implements IBaseMod
             return;
         
         if (integration instanceof IExtraUtilsIntegration)
+        {
             modIntegrations.add((IExtraUtilsIntegration) integration);
+            return;
+        }
         
         Mia.LOGGER.warn("Incorrect XU2 integration with id of " + integration.getModId() + ": " + integration.toString());
     }

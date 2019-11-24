@@ -1,7 +1,6 @@
 package com.github.exploder1531.mia.integrations.iceandfire;
 
 import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.block.BlockPixieDustExtractor;
 import com.github.exploder1531.mia.core.MiaBlocks;
 import com.github.exploder1531.mia.integrations.ModIds;
@@ -17,8 +16,6 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -28,7 +25,6 @@ import java.util.function.BiConsumer;
 import static com.github.exploder1531.mia.config.IceAndFireConfiguration.*;
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
-@Mod.EventBusSubscriber(modid = Mia.MODID)
 public class IceAndFire implements IBaseMod
 {
     @Override

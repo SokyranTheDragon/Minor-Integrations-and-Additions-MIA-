@@ -30,6 +30,8 @@ public class MiaJeiPlugin implements IModPlugin
             registry.handleRecipes(CauldronEntry.class, CauldronWrapper::new, "mia.alchemical_cauldron");
             registry.addRecipes(CauldronRegistry.getRecipesOrEmpty(), "mia.alchemical_cauldron");
             
+            registry.addRecipeCatalyst(new ItemStack(DTBlocks.ALCHEMYCAULDRON), "mia.alchemical_cauldron");
+            
             registry.addIngredientInfo(Arrays.asList(
                     new ItemStack(DTItems.FISH_MUSCLE),
                     new ItemStack(DTItems.FISH_OBSIDIAN),
@@ -57,6 +59,7 @@ public class MiaJeiPlugin implements IModPlugin
             registry.addIngredientInfo(new ItemStack(DTBlocks.LANTERN_IRON), VanillaTypes.ITEM, "mia.jei.dt.info.lantern_iron");
             registry.addIngredientInfo(new ItemStack(DTBlocks.LANTERN_MAGIC), VanillaTypes.ITEM, "mia.jei.dt.info.lantern_magic");
             registry.addIngredientInfo(new ItemStack(DTItems.ENGINEERS_DUNGAREES), VanillaTypes.ITEM, "mia.jei.dt.info.engineer_pants");
+            registry.addIngredientInfo(new ItemStack(DTItems.PEG_HAMMER), VanillaTypes.ITEM, "mia.jei.dt.info.peg_hammer");
         }
         if (ModLoadStatus.hatcheryLoaded)
             registry.addIngredientInfo(new ItemStack(MiaBlocks.egg_sorter), VanillaTypes.ITEM, "mia.jei.info.egg_sorter");

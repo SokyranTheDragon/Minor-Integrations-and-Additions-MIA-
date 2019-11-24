@@ -31,7 +31,10 @@ public class TinkersConstruct implements IBaseMod
             return;
         
         if (integration instanceof ITConstructIntegration)
+        {
             modIntegrations.add((ITConstructIntegration) integration);
+            return;
+        }
         
         Mia.LOGGER.warn("Incorrect TConstruct integration with id of " + integration.getModId() + ": " + integration.toString());
     }

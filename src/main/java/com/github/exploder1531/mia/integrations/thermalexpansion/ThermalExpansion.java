@@ -25,7 +25,10 @@ public class ThermalExpansion implements IBaseMod
             return;
         
         if (integration instanceof IThermalExpansionIntegration)
+        {
             modIntegrations.add((IThermalExpansionIntegration)integration);
+            return;
+        }
     
         Mia.LOGGER.warn("Incorrect Thermal Foundation integration with id of " + integration.getModId() + ": " + integration.toString());
     }

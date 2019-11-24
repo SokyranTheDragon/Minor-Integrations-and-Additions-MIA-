@@ -22,7 +22,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
-import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import java.util.List;
 
@@ -38,7 +37,10 @@ public class Hatchery implements IBaseMod
     {
         // We don't disable external integrations as usual, as we need to get ModId data from other mods.
         if (integration instanceof IHatcheryIntegration)
+        {
             modIntegrations.add((IHatcheryIntegration) integration);
+            return;
+        }
         
         Mia.LOGGER.warn("Incorrect Hatchery integration with id of " + integration.getModId() + ": " + integration.toString());
     }

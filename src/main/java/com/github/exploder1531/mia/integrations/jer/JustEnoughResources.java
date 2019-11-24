@@ -39,7 +39,10 @@ public class JustEnoughResources implements IBaseMod
             return;
         
         if (integration instanceof IJerIntegration)
+        {
             modIntegrations.put(integration.getModId(), (IJerIntegration) integration);
+            return;
+        }
         
         Mia.LOGGER.warn("Incorrect JER integration with id of " + integration.getModId() + ": " + integration.toString());
     }
