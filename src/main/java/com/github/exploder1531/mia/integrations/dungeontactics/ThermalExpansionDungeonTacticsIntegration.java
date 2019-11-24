@@ -12,7 +12,7 @@ import pegbeard.dungeontactics.handlers.DTItems;
 
 import javax.annotation.Nonnull;
 
-public class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionIntegration
+class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionIntegration
 {
     @Override
     public void addRecipes()

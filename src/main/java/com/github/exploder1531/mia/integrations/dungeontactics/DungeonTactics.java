@@ -6,11 +6,14 @@ import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronEntry;
 import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronRegistry;
+import com.google.common.collect.Lists;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -18,13 +21,17 @@ import net.minecraftforge.oredict.OreDictionary;
 import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTEffects;
 import pegbeard.dungeontactics.handlers.DTItems;
+import pegbeard.dungeontactics.handlers.DTLoots;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class DungeonTactics implements IBaseMod
 {
+    private final List<IDungeonTacticsIntegration> modIntegrations = Lists.newLinkedList();
+    
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
@@ -34,6 +41,54 @@ public class DungeonTactics implements IBaseMod
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionDungeonTacticsIntegration());
         if (jerLoaded)
             modIntegration.accept(ModIds.JER, new JerDungeonTacticsIntegration());
+    }
+    
+    @Override
+    public void addIntegration(IModIntegration integration)
+    {
+        if (integration instanceof IDungeonTacticsIntegration)
+        {
+            modIntegrations.add((IDungeonTacticsIntegration) integration);
+            return;
+        }
+        
+        Mia.LOGGER.warn("Incorrect DT integration with id of " + integration.getModId() + ": " + integration.toString());
+    }
+    
+    @Override
+    public void lootLoad(LootTableLoadEvent event)
+    {
+        LootPool main = event.getTable().getPool("main");
+        IDungeonTacticsIntegration.BagTypes bagType = null;
+        
+        if (event.getName().equals(DTLoots.ARBOUR_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.ARBOUR;
+        else if (event.getName().equals(DTLoots.BOOK_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.BOOK;
+        else if (event.getName().equals(DTLoots.FOOD_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.FOOD;
+        else if (event.getName().equals(DTLoots.MAGIC_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.MAGIC;
+        else if (event.getName().equals(DTLoots.ORE_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.ORE;
+        else if (event.getName().equals(DTLoots.POTION_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.POTION;
+        else if (event.getName().equals(DTLoots.QUIVER_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.QUIVER;
+        else if (event.getName().equals(DTLoots.RECORD_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.RECORD;
+        else if (event.getName().equals(DTLoots.SAMHAIN_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.SAMHAIN;
+        else if (event.getName().equals(DTLoots.SOLSTICE_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.SOLSTICE;
+        else if (event.getName().equals(DTLoots.TOOL_LOOT))
+            bagType = IDungeonTacticsIntegration.BagTypes.TOOL;
+        
+        if (bagType != null)
+        {
+            for (IDungeonTacticsIntegration integrations : modIntegrations)
+                integrations.insertBagLoot(bagType, main);
+        }
     }
     
     @Override
@@ -60,7 +115,7 @@ public class DungeonTactics implements IBaseMod
         if (Loader.isModLoaded("jei"))
         {
             CauldronRegistry registry = CauldronRegistry.getInstance();
-        
+            
             if (registry != null)
             {
                 // Weapon imbuing

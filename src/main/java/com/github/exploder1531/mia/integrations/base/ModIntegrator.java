@@ -17,6 +17,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
@@ -155,5 +156,11 @@ public class ModIntegrator
     {
         for (IBaseMod mod : modIntegrations.values())
             mod.registerRenders(event);
+    }
+    
+    public void lootTableLoad(LootTableLoadEvent event)
+    {
+        for (IBaseMod mod : modIntegrations.values())
+            mod.lootLoad(event);
     }
 }

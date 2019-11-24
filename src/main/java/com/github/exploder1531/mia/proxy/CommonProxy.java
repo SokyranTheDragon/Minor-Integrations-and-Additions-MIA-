@@ -5,6 +5,7 @@ import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.ModIntegrator;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -12,7 +13,6 @@ import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thaumcraft.api.aspects.AspectRegistryEvent;
 
 @SuppressWarnings("WeakerAccess")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
@@ -53,6 +53,12 @@ public class CommonProxy
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
         modIntegrator.registerItems(event);
+    }
+    
+    @SubscribeEvent
+    public static void lootTableLoad(LootTableLoadEvent event)
+    {
+        modIntegrator.lootTableLoad(event);
     }
 
 //    @SubscribeEvent
