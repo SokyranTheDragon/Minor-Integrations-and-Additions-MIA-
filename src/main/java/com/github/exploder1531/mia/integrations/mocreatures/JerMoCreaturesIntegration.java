@@ -234,7 +234,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
         int experienceMin = 5;
         int experienceMax = 5;
         
-        if (entity instanceof EntityAnimal)
+        if (entity instanceof EntityAnimal || entity instanceof MoCEntityAquatic)
         {
             experienceMin = 1;
             experienceMax = 3;
@@ -275,6 +275,8 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 lootDrop.smeltedItem = new ItemStack(MoCItems.ostrichcooked);
             else if (item == MoCItems.crabraw && addCookedDrops)
                 lootDrop.smeltedItem = new ItemStack(MoCItems.crabcooked);
+            else if (item == Items.PORKCHOP && addCookedDrops)
+                lootDrop.smeltedItem = new ItemStack(Items.COOKED_PORKCHOP);
             else if (item == MoCItems.turtleraw && addCookedDrops && harvestcraftLoaded)
                 lootDrop.smeltedItem = new ItemStack(ItemRegistry.turtlecookedItem);
             else if (item == MoCItems.bo && entity instanceof MoCEntityTurtle)
@@ -315,13 +317,21 @@ class JerMoCreaturesIntegration implements IJerIntegration
         if (harvestcraftLoaded)
         {
             if (entity instanceof MoCEntityDeer)
-                drops.add(new LootDrop(new ItemStack(ItemRegistry.venisonrawItem), 0, 2, Conditional.affectedByLooting));
-            else if (entity instanceof MoCEntityDuck)
-                drops.add(new LootDrop(new ItemStack(ItemRegistry.duckrawItem), 0, 2, Conditional.affectedByLooting));
-            else if (entity instanceof MoCEntityJellyFish)
             {
-                drops.add(new LootDrop(new ItemStack(ItemRegistry.jellyfishrawItem), 0, 2, Conditional.affectedByLooting));
+                LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.venisonrawItem), 0, 2, Conditional.affectedByLooting);
+                if (addCookedDrops)
+                    drop.smeltedItem = new ItemStack(ItemRegistry.venisoncookedItem);
+                drops.add(drop);
             }
+            else if (entity instanceof MoCEntityDuck)
+            {
+                LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.duckrawItem), 0, 2, Conditional.affectedByLooting);
+                if (addCookedDrops)
+                    drop.smeltedItem = new ItemStack(ItemRegistry.duckcookedItem);
+                drops.add(drop);
+            }
+            else if (entity instanceof MoCEntityJellyFish)
+                drops.add(new LootDrop(new ItemStack(ItemRegistry.jellyfishrawItem), 0, 2, Conditional.affectedByLooting));
         }
         
         if (entity instanceof MoCEntityMob)

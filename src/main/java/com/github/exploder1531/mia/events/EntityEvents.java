@@ -8,10 +8,7 @@ import drzhark.mocreatures.entity.ambient.MoCEntityCrab;
 import drzhark.mocreatures.entity.aquatic.*;
 import drzhark.mocreatures.entity.monster.MoCEntityRat;
 import drzhark.mocreatures.entity.monster.MoCEntityWerewolf;
-import drzhark.mocreatures.entity.passive.MoCEntityDeer;
-import drzhark.mocreatures.entity.passive.MoCEntityDuck;
-import drzhark.mocreatures.entity.passive.MoCEntityTurkey;
-import drzhark.mocreatures.entity.passive.MoCEntityTurtle;
+import drzhark.mocreatures.entity.passive.*;
 import drzhark.mocreatures.init.MoCItems;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -94,12 +91,18 @@ public class EntityEvents
                 }
                 else if (event.getEntityLiving() instanceof MoCEntityDuck)
                 {
-                    dropFewItems(ItemRegistry.duckrawItem, event);
+                    if (MoCreaturesConfiguration.addCookedDrops)
+                        dropFewItems(ItemRegistry.duckrawItem, ItemRegistry.duckcookedItem, event);
+                    else
+                        dropFewItems(ItemRegistry.duckrawItem, event);
                     return;
                 }
                 else if (event.getEntityLiving() instanceof MoCEntityDeer)
                 {
-                    dropFewItems(ItemRegistry.venisonrawItem, event);
+                    if (MoCreaturesConfiguration.addCookedDrops)
+                        dropFewItems(ItemRegistry.venisonrawItem, ItemRegistry.venisoncookedItem, event);
+                    else
+                        dropFewItems(ItemRegistry.venisonrawItem, event);
                     return;
                 }
             }
@@ -146,6 +149,11 @@ public class EntityEvents
                 else if (event.getEntityLiving() instanceof MoCEntityTurkey)
                 {
                     replaceItemDrop(event.getDrops(), MoCItems.rawTurkey, MoCItems.cookedTurkey);
+                    return;
+                }
+                else if (event.getEntityLiving() instanceof MoCEntityBoar)
+                {
+                    replaceItemDrop(event.getDrops(), Items.PORKCHOP, Items.COOKED_PORKCHOP);
                     return;
                 }
                 else if (harvestcraftLoaded && event.getEntityLiving() instanceof MoCEntityTurtle)
