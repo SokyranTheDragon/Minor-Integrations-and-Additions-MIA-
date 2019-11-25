@@ -63,8 +63,8 @@ class JerIceAndFireIntegration implements IJerIntegration
         {
             // ResourceLocation is used as a key in HashMap, so we need to create our own to prevent replacing entries,
             // leaving us with drops for only a single dragon of each type.
-            builder.add(loadResource("dragon/iceandfire/fire_dragon_" + i), EntityFireDragon.class, new DragonSetter(i));
-            builder.add(loadResource("dragon/iceandfire/ice_dragon_" + i), EntityIceDragon.class, new DragonSetter(i));
+            builder.add(loadResource("iceandfire/dragon/fire_dragon_" + i), EntityFireDragon.class, new DragonSetter(i));
+            builder.add(loadResource("iceandfire/dragon/ice_dragon_" + i), EntityIceDragon.class, new DragonSetter(i));
         }
         builder.add(EntityHippocampus.LOOT, EntityHippocampus.class);
         builder.add(EntityHippogryph.LOOT, EntityHippogryph.class);
@@ -81,7 +81,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         builder.add(EntityMyrmexWorker.JUNGLE_LOOT, EntityMyrmexWorker.class, new MyrmexSetter(true));
         builder.add(EntityPixie.LOOT, EntityPixie.class);
         for (int i = 0; i <= 6; i++)
-            builder.add(loadResource("seaserpent/iceandfire/sea_serpent_" + i), EntitySeaSerpent.class, new SeaSerpentSetter(i));
+            builder.add(loadResource("iceandfire/seaserpent/sea_serpent_" + i), EntitySeaSerpent.class, new SeaSerpentSetter(i));
         builder.add(EntitySiren.LOOT, EntitySiren.class);
         builder.add(EntityStymphalianBird.LOOT, EntityStymphalianBird.class);
         builder.add(EntityTroll.FOREST_LOOT, EntityTroll.class, new TrollSetter(EnumTroll.FOREST));
