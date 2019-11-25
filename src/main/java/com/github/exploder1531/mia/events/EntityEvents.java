@@ -64,6 +64,9 @@ public class EntityEvents
     @SubscribeEvent
     public static void onEntityDrops(LivingDropsEvent event)
     {
+        if (!event.getEntityLiving().world.getGameRules().getBoolean("doMobLoot"))
+            return;
+        
         if (harvestcraftLoaded)
         {
             if (event.getEntityLiving() instanceof EntitySquid)
