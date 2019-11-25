@@ -52,9 +52,9 @@ public class MiaJeiPlugin implements IModPlugin
             registry.addIngredientInfo(new ItemStack(DTItems.REXO_BOOTS), VanillaTypes.ITEM, "mia.jei.dt.info.boots");
     
             registry.addIngredientInfo(new ItemStack(DTItems.ESCAPEROPE), VanillaTypes.ITEM, "mia.jei.dt.info.rope");
-//            registry.addIngredientInfo(new ItemStack(DTItems.PHYLACTERY), VanillaTypes.ITEM, "mia.jei.dt.info.phylactery");
+            registry.addIngredientInfo(new ItemStack(DTItems.PHYLACTERY), VanillaTypes.ITEM, "mia.jei.dt.info.phylactery");
             registry.addIngredientInfo(new ItemStack(DTItems.ENDERBAG), VanillaTypes.ITEM, "mia.jei.dt.info.bag_of_hoarding");
-//            registry.addIngredientInfo(new ItemStack(DTItems.DUCT_TAPE), VanillaTypes.ITEM, "mia.jei.dt.info.duct_tape");
+            registry.addIngredientInfo(new ItemStack(DTItems.DUCT_TAPE), VanillaTypes.ITEM, "mia.jei.dt.info.duct_tape");
             registry.addIngredientInfo(new ItemStack(DTItems.HEART_DROP), VanillaTypes.ITEM, "mia.jei.dt.info.heart_drop");
             registry.addIngredientInfo(new ItemStack(DTBlocks.LANTERN_IRON), VanillaTypes.ITEM, "mia.jei.dt.info.lantern_iron");
             registry.addIngredientInfo(new ItemStack(DTBlocks.LANTERN_MAGIC), VanillaTypes.ITEM, "mia.jei.dt.info.lantern_magic");

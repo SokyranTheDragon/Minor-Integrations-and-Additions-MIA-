@@ -63,11 +63,12 @@ mia.config.mocreatures.add_cooked_drops=Replace raw meat drops with cooked one w
 #######################
 
 ### Messages
+# Unused, TOP uses server to display that data, and we can't access language files there
 
-mia.top.progress=Progress
-mia.top.progress_speed=Speed: %s
-mia.top.not_enough_dirt=Not enough grass and dirt in vicinity
-mia.top.not_enough_water=Not enough water in vicinity
+#mia.top.progress=Progress
+#mia.top.progress_speed=Speed: %s
+#mia.top.not_enough_dirt=Not enough grass and dirt in vicinity
+#mia.top.not_enough_water=Not enough water in vicinity
 
 
 
@@ -92,14 +93,14 @@ mia.jei.dt.info.leggings=Allows user to jump really high.
 mia.jei.dt.info.goggles=While using rocket leggings, those goggles allow the user to glide.
 mia.jei.dt.info.boots=Those boot let the user bounce after jumping.
 mia.jei.dt.info.rope=By using this rope, the user is transported to a safe place.
-mia.jei.dt.info.phylactery=At the cost of 5 experience levels, as well as being used, this item prevents death and restores the health to full.
+mia.jei.dt.info.phylactery=At the cost of 5 experience levels, this item prevents death and restores health to full, after which it'll be destroyed.
 mia.jei.dt.info.bag_of_hoarding=Can be used to access your personal Ender Chest from your inventory.
-#mia.jei.dt.info.duct_tape=
+mia.jei.dt.info.duct_tape=While held in your second hand, it can be used to fix whichever item you're holding in your main one. That item will need to be repaired later in an anvil to get rid of it.
 mia.jei.dt.info.heart_drop=Dropped from defeated enemies, can be collected with a bottle.
 mia.jei.dt.info.lantern_iron=Can be lit with flint and steel and can be extinguished with an empty hand.
 mia.jei.dt.info.lantern_magic=Can be lit with flint and steel and can be extinguished with an empty hand. Banishes any monsters that come near.
 mia.jei.dt.info.engineer_pants=Protect the user from the effect of traps.
-mia.jei.dt.info.peg_hammer=Can be obtained if your player name is 'PegBeard' and you use name tag to name a parrot 'Pigeon', a pig 'Battle Pig', or a chicken 'Sebastian'. The animal must be an adult.
+mia.jei.dt.info.peg_hammer=Can be obtained if a player named 'PegBeard' uses a name tag to name a parrot 'Pigeon', a pig 'Battle Pig', or a chicken 'Sebastian'. The animal must be an adult.
 
 
 

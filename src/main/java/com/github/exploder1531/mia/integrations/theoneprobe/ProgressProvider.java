@@ -246,7 +246,8 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                     {
                         int maxProgress = (int) harvestApiaryRunTime.invoke(apiary);
                         addProgressData(probeInfo, apiary.produceTime, maxProgress);
-                        probeInfo.text(I18n.format("mia.top.progress_speed", (int) ((3500f / maxProgress) * 100f)) + "%");
+//                        probeInfo.text(I18n.format("mia.top.progress_speed", (int) ((3500f / maxProgress) * 100f)) + "%");
+                        probeInfo.text("Speed: " + (int) ((3500f / maxProgress) * 100f) + "%");
                     } catch (IllegalAccessException | InvocationTargetException e)
                     {
                         Mia.LOGGER.error("Cannot access TileEntityApiary getRunTime(), even though it was found");
@@ -267,7 +268,8 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                     
                     if (dirt < 5)
                     {
-                        probeInfo.text(I18n.format("mia.top.not_enough_dirt"));
+//                        probeInfo.text(I18n.format("mia.top.not_enough_dirt"));
+                        probeInfo.text("Not enough grass and dirt in vicinity");
                         probeInfo.progress(dirt, 5);
                     }
                     else
@@ -276,7 +278,8 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                         {
                             int maxProgress = (int) harvestGroundTrapRunTime.invoke(trap);
                             addProgressData(probeInfo, trap.produceTime, maxProgress);
-                            probeInfo.text(I18n.format("mia.top.progress_speed", (int) ((3500f / maxProgress) * 100f)) + "%");
+//                            probeInfo.text(I18n.format("mia.top.progress_speed", (int) ((3500f / maxProgress) * 100f)) + "%");
+                            probeInfo.text("Speed: " + (int) ((3500f / maxProgress) * 100f) + "%");
                         } catch (IllegalAccessException | InvocationTargetException e)
                         {
                             Mia.LOGGER.error("Cannot access TileEntityGroundTrap getRunTime(), even though it was found");
@@ -296,7 +299,8 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 
                 if (water < 5)
                 {
-                    probeInfo.text(I18n.format("mia.top.not_enough_water"));
+//                    probeInfo.text(I18n.format("mia.top.not_enough_water"));
+                    probeInfo.text("Not enough water in vicinity");
                     probeInfo.progress(water, 5);
                 }
                 else
@@ -305,7 +309,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                     {
                         int maxProgress = (int) harvestWaterTrapRunTime.invoke(trap);
                         addProgressData(probeInfo, trap.produceTime, maxProgress);
-                        probeInfo.text(I18n.format("mia.top.progress_speed", (int) ((3500f / maxProgress) * 100f)) + "%");
+                        probeInfo.text("Speed: " + (int) ((3500f / maxProgress) * 100f) + "%");
                     } catch (IllegalAccessException | InvocationTargetException e)
                     {
                         Mia.LOGGER.error("Cannot access TileEntityWaterTrap getRunTime(), even though it was found");
@@ -323,7 +327,8 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 
                 if (water < 5)
                 {
-                    probeInfo.text(I18n.format("mia.top.not_enough_water"));
+//                    probeInfo.text(I18n.format("mia.top.not_enough_water"));
+                    probeInfo.text("Not enough water in vicinity");
                     probeInfo.progress(water, 5);
                 }
                 else
@@ -413,7 +418,8 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
     
     private void addProgressData(IProbeInfo probeInfo, int currentProgress, int maxProgress)
     {
-        addProgressData(probeInfo, currentProgress, maxProgress, null, I18n.format("mia.top.progress"));
+//        addProgressData(probeInfo, currentProgress, maxProgress, null, I18n.format("mia.top.progress"));
+        addProgressData(probeInfo, currentProgress, maxProgress, null, "Progress");
     }
     
     
