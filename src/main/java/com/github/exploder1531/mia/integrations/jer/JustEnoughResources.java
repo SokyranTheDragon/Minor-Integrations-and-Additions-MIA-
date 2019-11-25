@@ -19,9 +19,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 
-import java.util.List;
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,6 +30,23 @@ public class JustEnoughResources implements IBaseMod
 {
     private final Map<String, IJerIntegration> modIntegrations = Maps.newHashMap();
     private final Set<Class> ignoreMobOverrides = Sets.newHashSet();
+    
+    public JustEnoughResources()
+    {
+        try
+        {
+            Field field = MobRegistry.getInstance().getClass().getDeclaredField("registry");
+            field.setAccessible(true);
+            
+            CustomLinkedHashSet<MobEntry> set = new CustomLinkedHashSet<>();
+            set.jer = this;
+            
+            field.set(MobRegistry.getInstance(), set);
+        } catch (NoSuchFieldException | IllegalAccessException e)
+        {
+            e.printStackTrace();
+        }
+    }
     
     @Override
     public void addIntegration(IModIntegration integration)
@@ -85,20 +101,32 @@ public class JustEnoughResources implements IBaseMod
         }
     }
     
-    @Override
-    public void loadCompleted(FMLLoadCompleteEvent event)
+    void overrideMobDrop(MobEntry entry)
     {
-        List<MobEntry> mobEntries = MobRegistry.getInstance().getMobs();
+        if (ignoreMobOverrides.contains(entry.getEntity().getClass()))
+            return;
         
-        for (MobEntry mobEntry : mobEntries)
-        {
-            if (ignoreMobOverrides.contains(mobEntry.getEntity().getClass()))
-                continue;
-            
-            for (IJerIntegration mod : modIntegrations.values())
-                mod.overrideExistingMobDrops(mobEntry);
-        }
+        for (IJerIntegration mod : modIntegrations.values())
+            mod.overrideExistingMobDrops(entry);
     }
+
+//    @Override
+//    public void loadCompleted(FMLLoadCompleteEvent event)
+//    {
+//        if (!replacedMobDrops && modIntegrations.size() > 0)
+//        {
+//            List<MobEntry> mobEntries = MobRegistry.getInstance().getMobs();
+//
+//            for (MobEntry mobEntry : mobEntries)
+//            {
+//                if (ignoreMobOverrides.contains(mobEntry.getEntity().getClass()))
+//                    continue;
+//
+//                for (IJerIntegration mod : modIntegrations.values())
+//                    mod.overrideExistingMobDrops(mobEntry);
+//            }
+//        }
+//    }
     
     public static ResourceLocation loadResource(String path)
     {
