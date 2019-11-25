@@ -1,12 +1,15 @@
 package com.github.exploder1531.mia.integrations.thermalfoundation;
 
+import cofh.core.util.helpers.ItemHelper;
 import cofh.thermalfoundation.block.BlockRockwool;
 import cofh.thermalfoundation.block.BlockStorageAlloy;
+import cofh.thermalfoundation.init.TFBlocks;
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.xu2.IExtraUtilsIntegration;
 import com.rwtema.extrautils2.api.machine.MachineSlotItem;
 import com.rwtema.extrautils2.api.machine.RecipeBuilder;
+import com.rwtema.extrautils2.api.machine.XUMachineCrusher;
 import com.rwtema.extrautils2.api.machine.XUMachineGenerators;
 import com.rwtema.extrautils2.blocks.BlockTerraformer;
 import com.rwtema.extrautils2.machine.EnergyBaseRecipe;
@@ -103,6 +106,15 @@ class ExtraUtilsTFIntegration implements IExtraUtilsIntegration
         TileTerraformerClimograph.register(BlockTerraformer.Type.HEATER, ItemRef.wrap(ItemMaterial.dustPyrotheum), 2);
         if (!pyrotheum.isEmpty())
             TileTerraformerClimograph.register(BlockTerraformer.Type.HEATER, ItemRef.wrap(pyrotheum), 8);
+        
+        
+        // Crusher
+        XUMachineCrusher.addRecipe(ItemMaterial.rodBlizz, ItemHelper.cloneStack(ItemMaterial.dustBlizz, 2), ItemHelper.cloneStack(ItemMaterial.dustBlizz, 3), 0.4f);
+        XUMachineCrusher.addRecipe(ItemMaterial.rodBasalz, ItemHelper.cloneStack(ItemMaterial.dustBasalz, 2), ItemHelper.cloneStack(ItemMaterial.dustBasalz, 3), 0.4f);
+        XUMachineCrusher.addRecipe(ItemMaterial.rodBlitz, ItemHelper.cloneStack(ItemMaterial.dustBlitz, 2), ItemHelper.cloneStack(ItemMaterial.dustBlitz, 3), 0.4f);
+        
+        for (BlockRockwool.Type type : BlockRockwool.VARIANT.getAllowedValues())
+            XUMachineCrusher.addRecipe(new ItemStack(TFBlocks.blockRockwool, 1, type.getMetadata()), ItemMaterial.crystalSlag, new ItemStack(Items.DYE, 1, type.getMetadata()), 0.05f);
     }
     
     @Nonnull
