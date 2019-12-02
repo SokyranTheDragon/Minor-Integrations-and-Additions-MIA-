@@ -1,6 +1,6 @@
 package com.github.exploder1531.mia.gui.container;
 
-import com.github.exploder1531.mia.gui.slots.IInventoryValidityCheckSlot;
+import com.github.exploder1531.mia.gui.slots.InventoryValidityCheckSlot;
 import com.github.exploder1531.mia.tile.TileEggSorter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -23,7 +23,7 @@ public class ContainerEggSorter extends Container
         
         for (int i = 0; i < 3; i++)
             for (int k = 0; k < 3; k++)
-                this.addSlotToContainer(new IInventoryValidityCheckSlot(eggSorter, i * 3 + k, 8 + i * 4 * 18, 18 + k * 18));
+                this.addSlotToContainer(new InventoryValidityCheckSlot(eggSorter, i * 3 + k, 8 + i * 4 * 18, 18 + k * 18));
         
         for (int i = 0; i < 3; i++)
             for (int k = 0; k < 9; k++)

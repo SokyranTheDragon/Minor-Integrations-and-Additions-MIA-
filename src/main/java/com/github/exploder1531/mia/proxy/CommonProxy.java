@@ -1,6 +1,8 @@
 package com.github.exploder1531.mia.proxy;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
+import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.ModIntegrator;
 import net.minecraft.block.Block;
@@ -23,6 +25,7 @@ public class CommonProxy
     public void preInit(FMLPreInitializationEvent event)
     {
         ModLoadStatus.preInit();
+        MusicPlayerCapabilityProvider.register();
         modIntegrator = new ModIntegrator();
         modIntegrator.registerMods();
         modIntegrator.preInit(event);
@@ -52,6 +55,7 @@ public class CommonProxy
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
+        MiaItems.registerItems(event);
         modIntegrator.registerItems(event);
     }
     

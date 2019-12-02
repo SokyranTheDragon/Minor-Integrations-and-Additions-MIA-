@@ -1,10 +1,13 @@
 package com.github.exploder1531.mia.gui.container;
 
-import com.github.exploder1531.mia.gui.slots.IInventoryValidityCheckSlot;
+import com.github.exploder1531.mia.gui.slots.InventoryValidityCheckSlot;
 import com.github.exploder1531.mia.tile.TilePixieDustExtractor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,9 +25,9 @@ public class ContainerPixieDustExtractor extends Container
     
         for (int i = 0; i < 3; i++)
             for (int k = 0; k < 3; k++)
-                this.addSlotToContainer(new IInventoryValidityCheckSlot(pixieDustExtractor, i * 3 + k, 30 + i * 18, 17 + k * 18));
+                this.addSlotToContainer(new InventoryValidityCheckSlot(pixieDustExtractor, i * 3 + k, 30 + i * 18, 17 + k * 18));
         
-        this.addSlotToContainer(new IInventoryValidityCheckSlot(pixieDustExtractor, 10, 126, 35));
+        this.addSlotToContainer(new InventoryValidityCheckSlot(pixieDustExtractor, 10, 126, 35));
         
         for (int i = 0; i < 3; i++)
             for (int k = 0; k < 9; k++)
