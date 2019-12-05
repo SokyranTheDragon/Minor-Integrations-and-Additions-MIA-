@@ -38,7 +38,7 @@ public class MusicPlayerInventory implements IInventory
     public ItemStack getStackInSlot(int i)
     {
         if (i < 0)
-            return inventory.currentSongItem;
+            return inventory.getCurrentSong();
         else if (i < getSizeInventory())
             return inventory.getStackInSlot(i);
         else

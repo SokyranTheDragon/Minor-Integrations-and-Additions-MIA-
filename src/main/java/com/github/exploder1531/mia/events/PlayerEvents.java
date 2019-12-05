@@ -64,8 +64,7 @@ public class PlayerEvents
                 {
                     event.setCanceled(true);
                     event.setCancellationResult(EnumActionResult.PASS);
-                }
-                catch (UnsupportedOperationException e)
+                } catch (UnsupportedOperationException e)
                 {
                     Mia.LOGGER.warn("Could not cancel nesting pen right click event.");
                 }

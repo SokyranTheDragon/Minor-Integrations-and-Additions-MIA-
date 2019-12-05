@@ -169,3 +169,20 @@ tile.void_creator.name=Void Creator
 research.void_creator.title=Void creator
 research.void_creator.stage.1=I have a strange feeling that I'm missing something, or rather, the world I'm in is. It feels like it's too safe to access more... "advanced" research. I should try to to look deeper into that.
 research.void_creator.stage.2=That's it! Based on what I've gathered from the Crimson Cultists I managed to create a device that's going to create a rare and powerful material - Void Seeds - from the flux in the area it's placed in. It requires more Flux than Vis to be present, as well as enough of it to start the process.
+
+
+
+####################
+### Key bindings ###
+####################
+
+# Categories
+
+key.categories.music_player=Music Player
+
+# Keys
+
+key.music_player_gui=Open music player GUI
+key.music_player_toggle=Play/stop playing song
+key.music_player_next=Play next song
+key.music_player_previous=Play previous song

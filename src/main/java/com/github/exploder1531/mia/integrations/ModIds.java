@@ -1,5 +1,6 @@
 package com.github.exploder1531.mia.integrations;
 
+import baubles.common.Baubles;
 import cofh.thermalexpansion.ThermalExpansion;
 import cofh.thermalfoundation.ThermalFoundation;
 import com.gendeathrow.hatchery.Hatchery;
@@ -21,6 +22,7 @@ public class ModIds
     public static final String JER = "jeresources";
     public static final String ICE_AND_FIRE = IceAndFire.MODID;
     public static final String HATCHERY = Hatchery.MODID;
+    public static final String BAUBLES = Baubles.MODID;
     public static final String THAUMCRAFT = Thaumcraft.MODID;
     public static final String THE_ONE_PROBE = TheOneProbe.MODID;
     public static final String MO_CREATURES = "mocreatures";

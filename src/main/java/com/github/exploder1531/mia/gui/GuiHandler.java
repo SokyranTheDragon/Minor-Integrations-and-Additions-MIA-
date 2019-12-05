@@ -1,7 +1,7 @@
 package com.github.exploder1531.mia.gui;
 
+import baubles.api.BaublesApi;
 import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
-import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.gui.client.GuiEggSorter;
 import com.github.exploder1531.mia.gui.client.GuiMusicPlayer;
 import com.github.exploder1531.mia.gui.client.GuiPixieDustExtractor;
@@ -11,19 +11,21 @@ import com.github.exploder1531.mia.gui.container.ContainerMusicPlayer;
 import com.github.exploder1531.mia.gui.container.ContainerPixieDustExtractor;
 import com.github.exploder1531.mia.gui.container.ContainerVoidCreator;
 import com.github.exploder1531.mia.handlers.MusicPlayerStackHandler;
+import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.inventory.MusicPlayerInventory;
 import com.github.exploder1531.mia.tile.TileEggSorter;
 import com.github.exploder1531.mia.tile.TilePixieDustExtractor;
 import com.github.exploder1531.mia.tile.TileVoidCreator;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
 
+@SuppressWarnings("ConstantConditions")
 public class GuiHandler implements IGuiHandler
 {
     public static final int EGG_SORTER = 0;
@@ -35,7 +37,11 @@ public class GuiHandler implements IGuiHandler
     @Override
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z)
     {
-        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+        TileEntity tile = null;
+        
+        // In case of item inventory, x/y/z parameters are used for other data
+        if (id != MUSIC_PLAYER)
+            tile = world.getTileEntity(new BlockPos(x, y, z));
         
         switch (id)
         {
@@ -52,18 +58,11 @@ public class GuiHandler implements IGuiHandler
                     return new ContainerPixieDustExtractor(player.inventory, (TilePixieDustExtractor) tile);
                 break;
             case MUSIC_PLAYER:
-                if (player.getHeldItemMainhand().getItem() == MiaItems.music_player)
-                {
-                    IItemHandler capability = player.getHeldItemMainhand().getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
-                    if (capability instanceof MusicPlayerStackHandler)
-                        return new ContainerMusicPlayer(player.inventory, new MusicPlayerInventory(player.getHeldItemMainhand(), (MusicPlayerStackHandler) capability));
-                }
-                else if (player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().getItem() == MiaItems.music_player)
-                {
-                    IItemHandler capability = player.getHeldItemOffhand().getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
-                    if (capability instanceof MusicPlayerStackHandler)
-                        return new ContainerMusicPlayer(player.inventory, new MusicPlayerInventory(player.getHeldItemOffhand(), (MusicPlayerStackHandler) capability));
-                }
+                ItemStack musicPlayer = getItemFromPlayer(player, x, y);
+                // No check for music player, I guess if some other mod creator wants to extend my music player and use the same gui/container then they can
+                MusicPlayerStackHandler capability = player.getHeldItemMainhand().getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+                if (capability instanceof MusicPlayerStackHandler)
+                    return new ContainerMusicPlayer(player.inventory, new MusicPlayerInventory(musicPlayer, capability));
                 break;
         }
         
@@ -91,21 +90,42 @@ public class GuiHandler implements IGuiHandler
                     return new GuiPixieDustExtractor(player.inventory, (TilePixieDustExtractor) tile);
                 break;
             case MUSIC_PLAYER:
-                if (player.getHeldItemMainhand().getItem() == MiaItems.music_player)
-                {
-                    IItemHandler capability = player.getHeldItemMainhand().getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
-                    if (capability instanceof MusicPlayerStackHandler)
-                        return new GuiMusicPlayer(player.inventory, new MusicPlayerInventory(player.getHeldItemMainhand(), (MusicPlayerStackHandler) capability));
-                }
-                else if (player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().getItem() == MiaItems.music_player)
-                {
-                    IItemHandler capability = player.getHeldItemOffhand().getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
-                    if (capability instanceof MusicPlayerStackHandler)
-                        return new GuiMusicPlayer(player.inventory, new MusicPlayerInventory(player.getHeldItemOffhand(), (MusicPlayerStackHandler) capability));
-                }
+                ItemStack musicPlayer = getItemFromPlayer(player, x, y);
+                // No check for music player, I guess if some other mod creator wants to extend my music player and use the same gui/container then they can
+                MusicPlayerStackHandler capability = player.getHeldItemMainhand().getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+                if (capability instanceof MusicPlayerStackHandler)
+                    return new GuiMusicPlayer(player.inventory, new MusicPlayerInventory(musicPlayer, capability));
                 break;
         }
         
         return null;
+    }
+    
+    private static ItemStack getItemFromPlayer(EntityPlayer player, int type, int slot)
+    {
+        ItemStack itemStack = ItemStack.EMPTY;
+        
+        switch (type)
+        {
+            // Main hand (for convenience)
+            case 0:
+                itemStack = player.getHeldItemMainhand();
+                break;
+            // Offhand, can't be accessed from normal inventory (I think)
+            case 1:
+                itemStack = player.getHeldItemOffhand();
+                break;
+            // Normal inventory
+            case 2:
+                itemStack = player.inventory.getStackInSlot(slot);
+                break;
+            // Baubles inventory
+            case 3:
+                if (ModLoadStatus.baublesLoaded)
+                    itemStack = BaublesApi.getBaublesHandler(player).getStackInSlot(slot);
+                break;
+        }
+        
+        return itemStack;
     }
 }

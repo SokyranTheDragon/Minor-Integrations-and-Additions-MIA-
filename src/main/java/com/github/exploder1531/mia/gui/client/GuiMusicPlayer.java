@@ -1,7 +1,10 @@
 package com.github.exploder1531.mia.gui.client;
 
+import com.github.exploder1531.mia.gui.client.buttons.GuiButtonImageDisableable;
+import com.github.exploder1531.mia.gui.client.buttons.GuiToggleButton;
 import com.github.exploder1531.mia.gui.container.ContainerMusicPlayer;
 import com.github.exploder1531.mia.inventory.MusicPlayerInventory;
+import com.github.exploder1531.mia.utilities.MusicUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiButtonImage;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -19,6 +22,9 @@ public class GuiMusicPlayer extends GuiContainer
     
     private GuiButtonImage pageLeftButton;
     private GuiButtonImage pageRightButton;
+    private GuiToggleButton musicToggleButton;
+    private GuiButtonImageDisableable playNextButton;
+    private GuiButtonImageDisableable playPreviousButton;
     
     public GuiMusicPlayer(InventoryPlayer playerInventory, MusicPlayerInventory inventory)
     {
@@ -63,21 +69,41 @@ public class GuiMusicPlayer extends GuiContainer
         pageRightButton.enabled = rightVisible;
         pageRightButton.visible = rightVisible;
         
+        boolean isEnabled = !inventory.isEmpty() && inventory.inventory.startedPlaying;
+        
+        musicToggleButton.isAltVariant = inventory.inventory.currentSong != null;
+        musicToggleButton.enabled = isEnabled;
+        playNextButton.enabled = isEnabled;
+        playPreviousButton.enabled = isEnabled;
+        
         super.updateScreen();
     }
     
     @Override
     protected void actionPerformed(GuiButton button)
     {
-        if (button.id == 0)
+        switch (button.id)
         {
-            if (inventory.openPage > 0)
-                inventory.openPage--;
-        }
-        else if (button.id == 1)
-        {
-            if ((inventory.openPage + 1) * 7 < inventory.getSizeInventory())
-                inventory.openPage++;
+            case 0:
+                if (inventory.openPage > 0)
+                    inventory.openPage--;
+                break;
+            case 1:
+                if ((inventory.openPage + 1) * 7 < inventory.getSizeInventory())
+                    inventory.openPage++;
+                break;
+            case 2:
+                if (inventory.inventory.startedPlaying)
+                    MusicUtils.toggleSong(inventory.inventory);
+                break;
+            case 3:
+                if (inventory.inventory.startedPlaying)
+                    MusicUtils.playNext(inventory.inventory);
+                break;
+            case 4:
+                if (inventory.inventory.startedPlaying)
+                    MusicUtils.playPrevious(inventory.inventory);
+                break;
         }
     }
     
@@ -88,5 +114,8 @@ public class GuiMusicPlayer extends GuiContainer
         
         pageLeftButton = addButton(new GuiButtonImage(0, 9 + guiLeft, 51 + guiTop, 14, 22, 196, 0, 32, texture));
         pageRightButton = addButton(new GuiButtonImage(1, 153 + guiLeft, 51 + guiTop, 14, 22, 178, 0, 32, texture));
+        musicToggleButton = addButton(new GuiToggleButton(2, 76 + guiLeft, 28 + guiTop, 20, 20, 0, 196, 20, 20, texture));
+        playNextButton = addButton(new GuiButtonImageDisableable(3, 96 + guiLeft, 28 + guiTop, 20, 20, 40, 196, 20, texture));
+        playPreviousButton = addButton(new GuiButtonImageDisableable(4, 56 + guiLeft, 28 + guiTop, 20, 20, 60, 196, 20, texture));
     }
 }

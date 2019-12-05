@@ -16,7 +16,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.IItemHandler;
@@ -48,11 +47,11 @@ public class ItemMusicPlayer extends Item implements IBauble
         ItemStack item = player.getHeldItem(hand);
         IItemHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
         
+        //noinspection ConstantConditions
         if ((hand == EnumHand.MAIN_HAND || player.getHeldItemMainhand().isEmpty()) && capability instanceof MusicPlayerStackHandler)
         {
-            BlockPos pos = player.getPosition();
             if (!world.isRemote)
-                player.openGui(Mia.instance, GuiHandler.MUSIC_PLAYER, world, pos.getX(), pos.getY(), pos.getZ());
+                player.openGui(Mia.instance, GuiHandler.MUSIC_PLAYER, world, hand.ordinal(), 0, 0);
             
             return new ActionResult<>(EnumActionResult.SUCCESS, item);
         }

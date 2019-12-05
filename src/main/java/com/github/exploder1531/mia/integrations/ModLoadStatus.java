@@ -15,6 +15,7 @@ public class ModLoadStatus
     public static boolean jerLoaded = false;
     public static boolean iceAndFireLoaded = false;
     public static boolean hatcheryLoaded = false;
+    public static boolean baublesLoaded = false;
     public static boolean thaumcraftLoaded = false;
     public static boolean theOneProbeLoaded = false;
     public static boolean moCreaturesLoaded = false;
@@ -37,6 +38,8 @@ public class ModLoadStatus
             iceAndFireLoaded = true;
         if (Loader.isModLoaded(ModIds.HATCHERY))
             hatcheryLoaded = true;
+        if (Loader.isModLoaded(ModIds.BAUBLES))
+            baublesLoaded = true;
         if (Loader.isModLoaded(ModIds.THAUMCRAFT))
             thaumcraftLoaded = true;
         if (Loader.isModLoaded(ModIds.THE_ONE_PROBE))
