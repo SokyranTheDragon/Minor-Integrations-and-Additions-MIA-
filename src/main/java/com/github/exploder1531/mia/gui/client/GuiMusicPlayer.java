@@ -83,7 +83,7 @@ public class GuiMusicPlayer extends GuiContainer
                     inventory.openPage--;
                 break;
             case 1:
-                if ((inventory.openPage + 1) * 7 < inventory.getSizeInventory())
+                if ((inventory.openPage + 1) * 7 < inventory.getSizeInventory() + 1)
                     inventory.openPage++;
                 break;
             case 2:
@@ -130,7 +130,7 @@ public class GuiMusicPlayer extends GuiContainer
     private void updateButtons()
     {
         boolean leftVisible = inventory.openPage > 0;
-        boolean rightVisible = (inventory.openPage + 1) * 7 < inventory.getSizeInventory();
+        boolean rightVisible = (inventory.openPage + 1) * 7 < inventory.getSizeInventory() + 1;
         
         pageLeftButton.enabled = leftVisible;
         pageLeftButton.visible = leftVisible;
