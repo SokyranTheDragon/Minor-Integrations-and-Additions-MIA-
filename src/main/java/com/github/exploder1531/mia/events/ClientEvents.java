@@ -119,6 +119,7 @@ public class ClientEvents
         {
             if (uuidList.contains(capability.itemUuid))
             {
+                // I can't really think of any other place where I used do...while loops instead of while/for...
                 do
                     capability.itemUuid = UUID.randomUUID();
                 while (uuidList.contains(capability.itemUuid));
@@ -136,6 +137,8 @@ public class ClientEvents
                     {
                         if (capability.repeat)
                             MusicUtils.toggleSong(capability);
+                        else if (capability.shuffle)
+                            MusicUtils.randomNext(capability);
                         else
                             MusicUtils.playNext(capability);
                         

@@ -1,5 +1,6 @@
 package com.github.exploder1531.mia.gui.container;
 
+import com.github.exploder1531.mia.gui.slots.FakeMusicPlayerSlot;
 import com.github.exploder1531.mia.gui.slots.MusicPlayerSlot;
 import com.github.exploder1531.mia.inventory.MusicPlayerInventory;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,6 +29,8 @@ public class ContainerMusicPlayer extends Container
         
         for (int i = 0; i < 9; i++)
             this.addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
+        
+        this.addSlotToContainer(new FakeMusicPlayerSlot(inventory, -1, 152, 6));
         
         while (slots < inventory.getSizeInventory() + 1)
             insertNextSlot();
@@ -69,7 +72,7 @@ public class ContainerMusicPlayer extends Container
             }
             else
             {
-                if (!(stackInSlot.getItem() instanceof ItemRecord) || !mergeItemStack(stackInSlot, 36, 37 + inventory.getSizeInventory(), false))
+                if (!(stackInSlot.getItem() instanceof ItemRecord) || !mergeItemStack(stackInSlot, 37, 38 + inventory.getSizeInventory(), false))
                     return ItemStack.EMPTY;
             }
             

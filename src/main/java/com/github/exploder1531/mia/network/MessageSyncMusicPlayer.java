@@ -19,7 +19,7 @@ public class MessageSyncMusicPlayer implements IMessage
     private int slotType;
     private int slotInventory;
     private int slotMusicPlayer;
-
+    
     public boolean repeat;
     public boolean autoplay;
     public boolean shuffle;
@@ -58,7 +58,8 @@ public class MessageSyncMusicPlayer implements IMessage
     public void fromBytes(ByteBuf byteBuf)
     {
         slotType = ByteBufUtils.readVarInt(byteBuf, 1);
-        slotInventory = ByteBufUtils.readVarInt(byteBuf, 1);
+        if (slotType > 1)
+            slotInventory = ByteBufUtils.readVarInt(byteBuf, 1);
         slotMusicPlayer = ByteBufUtils.readVarInt(byteBuf, 5);
         
         byte data = byteBuf.readByte();
@@ -77,9 +78,10 @@ public class MessageSyncMusicPlayer implements IMessage
     public void toBytes(ByteBuf byteBuf)
     {
         ByteBufUtils.writeVarInt(byteBuf, slotType, 1);
-        ByteBufUtils.writeVarInt(byteBuf, slotInventory, 1);
+        if (slotType > 1)
+            ByteBufUtils.writeVarInt(byteBuf, slotInventory, 1);
         ByteBufUtils.writeVarInt(byteBuf, slotMusicPlayer, 5);
-    
+        
         byte data = 0b0000;
         if (repeat)
             data |= 0b0001;

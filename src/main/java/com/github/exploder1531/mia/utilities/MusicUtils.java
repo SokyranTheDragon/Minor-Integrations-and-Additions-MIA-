@@ -15,6 +15,7 @@ import net.minecraft.client.audio.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -60,6 +61,12 @@ public class MusicUtils
     
     private static void playSong(MusicPlayerStackHandler musicPlayer, SoundHandler soundHandler)
     {
+        if (Minecraft.getMinecraft().gameSettings.getSoundLevel(SoundCategory.MASTER) <= 0 || Minecraft.getMinecraft().gameSettings.getSoundLevel(SoundCategory.MUSIC) <= 0)
+        {
+            Mia.LOGGER.info("Master or music volume is set to 0, no music will be played.");
+            return;
+        }
+        
         ItemStack record = musicPlayer.getCurrentSong();
         if (!record.isEmpty() && record.getItem() instanceof ItemRecord)
         {
@@ -113,6 +120,23 @@ public class MusicUtils
         }
     }
     
+    public static void randomNext(MusicPlayerStackHandler musicPlayer)
+    {
+        int slots = musicPlayer.getSlots();
+        
+        if (slots >= 1)
+        {
+            if (slots >= 2)
+            {
+                int newSlot = Minecraft.getMinecraft().world.rand.nextInt(slots - 1);
+                if (newSlot == musicPlayer.getCurrentSongSlot())
+                    newSlot++;
+                musicPlayer.setCurrentSongSlot(newSlot);
+            }
+            playSong(musicPlayer);
+        }
+    }
+    
     public static void updateMusicPlayerWithUuid(EntityPlayer player, MusicPlayerStackHandler musicPlayer)
     {
         if (ModLoadStatus.baublesLoaded)
@@ -141,7 +165,7 @@ public class MusicUtils
                 return;
             }
         }
-    
+        
         MusicPlayerStackHandler capability = player.getHeldItemOffhand().getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
         if (capability != null && capability.itemUuid.equals(musicPlayer.itemUuid))
             Mia.network.sendToServer(new MessageSyncMusicPlayer(1, 0, musicPlayer, false));

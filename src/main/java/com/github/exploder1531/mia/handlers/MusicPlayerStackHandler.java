@@ -42,7 +42,9 @@ public class MusicPlayerStackHandler implements IItemHandlerModifiable, INBTSeri
     @Override
     public void setStackInSlot(int slot, @Nonnull ItemStack stack)
     {
-        validateSlotIndex(slot);
+        if (slot < 0 || slot >= stacks.size())
+            return;
+        
         if (stacks.get(slot).isEmpty() && !stack.isEmpty())
         {
             stacks.add(slot, stack);
@@ -86,14 +88,13 @@ public class MusicPlayerStackHandler implements IItemHandlerModifiable, INBTSeri
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate)
     {
-        if (amount == 0)
+        if (amount == 0 || slot >= stacks.size())
             return ItemStack.EMPTY;
         
-        validateSlotIndex(slot);
         ItemStack existing = stacks.get(slot);
         if (existing.isEmpty())
             return ItemStack.EMPTY;
-        else if (!simulate)
+        else if (!simulate && slot >= 0)
         {
             stacks.remove(slot);
 //            onContentsChanged(slot);
@@ -118,6 +119,8 @@ public class MusicPlayerStackHandler implements IItemHandlerModifiable, INBTSeri
     @Override
     public ItemStack getStackInSlot(int slot)
     {
+        if (slot < 0)
+            return stacks.get(currentSongSlot);
         validateSlotIndex(slot);
         return stacks.get(slot);
     }
@@ -213,10 +216,10 @@ public class MusicPlayerStackHandler implements IItemHandlerModifiable, INBTSeri
     {
         int totalSlots = getSlots();
         
-        if (slot > totalSlots)
+        if (slot > totalSlots - 1)
             currentSongSlot = 0;
         else if (slot < 0)
-            currentSongSlot = totalSlots;
+            currentSongSlot = totalSlots - 1;
         else
             currentSongSlot = slot;
     }

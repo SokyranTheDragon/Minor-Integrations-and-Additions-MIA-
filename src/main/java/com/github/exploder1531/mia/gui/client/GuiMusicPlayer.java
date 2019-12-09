@@ -11,8 +11,10 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiButtonImage;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -45,6 +47,39 @@ public class GuiMusicPlayer extends GuiContainer
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
+    
+        if (autoplayButton.isMouseOver())
+        {
+            if (autoplayButton.isAltVariant)
+                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.autoplay_alt"), mouseX, mouseY);
+            else
+                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.autoplay"), mouseX, mouseY);
+        }
+        else if (shuffleButton.isMouseOver())
+        {
+            if (shuffleButton.isAltVariant)
+                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.shuffle_alt"), mouseX, mouseY);
+            else
+                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.shuffle"), mouseX, mouseY);
+        }
+        else if (repeatButton.isMouseOver())
+        {
+            if (repeatButton.isAltVariant)
+                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.repeat_alt"), mouseX, mouseY);
+            else
+                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.repeat"), mouseX, mouseY);
+        }
+        
+        for (GuiButton button : buttonList)
+        {
+            if (button.isMouseOver())
+            {
+                if (!StringUtils.isNullOrEmpty(button.displayString))
+                    this.drawHoveringText(button.displayString, mouseX, mouseY);
+                return;
+            }
+        }
+        
     }
     
     @Override
