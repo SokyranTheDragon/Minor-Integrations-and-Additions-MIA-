@@ -30,7 +30,7 @@ public class MusicPlayerInventory implements IInventory
     @Override
     public boolean isEmpty()
     {
-        return inventory.getSlots() <= 1;
+        return inventory.getSlots() <= 0;
     }
     
     @Nonnull
@@ -60,16 +60,6 @@ public class MusicPlayerInventory implements IInventory
     @Override
     public ItemStack removeStackFromSlot(int i)
     {
-//        if (i < 0)
-//        {
-//
-//            return inventory.currentSongItem;
-//        }
-//        else
-//        {
-//
-//        }
-        
         return ItemStack.EMPTY;
     }
     

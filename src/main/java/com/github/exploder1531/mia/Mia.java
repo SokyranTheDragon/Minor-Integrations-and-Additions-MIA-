@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,6 +42,7 @@ public class Mia
     public static CommonProxy proxy;
     
     public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static SimpleNetworkWrapper network;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)

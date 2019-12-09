@@ -18,7 +18,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,15 +40,52 @@ public class ItemMusicPlayer extends Item implements IBauble
         return new MusicPlayerCapabilityProvider();
     }
     
+    @Override
+    public boolean getShareTag()
+    {
+        return true;
+    }
+    
+    @Nullable
+    @Override
+    public NBTTagCompound getNBTShareTag(ItemStack stack)
+    {
+        NBTTagCompound nbt = super.getNBTShareTag(stack);
+        
+        if (nbt == null)
+            nbt = new NBTTagCompound();
+        
+        MusicPlayerStackHandler capability = stack.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+        if (capability != null)
+            nbt.setTag("Capability", capability.serializeNBT());
+        
+        return nbt;
+    }
+    
+    @Override
+    public void readNBTShareTag(ItemStack stack, @Nullable NBTTagCompound nbt)
+    {
+        if (nbt != null && nbt.hasKey("Capability", Constants.NBT.TAG_COMPOUND))
+        {
+            NBTTagCompound capabilityNbt = nbt.getCompoundTag("Capability");
+            nbt.removeTag("Capability");
+    
+            MusicPlayerStackHandler capability = stack.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+            if (capability != null)
+                capability.deserializeNBT(capabilityNbt);
+        }
+        
+        super.readNBTShareTag(stack, nbt);
+    }
+    
     @Nonnull
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand)
     {
         ItemStack item = player.getHeldItem(hand);
-        IItemHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+        MusicPlayerStackHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
         
-        //noinspection ConstantConditions
-        if ((hand == EnumHand.MAIN_HAND || player.getHeldItemMainhand().isEmpty()) && capability instanceof MusicPlayerStackHandler)
+        if ((hand == EnumHand.MAIN_HAND || player.getHeldItemMainhand().isEmpty()) && capability != null)
         {
             if (!world.isRemote)
                 player.openGui(Mia.instance, GuiHandler.MUSIC_PLAYER, world, hand.ordinal(), 0, 0);

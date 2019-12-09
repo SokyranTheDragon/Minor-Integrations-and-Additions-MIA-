@@ -1,14 +1,19 @@
 package com.github.exploder1531.mia.events;
 
+import baubles.api.BaublesApi;
+import baubles.api.cap.IBaublesItemHandler;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.gui.GuiHandler;
 import com.github.exploder1531.mia.handlers.MusicPlayerStackHandler;
+import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import com.github.exploder1531.mia.utilities.InventoryUtils;
 import com.github.exploder1531.mia.utilities.MusicUtils;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -18,6 +23,9 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
+
+import java.util.Set;
+import java.util.UUID;
 
 import static com.github.exploder1531.mia.client.input.MiaKeyBindings.*;
 
@@ -57,14 +65,20 @@ public class ClientEvents
                     //noinspection SuspiciousNameCombination
                     player.openGui(Mia.instance, GuiHandler.MUSIC_PLAYER, player.world, itemInInventory.middle, itemInInventory.right, 0);
                 
-                if (capability.startedPlaying)
+                if (musicTogglePressed)
                 {
-                    if (musicTogglePressed)
-                        MusicUtils.toggleSong(capability);
-                    else if (nextSongPressed)
-                        MusicUtils.playNext(capability);
-                    else if (previousSongPressed)
-                        MusicUtils.playPrevious(capability);
+                    MusicUtils.toggleSong(capability);
+                    Mia.network.sendToServer(new MessageSyncMusicPlayer(itemInInventory.middle, itemInInventory.right, capability, false));
+                }
+                else if (nextSongPressed)
+                {
+                    MusicUtils.playNext(capability);
+                    Mia.network.sendToServer(new MessageSyncMusicPlayer(itemInInventory.middle, itemInInventory.right, capability, false));
+                }
+                else if (previousSongPressed)
+                {
+                    MusicUtils.playPrevious(capability);
+                    Mia.network.sendToServer(new MessageSyncMusicPlayer(itemInInventory.middle, itemInInventory.right, capability, false));
                 }
             }
         }
@@ -72,27 +86,65 @@ public class ClientEvents
         if (player.ticksExisted % 20 == 0)
             return;
         
-        ImmutableSet<ItemStack> musicPlayers = InventoryUtils.getAllItemsOfType(player, MiaItems.music_player);
+        Set<UUID> uuidList = Sets.newHashSet();
         
-        for (ItemStack item : musicPlayers)
+        if (ModLoadStatus.baublesLoaded)
         {
-            MusicPlayerStackHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+            IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
             
-            if (capability != null && capability.startedPlaying)
+            for (int i = 0; i < baubles.getSlots(); i++)
             {
-                if (capability.currentSong != null && !Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(capability.currentSong))
-                {
-                    capability.currentSong = null;
+                ItemStack stack = baubles.getStackInSlot(i);
+                if (stack.getItem() == MiaItems.music_player)
+                    handleMusicPlayerVerification(stack, uuidList, 3, i);
+            }
+        }
+        
+        for (int i = 0; i < player.inventory.mainInventory.size(); i++)
+        {
+            ItemStack stack = player.inventory.mainInventory.get(i);
+            if (stack.getItem() == MiaItems.music_player)
+                handleMusicPlayerVerification(stack, uuidList, 2, i);
+        }
+        
+        if (player.getHeldItemOffhand().getItem() == MiaItems.music_player)
+            handleMusicPlayerVerification(player.getHeldItemOffhand(), uuidList, 1, 0);
+    }
     
+    private static void handleMusicPlayerVerification(ItemStack item, Set<UUID> uuidList, int type, int slot)
+    {
+        MusicPlayerStackHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+        
+        if (capability != null)
+        {
+            if (uuidList.contains(capability.itemUuid))
+            {
+                do
+                    capability.itemUuid = UUID.randomUUID();
+                while (uuidList.contains(capability.itemUuid));
+                Mia.network.sendToServer(new MessageSyncMusicPlayer(type, slot, capability, true));
+            }
+            else if (MusicUtils.listener.startedPlaying(capability.itemUuid))
+            {
+                PositionedSoundRecord currentSong = MusicUtils.currentlyPlayedSongs.get(capability.itemUuid);
+                
+                if (currentSong != null && !Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(currentSong))
+                {
+                    MusicUtils.stopSong(capability);
+                    
                     if (capability.autoplay)
                     {
                         if (capability.repeat)
                             MusicUtils.toggleSong(capability);
                         else
                             MusicUtils.playNext(capability);
+                        
+                        Mia.network.sendToServer(new MessageSyncMusicPlayer(type, slot, capability, false));
                     }
                 }
             }
+            
+            uuidList.add(capability.itemUuid);
         }
     }
 }

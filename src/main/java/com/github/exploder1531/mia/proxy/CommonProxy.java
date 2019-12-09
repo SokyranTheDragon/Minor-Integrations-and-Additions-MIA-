@@ -5,6 +5,7 @@ import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.ModIntegrator;
+import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.LootTableLoadEvent;
@@ -15,6 +16,8 @@ import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 @SuppressWarnings("WeakerAccess")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
@@ -26,6 +29,7 @@ public class CommonProxy
     {
         ModLoadStatus.preInit();
         MusicPlayerCapabilityProvider.register();
+        
         modIntegrator = new ModIntegrator();
         modIntegrator.registerMods();
         modIntegrator.preInit(event);
@@ -33,6 +37,9 @@ public class CommonProxy
     
     public void init(FMLInitializationEvent event)
     {
+        Mia.network = NetworkRegistry.INSTANCE.newSimpleChannel(Mia.MODID + "_NETWORK");
+        Mia.network.registerMessage(MessageSyncMusicPlayer.Handler.class, MessageSyncMusicPlayer.class, 0, Side.SERVER);
+        
         modIntegrator.init(event);
     }
     

@@ -1,9 +1,18 @@
 package com.github.exploder1531.mia.utilities;
 
+import baubles.api.BaublesApi;
+import baubles.api.cap.IBaublesItemHandler;
+import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.exploder1531.mia.handlers.MusicPlayerStackHandler;
+import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -11,12 +20,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
+import java.util.UUID;
 
 @SideOnly(Side.CLIENT)
 @ParametersAreNonnullByDefault
 public class MusicUtils
 {
     public static SoundEffectListener listener = new SoundEffectListener();
+    public static Map<UUID, PositionedSoundRecord> currentlyPlayedSongs = Maps.newHashMap();
     
     static
     {
@@ -31,16 +42,12 @@ public class MusicUtils
     {
         SoundHandler soundHandler = Minecraft.getMinecraft().getSoundHandler();
         
-        if (musicPlayer.currentSong != null && soundHandler.isSoundPlaying(musicPlayer.currentSong))
-            stopSong(musicPlayer, soundHandler);
+        PositionedSoundRecord currentSong = currentlyPlayedSongs.remove(musicPlayer.itemUuid);
+        
+        if (currentSong != null && soundHandler.isSoundPlaying(currentSong))
+            soundHandler.stopSound(currentSong);
         else
             playSong(musicPlayer, soundHandler);
-    }
-    
-    @SuppressWarnings("unused")
-    public static void stopSong(MusicPlayerStackHandler musicPlayer)
-    {
-        stopSong(musicPlayer, Minecraft.getMinecraft().getSoundHandler());
     }
     
     public static void playSong(MusicPlayerStackHandler musicPlayer)
@@ -51,25 +58,29 @@ public class MusicUtils
         playSong(musicPlayer, soundHandler);
     }
     
-    private static void stopSong(MusicPlayerStackHandler musicPlayer, SoundHandler soundHandler)
+    private static void playSong(MusicPlayerStackHandler musicPlayer, SoundHandler soundHandler)
     {
-        if (musicPlayer.currentSong != null)
+        ItemStack record = musicPlayer.getCurrentSong();
+        if (!record.isEmpty() && record.getItem() instanceof ItemRecord)
         {
-            soundHandler.stopSound(musicPlayer.currentSong);
-            musicPlayer.currentSong = null;
+            PositionedSoundRecord currentSong = PositionedSoundRecord.getMusicRecord(((ItemRecord) record.getItem()).getSound());
+            listener.addListener(musicPlayer.itemUuid, currentSong);
+            currentlyPlayedSongs.put(musicPlayer.itemUuid, currentSong);
+            soundHandler.playSound(currentSong);
         }
     }
     
-    private static void playSong(MusicPlayerStackHandler musicPlayer, SoundHandler soundHandler)
+    public static void stopSong(MusicPlayerStackHandler musicPlayer)
     {
-        ItemStack currentSong = musicPlayer.getCurrentSong();
-        if (!currentSong.isEmpty() && currentSong.getItem() instanceof ItemRecord)
-        {
-            musicPlayer.startedPlaying = false;
-            musicPlayer.currentSong = PositionedSoundRecord.getMusicRecord(((ItemRecord) currentSong.getItem()).getSound());
-            listener.addListener(musicPlayer, musicPlayer.currentSong);
-            soundHandler.playSound(musicPlayer.currentSong);
-        }
+        stopSong(musicPlayer, Minecraft.getMinecraft().getSoundHandler());
+    }
+    
+    private static void stopSong(MusicPlayerStackHandler musicPlayer, SoundHandler soundHandler)
+    {
+        PositionedSoundRecord currentSong = currentlyPlayedSongs.remove(musicPlayer.itemUuid);
+        
+        if (currentSong != null)
+            soundHandler.stopSound(currentSong);
     }
     
     public static void playNext(MusicPlayerStackHandler musicPlayer)
@@ -102,9 +113,43 @@ public class MusicUtils
         }
     }
     
+    public static void updateMusicPlayerWithUuid(EntityPlayer player, MusicPlayerStackHandler musicPlayer)
+    {
+        if (ModLoadStatus.baublesLoaded)
+        {
+            IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
+            
+            for (int i = 0; i < baubles.getSlots(); i++)
+            {
+                ItemStack stack = baubles.getStackInSlot(i);
+                MusicPlayerStackHandler capability = stack.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+                if (capability != null && capability.itemUuid.equals(musicPlayer.itemUuid))
+                {
+                    Mia.network.sendToServer(new MessageSyncMusicPlayer(3, i, musicPlayer, false));
+                    return;
+                }
+            }
+        }
+        
+        for (int i = 0; i < player.inventory.mainInventory.size(); i++)
+        {
+            ItemStack stack = player.inventory.mainInventory.get(i);
+            MusicPlayerStackHandler capability = stack.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+            if (capability != null && capability.itemUuid.equals(musicPlayer.itemUuid))
+            {
+                Mia.network.sendToServer(new MessageSyncMusicPlayer(2, i, musicPlayer, false));
+                return;
+            }
+        }
+    
+        MusicPlayerStackHandler capability = player.getHeldItemOffhand().getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+        if (capability != null && capability.itemUuid.equals(musicPlayer.itemUuid))
+            Mia.network.sendToServer(new MessageSyncMusicPlayer(1, 0, musicPlayer, false));
+    }
+    
     public static class SoundEffectListener implements ISoundEventListener
     {
-        private Map<ISound, MusicPlayerStackHandler> listeners = Maps.newHashMap();
+        private BiMap<ISound, UUID> listeners = HashBiMap.create();
         
         private SoundEffectListener()
         {
@@ -113,15 +158,17 @@ public class MusicUtils
         @Override
         public void soundPlay(ISound sound, SoundEventAccessor soundEventAccessor)
         {
-            MusicPlayerStackHandler musicPlayer = listeners.remove(sound);
-            
-            if (musicPlayer != null)
-                musicPlayer.startedPlaying = true;
+            listeners.remove(sound);
         }
         
-        public void addListener(MusicPlayerStackHandler musicPlayer, ISound sound)
+        public void addListener(UUID id, ISound sound)
         {
-            listeners.put(sound, musicPlayer);
+            listeners.put(sound, id);
+        }
+        
+        public boolean startedPlaying(UUID id)
+        {
+            return !listeners.inverse().containsKey(id);
         }
     }
 }

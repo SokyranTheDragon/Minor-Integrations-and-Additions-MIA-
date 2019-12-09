@@ -1,7 +1,6 @@
 package com.github.exploder1531.mia.handlers;
 
 import com.github.exploder1531.mia.gui.container.ContainerMusicPlayer;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,27 +11,26 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;
+import java.util.UUID;
 
 @SuppressWarnings("WeakerAccess")
 public class MusicPlayerStackHandler implements IItemHandlerModifiable, INBTSerializable<NBTTagCompound>
 {
     protected NonNullList<ItemStack> stacks;
-    public PositionedSoundRecord currentSong = null;
     private int currentSongSlot = 0;
     public ContainerMusicPlayer container = null;
+    public UUID itemUuid;
     
     public boolean repeat = false;
     public boolean autoplay = true;
-    
-    /**
-     * It's used to determine if we can change anything about current song
-     */
-    public boolean startedPlaying = true;
+    public boolean shuffle = false;
     
     public MusicPlayerStackHandler()
     {
         stacks = NonNullList.create();
         stacks.add(ItemStack.EMPTY);
+        
+        itemUuid = UUID.randomUUID();
     }
     
     @Override
@@ -155,7 +153,6 @@ public class MusicPlayerStackHandler implements IItemHandlerModifiable, INBTSeri
         return 1;
     }
     
-    
     public NBTTagCompound serializeNBT()
     {
         NBTTagList nbtTagList = new NBTTagList();
@@ -173,6 +170,10 @@ public class MusicPlayerStackHandler implements IItemHandlerModifiable, INBTSeri
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setTag("Items", nbtTagList);
         nbt.setInteger("CurrentSong", currentSongSlot);
+        nbt.setBoolean("Autoplay", autoplay);
+        nbt.setBoolean("Repeat", repeat);
+        nbt.setBoolean("Shuffle", shuffle);
+        nbt.setUniqueId("Uuid", itemUuid);
         return nbt;
     }
     
@@ -181,6 +182,10 @@ public class MusicPlayerStackHandler implements IItemHandlerModifiable, INBTSeri
         stacks = NonNullList.create();
         NBTTagList tagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
         currentSongSlot = nbt.getInteger("CurrentSong");
+        autoplay = nbt.getBoolean("Autoplay");
+        repeat = nbt.getBoolean("Repeat");
+        shuffle = nbt.getBoolean("Shuffle");
+        itemUuid = nbt.getUniqueId("Uuid");
         
         for (int i = 0; i < tagList.tagCount(); ++i)
             stacks.add(new ItemStack(tagList.getCompoundTagAt(i)));

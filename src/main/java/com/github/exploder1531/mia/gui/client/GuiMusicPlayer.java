@@ -5,6 +5,8 @@ import com.github.exploder1531.mia.gui.client.buttons.GuiToggleButton;
 import com.github.exploder1531.mia.gui.container.ContainerMusicPlayer;
 import com.github.exploder1531.mia.inventory.MusicPlayerInventory;
 import com.github.exploder1531.mia.utilities.MusicUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiButtonImage;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -25,6 +27,11 @@ public class GuiMusicPlayer extends GuiContainer
     private GuiToggleButton musicToggleButton;
     private GuiButtonImageDisableable playNextButton;
     private GuiButtonImageDisableable playPreviousButton;
+    private GuiToggleButton autoplayButton;
+    private GuiToggleButton shuffleButton;
+    private GuiToggleButton repeatButton;
+    
+    private int checkCounter = 20;
     
     public GuiMusicPlayer(InventoryPlayer playerInventory, MusicPlayerInventory inventory)
     {
@@ -61,20 +68,7 @@ public class GuiMusicPlayer extends GuiContainer
     @Override
     public void updateScreen()
     {
-        boolean leftVisible = inventory.openPage > 0;
-        boolean rightVisible = (inventory.openPage + 1) * 7 < inventory.getSizeInventory();
-        
-        pageLeftButton.enabled = leftVisible;
-        pageLeftButton.visible = leftVisible;
-        pageRightButton.enabled = rightVisible;
-        pageRightButton.visible = rightVisible;
-        
-        boolean isEnabled = !inventory.isEmpty() && inventory.inventory.startedPlaying;
-        
-        musicToggleButton.isAltVariant = inventory.inventory.currentSong != null;
-        musicToggleButton.enabled = isEnabled;
-        playNextButton.enabled = isEnabled;
-        playPreviousButton.enabled = isEnabled;
+        updateButtons();
         
         super.updateScreen();
     }
@@ -93,18 +87,27 @@ public class GuiMusicPlayer extends GuiContainer
                     inventory.openPage++;
                 break;
             case 2:
-                if (inventory.inventory.startedPlaying)
-                    MusicUtils.toggleSong(inventory.inventory);
+                MusicUtils.toggleSong(inventory.inventory);
+                checkCounter = 20;
                 break;
             case 3:
-                if (inventory.inventory.startedPlaying)
-                    MusicUtils.playNext(inventory.inventory);
+                MusicUtils.playNext(inventory.inventory);
                 break;
             case 4:
-                if (inventory.inventory.startedPlaying)
-                    MusicUtils.playPrevious(inventory.inventory);
+                MusicUtils.playPrevious(inventory.inventory);
+                break;
+            case 5:
+                inventory.inventory.autoplay ^= true;
+                break;
+            case 6:
+                inventory.inventory.shuffle ^= true;
+                break;
+            case 7:
+                inventory.inventory.repeat ^= true;
                 break;
         }
+        
+        MusicUtils.updateMusicPlayerWithUuid(Minecraft.getMinecraft().player, inventory.inventory);
     }
     
     @Override
@@ -112,10 +115,45 @@ public class GuiMusicPlayer extends GuiContainer
     {
         super.initGui();
         
-        pageLeftButton = addButton(new GuiButtonImage(0, 9 + guiLeft, 51 + guiTop, 14, 22, 196, 0, 32, texture));
-        pageRightButton = addButton(new GuiButtonImage(1, 153 + guiLeft, 51 + guiTop, 14, 22, 178, 0, 32, texture));
-        musicToggleButton = addButton(new GuiToggleButton(2, 76 + guiLeft, 28 + guiTop, 20, 20, 0, 196, 20, 20, texture));
-        playNextButton = addButton(new GuiButtonImageDisableable(3, 96 + guiLeft, 28 + guiTop, 20, 20, 40, 196, 20, texture));
-        playPreviousButton = addButton(new GuiButtonImageDisableable(4, 56 + guiLeft, 28 + guiTop, 20, 20, 60, 196, 20, texture));
+        pageLeftButton = addButton(new GuiButtonImage(0, 9 + guiLeft, 53 + guiTop, 10, 18, 189, 0, 19, texture));
+        pageRightButton = addButton(new GuiButtonImage(1, 157 + guiLeft, 53 + guiTop, 10, 18, 177, 0, 19, texture));
+        musicToggleButton = addButton(new GuiToggleButton(2, 78 + guiLeft, 28 + guiTop, 20, 20, 0, 198, 19, 19, texture));
+        playNextButton = addButton(new GuiButtonImageDisableable(3, 98 + guiLeft, 28 + guiTop, 20, 20, 38, 198, 19, texture));
+        playPreviousButton = addButton(new GuiButtonImageDisableable(4, 58 + guiLeft, 28 + guiTop, 20, 20, 57, 198, 19, texture));
+        autoplayButton = addButton(new GuiToggleButton(5, 6 + guiLeft, 4 + guiTop, 20, 20, 76, 198, 19, 19, texture));
+        shuffleButton = addButton(new GuiToggleButton(6, 26 + guiLeft, 4 + guiTop, 20, 20, 152, 198, 19, 19, texture));
+        repeatButton = addButton(new GuiToggleButton(7, 46 + guiLeft, 4 + guiTop, 20, 20, 114, 198, 19, 19, texture));
+        
+        updateButtons();
+    }
+    
+    private void updateButtons()
+    {
+        boolean leftVisible = inventory.openPage > 0;
+        boolean rightVisible = (inventory.openPage + 1) * 7 < inventory.getSizeInventory();
+        
+        pageLeftButton.enabled = leftVisible;
+        pageLeftButton.visible = leftVisible;
+        pageRightButton.enabled = rightVisible;
+        pageRightButton.visible = rightVisible;
+        
+        boolean isEnabled = !inventory.isEmpty() && MusicUtils.listener.startedPlaying(inventory.inventory.itemUuid);
+        
+        if (++checkCounter >= 20)
+        {
+            checkCounter = 0;
+            PositionedSoundRecord sound = MusicUtils.currentlyPlayedSongs.get(inventory.inventory.itemUuid);
+            if (sound != null)
+                musicToggleButton.isAltVariant = Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(sound);
+            else
+                musicToggleButton.isAltVariant = false;
+        }
+        musicToggleButton.enabled = isEnabled;
+        playNextButton.enabled = isEnabled && inventory.getSizeInventory() > 1;
+        playPreviousButton.enabled = isEnabled && inventory.getSizeInventory() > 1;
+        
+        autoplayButton.isAltVariant = inventory.inventory.autoplay;
+        shuffleButton.isAltVariant = inventory.inventory.shuffle;
+        repeatButton.isAltVariant = inventory.inventory.repeat;
     }
 }

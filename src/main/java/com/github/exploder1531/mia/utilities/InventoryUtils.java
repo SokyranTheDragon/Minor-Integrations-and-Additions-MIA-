@@ -128,4 +128,32 @@ public class InventoryUtils
         
         return set.build();
     }
+    
+    public static ItemStack getItemFromPlayer(EntityPlayer player, int type, int slot)
+    {
+        ItemStack itemStack = ItemStack.EMPTY;
+        
+        switch (type)
+        {
+            // Main hand (for convenience)
+            case 0:
+                itemStack = player.getHeldItemMainhand();
+                break;
+            // Offhand, can't be accessed from normal inventory (I think)
+            case 1:
+                itemStack = player.getHeldItemOffhand();
+                break;
+            // Normal inventory
+            case 2:
+                itemStack = player.inventory.getStackInSlot(slot);
+                break;
+            // Baubles inventory
+            case 3:
+                if (ModLoadStatus.baublesLoaded)
+                    itemStack = BaublesApi.getBaublesHandler(player).getStackInSlot(slot);
+                break;
+        }
+        
+        return itemStack;
+    }
 }
