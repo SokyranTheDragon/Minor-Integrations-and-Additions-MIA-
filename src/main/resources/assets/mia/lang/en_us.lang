@@ -32,10 +32,12 @@ mia.config.mocreatures.title.tooltip=Browse and manage Mo' Creatures settings
 ## Shared
 
 mia.config.shared.enable_external_integrations=Enable external integrations
+mia.config.shared.enable_jei_integration=Enable Just Enough Items integration
 mia.config.shared.enable_jer_integration=Enable Just Enough Resources integration
 mia.config.shared.enable_thermal_expansion_integration=Enable Thermal Expansion integration
 mia.config.shared.enable_extra_utils_integration=Enable Extra Utilities 2 integration
 mia.config.shared.enable_hatchery_integration=Enable Hatchery integration
+mia.config.shared.dungeon_tactics_integration=Enable Dungeon Tactics integration
 
 
 ## Additions text
@@ -48,13 +50,15 @@ mia.config.xu2.additions_enabled=Enable Extra Utilities 2 additions
 mia.config.hatchery.additions_enabled=Enable Hatchery additions
 mia.config.thaumcraft.additions_enabled=Enable Thaumcraft additions
 mia.config.mocreatures.additions_enabled=Enable Mo' Creatures additions
+mia.config.dungeon_tactics.additions_enabled=Enable Dungeon Tactics additions
 
 ## Mod specific
 
-mia.config.hatchery.register_cusom_eggs=Register custom lucky eggs
+mia.config.hatchery.register_custom_eggs=Register custom lucky eggs
 mia.config.mocreatures.buff_silver_weapons=Buff silver weapons from other mods
 mia.config.mocreatures.replace_fish_drops=Replace fish drops
 mia.config.mocreatures.add_cooked_drops=Replace raw meat drops with cooked one while mob is on fire
+mia.config.dungeon_tactics.register_custom_loot=Register custom loot for loot bags
 
 
 

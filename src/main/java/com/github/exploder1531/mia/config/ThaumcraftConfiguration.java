@@ -49,8 +49,10 @@ public class ThaumcraftConfiguration
      * @param event The event
      */
     @SubscribeEvent
-    public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(Mia.MODID)) {
+    public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
+    {
+        if (event.getModID().equals(Mia.MODID))
+        {
             ConfigManager.sync(Mia.MODID, Config.Type.INSTANCE);
         }
     }

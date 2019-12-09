@@ -123,7 +123,7 @@ public class PlayerEvents
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
     {
-        if (!thaumcraftLoaded && !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
+        if (!thaumcraftLoaded || !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
             return;
         
         if (event.getModID().equals(ModIds.THAUMCRAFT))

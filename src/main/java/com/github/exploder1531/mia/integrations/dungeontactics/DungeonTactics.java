@@ -26,6 +26,8 @@ import pegbeard.dungeontactics.handlers.DTLoots;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.github.exploder1531.mia.config.DungeonTacticsConfiguration.dungeonTacticsAdditionsEnabled;
+import static com.github.exploder1531.mia.config.DungeonTacticsConfiguration.registerCustomBagLoot;
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class DungeonTactics implements IBaseMod
@@ -58,6 +60,9 @@ public class DungeonTactics implements IBaseMod
     @Override
     public void lootLoad(LootTableLoadEvent event)
     {
+        if (!dungeonTacticsAdditionsEnabled || !registerCustomBagLoot)
+            return;
+        
         LootPool main = event.getTable().getPool("main");
         IDungeonTacticsIntegration.BagTypes bagType = null;
         
@@ -94,6 +99,9 @@ public class DungeonTactics implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
+        if (!dungeonTacticsAdditionsEnabled)
+            return;
+        
         OreDictionary.registerOre("blockGlass", DTBlocks.DUNGEON_GLASS);
         
         OreDictionary.registerOre("listAllberry", DTItems.CHERRYBOMB);
@@ -112,6 +120,9 @@ public class DungeonTactics implements IBaseMod
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
+        if (!dungeonTacticsAdditionsEnabled)
+            return;
+        
         if (Loader.isModLoaded("jei"))
         {
             CauldronRegistry registry = CauldronRegistry.getInstance();

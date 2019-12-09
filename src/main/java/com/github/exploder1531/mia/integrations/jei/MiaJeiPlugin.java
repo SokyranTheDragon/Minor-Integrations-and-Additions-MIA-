@@ -1,5 +1,6 @@
 package com.github.exploder1531.mia.integrations.jei;
 
+import com.github.exploder1531.mia.config.DungeonTacticsConfiguration;
 import com.github.exploder1531.mia.core.MiaBlocks;
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronCategory;
@@ -22,15 +23,17 @@ import java.util.Arrays;
 @JEIPlugin
 public class MiaJeiPlugin implements IModPlugin
 {
+    private static IJeiRuntime jeiRuntime;
+    
     @Override
     public void register(IModRegistry registry)
     {
         if (ModLoadStatus.dungeonTacticsLoaded)
         {
-            registry.handleRecipes(CauldronEntry.class, CauldronWrapper::new, "mia.alchemical_cauldron");
-            registry.addRecipes(CauldronRegistry.getRecipesOrEmpty(), "mia.alchemical_cauldron");
+            registry.handleRecipes(CauldronEntry.class, CauldronWrapper::new, Categories.DUNGEON_TACTICS_CAULDRON);
+            registry.addRecipes(CauldronRegistry.getRecipesOrEmpty(), Categories.DUNGEON_TACTICS_CAULDRON);
             
-            registry.addRecipeCatalyst(new ItemStack(DTBlocks.ALCHEMYCAULDRON), "mia.alchemical_cauldron");
+            registry.addRecipeCatalyst(new ItemStack(DTBlocks.ALCHEMYCAULDRON), Categories.DUNGEON_TACTICS_CAULDRON);
             
             registry.addIngredientInfo(Arrays.asList(
                     new ItemStack(DTItems.FISH_MUSCLE),
@@ -46,11 +49,11 @@ public class MiaJeiPlugin implements IModPlugin
                     new ItemStack(DTItems.SLINGSHOT),
                     new ItemStack(DTItems.IRONRING)),
                     VanillaTypes.ITEM, "mia.jei.info.dt.fishing_treasure");
-    
+            
             registry.addIngredientInfo(new ItemStack(DTItems.REXO_LEGGINGS), VanillaTypes.ITEM, "mia.jei.dt.info.leggings");
             registry.addIngredientInfo(new ItemStack(DTItems.REXO_GOGGLES), VanillaTypes.ITEM, "mia.jei.dt.info.goggles");
             registry.addIngredientInfo(new ItemStack(DTItems.REXO_BOOTS), VanillaTypes.ITEM, "mia.jei.dt.info.boots");
-    
+            
             registry.addIngredientInfo(new ItemStack(DTItems.ESCAPEROPE), VanillaTypes.ITEM, "mia.jei.dt.info.rope");
             registry.addIngredientInfo(new ItemStack(DTItems.PHYLACTERY), VanillaTypes.ITEM, "mia.jei.dt.info.phylactery");
             registry.addIngredientInfo(new ItemStack(DTItems.ENDERBAG), VanillaTypes.ITEM, "mia.jei.dt.info.bag_of_hoarding");
@@ -72,7 +75,10 @@ public class MiaJeiPlugin implements IModPlugin
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime)
     {
-        // Hide categories here
+        MiaJeiPlugin.jeiRuntime = jeiRuntime;
+        
+        if (!DungeonTacticsConfiguration.enableJeiIntegration)
+            hideCategories(Categories.DUNGEON_TACTICS_CAULDRON);
     }
     
     @Override
@@ -80,5 +86,32 @@ public class MiaJeiPlugin implements IModPlugin
     {
         if (ModLoadStatus.dungeonTacticsLoaded)
             registry.addRecipeCategories(new CauldronCategory(registry.getJeiHelpers().getGuiHelper()));
+    }
+    
+    public static void hideCategories(String... categories)
+    {
+        if (categories != null)
+        {
+            for (String category : categories)
+                jeiRuntime.getRecipeRegistry().hideRecipeCategory(category);
+        }
+    }
+    
+    public static void unhideCategories(String... categories)
+    {
+        if (categories != null)
+        {
+            for (String category : categories)
+                jeiRuntime.getRecipeRegistry().unhideRecipeCategory(category);
+        }
+    }
+    
+    public static class Categories
+    {
+        private Categories()
+        {
+        }
+        
+        public static final String DUNGEON_TACTICS_CAULDRON = "mia.alchemical_cauldron";
     }
 }

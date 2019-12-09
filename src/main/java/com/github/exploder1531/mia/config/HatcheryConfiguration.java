@@ -33,9 +33,9 @@ public class HatcheryConfiguration
     @Config.Name("Enable external lucky egg loot")
     @Config.Comment(
             {"Set to true to enable any lucky egg loot file unrelated to integrated mods to be loaded from inside the config folder",
-                    "Even if this is enabled the configuration for integrated mods won't be if they are disabled",
-                    "Using this instead of editing the build in Hatchery config allows you to keep it unchanged while still adding your own items"})
-    @Config.LangKey("mia.config.hatchery.register_cusom_eggs")
+                    "Even if this is option is enabled the configuration for integrated mods won't be if they themselves are disabled",
+                    "Using this instead of editing the loot in Hatchery config allows you to keep it unchanged while still adding your own items"})
+    @Config.LangKey("mia.config.hatchery.register_custom_eggs")
     @Config.RequiresMcRestart
     public static boolean registerCustomLuckyEggLoot = false;
     
