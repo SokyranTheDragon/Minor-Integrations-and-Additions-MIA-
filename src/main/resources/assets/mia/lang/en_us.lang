@@ -182,12 +182,13 @@ research.void_creator.stage.2=That's it! Based on what I've gathered from the Cr
 #################
 
 # Music player tooltips
-mia.gui.music_player.tooltip.autoplay=Automatically play the next song
-mia.gui.music_player.tooltip.autoplay_alt=Don't automatically play songs when this one finishes
-mia.gui.music_player.tooltip.shuffle=Randomly pick the next song
-mia.gui.music_player.tooltip.shuffle_alt=Always play songs in order
-mia.gui.music_player.tooltip.repeat=Repeat current song when it finishes (autoplay needs to be on)
-mia.gui.music_player.tooltip.repeat_alt=Don't repeat the current song after it finishes
+mia.gui.music_player.tooltip.autoplay=Don't automatically play other songs when this one finishes
+mia.gui.music_player.tooltip.autoplay_alt=Automatically play the next song
+mia.gui.music_player.tooltip.shuffle=Always play songs in order
+mia.gui.music_player.tooltip.shuffle_alt=Randomly pick the next song
+mia.gui.music_player.tooltip.repeat=Play the next song when the current one finishes
+mia.gui.music_player.tooltip.repeat_alt=Repeat current song when it finishes
+mia.gui.music_player.tooltip.autoplay_required=(Autoplay needs to be on)
 
 
 

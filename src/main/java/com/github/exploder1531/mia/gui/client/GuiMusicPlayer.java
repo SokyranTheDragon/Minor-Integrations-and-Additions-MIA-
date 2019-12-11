@@ -14,9 +14,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Arrays;
 
 @SideOnly(Side.CLIENT)
 public class GuiMusicPlayer extends GuiContainer
@@ -47,7 +48,7 @@ public class GuiMusicPlayer extends GuiContainer
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
-    
+        
         if (autoplayButton.isMouseOver())
         {
             if (autoplayButton.isAltVariant)
@@ -58,28 +59,25 @@ public class GuiMusicPlayer extends GuiContainer
         else if (shuffleButton.isMouseOver())
         {
             if (shuffleButton.isAltVariant)
-                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.shuffle_alt"), mouseX, mouseY);
+                this.drawHoveringText(Arrays.asList(
+                        I18n.format("mia.gui.music_player.tooltip.shuffle_alt"),
+                        I18n.format("mia.gui.music_player.tooltip.autoplay_required")), mouseX, mouseY);
             else
-                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.shuffle"), mouseX, mouseY);
+                this.drawHoveringText(Arrays.asList(
+                        I18n.format("mia.gui.music_player.tooltip.shuffle"),
+                        I18n.format("mia.gui.music_player.tooltip.autoplay_required")), mouseX, mouseY);
         }
         else if (repeatButton.isMouseOver())
         {
             if (repeatButton.isAltVariant)
-                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.repeat_alt"), mouseX, mouseY);
+                this.drawHoveringText(Arrays.asList(
+                        I18n.format("mia.gui.music_player.tooltip.repeat_alt"),
+                        I18n.format("mia.gui.music_player.tooltip.autoplay_required")), mouseX, mouseY);
             else
-                this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.repeat"), mouseX, mouseY);
+                this.drawHoveringText(Arrays.asList(
+                        I18n.format("mia.gui.music_player.tooltip.repeat"),
+                        I18n.format("mia.gui.music_player.tooltip.autoplay_required")), mouseX, mouseY);
         }
-        
-        for (GuiButton button : buttonList)
-        {
-            if (button.isMouseOver())
-            {
-                if (!StringUtils.isNullOrEmpty(button.displayString))
-                    this.drawHoveringText(button.displayString, mouseX, mouseY);
-                return;
-            }
-        }
-        
     }
     
     @Override

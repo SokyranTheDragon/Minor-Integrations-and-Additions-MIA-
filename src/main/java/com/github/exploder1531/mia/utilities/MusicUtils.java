@@ -70,7 +70,7 @@ public class MusicUtils
         ItemStack record = musicPlayer.getCurrentSong();
         if (!record.isEmpty() && record.getItem() instanceof ItemRecord)
         {
-            PositionedSoundRecord currentSong = PositionedSoundRecord.getMusicRecord(((ItemRecord) record.getItem()).getSound());
+            PositionedSoundRecord currentSong = new PositionedSoundRecord(((ItemRecord)record.getItem()).getSound().getSoundName(), SoundCategory.MUSIC, 4.0f, 1.0f, false, 0, ISound.AttenuationType.NONE, 0, 0, 0);
             listener.addListener(musicPlayer.itemUuid, currentSong);
             currentlyPlayedSongs.put(musicPlayer.itemUuid, currentSong);
             soundHandler.playSound(currentSong);

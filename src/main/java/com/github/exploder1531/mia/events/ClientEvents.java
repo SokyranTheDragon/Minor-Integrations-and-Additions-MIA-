@@ -131,8 +131,6 @@ public class ClientEvents
                 
                 if (currentSong != null && !Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(currentSong))
                 {
-                    MusicUtils.stopSong(capability);
-                    
                     if (capability.autoplay)
                     {
                         if (capability.repeat)
@@ -144,6 +142,8 @@ public class ClientEvents
                         
                         Mia.network.sendToServer(new MessageSyncMusicPlayer(type, slot, capability, false));
                     }
+                    else
+                        MusicUtils.stopSong(capability);
                 }
             }
             
