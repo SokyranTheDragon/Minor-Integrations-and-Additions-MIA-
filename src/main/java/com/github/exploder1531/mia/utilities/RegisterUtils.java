@@ -3,7 +3,10 @@ package com.github.exploder1531.mia.utilities;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+
+import javax.annotation.Nonnull;
 
 @SuppressWarnings("WeakerAccess")
 public class RegisterUtils
@@ -12,15 +15,26 @@ public class RegisterUtils
     {
     }
     
-    public static void registerItemblockRenderer(Block block)
+    public static void registerItemblockRenderer(@Nonnull Block block)
     {
         registerItemblockRenderer(block, 0);
     }
     
-    @SuppressWarnings("ConstantConditions")
-    public static void registerItemblockRenderer(Block block, int metadata)
+    public static void registerItemblockRenderer(@Nonnull Block block, int metadata)
     {
         Item item = Item.getItemFromBlock(block);
-        ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+        registerItemRenderer(item, metadata);
+    }
+    
+    public static void registerItemRenderer(@Nonnull Item item)
+    {
+        registerItemRenderer(item, 0);
+    }
+    
+    public static void registerItemRenderer(@Nonnull Item item, int metadata)
+    {
+        ResourceLocation registryName = item.getRegistryName();
+        if (registryName != null)
+            ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(registryName, "inventory"));
     }
 }

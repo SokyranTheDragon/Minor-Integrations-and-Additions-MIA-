@@ -30,11 +30,17 @@ public class MoCreaturesConfiguration
     @Config.RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
+//    @Config.Name("Enable Hatchery integration")
+//    @Config.Comment("Set to false to completely disable integration with Hatchery")
+//    @Config.LangKey("mia.config.shared.enable_hatchery_integration")
+//    @Config.RequiresMcRestart
+//    public static boolean enableHatcheryIntegration = true;
+    
     @Config.Name("Enable Hatchery integration")
-    @Config.Comment("Set to false to completely disable integration with Hatchery")
-    @Config.LangKey("mia.config.shared.enable_hatchery_integration")
+    @Config.Comment("Set to false to completely disable integration with Dungeon Tactics")
+    @Config.LangKey("mia.config.shared.enable_dungeon_tactics_integration")
     @Config.RequiresMcRestart
-    public static boolean enableHatcheryIntegration = true;
+    public static boolean enableDungeonTacticsIntegration = true;
     
     @Config.Name("Increase damage to werewolves from other mod silver weapons")
     @Config.Comment("While dealing damage to werewolves, Mo' Creatures checks other mod silver weapon base damage, but when the damage dealt it doesn't take into" +

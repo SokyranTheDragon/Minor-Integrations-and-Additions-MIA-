@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.events;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.HarvestcraftConfiguration;
 import com.github.exploder1531.mia.config.MoCreaturesConfiguration;
 import com.pam.harvestcraft.item.ItemRegistry;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
@@ -69,7 +70,7 @@ public class EntityEvents
         
         if (harvestcraftLoaded)
         {
-            if (event.getEntityLiving() instanceof EntitySquid)
+            if (HarvestcraftConfiguration.squidDropsCalamari && event.getEntityLiving() instanceof EntitySquid)
             {
                 dropFewItems(ItemRegistry.calamaricookedItem, ItemRegistry.calamaricookedItem, event);
                 return;

@@ -40,6 +40,12 @@ public class TfConfiguration
     @Config.RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
     
+    @Config.Name("Enable Hatchery integration")
+    @Config.Comment("Set to false to completely disable integration with Dungeon Tactics")
+    @Config.LangKey("mia.config.shared.enable_dungeon_tactics_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableDungeonTacticsIntegration = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

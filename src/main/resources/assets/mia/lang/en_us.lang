@@ -37,7 +37,7 @@ mia.config.shared.enable_jer_integration=Enable Just Enough Resources integratio
 mia.config.shared.enable_thermal_expansion_integration=Enable Thermal Expansion integration
 mia.config.shared.enable_extra_utils_integration=Enable Extra Utilities 2 integration
 mia.config.shared.enable_hatchery_integration=Enable Hatchery integration
-mia.config.shared.dungeon_tactics_integration=Enable Dungeon Tactics integration
+mia.config.shared.enable_dungeon_tactics_integration=Enable Dungeon Tactics integration
 
 
 ## Additions text
@@ -59,6 +59,7 @@ mia.config.mocreatures.buff_silver_weapons=Buff silver weapons from other mods
 mia.config.mocreatures.replace_fish_drops=Replace fish drops
 mia.config.mocreatures.add_cooked_drops=Replace raw meat drops with cooked one while mob is on fire
 mia.config.dungeon_tactics.register_custom_loot=Register custom loot for loot bags
+mia.config.harvestcraft.squid_drops_calamari=Squid drops calamari
 
 
 

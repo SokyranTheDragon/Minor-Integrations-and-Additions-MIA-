@@ -2,6 +2,8 @@ package com.github.exploder1531.mia.proxy;
 
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.client.input.MiaKeyBindings;
+import com.github.exploder1531.mia.core.MiaItems;
+import com.github.exploder1531.mia.utilities.RegisterUtils;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -16,6 +18,7 @@ public class ClientProxy extends CommonProxy
     @SubscribeEvent
     public static void registerRenders(ModelRegistryEvent event)
     {
+        RegisterUtils.registerItemRenderer(MiaItems.music_player);
         modIntegrator.registerRenders(event);
     }
     

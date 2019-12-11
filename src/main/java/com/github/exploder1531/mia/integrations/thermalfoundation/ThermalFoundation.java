@@ -31,7 +31,7 @@ public class ThermalFoundation implements IBaseMod
             modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsTFIntegration());
         if (enableJerIntegration && jerLoaded)
             modIntegration.accept(ModIds.JER, new JerTFIntegration());
-        if (dungeonTacticsLoaded)
+        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
             modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsTFIntegration());
         if (hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryTFIntegration(enableHatcheryIntegration));
