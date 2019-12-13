@@ -2,9 +2,11 @@ package com.github.exploder1531.mia.integrations.base;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.dungeontactics.DungeonTactics;
+import com.github.exploder1531.mia.integrations.extrabotany.ExtraBotany;
 import com.github.exploder1531.mia.integrations.harvestcraft.Harvestcraft;
 import com.github.exploder1531.mia.integrations.hatchery.Hatchery;
 import com.github.exploder1531.mia.integrations.iceandfire.IceAndFire;
+import com.github.exploder1531.mia.integrations.jei.Jei;
 import com.github.exploder1531.mia.integrations.jer.JustEnoughResources;
 import com.github.exploder1531.mia.integrations.mocreatures.MoCreatures;
 import com.github.exploder1531.mia.integrations.tconstruct.TinkersConstruct;
@@ -61,6 +63,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.THERMAL_EXPANSION, new ThermalExpansion());
         if (tinkersConstructLoaded)
             modIntegrations.put(ModIds.TINKERS_CONSTRUCT, new TinkersConstruct());
+        if (jeiLoaded)
+            modIntegrations.put(ModIds.JEI, new Jei());
         if (jerLoaded)
             modIntegrations.put(ModIds.JER, new JustEnoughResources());
         if (iceAndFireLoaded)
@@ -77,6 +81,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.DUNGEON_TACTICS, new DungeonTactics());
         if (harvestcraftLoaded)
             modIntegrations.put(ModIds.HARVESTCRAFT, new Harvestcraft());
+        if (extraBotanyLoaded)
+            modIntegrations.put(ModIds.EXTRABOTANY, new ExtraBotany());
         
         for (IBaseMod mod : modIntegrations.values())
             mod.register(this::registerIntegration);

@@ -1,4 +1,4 @@
-package com.github.exploder1531.mia.integrations.dungeontactics.jei;
+package com.github.exploder1531.mia.integrations.jei.categories.lootbag;
 
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.jei.BackgroundDrawable;
@@ -9,8 +9,8 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import pegbeard.dungeontactics.handlers.DTItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,9 +21,14 @@ public class LootBagCategory implements IRecipeCategory<LootBagWrapper>
     private final BackgroundDrawable BACKGROUND = new BackgroundDrawable("textures/gui/jei/loot_bag.png", 169, 119, 0);
     private final IDrawable ICON;
     
-    public LootBagCategory(IGuiHelper helper)
+    public LootBagCategory(IGuiHelper helper, ItemStack item)
     {
-        ICON = helper.createDrawableIngredient(new ItemStack(DTItems.BAG_ARBOUR));
+        ICON = helper.createDrawableIngredient(item);
+    }
+    
+    public LootBagCategory(IGuiHelper helper, Item item)
+    {
+        this(helper, new ItemStack(item));
     }
     
     @Nonnull

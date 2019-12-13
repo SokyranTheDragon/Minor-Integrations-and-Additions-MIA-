@@ -1,4 +1,4 @@
-package com.github.exploder1531.mia.integrations.dungeontactics.jei;
+package com.github.exploder1531.mia.integrations.jei.categories.cauldron;
 
 import net.minecraft.item.ItemStack;
 

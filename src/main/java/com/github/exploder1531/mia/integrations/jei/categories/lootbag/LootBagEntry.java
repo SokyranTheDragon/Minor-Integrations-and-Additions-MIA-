@@ -1,4 +1,4 @@
-package com.github.exploder1531.mia.integrations.dungeontactics.jei;
+package com.github.exploder1531.mia.integrations.jei.categories.lootbag;
 
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import jeresources.util.LootTableHelper;
@@ -120,7 +120,7 @@ public class LootBagEntry
                     LootTableHelper.getEntries(pool).stream()
                                    .filter(entry -> entry instanceof LootEntryItem)
                                    .map(entry -> (LootEntryItem) entry)
-                                   .map(entry -> new BagOutputEntry(LootTableHelper.getItem(entry), (float) entry.getEffectiveWeight(0f) / totalWeight))
+                                   .map(entry -> new BagOutputEntry(LootTableHelper.getItem(entry), (float) entry.getEffectiveWeight(0.0f) / totalWeight))
                                    .forEach(possibleOutputs::add);
                     LootTableHelper.getEntries(pool).stream()
                                    .filter(entry -> entry instanceof LootEntryTable)

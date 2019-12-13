@@ -12,6 +12,7 @@ public class ModLoadStatus
     public static boolean thermalFoundationLoaded = false;
     public static boolean thermalExpansionLoaded = false;
     public static boolean tinkersConstructLoaded = false;
+    public static boolean jeiLoaded = false;
     public static boolean jerLoaded = false;
     public static boolean iceAndFireLoaded = false;
     public static boolean hatcheryLoaded = false;
@@ -21,6 +22,8 @@ public class ModLoadStatus
     public static boolean moCreaturesLoaded = false;
     public static boolean harvestcraftLoaded = false;
     public static boolean dungeonTacticsLoaded = false;
+    public static boolean botaniaLoaded = false;
+    public static boolean extraBotanyLoaded = false;
     
     public static void preInit()
     {
@@ -32,6 +35,8 @@ public class ModLoadStatus
             thermalExpansionLoaded = true;
         if (Loader.isModLoaded(ModIds.TINKERS_CONSTRUCT))
             tinkersConstructLoaded = true;
+        if (Loader.isModLoaded(ModIds.JEI))
+            jeiLoaded = true;
         if (Loader.isModLoaded(ModIds.JER))
             jerLoaded = true;
         if (Loader.isModLoaded(ModIds.ICE_AND_FIRE))
@@ -50,5 +55,9 @@ public class ModLoadStatus
             harvestcraftLoaded = true;
         if (Loader.isModLoaded(ModIds.DUNGEON_TACTICS))
             dungeonTacticsLoaded = true;
+        if (Loader.isModLoaded(ModIds.BOTANIA))
+            botaniaLoaded = true;
+        if (Loader.isModLoaded(ModIds.EXTRABOTANY))
+            extraBotanyLoaded = true;
     }
 }
