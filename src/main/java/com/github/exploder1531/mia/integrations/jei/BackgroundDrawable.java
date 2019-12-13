@@ -14,23 +14,29 @@ public class BackgroundDrawable implements IDrawable
     private final int width;
     private final int height;
     private final ResourceLocation resource;
-    private static final int PADDING = 5;
+    private final int padding;
     
     public BackgroundDrawable(String resource, int width, int height)
+    {
+        this(resource, width, height, 5);
+    }
+    
+    public BackgroundDrawable(String resource, int width, int height, int padding)
     {
         this.resource = new ResourceLocation(Mia.MODID, resource);
         this.width = width;
         this.height = height;
+        this.padding = padding;
     }
     
     public int getWidth()
     {
-        return this.width + 10;
+        return this.width + padding * 2;
     }
     
     public int getHeight()
     {
-        return this.height + 10;
+        return this.height + padding * 2;
     }
     
     public void draw(@Nonnull Minecraft minecraft)
@@ -42,7 +48,7 @@ public class BackgroundDrawable implements IDrawable
     {
         GlStateManager.resetColor();
         minecraft.getTextureManager().bindTexture(this.resource);
-        GuiUtils.drawTexturedModalRect(xOffset + PADDING, yOffset + PADDING, 0, 0, this.width, this.height, 0.0F);
+        GuiUtils.drawTexturedModalRect(xOffset + padding, yOffset + padding, 0, 0, this.width, this.height, 0.0F);
     }
     
     public ResourceLocation getResource()

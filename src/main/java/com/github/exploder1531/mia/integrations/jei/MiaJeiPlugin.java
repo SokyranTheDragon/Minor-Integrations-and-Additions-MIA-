@@ -3,10 +3,7 @@ package com.github.exploder1531.mia.integrations.jei;
 import com.github.exploder1531.mia.config.DungeonTacticsConfiguration;
 import com.github.exploder1531.mia.core.MiaBlocks;
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
-import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronCategory;
-import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronEntry;
-import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronRegistry;
-import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronWrapper;
+import com.github.exploder1531.mia.integrations.dungeontactics.jei.*;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -31,9 +28,22 @@ public class MiaJeiPlugin implements IModPlugin
         if (ModLoadStatus.dungeonTacticsLoaded)
         {
             registry.handleRecipes(CauldronEntry.class, CauldronWrapper::new, Categories.DUNGEON_TACTICS_CAULDRON);
+            registry.handleRecipes(LootBagEntry.class, LootBagWrapper::new, Categories.DUNGEON_TACTICS_LOOT_BAG);
             registry.addRecipes(CauldronRegistry.getRecipesOrEmpty(), Categories.DUNGEON_TACTICS_CAULDRON);
+            registry.addRecipes(LootBagRegistry.getRecipesOrEmpty(), Categories.DUNGEON_TACTICS_LOOT_BAG);
             
             registry.addRecipeCatalyst(new ItemStack(DTBlocks.ALCHEMYCAULDRON), Categories.DUNGEON_TACTICS_CAULDRON);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_ARBOUR), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_BOOK), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_FOOD), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_MAGIC), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_ORE), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_POTION), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_QUIVER), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_RECORD), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_SAMHAIN), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_SOLSTICE), Categories.DUNGEON_TACTICS_LOOT_BAG);
+            registry.addRecipeCatalyst(new ItemStack(DTItems.BAG_TOOL), Categories.DUNGEON_TACTICS_LOOT_BAG);
             
             registry.addIngredientInfo(Arrays.asList(
                     new ItemStack(DTItems.FISH_MUSCLE),
@@ -78,14 +88,17 @@ public class MiaJeiPlugin implements IModPlugin
         MiaJeiPlugin.jeiRuntime = jeiRuntime;
         
         if (!DungeonTacticsConfiguration.enableJeiIntegration)
-            hideCategories(Categories.DUNGEON_TACTICS_CAULDRON);
+            hideCategories(Categories.DUNGEON_TACTICS_CAULDRON, Categories.DUNGEON_TACTICS_LOOT_BAG);
     }
     
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry)
     {
         if (ModLoadStatus.dungeonTacticsLoaded)
+        {
             registry.addRecipeCategories(new CauldronCategory(registry.getJeiHelpers().getGuiHelper()));
+            registry.addRecipeCategories(new LootBagCategory(registry.getJeiHelpers().getGuiHelper()));
+        }
     }
     
     public static void hideCategories(String... categories)
@@ -111,7 +124,8 @@ public class MiaJeiPlugin implements IModPlugin
         private Categories()
         {
         }
-        
+    
         public static final String DUNGEON_TACTICS_CAULDRON = "mia.alchemical_cauldron";
+        public static final String DUNGEON_TACTICS_LOOT_BAG = "mia.loot_bag";
     }
 }

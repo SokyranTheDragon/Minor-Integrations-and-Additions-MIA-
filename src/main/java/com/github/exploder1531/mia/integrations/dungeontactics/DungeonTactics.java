@@ -6,12 +6,15 @@ import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronEntry;
 import com.github.exploder1531.mia.integrations.dungeontactics.jei.CauldronRegistry;
+import com.github.exploder1531.mia.integrations.dungeontactics.jei.LootBagEntry;
+import com.github.exploder1531.mia.integrations.dungeontactics.jei.LootBagRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.Loader;
@@ -125,34 +128,53 @@ public class DungeonTactics implements IBaseMod
         
         if (Loader.isModLoaded("jei"))
         {
-            CauldronRegistry registry = CauldronRegistry.getInstance();
+            CauldronRegistry cauldronRegistry = CauldronRegistry.getInstance();
             
-            if (registry != null)
+            if (cauldronRegistry != null)
             {
                 // Weapon imbuing
-                registerImbuing(registry, Items.IRON_SWORD, DTEffects.POISONAILMENT, new ItemStack(DTBlocks.FLOWER_AILMENT));
-                registerImbuing(registry, Items.IRON_SWORD, DTEffects.POISONBARK, new ItemStack(DTBlocks.FLOWER_BARK));
-                registerImbuing(registry, Items.IRON_SWORD, DTEffects.POISONBRAMBLE, new ItemStack(DTBlocks.FLOWER_BRAMBLE));
-                registerImbuing(registry, Items.IRON_SWORD, DTEffects.POISONCINDER, new ItemStack(DTBlocks.FLOWER_CINDER));
-                registerImbuing(registry, Items.IRON_SWORD, DTEffects.POISONFADE, new ItemStack(DTBlocks.FLOWER_FADE));
-                registerImbuing(registry, Items.IRON_SWORD, DTEffects.POISONFEATHER, new ItemStack(DTBlocks.FLOWER_FEATHER));
-                registerImbuing(registry, Items.IRON_SWORD, DTEffects.POISONSANGUINE, new ItemStack(DTBlocks.FLOWER_SANGUINE));
-                registerImbuing(registry, Items.IRON_SWORD, DTEffects.POISONTANGLE, new ItemStack(DTBlocks.FLOWER_TANGLE));
+                registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONAILMENT, new ItemStack(DTBlocks.FLOWER_AILMENT));
+                registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONBARK, new ItemStack(DTBlocks.FLOWER_BARK));
+                registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONBRAMBLE, new ItemStack(DTBlocks.FLOWER_BRAMBLE));
+                registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONCINDER, new ItemStack(DTBlocks.FLOWER_CINDER));
+                registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONFADE, new ItemStack(DTBlocks.FLOWER_FADE));
+                registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONFEATHER, new ItemStack(DTBlocks.FLOWER_FEATHER));
+                registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONSANGUINE, new ItemStack(DTBlocks.FLOWER_SANGUINE));
+                registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONTANGLE, new ItemStack(DTBlocks.FLOWER_TANGLE));
                 
                 // Cooking
-                registerCooking(registry, Items.IRON_SHOVEL, Items.GUNPOWDER, new ItemStack(DTItems.CHERRYBOMB, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.FLINT));
-                registerCooking(registry, Items.IRON_SHOVEL, Items.GLOWSTONE_DUST, new ItemStack(DTItems.GLOWCURRENT, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.BLAZE_POWDER));
-                registerCooking(registry, Items.IRON_SHOVEL, Items.BLAZE_POWDER, new ItemStack(DTItems.INCINDIBERRY, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.COAL));
+                registerCooking(cauldronRegistry, Items.IRON_SHOVEL, Items.GUNPOWDER, new ItemStack(DTItems.CHERRYBOMB, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.FLINT));
+                registerCooking(cauldronRegistry, Items.IRON_SHOVEL, Items.GLOWSTONE_DUST, new ItemStack(DTItems.GLOWCURRENT, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.BLAZE_POWDER));
+                registerCooking(cauldronRegistry, Items.IRON_SHOVEL, Items.BLAZE_POWDER, new ItemStack(DTItems.INCINDIBERRY, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.COAL));
                 // 1 to 3 + fortune level
-                registerCooking(registry, Items.IRON_SHOVEL, DTItems.MAGIC_POWDER, new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(Blocks.RED_MUSHROOM), new ItemStack(Blocks.BROWN_MUSHROOM));
-                registerCooking(registry, Items.IRON_SHOVEL, new ItemStack(Items.CLAY_BALL, 4), new ItemStack(Items.SLIME_BALL, 3), new ItemStack(Blocks.SAND));
-                registerCooking(registry, Items.IRON_SHOVEL, Items.LEATHER, Items.SLIME_BALL, new ItemStack(Items.ROTTEN_FLESH, 3), new ItemStack(Items.SUGAR, 2));
+                registerCooking(cauldronRegistry, Items.IRON_SHOVEL, DTItems.MAGIC_POWDER, new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(Blocks.RED_MUSHROOM), new ItemStack(Blocks.BROWN_MUSHROOM));
+                registerCooking(cauldronRegistry, Items.IRON_SHOVEL, new ItemStack(Items.CLAY_BALL, 4), new ItemStack(Items.SLIME_BALL, 3), new ItemStack(Blocks.SAND));
+                registerCooking(cauldronRegistry, Items.IRON_SHOVEL, Items.LEATHER, Items.SLIME_BALL, new ItemStack(Items.ROTTEN_FLESH, 3), new ItemStack(Items.SUGAR, 2));
                 // Any (vanilla) leaves
-                registerCooking(registry, Items.IRON_SHOVEL, new ItemStack(Blocks.DIRT), new ItemStack(Blocks.LEAVES, 2, OreDictionary.WILDCARD_VALUE), new ItemStack(Blocks.SAND));
-                registerCooking(registry, Items.IRON_SHOVEL, new ItemStack(Blocks.MYCELIUM), new ItemStack(Blocks.DIRT), new ItemStack(Blocks.RED_MUSHROOM, 2), new ItemStack(Blocks.BROWN_MUSHROOM, 2));
+                registerCooking(cauldronRegistry, Items.IRON_SHOVEL, new ItemStack(Blocks.DIRT), new ItemStack(Blocks.LEAVES, 2, OreDictionary.WILDCARD_VALUE), new ItemStack(Blocks.SAND));
+                registerCooking(cauldronRegistry, Items.IRON_SHOVEL, new ItemStack(Blocks.MYCELIUM), new ItemStack(Blocks.DIRT), new ItemStack(Blocks.RED_MUSHROOM, 2), new ItemStack(Blocks.BROWN_MUSHROOM, 2));
             }
             else
                 Mia.LOGGER.error("Could not access Alchemical Cauldron recipe registry, this shouldn't have happened as Dungeon Tactics is loaded. Something is very wrong.");
+            
+            LootBagRegistry lootBagRegistry = LootBagRegistry.getInstance();
+            
+            if (lootBagRegistry != null)
+            {
+                registerLootBag(lootBagRegistry, DTItems.BAG_ARBOUR, DTLoots.ARBOUR_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_BOOK, DTLoots.BOOK_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_FOOD, DTLoots.FOOD_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_MAGIC, DTLoots.MAGIC_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_ORE, DTLoots.ORE_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_POTION, DTLoots.POTION_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_QUIVER, DTLoots.QUIVER_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_RECORD, DTLoots.RECORD_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_SAMHAIN, DTLoots.SAMHAIN_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_SOLSTICE, DTLoots.SOLSTICE_LOOT);
+                registerLootBag(lootBagRegistry, DTItems.BAG_TOOL, DTLoots.TOOL_LOOT);
+            }
+            else if (jerLoaded)
+                Mia.LOGGER.error("Could not access Loot Bag recipe registry, this shouldn't have happened as Dungeon Tactics and JER are loaded. Something is very wrong.");
         }
     }
     
@@ -185,5 +207,13 @@ public class DungeonTactics implements IBaseMod
             registry.registerCauldronRecipe(new CauldronEntry(new ItemStack(spoon), output, new ItemStack(byproduct), input));
         else
             registry.registerCauldronRecipe(new CauldronEntry(new ItemStack(spoon), output, input));
+    }
+    
+    private void registerLootBag(LootBagRegistry registry, Item lootBag, ResourceLocation possibleLoot)
+    {
+        List<LootBagEntry> entries = LootBagEntry.getEntries(new ItemStack(lootBag), possibleLoot);
+        
+        for (LootBagEntry entry : entries)
+            registry.registerLootBagRecipe(entry);
     }
 }

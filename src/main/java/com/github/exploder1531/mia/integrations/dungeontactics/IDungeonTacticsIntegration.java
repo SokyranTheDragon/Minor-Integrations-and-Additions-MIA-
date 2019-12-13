@@ -15,7 +15,7 @@ public interface IDungeonTacticsIntegration extends IModIntegration
         POTION,
         QUIVER,
         RECORD,
-        SAMHAIN, // Halloween/trick or treat bag
+        SAMHAIN,
         SOLSTICE,
         TOOL
     }

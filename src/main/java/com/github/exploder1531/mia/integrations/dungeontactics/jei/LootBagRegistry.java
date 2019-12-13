@@ -8,23 +8,23 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class CauldronRegistry
+public class LootBagRegistry
 {
-    private Set<CauldronEntry> registry;
-    private static CauldronRegistry instance;
+    private Set<LootBagEntry> registry;
+    private static LootBagRegistry instance;
     
-    private CauldronRegistry()
+    private LootBagRegistry()
     {
     }
     
     @Nullable
-    public static CauldronRegistry getInstance()
+    public static LootBagRegistry getInstance()
     {
-        if (ModLoadStatus.dungeonTacticsLoaded)
+        if (ModLoadStatus.dungeonTacticsLoaded && ModLoadStatus.jerLoaded)
         {
             if (instance != null)
                 return instance;
-            instance = new CauldronRegistry();
+            instance = new LootBagRegistry();
             instance.registry = new LinkedHashSet<>();
             return instance;
         }
@@ -33,19 +33,19 @@ public class CauldronRegistry
     }
     
     @SuppressWarnings("UnusedReturnValue")
-    public boolean registerCauldronRecipe(@Nullable CauldronEntry entry)
+    public boolean registerLootBagRecipe(@Nullable LootBagEntry entry)
     {
         return entry != null && registry.add(entry);
     }
     
     @Nonnull
-    public Set<CauldronEntry> getRecipes()
+    public Set<LootBagEntry> getRecipes()
     {
         return registry;
     }
     
     @Nonnull
-    public static Set<CauldronEntry> getRecipesOrEmpty()
+    public static Set<LootBagEntry> getRecipesOrEmpty()
     {
         return getInstance() != null ? getInstance().getRecipes() : new HashSet<>();
     }

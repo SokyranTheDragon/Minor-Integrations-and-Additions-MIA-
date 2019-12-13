@@ -48,9 +48,9 @@ public class DungeonTacticsConfiguration
             ConfigManager.sync(Mia.MODID, Config.Type.INSTANCE);
             
             if (enableJeiIntegration)
-                MiaJeiPlugin.unhideCategories(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON);
+                MiaJeiPlugin.unhideCategories(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON, MiaJeiPlugin.Categories.DUNGEON_TACTICS_LOOT_BAG);
             else
-                MiaJeiPlugin.hideCategories(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON);
+                MiaJeiPlugin.hideCategories(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON, MiaJeiPlugin.Categories.DUNGEON_TACTICS_LOOT_BAG);
         }
     }
 }

@@ -23,7 +23,7 @@ class DungeonTacticsTConstructIntegration implements IDungeonTacticsIntegration
                 LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:Bacon", 5, LootUtils.setMetadataFunction(0, 0));
                 LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:MeatJerky", 5, LootUtils.setMetadataFunction(10, 15));
                 LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:FishJerky", 5, LootUtils.setMetadataFunction(20, 23));
-                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:FishJerky", 5, LootUtils.setMetadataFunction(20, 23));
+//                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:FishJerky", 5, LootUtils.setMetadataFunction(20, 23));
                 LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:SlimeCongealed", 5, LootUtils.setMetadataFunction(30, 34));
                 break;
             case ORE:

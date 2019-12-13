@@ -91,6 +91,7 @@ mia.jei.info.void_creator=(Wuss mode needs to be enabled in Thaumcraft options f
 
 # Category
 mia.jei.cauldron.title=Alchemical Cauldron
+mia.jei.loot_bag.title=Loot Bags
 # Info tab
 mia.jei.dt.info.fishing=Can be obtained by fishing.
 mia.jei.dt.info.fishing_treasure=Can be obtained by fishing (counts as treasure).
