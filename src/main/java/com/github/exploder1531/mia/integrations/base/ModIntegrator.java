@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.base;
 
 import com.github.exploder1531.mia.integrations.ModIds;
+import com.github.exploder1531.mia.integrations.botania.Botania;
 import com.github.exploder1531.mia.integrations.dungeontactics.DungeonTactics;
 import com.github.exploder1531.mia.integrations.extrabotany.ExtraBotany;
 import com.github.exploder1531.mia.integrations.harvestcraft.Harvestcraft;
@@ -81,6 +82,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.DUNGEON_TACTICS, new DungeonTactics());
         if (harvestcraftLoaded)
             modIntegrations.put(ModIds.HARVESTCRAFT, new Harvestcraft());
+        if (botaniaLoaded)
+            modIntegrations.put(ModIds.BOTANIA, new Botania());
         if (extraBotanyLoaded)
             modIntegrations.put(ModIds.EXTRABOTANY, new ExtraBotany());
         

@@ -1,6 +1,6 @@
 package com.github.exploder1531.mia.integrations.jei;
 
-import com.github.exploder1531.mia.config.DungeonTacticsConfiguration;
+import com.github.exploder1531.mia.config.JeiConfiguration;
 import com.github.exploder1531.mia.core.MiaBlocks;
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import mezz.jei.api.IJeiRuntime;
@@ -41,8 +41,10 @@ public class MiaJeiPlugin implements IModPlugin
     {
         MiaJeiPlugin.jeiRuntime = jeiRuntime;
         
-        if (!DungeonTacticsConfiguration.enableJeiIntegration)
-            hideCategories(Categories.DUNGEON_TACTICS_CAULDRON, Categories.LOOT_BAG);
+        if (!JeiConfiguration.enableLootBagCategory)
+            hideCategories(Categories.LOOT_BAG);
+        if (!JeiConfiguration.enableAlchemicalCauldronCategory)
+            hideCategories(Categories.DUNGEON_TACTICS_CAULDRON);
     }
     
     @Override

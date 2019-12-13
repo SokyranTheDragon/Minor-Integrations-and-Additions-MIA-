@@ -23,7 +23,7 @@ class DungeonTacticsMoCreaturesIntegration implements IDungeonTacticsIntegration
                 LootUtils.addDtLoot(loot, MoCBlocks.mocLog, "MoC:Log", 1, new SetMetadata(new LootCondition[0], new RandomValueRange(0, 1)));
                 break;
             case RECORD:
-                LootUtils.addDtLoot(loot, MoCItems.recordshuffle, "MoC:Record");
+                LootUtils.addDtLoot(loot, MoCItems.recordshuffle, "MoC:Record", 1);
                 break;
             case TOOL:
                 LootUtils.addDtLoot(loot, MoCItems.whip, "MoC:Whip", LootUtils.getDtToolFunctions());

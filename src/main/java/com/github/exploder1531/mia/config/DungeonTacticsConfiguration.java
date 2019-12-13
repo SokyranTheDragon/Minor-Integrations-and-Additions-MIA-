@@ -1,7 +1,6 @@
 package com.github.exploder1531.mia.config;
 
 import com.github.exploder1531.mia.Mia;
-import com.github.exploder1531.mia.integrations.jei.MiaJeiPlugin;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -18,11 +17,6 @@ public class DungeonTacticsConfiguration
     @Config.LangKey("mia.config.dungeon_tactics.additions_enabled")
     @Config.RequiresMcRestart
     public static boolean dungeonTacticsAdditionsEnabled = true;
-    
-    @Config.Name("Enable JEI integration")
-    @Config.Comment("Set to false to completely disable integration with JEI")
-    @Config.LangKey("mia.config.shared.enable_jei_integration")
-    public static boolean enableJeiIntegration = true;
     
     @Config.Name("Enable JER integration")
     @Config.Comment("Set to false to completely disable integration with JER")
@@ -44,13 +38,6 @@ public class DungeonTacticsConfiguration
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
     {
         if (event.getModID().equals(Mia.MODID))
-        {
             ConfigManager.sync(Mia.MODID, Config.Type.INSTANCE);
-            
-            if (enableJeiIntegration)
-                MiaJeiPlugin.unhideCategories(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON, MiaJeiPlugin.Categories.LOOT_BAG);
-            else
-                MiaJeiPlugin.hideCategories(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON, MiaJeiPlugin.Categories.LOOT_BAG);
-        }
     }
 }
