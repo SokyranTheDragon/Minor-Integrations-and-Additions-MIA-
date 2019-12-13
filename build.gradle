@@ -169,6 +169,16 @@ dependencies {
     // For use with deobfuscated code, provide the original source for IntelliJ Idea
     // https://github.com/MatrexsVigil/harvestcraft
     provided "curse.maven:PamsHarvestcraft_1.12.2zf:2771840"
+
+    // Botania and friends
+     if (project.run_botania == "true") {
+         deobfProvided "curse.maven:Bontina_r1.10-362:2782181"
+         deobfProvided "curse.maven:ExtraBontina_r1.1-59:2815560"
+     }
+    else {
+         compileOnly "curse.maven:Bontina_r1.10-362:2782181"
+         compileOnly "curse.maven:ExtraBontina_r1.1-59:2815560"
+     }
 }
 
 processResources {
