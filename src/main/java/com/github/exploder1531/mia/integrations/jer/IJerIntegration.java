@@ -14,7 +14,7 @@ import java.util.Set;
 
 public interface IJerIntegration extends IModIntegration
 {
-    default Set<Class> addMobs(MobTableBuilder builder, Set<Class> ignoreMobOverrides)
+    default Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
     {
         return Sets.newHashSet();
     }

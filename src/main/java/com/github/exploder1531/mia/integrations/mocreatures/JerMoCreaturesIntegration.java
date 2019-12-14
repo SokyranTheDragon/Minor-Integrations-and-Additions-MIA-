@@ -49,7 +49,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
 {
     @SuppressWarnings("unchecked")
     @Override
-    public Set<Class> addMobs(MobTableBuilder builder, Set<Class> ignoreMobOverrides)
+    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
     {
         // Horses
         for (int i = 21; i <= 26; i++)
@@ -72,7 +72,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
         builder.add(loadResource("mocreatures/passive/mouse"), MoCEntityMouse.class);
         builder.add(loadResource("mocreatures/passive/raccoon"), MoCEntityRaccoon.class);
         builder.add(loadResource("mocreatures/passive/turkey"), MoCEntityTurkey.class);
-//        builder.add(loadResource("mocreatures/passive/turtle"), MoCEntityTurtle.class);
+        builder.add(loadResource("mocreatures/passive/turtle"), MoCEntityTurtle.class);
         // Bears
         builder.add(loadResource("mocreatures/passive/bear/black"), MoCEntityBlackBear.class);
         builder.add(loadResource("mocreatures/passive/bear/grizzly"), MoCEntityGrizzlyBear.class);
@@ -89,9 +89,9 @@ class JerMoCreaturesIntegration implements IJerIntegration
         // Pet scorpion
         for (int i = 1; i <= 5; i++)
             builder.add(loadResource("mocreatures/passive/scorpion/scorpion_" + i), MoCEntityPetScorpion.class, new GenericVariantSetter(i));
-        // Snake, currently disabled due to rendering issues
-//        for (int i = 1; i <= 5; i++)
-//            builder.add(loadResource("mocreatures/passive/snake/snake_" + i), MoCEntitySnake.class, new GenericVariantSetter(i));
+        // Snake
+        for (int i = 1; i <= 5; i++)
+            builder.add(loadResource("mocreatures/passive/snake/snake_" + i), MoCEntitySnake.class, new GenericVariantSetter(i));
         
         
         // Hostile entities
@@ -131,9 +131,9 @@ class JerMoCreaturesIntegration implements IJerIntegration
         builder.add(loadResource("mocreatures/aquatic/jellyfish"), MoCEntityJellyFish.class);
         builder.add(loadResource("mocreatures/aquatic/shark"), MoCEntityShark.class);
         // Medium fish
-//        builder.add(loadResource("mocreatures/aquatic/fish_medium/bass"), MoCEntityBass.class);
-//        builder.add(loadResource("mocreatures/aquatic/fish_medium/cod"), MoCEntityCod.class);
-//        builder.add(loadResource("mocreatures/aquatic/fish_medium/salmon"), MoCEntitySalmon.class);
+        builder.add(loadResource("mocreatures/aquatic/fish_medium/bass"), MoCEntityBass.class);
+        builder.add(loadResource("mocreatures/aquatic/fish_medium/cod"), MoCEntityCod.class);
+        builder.add(loadResource("mocreatures/aquatic/fish_medium/salmon"), MoCEntitySalmon.class);
         // Small fish
         builder.add(loadResource("mocreatures/aquatic/fish_small/anchovy"), MoCEntityAnchovy.class);
         builder.add(loadResource("mocreatures/aquatic/fish_small/angel_fish"), MoCEntityAngelFish.class);
@@ -162,10 +162,10 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityMouse.class,
                 MoCEntityRaccoon.class,
                 MoCEntityTurkey.class,
-//                MoCEntityTurtle.class,
+                MoCEntityTurtle.class,
                 MoCEntityOstrich.class,
                 MoCEntityPetScorpion.class,
-//                MoCEntitySnake.class,
+                MoCEntitySnake.class,
                 // Bears
                 MoCEntityBlackBear.class,
                 MoCEntityGrizzlyBear.class,
@@ -208,9 +208,9 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityJellyFish.class,
                 MoCEntityShark.class,
                 // Medium fish
-//                MoCEntityBass.class,
-//                MoCEntityCod.class,
-//                MoCEntitySalmon.class,
+                MoCEntityBass.class,
+                MoCEntityCod.class,
+                MoCEntitySalmon.class,
                 // Small fish
                 MoCEntityAnchovy.class,
                 MoCEntityAngelFish.class,

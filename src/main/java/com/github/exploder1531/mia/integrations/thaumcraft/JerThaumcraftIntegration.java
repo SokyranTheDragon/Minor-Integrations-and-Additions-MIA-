@@ -41,7 +41,7 @@ import java.util.stream.Stream;
 class JerThaumcraftIntegration implements IJerIntegration
 {
     @Override
-    public Set<Class> addMobs(MobTableBuilder builder, Set<Class> ignoreMobOverrides)
+    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
     {
         builder.add(LootTableList.ENTITIES_ZOMBIE, EntityBrainyZombie.class);
         builder.add(EntityPech.LOOT, EntityPech.class);

@@ -20,7 +20,7 @@ import java.util.Set;
 class JerTConstructIntegration implements IJerIntegration
 {
     @Override
-    public Set<Class> addMobs(MobTableBuilder builder, Set<Class> ignoreMobOverrides)
+    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
     {
         builder.add(EntityBlueSlime.LOOT_TABLE, EntityBlueSlime.class);
         

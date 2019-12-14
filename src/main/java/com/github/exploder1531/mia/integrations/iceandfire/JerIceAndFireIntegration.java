@@ -42,7 +42,7 @@ class JerIceAndFireIntegration implements IJerIntegration
     // Using their base class did not work as it wasn't considered the exact class that was required, but it accepted no class.
     @SuppressWarnings("unchecked")
     @Override
-    public Set<Class> addMobs(MobTableBuilder builder, Set<Class> ignoreMobOverrides)
+    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
     {
         builder.add(EntityAmphithere.LOOT, EntityAmphithere.class);
         builder.add(EntityCockatrice.LOOT, EntityCockatrice.class);
@@ -424,7 +424,6 @@ class JerIceAndFireIntegration implements IJerIntegration
         {
             this.jungle = jungle;
         }
-        
         
         @Override
         public void setProperties(EntityLivingBase entity)

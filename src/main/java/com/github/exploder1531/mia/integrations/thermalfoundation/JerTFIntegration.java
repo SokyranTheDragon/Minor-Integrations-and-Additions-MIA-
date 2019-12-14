@@ -32,7 +32,7 @@ import java.util.Set;
 class JerTFIntegration implements IJerIntegration
 {
     @Override
-    public Set<Class> addMobs(MobTableBuilder mobTableBuilder, Set<Class> ignoreMobOverrides)
+    public Set<Object> addMobs(MobTableBuilder mobTableBuilder, Set<Object> ignoreMobOverrides)
     {
         mobTableBuilder.add(new ResourceLocation("thermalfoundation", "entities/basalz"), EntityBasalz.class);
         mobTableBuilder.add(new ResourceLocation("thermalfoundation", "entities/blitz"), EntityBlitz.class);

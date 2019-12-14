@@ -98,7 +98,7 @@ class LuckyEggLoader
         return config;
     }
     
-    private class LuckyEggLootConfig
+    private static class LuckyEggLootConfig
     {
         boolean modCanAutomaticallyReplaceConfig = true;
         int configVersion;

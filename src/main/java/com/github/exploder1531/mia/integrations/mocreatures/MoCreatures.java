@@ -3,12 +3,22 @@ package com.github.exploder1531.mia.integrations.mocreatures;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
+import com.github.exploder1531.mia.integrations.mocreatures.client.MoCRenderMediumFishJer;
+import com.github.exploder1531.mia.integrations.mocreatures.client.MoCRenderSnakeJer;
+import com.github.exploder1531.mia.integrations.mocreatures.client.MoCRenderTurtleJer;
 import com.pam.harvestcraft.item.ItemRegistry;
+import drzhark.mocreatures.entity.aquatic.MoCEntityBass;
+import drzhark.mocreatures.entity.aquatic.MoCEntityCod;
+import drzhark.mocreatures.entity.aquatic.MoCEntitySalmon;
+import drzhark.mocreatures.entity.passive.MoCEntitySnake;
+import drzhark.mocreatures.entity.passive.MoCEntityTurtle;
 import drzhark.mocreatures.init.MoCBlocks;
 import drzhark.mocreatures.init.MoCItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -80,5 +90,19 @@ public class MoCreatures implements IBaseMod
         OreDictionary.registerOre("dirt", new ItemStack(MoCBlocks.mocDirt, 1, OreDictionary.WILDCARD_VALUE));
         
         OreDictionary.registerOre("record", MoCItems.recordshuffle);
+    }
+    
+    @SuppressWarnings("deprecation")
+    @Override
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        if (jerLoaded)
+        {
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityTurtle.class, new MoCRenderTurtleJer());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntitySnake.class, new MoCRenderSnakeJer());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityBass.class, new MoCRenderMediumFishJer<MoCEntityBass>());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityCod.class, new MoCRenderMediumFishJer<MoCEntityCod>());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntitySalmon.class, new MoCRenderMediumFishJer<MoCEntitySalmon>());
+        }
     }
 }
