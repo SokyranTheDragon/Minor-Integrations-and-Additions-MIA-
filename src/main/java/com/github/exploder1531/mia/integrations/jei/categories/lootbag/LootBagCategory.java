@@ -80,5 +80,6 @@ public class LootBagCategory implements IRecipeCategory<LootBagWrapper>
         }
         
         guiItemStacks.set(ingredients);
+        recipeLayout.getItemStacks().addTooltipCallback(lootBagWrapper);
     }
 }

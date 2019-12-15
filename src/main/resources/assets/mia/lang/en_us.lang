@@ -207,3 +207,10 @@ key.music_player_gui=Open music player GUI
 key.music_player_toggle=Play/stop playing song
 key.music_player_next=Play next song
 key.music_player_previous=Play previous song
+
+
+
+###############################
+### Generic texts, reusable ###
+###############################
+mia.generic.chance=Chance: %s%%

@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -82,14 +83,14 @@ public class JeiExtraBotany implements IJeiIntegration
             return;
         }
         
-        ItemBonusBase item = (ItemBonusBase)stack.getItem();
+        ItemBonusBase item = (ItemBonusBase) stack.getItem();
         List<WeightCategory> possibleOutputs = item.getWeightCategory(stack);
         
         float totalWeight = (float) possibleOutputs.stream().mapToInt(WeightCategory::getWeight).sum();
         Set<LootBagEntry.BagOutputEntry> bagOutputs =
                 possibleOutputs.stream()
-                       .map(entry -> new LootBagEntry.BagOutputEntry(entry.getCategory(), totalWeight / entry.getWeight()))
-                       .collect(Collectors.toSet());
+                               .map(entry -> new LootBagEntry.BagOutputEntry(Collections.singletonList(entry.getCategory()), totalWeight / entry.getWeight()))
+                               .collect(Collectors.toSet());
         
         Collection<LootBagEntry> entries = LootBagEntry.getEntries(stack, bagOutputs);
         

@@ -10,6 +10,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootEntryTable;
 import net.minecraft.world.storage.loot.LootTableManager;
+import net.minecraft.world.storage.loot.RandomValueRange;
+import net.minecraft.world.storage.loot.functions.*;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class LootBagEntry
         
         for (BagOutputEntry possibleOutput : possibleOutputs)
         {
-            if (!possibleOutput.item.isEmpty())
+            if (!possibleOutput.items.isEmpty())
             {
                 items.add(possibleOutput);
                 if (items.size() == 36)
@@ -80,23 +82,18 @@ public class LootBagEntry
     
     public static class BagOutputEntry
     {
-        private ItemStack item;
+        private List<ItemStack> items;
         private float chance;
         
-        public BagOutputEntry(ItemStack item, float chance)
+        public BagOutputEntry(List<ItemStack> items, float chance)
         {
-            this.item = item;
+            this.items = items;
             this.chance = chance;
         }
         
-        public BagOutputEntry(Item item, float chance)
+        public List<ItemStack> getItems()
         {
-            this(new ItemStack(item), chance);
-        }
-        
-        public ItemStack getItem()
-        {
-            return item;
+            return items;
         }
         
         public float getChance()
@@ -112,6 +109,11 @@ public class LootBagEntry
         return ReflectionHelper.getPrivateValue(LootEntryTable.class, lootEntry, "field_186371_a");
     }
     
+    private static RandomValueRange getMetaRange(SetMetadata function)
+    {
+        return ReflectionHelper.getPrivateValue(SetMetadata.class, function, "field_186573_b");
+    }
+    
     private static void toDrops(LootTableManager manager, ResourceLocation resourceLocation, Collection<BagOutputEntry> possibleOutputs)
     {
         LootTableHelper.getPools(manager.getLootTableFromLocation(resourceLocation)).forEach(pool ->
@@ -120,7 +122,7 @@ public class LootBagEntry
                     LootTableHelper.getEntries(pool).stream()
                                    .filter(entry -> entry instanceof LootEntryItem)
                                    .map(entry -> (LootEntryItem) entry)
-                                   .map(entry -> new BagOutputEntry(LootTableHelper.getItem(entry), (float) entry.getEffectiveWeight(0.0f) / totalWeight))
+                                   .map(entry -> new BagOutputEntry(applyFunction(LootTableHelper.getItem(entry), LootTableHelper.getFunctions(entry)), (float) entry.getEffectiveWeight(0.0f) / totalWeight * 100f))
                                    .forEach(possibleOutputs::add);
                     LootTableHelper.getEntries(pool).stream()
                                    .filter(entry -> entry instanceof LootEntryTable)
@@ -128,5 +130,45 @@ public class LootBagEntry
                                    .forEach(entry -> toDrops(manager, getTable(entry), possibleOutputs));
                 }
         );
+    }
+    
+    private static List<ItemStack> applyFunction(Item item, LootFunction[] functions)
+    {
+        int min = 0;
+        int max = 0;
+        boolean enchanted = false;
+        SetNBT tag = null;
+        
+        for (LootFunction function : functions)
+        {
+            if (function instanceof SetMetadata)
+            {
+                RandomValueRange range = getMetaRange((SetMetadata) function);
+                min = (int) range.getMin();
+                max = (int) range.getMax();
+            }
+            else if (function instanceof SetNBT)
+                tag = (SetNBT) function;
+            else if (function instanceof EnchantRandomly || function instanceof EnchantWithLevels)
+                enchanted = true;
+        }
+        
+        List<ItemStack> items = new ArrayList<>();
+        
+        for (int i = min; i <= max; i++)
+            items.add(createItem(item, i, tag));
+        
+        if (items.size() == 0)
+            items.add(createItem(item, 0, tag));
+        
+        return items;
+    }
+    
+    private static ItemStack createItem(Item item, int meta, SetNBT tag)
+    {
+        ItemStack stack = new ItemStack(item, 1, meta);
+        if (tag != null)
+            tag.apply(stack, null, null);
+        return stack;
     }
 }
