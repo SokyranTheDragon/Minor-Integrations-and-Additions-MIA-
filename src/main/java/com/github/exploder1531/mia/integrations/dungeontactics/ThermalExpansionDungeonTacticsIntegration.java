@@ -7,6 +7,8 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.thermalexpansion.IThermalExpansionIntegration;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTItems;
 
@@ -236,6 +238,10 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         InsolatorManager.addDefaultRecipe(input, new ItemStack(DTItems.GLOWCURRENT, 3), input, 100);
         // Since this flower lets you get XP bottles, I matched the recipe to Ender Lily/Red Orchid from XU2
         InsolatorManager.addRecipe(120_000, 4_000, new ItemStack(DTBlocks.FLOWER_XP), ItemFertilizer.fertilizerFlux, new ItemStack(Items.EXPERIENCE_BOTTLE), new ItemStack(DTBlocks.FLOWER_XP));
+        
+        
+        // Magmatic Crucible
+        CrucibleManager.addRecipe(250, new ItemStack(DTItems.INCINDIBERRY), new FluidStack(FluidRegistry.LAVA, 25));
     }
     
     @Nonnull
