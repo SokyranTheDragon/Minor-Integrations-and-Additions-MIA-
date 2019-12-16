@@ -8,6 +8,7 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import pegbeard.dungeontactics.handlers.DTBlocks;
 
@@ -17,7 +18,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class CauldronCategory implements IRecipeCategory<CauldronWrapper>
 {
-    private final BackgroundDrawable BACKGROUND = new BackgroundDrawable("textures/gui/jei/cauldron.png", 166, 59);
+    static final BackgroundDrawable BACKGROUND = new BackgroundDrawable("textures/gui/jei/cauldron.png", 166, 59);
     private IDrawable ICON;
     
     public CauldronCategory(IGuiHelper helper)
@@ -64,19 +65,44 @@ public class CauldronCategory implements IRecipeCategory<CauldronWrapper>
     @ParametersAreNonnullByDefault
     public void setRecipe(IRecipeLayout recipeLayout, CauldronWrapper cauldronWrapper, IIngredients ingredients)
     {
-        recipeLayout.getItemStacks().init(0, false, 123 + 4, 6 + 4);
-        recipeLayout.getItemStacks().init(1, false, 79 + 4, 6 + 4);
-        recipeLayout.getItemStacks().init(2, false, 143 + 4, 6 + 4);
+        // Main output
+        if (cauldronWrapper.getEntry() instanceof CauldronEntry.CauldronFluidEntry)
+        {
+            recipeLayout.getFluidStacks().init(1, false, 128, 11);
+            recipeLayout.getFluidStacks().set(1, ((CauldronEntry.CauldronFluidEntry) cauldronWrapper.getEntry()).getTrueOutput());
+        }
+        else
+        {
+            recipeLayout.getItemStacks().init(0, false, 127, 10);
+            recipeLayout.getItemStacks().set(0, cauldronWrapper.getEntry().getOutput());
+        }
         
-        for (int i = 0; i < 3; i++)
-            recipeLayout.getItemStacks().init(i + 3, true, 7 + 4 + 17 * i, 6 + 4);
-
-//        recipeLayout.getItemStacks().addTooltipCallback(cauldronWrapper); implements ITooltipCallback<ItemStack>
-        
-        recipeLayout.getItemStacks().set(0, cauldronWrapper.getEntry().getOutput());
+        // Right click item and byproduct
+        recipeLayout.getItemStacks().init(1, false, 83, 10);
+        recipeLayout.getItemStacks().init(2, false, 147, 10);
         recipeLayout.getItemStacks().set(1, cauldronWrapper.getEntry().getRightClickItem());
         recipeLayout.getItemStacks().set(2, cauldronWrapper.getEntry().getByproduct());
+        
+        // Inputs
         for (int i = 0; i < Math.min(3, cauldronWrapper.getEntry().getInputs().size()); i++)
+        {
+            recipeLayout.getItemStacks().init(i + 3, true, 11 + 17 * i, 10);
             recipeLayout.getItemStacks().set(i + 3, cauldronWrapper.getEntry().getInputs().get(i));
+        }
+        
+        // Liquid in cauldron
+        if (cauldronWrapper.getEntry().getPossibleFluids() != CauldronEntry.PossibleFluids.Any)
+        {
+            recipeLayout.getFluidStacks().init(0, false, 38, 30);
+            recipeLayout.getFluidStacks().set(0, cauldronWrapper.getEntry().getFluid());
+            
+            if (cauldronWrapper.getEntry().getPossibleFluids() == CauldronEntry.PossibleFluids.NoWater)
+            {
+                recipeLayout.getItemStacks().init(6, false, 55, 29);
+                recipeLayout.getItemStacks().set(6, new ItemStack(Blocks.BARRIER));
+            }
+        }
+        
+        recipeLayout.getItemStacks().addTooltipCallback(cauldronWrapper);
     }
 }

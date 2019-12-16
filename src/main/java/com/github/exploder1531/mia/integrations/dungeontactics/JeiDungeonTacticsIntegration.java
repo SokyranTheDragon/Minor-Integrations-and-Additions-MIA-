@@ -21,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTEffects;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.jerLoaded;
 
+@SuppressWarnings("SameParameterValue")
 public class JeiDungeonTacticsIntegration implements IJeiIntegration
 {
     @Override
@@ -106,7 +108,7 @@ public class JeiDungeonTacticsIntegration implements IJeiIntegration
     public void registerRecipes()
     {
         CauldronRegistry cauldronRegistry = CauldronRegistry.getInstance();
-    
+        
         if (cauldronRegistry != null)
         {
             // Weapon imbuing
@@ -118,24 +120,31 @@ public class JeiDungeonTacticsIntegration implements IJeiIntegration
             registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONFEATHER, new ItemStack(DTBlocks.FLOWER_FEATHER));
             registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONSANGUINE, new ItemStack(DTBlocks.FLOWER_SANGUINE));
             registerImbuing(cauldronRegistry, Items.IRON_SWORD, DTEffects.POISONTANGLE, new ItemStack(DTBlocks.FLOWER_TANGLE));
-        
+            
             // Cooking
             registerCooking(cauldronRegistry, Items.IRON_SHOVEL, Items.GUNPOWDER, new ItemStack(DTItems.CHERRYBOMB, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.FLINT));
             registerCooking(cauldronRegistry, Items.IRON_SHOVEL, Items.GLOWSTONE_DUST, new ItemStack(DTItems.GLOWCURRENT, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.BLAZE_POWDER));
             registerCooking(cauldronRegistry, Items.IRON_SHOVEL, Items.BLAZE_POWDER, new ItemStack(DTItems.INCINDIBERRY, 4), new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.COAL));
             // 1 to 3 + fortune level
-            registerCooking(cauldronRegistry, Items.IRON_SHOVEL, DTItems.MAGIC_POWDER, new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(Blocks.RED_MUSHROOM), new ItemStack(Blocks.BROWN_MUSHROOM));
+            registerCooking(cauldronRegistry, Items.IRON_SHOVEL, DTItems.MAGIC_POWDER, 3, new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(Blocks.RED_MUSHROOM), new ItemStack(Blocks.BROWN_MUSHROOM));
             registerCooking(cauldronRegistry, Items.IRON_SHOVEL, new ItemStack(Items.CLAY_BALL, 4), new ItemStack(Items.SLIME_BALL, 3), new ItemStack(Blocks.SAND));
             registerCooking(cauldronRegistry, Items.IRON_SHOVEL, Items.LEATHER, Items.SLIME_BALL, new ItemStack(Items.ROTTEN_FLESH, 3), new ItemStack(Items.SUGAR, 2));
             // Any (vanilla) leaves
-            registerCooking(cauldronRegistry, Items.IRON_SHOVEL, new ItemStack(Blocks.DIRT), new ItemStack(Blocks.LEAVES, 2, OreDictionary.WILDCARD_VALUE), new ItemStack(Blocks.SAND));
+            registerCooking(cauldronRegistry, Items.IRON_SHOVEL, new ItemStack(Blocks.DIRT), new ItemStack(Items.CLAY_BALL), new ItemStack(Blocks.LEAVES, 2, OreDictionary.WILDCARD_VALUE), new ItemStack(Blocks.SAND));
             registerCooking(cauldronRegistry, Items.IRON_SHOVEL, new ItemStack(Blocks.MYCELIUM), new ItemStack(Blocks.DIRT), new ItemStack(Blocks.RED_MUSHROOM, 2), new ItemStack(Blocks.BROWN_MUSHROOM, 2));
+            
+            //noinspection ConstantConditions
+            cauldronRegistry.registerCauldronRecipe(new CauldronEntry.CauldronFluidEntry(new ItemStack(Items.IRON_SHOVEL), CauldronEntry.PossibleFluids.Any, FluidRegistry.getFluidStack("lava", 1000), new ItemStack(DTItems.INCINDIBERRY, 7), new ItemStack(Blocks.MAGMA)));
+            cauldronRegistry.registerCauldronRecipe(new CauldronEntry.CauldronCookingEntry(new ItemStack(Items.IRON_SHOVEL), CauldronEntry.PossibleFluids.NoWater, new ItemStack(DTItems.HEART_GOLDEN), ItemStack.EMPTY, new ItemStack(DTItems.HEART_JAR), new ItemStack(Items.GOLD_NUGGET, 2), new ItemStack(Items.GLOWSTONE_DUST, 2)));
+            
+            cauldronRegistry.registerCauldronRecipe(new CauldronEntry.CauldronObsidianEntry(false));
+            cauldronRegistry.registerCauldronRecipe(new CauldronEntry.CauldronObsidianEntry(true));
         }
         else
             Mia.LOGGER.error("Could not access Alchemical Cauldron recipe registry, this shouldn't have happened as Dungeon Tactics is loaded. Something is very wrong.");
-    
+        
         LootBagRegistry lootBagRegistry = LootBagRegistry.getInstance();
-    
+        
         if (lootBagRegistry != null)
         {
             registerLootBag(lootBagRegistry, DTItems.BAG_ARBOUR, DTLoots.ARBOUR_LOOT);
@@ -161,37 +170,48 @@ public class JeiDungeonTacticsIntegration implements IJeiIntegration
         return ModIds.DUNGEON_TACTICS;
     }
     
-    @SuppressWarnings("SameParameterValue")
     private void registerImbuing(CauldronRegistry registry, Item weapon, Enchantment enchantment, ItemStack... input)
     {
-        ItemStack output = new ItemStack(weapon);
-        output.addEnchantment(enchantment, 1);
-        registry.registerCauldronRecipe(new CauldronEntry(new ItemStack(weapon), output, input));
+        registry.registerCauldronRecipe(new CauldronEntry.CauldronImbuingEntry(new ItemStack(weapon), enchantment, input));
     }
     
-    @SuppressWarnings("SameParameterValue")
     private void registerCooking(CauldronRegistry registry, Item spoon, Item output, ItemStack... input)
     {
-        registerCooking(registry, spoon, output, null, input);
+        registerCooking(registry, spoon, output, null, 1, input);
     }
     
-    @SuppressWarnings("SameParameterValue")
+    private void registerCooking(CauldronRegistry registry, Item spoon, Item output, int max, ItemStack... input)
+    {
+        registerCooking(registry, spoon, output, null, max, input);
+    }
+    
     private void registerCooking(CauldronRegistry registry, Item spoon, ItemStack output, ItemStack... input)
     {
-        registerCooking(registry, spoon, output, null, input);
+        registerCooking(registry, spoon, output, null, 1, input);
+    }
+    
+    @SuppressWarnings("unused")
+    private void registerCooking(CauldronRegistry registry, Item spoon, ItemStack output, int max, ItemStack... input)
+    {
+        registerCooking(registry, spoon, output, null, max, input);
     }
     
     private void registerCooking(CauldronRegistry registry, Item spoon, Item output, Item byproduct, ItemStack... input)
     {
-        registerCooking(registry, spoon, new ItemStack(output), byproduct, input);
+        registerCooking(registry, spoon, new ItemStack(output), byproduct, 1, input);
     }
     
-    private void registerCooking(CauldronRegistry registry, Item spoon, ItemStack output, Item byproduct, ItemStack... input)
+    private void registerCooking(CauldronRegistry registry, Item spoon, Item output, Item byproduct, int max, ItemStack... input)
+    {
+        registerCooking(registry, spoon, new ItemStack(output), byproduct, max, input);
+    }
+    
+    private void registerCooking(CauldronRegistry registry, Item spoon, ItemStack output, Item byproduct, int max, ItemStack... input)
     {
         if (byproduct != null)
-            registry.registerCauldronRecipe(new CauldronEntry(new ItemStack(spoon), output, new ItemStack(byproduct), input));
+            registry.registerCauldronRecipe(new CauldronEntry.SimpleCauldronCookingEntry(new ItemStack(spoon), output, new ItemStack(byproduct), max, input));
         else
-            registry.registerCauldronRecipe(new CauldronEntry(new ItemStack(spoon), output, input));
+            registry.registerCauldronRecipe(new CauldronEntry.SimpleCauldronCookingEntry(new ItemStack(spoon), output, max, input));
     }
     
     private void registerLootBag(LootBagRegistry registry, Item lootBag, ResourceLocation possibleLoot)

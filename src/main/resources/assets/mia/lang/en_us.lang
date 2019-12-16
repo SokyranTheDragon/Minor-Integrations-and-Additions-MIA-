@@ -82,7 +82,10 @@ mia.config.harvestcraft.squid_drops_calamari=Squid drops calamari
 #######################
 
 ### MIA
-
+# Category
+mia.jei.loot_bag.title=Loot Bags
+# mia.generic.chance used for lootbox item chance tooltip
+# Info tab
 mia.jei.info.egg_sorter=When provided with eggs (either manually, or by any means of automation), and if at least a single output slot is empty, it will check how good an egg is, compare it with eggs already kept there, and put all but best eggs in output slot.\nEach of the slots is only checking for one of the 3 stats, so it'll allow to select the preferred stat. (It still needs some work, it doesn't stack eggs with same stats from 2 different chickens.)
 mia.jei.info.pixie_dust_extractor=With the help of miniaturization and magic, this block provides perfect conditions to live for 9 pixies. Over time, this block is going to accumulate pixie dust, which is a nice addition to providing housing for those small, annoying creatures. Pixie dust is going to be collected faster the more pixies are there. Pixie dust extraction can be automated. This block accepts pixie jars as well as some mob capturing items.
 mia.jei.info.void_creator=(Wuss mode needs to be enabled in Thaumcraft options for this block to be possible to unlock and for it to work!) If this block is placed in area with high enough Flux content, and there's more Flux than Vis, it will drain Flux over time and create Void Seeds. There is, however, a chance for them to turn into a Primordial Pearl. The chance is increased the more Void Seeds are there and this can only happen when Void Seeds are created - there's no point in holding an entire stack of them there. Primordial pearls will be created weak, but will increase in strength as Flux is drained by Void Creator.
@@ -91,7 +94,10 @@ mia.jei.info.void_creator=(Wuss mode needs to be enabled in Thaumcraft options f
 
 # Category
 mia.jei.cauldron.title=Alchemical Cauldron
-mia.jei.loot_bag.title=Loot Bags
+# Tooltips
+mia.jei.cauldron_drop_range=Produces %s-%s, increased by 1 for every fortune level
+mia.jei.cauldron_drop=Produces %s, increased by 1 for every fortune level
+mia.jei.cauldron_imbuing=Each looting level increases potential maximum level by 1
 # Info tab
 mia.jei.dt.info.fishing=Can be obtained by fishing.
 mia.jei.dt.info.fishing_treasure=Can be obtained by fishing (counts as treasure).
