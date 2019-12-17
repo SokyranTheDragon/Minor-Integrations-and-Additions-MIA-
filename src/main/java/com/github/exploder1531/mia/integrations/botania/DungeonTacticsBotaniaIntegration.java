@@ -20,7 +20,7 @@ public class DungeonTacticsBotaniaIntegration implements IDungeonTacticsIntegrat
                 LootUtils.addDtLoot(loot, ModBlocks.livingwood, "Botania:LivingWood", 1);
                 break;
             case MAGIC:
-                LootUtils.addDtLoot(loot, ModItems.petal, "Botania:Petal", LootUtils.setMetadataFunction(0, 15));
+                LootUtils.addDtLoot(loot, ModItems.petal, "Botania:Petal", LootUtils.setMetadataFunction(0, 15), LootUtils.setCountFunction(3));
                 break;
             case RECORD:
                 LootUtils.addDtLoot(loot, ModItems.recordGaia1, "Botania:RecordGaia1", 1);

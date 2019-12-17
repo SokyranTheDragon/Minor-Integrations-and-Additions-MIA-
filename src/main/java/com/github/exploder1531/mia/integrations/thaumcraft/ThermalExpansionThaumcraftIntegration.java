@@ -62,6 +62,9 @@ class ThermalExpansionThaumcraftIntegration implements IThermalExpansionIntegrat
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.voidLegs), ingot, 3);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.voidBoots), ingot, 2);
         
+        // Recycling stuff
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.thaumometer), new ItemStack(Items.GOLD_INGOT), 2);
+        
         
         // Sawmill
         TapperManager.addStandardMapping(new ItemStack(BlocksTC.logGreatwood), new FluidStack(TFFluids.fluidExperience, 25));
@@ -71,6 +74,8 @@ class ThermalExpansionThaumcraftIntegration implements IThermalExpansionIntegrat
         SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.clothChest), new ItemStack(ItemsTC.fabric), 4, true);
         SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.clothLegs), new ItemStack(ItemsTC.fabric), 3, true);
         SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.clothBoots), new ItemStack(ItemsTC.fabric), 2, true);
+        
+        SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.golemBell), new ItemStack(Items.QUARTZ), 2);
         
         energy = 10_000;
         SawmillManager.addRecipe(energy, new ItemStack(BlocksTC.stairsGreatwood, 2), new ItemStack(BlocksTC.plankGreatwood), ItemMaterial.dustWood.copy(), 25);

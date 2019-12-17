@@ -7,11 +7,9 @@ import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.RandomChance;
-import net.minecraft.world.storage.loot.functions.EnchantWithLevels;
-import net.minecraft.world.storage.loot.functions.LootFunction;
-import net.minecraft.world.storage.loot.functions.SetDamage;
-import net.minecraft.world.storage.loot.functions.SetMetadata;
+import net.minecraft.world.storage.loot.functions.*;
 
+@SuppressWarnings("unused")
 public class LootUtils
 {
     private LootUtils()
@@ -42,16 +40,43 @@ public class LootUtils
     {
         return new LootFunction[]
                 {
-                        new SetDamage(new LootCondition[0], new RandomValueRange(0.5f, 1f)),
-                        new EnchantWithLevels(new LootCondition[]{ new RandomChance(0.2f) }, new RandomValueRange(30, 30), true)
+                        setDamageFunction(0.5f, 1f),
+                        enchantWithLevelsFunction(0.2f, 30, true)
                 };
     }
     
-    public static LootFunction[] setMetadataFunction(int min, int max)
+    public static LootFunction setDamageFunction(float count)
     {
-        return new LootFunction[]
-                {
-                    new SetMetadata(new LootCondition[0], new RandomValueRange(min, max))
-                };
+        return setDamageFunction(count, count);
+    }
+    
+    public static LootFunction setDamageFunction(float min, float max)
+    {
+        return new SetDamage(new LootCondition[0], new RandomValueRange(min, max));
+    }
+    
+    public static LootFunction enchantWithLevelsFunction(float chance, int level, boolean isTreasure)
+    {
+        return enchantWithLevelsFunction(chance, level, level, isTreasure);
+    }
+    
+    public static LootFunction enchantWithLevelsFunction(float chance, int minLevel, int maxLevel, boolean isTreasure)
+    {
+        return new EnchantWithLevels(new LootCondition[]{ new RandomChance(chance) }, new RandomValueRange(minLevel, maxLevel), isTreasure);
+    }
+    
+    public static LootFunction setMetadataFunction(int min, int max)
+    {
+        return new SetMetadata(new LootCondition[0], new RandomValueRange(min, max));
+    }
+    
+    public static LootFunction setCountFunction(int count)
+    {
+        return setCountFunction(count, count);
+    }
+    
+    public static LootFunction setCountFunction(int min, int max)
+    {
+        return new SetCount(new LootCondition[0], new RandomValueRange(min, max));
     }
 }
