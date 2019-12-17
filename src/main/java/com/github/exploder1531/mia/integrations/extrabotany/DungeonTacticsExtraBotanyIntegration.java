@@ -8,7 +8,7 @@ import net.minecraft.world.storage.loot.LootPool;
 
 import javax.annotation.Nonnull;
 
-public class DungeonTacticsExtraBotanyIntegration implements IDungeonTacticsIntegration
+class DungeonTacticsExtraBotanyIntegration implements IDungeonTacticsIntegration
 {
     @Override
     public void insertBagLoot(BagTypes type, LootPool loot)

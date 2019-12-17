@@ -9,7 +9,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class DungeonTacticsBotaniaIntegration implements IDungeonTacticsIntegration
+class DungeonTacticsBotaniaIntegration implements IDungeonTacticsIntegration
 {
     @Override
     public void insertBagLoot(BagTypes type, LootPool loot)
