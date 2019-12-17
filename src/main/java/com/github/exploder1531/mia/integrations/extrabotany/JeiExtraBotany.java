@@ -89,7 +89,7 @@ public class JeiExtraBotany implements IJeiIntegration
         float totalWeight = (float) possibleOutputs.stream().mapToInt(WeightCategory::getWeight).sum();
         Set<LootBagEntry.BagOutputEntry> bagOutputs =
                 possibleOutputs.stream()
-                               .map(entry -> new LootBagEntry.BagOutputEntry(Collections.singletonList(entry.getCategory()), totalWeight / entry.getWeight()))
+                               .map(entry -> new LootBagEntry.BagOutputEntry(Collections.singletonList(entry.getCategory()), (float) entry.getWeight() / totalWeight * 100f))
                                .collect(Collectors.toSet());
         
         Collection<LootBagEntry> entries = LootBagEntry.getEntries(stack, bagOutputs);

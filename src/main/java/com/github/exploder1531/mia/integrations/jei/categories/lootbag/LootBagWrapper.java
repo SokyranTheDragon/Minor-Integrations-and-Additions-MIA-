@@ -9,11 +9,13 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class LootBagWrapper implements IRecipeWrapper, ITooltipCallback<ItemStack>
 {
+    private static final DecimalFormat round = new DecimalFormat("#.##");
     private final LootBagEntry entry;
     
     public LootBagWrapper(LootBagEntry entry)
@@ -38,6 +40,10 @@ public class LootBagWrapper implements IRecipeWrapper, ITooltipCallback<ItemStac
     public void onTooltip(int slotIndex, boolean input, ItemStack ingredient, List<String> tooltip)
     {
         if (slotIndex > 0 && slotIndex <= entry.getOutputs().size())
-            tooltip.add(I18n.format("mia.generic.chance", entry.getOutputs().get(slotIndex - 1).getChance()));
+        {
+            float chance = entry.getOutputs().get(slotIndex - 1).getChance();
+            if (chance > 0)
+                tooltip.add(I18n.format("mia.generic.chance", round.format(chance)));
+        }
     }
 }
