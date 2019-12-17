@@ -1,11 +1,16 @@
 package com.github.exploder1531.mia.integrations.thaumcraft;
 
+import cofh.thermalexpansion.util.managers.device.FactorizerManager;
+import cofh.thermalexpansion.util.managers.device.TapperManager;
 import cofh.thermalexpansion.util.managers.machine.SawmillManager;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
+import cofh.thermalfoundation.init.TFFluids;
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.thermalexpansion.IThermalExpansionIntegration;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.items.ItemsTC;
 
@@ -16,6 +21,19 @@ class ThermalExpansionThaumcraftIntegration implements IThermalExpansionIntegrat
     @Override
     public void addRecipes()
     {
+        // Factorizer
+        FactorizerManager.addDefaultRecipe(new ItemStack(ItemsTC.amber), new ItemStack(BlocksTC.amberBlock), 4);
+        FactorizerManager.addDefaultRecipe(new ItemStack(BlocksTC.amberBlock), new ItemStack(BlocksTC.amberBrick), 4);
+        FactorizerManager.addDefaultRecipe(new ItemStack(Items.ROTTEN_FLESH), new ItemStack(BlocksTC.fleshBlock));
+        FactorizerManager.addDefaultRecipe(new ItemStack(ItemsTC.ingots, 1, 2), new ItemStack(BlocksTC.metalBlockBrass));
+        FactorizerManager.addDefaultRecipe(new ItemStack(ItemsTC.ingots, 1, 0), new ItemStack(BlocksTC.metalBlockThaumium));
+        FactorizerManager.addDefaultRecipe(new ItemStack(ItemsTC.ingots, 1, 1), new ItemStack(BlocksTC.metalBlockVoid));
+        FactorizerManager.addDefaultRecipe(new ItemStack(ItemsTC.nuggets, 1, 8), new ItemStack(ItemsTC.ingots, 1, 2));
+        FactorizerManager.addDefaultRecipe(new ItemStack(ItemsTC.nuggets, 1, 6), new ItemStack(ItemsTC.ingots, 1, 0));
+        FactorizerManager.addDefaultRecipe(new ItemStack(ItemsTC.nuggets, 1, 7), new ItemStack(ItemsTC.ingots, 1, 1));
+        FactorizerManager.addDefaultRecipe(new ItemStack(ItemsTC.nuggets, 1, 5), new ItemStack(ItemsTC.quicksilver));
+        
+        
         // Induction smelter
         int energy = 6_000;
         // Thaumium
@@ -46,12 +64,15 @@ class ThermalExpansionThaumcraftIntegration implements IThermalExpansionIntegrat
         
         
         // Sawmill
+        TapperManager.addStandardMapping(new ItemStack(BlocksTC.logGreatwood), new FluidStack(TFFluids.fluidExperience, 25));
+        TapperManager.addStandardMapping(new ItemStack(BlocksTC.logSilverwood), new FluidStack(TFFluids.fluidExperience, 25));
+        
         energy = 1_500;
         SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.clothChest), new ItemStack(ItemsTC.fabric), 4, true);
         SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.clothLegs), new ItemStack(ItemsTC.fabric), 3, true);
         SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.clothBoots), new ItemStack(ItemsTC.fabric), 2, true);
         
-        energy = 2_000;
+        energy = 10_000;
         SawmillManager.addRecipe(energy, new ItemStack(BlocksTC.stairsGreatwood, 2), new ItemStack(BlocksTC.plankGreatwood), ItemMaterial.dustWood.copy(), 25);
         SawmillManager.addRecipe(energy, new ItemStack(BlocksTC.stairsSilverwood, 2), new ItemStack(BlocksTC.plankSilverwood), ItemMaterial.dustWood.copy(), 25);
     }
