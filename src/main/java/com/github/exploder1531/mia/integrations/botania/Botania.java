@@ -7,6 +7,7 @@ import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.dungeonTacticsLoaded;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.thermalExpansionLoaded;
 
 public class Botania implements IBaseMod
 {
@@ -15,5 +16,7 @@ public class Botania implements IBaseMod
     {
         if (dungeonTacticsLoaded)
             modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsBotaniaIntegration());
+        if (thermalExpansionLoaded)
+            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionBotaniaIntegration());
     }
 }
