@@ -20,28 +20,28 @@ class DungeonTacticsMoCreaturesIntegration implements IDungeonTacticsIntegration
         switch (type)
         {
             case ARBOUR:
-                LootUtils.addDtLoot(loot, MoCBlocks.mocLog, "MoC:Log", 1, new SetMetadata(new LootCondition[0], new RandomValueRange(0, 1)));
+                LootUtils.addDtLoot(loot, MoCBlocks.mocLog, 1, new SetMetadata(new LootCondition[0], new RandomValueRange(0, 1)));
                 break;
             case RECORD:
-                LootUtils.addDtLoot(loot, MoCItems.recordshuffle, "MoC:Record", 1);
+                LootUtils.addDtLoot(loot, MoCItems.recordshuffle, 1);
                 break;
             case TOOL:
-                LootUtils.addDtLoot(loot, MoCItems.whip, "MoC:Whip", LootUtils.getDtToolFunctions());
-                LootUtils.addDtLoot(loot, MoCItems.fishnet, "MoC:Fishnet");
+                LootUtils.addDtLoot(loot, MoCItems.whip, LootUtils.getDtToolFunctions());
+                LootUtils.addDtLoot(loot, MoCItems.fishnet);
                 break;
             case FOOD:
-                LootUtils.addDtLoot(loot, MoCItems.omelet, "MoC:Omelet");
-                LootUtils.addDtLoot(loot, MoCItems.turtleraw, "MoC:TurtleRaw");
-                LootUtils.addDtLoot(loot, MoCItems.turtlesoup, "MoC:TurtleSoup");
-                LootUtils.addDtLoot(loot, MoCItems.ostrichraw, "MoC:OstrichRaw");
-                LootUtils.addDtLoot(loot, MoCItems.ostrichcooked, "MoC:OstrichCooked");
-                LootUtils.addDtLoot(loot, MoCItems.rawTurkey, "MoC:TurkeyRaw");
-                LootUtils.addDtLoot(loot, MoCItems.cookedTurkey, "MoC:TurkeyCooked");
-                LootUtils.addDtLoot(loot, MoCItems.ratRaw, "MoC:RatRaw");
-                LootUtils.addDtLoot(loot, MoCItems.ratCooked, "MoC:RatCooked");
-                LootUtils.addDtLoot(loot, MoCItems.ratBurger, "MoC:RatBurger");
-                LootUtils.addDtLoot(loot, MoCItems.crabraw, "MoC:CrabRaw");
-                LootUtils.addDtLoot(loot, MoCItems.crabcooked, "MoC:CrabCooked");
+                LootUtils.addDtLoot(loot, MoCItems.omelet);
+                LootUtils.addDtLoot(loot, MoCItems.turtleraw);
+                LootUtils.addDtLoot(loot, MoCItems.turtlesoup);
+                LootUtils.addDtLoot(loot, MoCItems.ostrichraw);
+                LootUtils.addDtLoot(loot, MoCItems.ostrichcooked);
+                LootUtils.addDtLoot(loot, MoCItems.rawTurkey);
+                LootUtils.addDtLoot(loot, MoCItems.cookedTurkey);
+                LootUtils.addDtLoot(loot, MoCItems.ratRaw);
+                LootUtils.addDtLoot(loot, MoCItems.ratCooked);
+                LootUtils.addDtLoot(loot, MoCItems.ratBurger);
+                LootUtils.addDtLoot(loot, MoCItems.crabraw);
+                LootUtils.addDtLoot(loot, MoCItems.crabcooked);
                 break;
         }
     }

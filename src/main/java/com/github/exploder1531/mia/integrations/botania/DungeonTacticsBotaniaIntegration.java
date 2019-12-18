@@ -17,14 +17,14 @@ class DungeonTacticsBotaniaIntegration implements IDungeonTacticsIntegration
         switch (type)
         {
             case ARBOUR:
-                LootUtils.addDtLoot(loot, ModBlocks.livingwood, "Botania:LivingWood", 1);
+                LootUtils.addDtLoot(loot, ModBlocks.livingwood, 1);
                 break;
             case MAGIC:
-                LootUtils.addDtLoot(loot, ModItems.petal, "Botania:Petal", LootUtils.setMetadataFunction(0, 15), LootUtils.setCountFunction(3));
+                LootUtils.addDtLoot(loot, ModItems.petal, LootUtils.setMetadataFunction(0, 15), LootUtils.setCountFunction(3));
                 break;
             case RECORD:
-                LootUtils.addDtLoot(loot, ModItems.recordGaia1, "Botania:RecordGaia1", 1);
-                LootUtils.addDtLoot(loot, ModItems.recordGaia2, "Botania:RecordGaia2", 1);
+                LootUtils.addDtLoot(loot, ModItems.recordGaia1, 1);
+                LootUtils.addDtLoot(loot, ModItems.recordGaia2, 1);
                 break;
         }
     }

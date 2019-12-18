@@ -18,36 +18,36 @@ class DungeonTacticsThaumcraftIntegration implements IDungeonTacticsIntegration
         switch (type)
         {
             case ARBOUR:
-                LootUtils.addDtLoot(loot, BlocksTC.logGreatwood, "Thaumcraft:LogGreatwood", 2);
-                LootUtils.addDtLoot(loot, BlocksTC.logSilverwood, "Thaumcraft:LogSilverwood", 2);
-                LootUtils.addDtLoot(loot, BlocksTC.saplingGreatwood, "Thaumcraft:SaplingGreatwood", 2);
-                LootUtils.addDtLoot(loot, BlocksTC.saplingSilverwood, "Thaumcraft:SaplingSilverwood", 2);
+                LootUtils.addDtLoot(loot, BlocksTC.logGreatwood, 2);
+                LootUtils.addDtLoot(loot, BlocksTC.logSilverwood, 2);
+                LootUtils.addDtLoot(loot, BlocksTC.saplingGreatwood, 2);
+                LootUtils.addDtLoot(loot, BlocksTC.saplingSilverwood, 2);
                 break;
             case BOOK:
-                LootUtils.addDtLoot(loot, ItemsTC.celestialNotes, "Thaumcraft:Notes", 2, LootUtils.setMetadataFunction(0, 12));
-                LootUtils.addDtLoot(loot, ItemsTC.label, "Thaumcraft:Label", 2);
+                LootUtils.addDtLoot(loot, ItemsTC.celestialNotes, 2, LootUtils.setMetadataFunction(0, 12));
+                LootUtils.addDtLoot(loot, ItemsTC.label, 2);
                 break;
             case FOOD:
-                LootUtils.addDtLoot(loot, ItemsTC.chunks, "Thaumcraft:EdibleChunks", LootUtils.setMetadataFunction(0, 5), LootUtils.setCountFunction(1, 3));
-                LootUtils.addDtLoot(loot, ItemsTC.tripleMeatTreat, "Thaumcraft:TripleMeat");
+                LootUtils.addDtLoot(loot, ItemsTC.chunks, LootUtils.setMetadataFunction(0, 5), LootUtils.setCountFunction(1, 3));
+                LootUtils.addDtLoot(loot, ItemsTC.tripleMeatTreat);
                 break;
             case MAGIC:
-                LootUtils.addDtLoot(loot, ItemsTC.celestialNotes, "Thaumcraft:Notes", 4, LootUtils.setMetadataFunction(0, 12));
-                LootUtils.addDtLoot(loot, ItemsTC.salisMundus, "Thaumcraft:SalisMundus", 4);
-                LootUtils.addDtLoot(loot, BlocksTC.nitor.get(EnumDyeColor.YELLOW), "Thaumcraft:Nitor", 1);
-                LootUtils.addDtLoot(loot, ItemsTC.alumentum, "Thaumcraft:Alumentum", 1);
-                LootUtils.addDtLoot(loot, ItemsTC.brain, "Thaumcraft:Brain", 2);
+                LootUtils.addDtLoot(loot, ItemsTC.celestialNotes, 4, LootUtils.setMetadataFunction(0, 12));
+                LootUtils.addDtLoot(loot, ItemsTC.salisMundus, 4);
+                LootUtils.addDtLoot(loot, BlocksTC.nitor.get(EnumDyeColor.YELLOW), 1);
+                LootUtils.addDtLoot(loot, ItemsTC.alumentum, 1);
+                LootUtils.addDtLoot(loot, ItemsTC.brain, 2);
                 
                 // TODO: add a custom loot function (?) to create a random Vis Crystal (with option to choose primal, non-primal, any), add it here
                 break;
             case ORE:
-                LootUtils.addDtLoot(loot, BlocksTC.oreAmber, "Thaumcraft:AmberOre", 2);
-                LootUtils.addDtLoot(loot, BlocksTC.oreCinnabar, "Thaumcraft:CinnabarOre", 2);
+                LootUtils.addDtLoot(loot, BlocksTC.oreAmber, 2);
+                LootUtils.addDtLoot(loot, BlocksTC.oreCinnabar, 2);
                 break;
             case TOOL:
-                LootUtils.addDtLoot(loot, ItemsTC.thaumometer, "Thaumcraft:Thaumometer", 1);
-                LootUtils.addDtLoot(loot, ItemsTC.golemBell, "Thaumcraft:GolemBell", 1);
-                LootUtils.addDtLoot(loot, ItemsTC.scribingTools, "Thaumcraft:ScribingTools", 3);
+                LootUtils.addDtLoot(loot, ItemsTC.thaumometer, 1);
+                LootUtils.addDtLoot(loot, ItemsTC.golemBell, 1);
+                LootUtils.addDtLoot(loot, ItemsTC.scribingTools, 3);
                 break;
         }
     }

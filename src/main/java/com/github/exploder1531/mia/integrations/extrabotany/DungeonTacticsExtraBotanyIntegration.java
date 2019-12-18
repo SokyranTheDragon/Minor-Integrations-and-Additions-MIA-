@@ -16,13 +16,13 @@ class DungeonTacticsExtraBotanyIntegration implements IDungeonTacticsIntegration
         switch (type)
         {
             case FOOD:
-                LootUtils.addDtLoot(loot, ModItems.friedchicken, "ExB:FriedChicken");
-                LootUtils.addDtLoot(loot, ModItems.gildedmashedpotato, "ExB:GildedMashedPotato", 1);
-                LootUtils.addDtLoot(loot, ModItems.manadrink, "ExB:ManaDrink", 1);
+                LootUtils.addDtLoot(loot, ModItems.friedchicken);
+                LootUtils.addDtLoot(loot, ModItems.gildedmashedpotato, 1);
+                LootUtils.addDtLoot(loot, ModItems.manadrink, 1);
                 break;
             case RECORD:
-                LootUtils.addDtLoot(loot, ModItems.gaiarecord, "ExB:GaiaRecord", 1);
-                LootUtils.addDtLoot(loot, ModItems.herrscherrecord, "ExB:HerrscherRecord", 1);
+                LootUtils.addDtLoot(loot, ModItems.gaiarecord, 1);
+                LootUtils.addDtLoot(loot, ModItems.herrscherrecord, 1);
                 break;
         }
     }

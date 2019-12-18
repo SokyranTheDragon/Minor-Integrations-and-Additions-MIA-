@@ -17,17 +17,17 @@ class DungeonTacticsTConstructIntegration implements IDungeonTacticsIntegration
         switch (type)
         {
             case ARBOUR:
-                LootUtils.addDtLoot(loot, TinkerWorld.slimeSapling, "TCon:SaplingSlime", 1, LootUtils.setMetadataFunction(0, 2));
+                LootUtils.addDtLoot(loot, TinkerWorld.slimeSapling, 1, LootUtils.setMetadataFunction(0, 2));
                 break;
             case FOOD:
-                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:Bacon", 5, LootUtils.setMetadataFunction(0, 0));
-                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:MeatJerky", 5, LootUtils.setMetadataFunction(10, 15));
-                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:FishJerky", 5, LootUtils.setMetadataFunction(20, 23));
-                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "TCon:SlimeCongealed", 5, LootUtils.setMetadataFunction(30, 34));
+                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "Bacon");
+                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "Jerky", LootUtils.setMetadataFunction(10, 15));
+                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "Fish", LootUtils.setMetadataFunction(20, 23));
+                LootUtils.addDtLoot(loot, TinkerCommons.edibles, "Slime", LootUtils.setMetadataFunction(30, 34));
                 break;
             case ORE:
-                LootUtils.addDtLoot(loot, TinkerCommons.blockOre, "TCon:OreCobalt");
-                LootUtils.addDtLoot(loot, TinkerCommons.blockOre, "TCon:OreArdite", LootUtils.setMetadataFunction(1, 1));
+                LootUtils.addDtLoot(loot, TinkerCommons.blockOre, "Ardite", 3);
+                LootUtils.addDtLoot(loot, TinkerCommons.blockOre, "Cobalt", 3, LootUtils.setMetadataFunction(1, 1));
                 break;
         }
     }

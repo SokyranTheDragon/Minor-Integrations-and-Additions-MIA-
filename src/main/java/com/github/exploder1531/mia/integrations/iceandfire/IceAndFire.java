@@ -40,6 +40,8 @@ public class IceAndFire implements IBaseMod
             modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
         if (hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
+        if (dungeonTacticsLoaded)
+            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsIceAndFireIntegration());
     }
     
     @Override

@@ -16,9 +16,19 @@ public class LootUtils
     {
     }
     
+    public static void addDtLoot(LootPool loot, Block block, LootFunction... functions)
+    {
+        addDtLoot(loot, Item.getItemFromBlock(block), 5, functions);
+    }
+    
     public static void addDtLoot(LootPool loot, Block block, String entryName, LootFunction... functions)
     {
         addDtLoot(loot, Item.getItemFromBlock(block), entryName, 5, functions);
+    }
+    
+    public static void addDtLoot(LootPool loot, Item item, LootFunction... functions)
+    {
+        addDtLoot(loot, item, 5, functions);
     }
     
     public static void addDtLoot(LootPool loot, Item item, String entryName, LootFunction... functions)
@@ -26,14 +36,24 @@ public class LootUtils
         addDtLoot(loot, item, entryName, 5, functions);
     }
     
+    public static void addDtLoot(LootPool loot, Block block, int weight, LootFunction... functions)
+    {
+        addDtLoot(loot, Item.getItemFromBlock(block), weight, functions);
+    }
+    
     public static void addDtLoot(LootPool loot, Block block, String entryName, int weight, LootFunction... functions)
     {
         addDtLoot(loot, Item.getItemFromBlock(block), entryName, weight, functions);
     }
     
+    public static void addDtLoot(LootPool loot, Item item, int weight, LootFunction... functions)
+    {
+        addDtLoot(loot, item, "", weight, functions);
+    }
+    
     public static void addDtLoot(LootPool loot, Item item, String entryName, int weight, LootFunction... functions)
     {
-        loot.addEntry(new LootEntryItem(item, weight, 0, functions, new LootCondition[0], entryName));
+        loot.addEntry(new LootEntryItem(item, weight, 0, functions, new LootCondition[0], item.getTranslationKey() + entryName));
     }
     
     public static LootFunction[] getDtToolFunctions()
