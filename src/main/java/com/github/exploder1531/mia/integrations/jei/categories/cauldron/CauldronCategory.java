@@ -10,6 +10,7 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import pegbeard.dungeontactics.handlers.DTBlocks;
 
 import javax.annotation.Nonnull;
@@ -91,16 +92,16 @@ public class CauldronCategory implements IRecipeCategory<CauldronWrapper>
         }
         
         // Liquid in cauldron
-        if (cauldronWrapper.getEntry().getPossibleFluids() != CauldronEntry.PossibleFluids.Any)
+        FluidStack fluid = cauldronWrapper.getEntry().getFluid();
+        if (fluid != null)
         {
             recipeLayout.getFluidStacks().init(0, false, 38, 30);
-            recipeLayout.getFluidStacks().set(0, cauldronWrapper.getEntry().getFluid());
-            
-            if (cauldronWrapper.getEntry().getPossibleFluids() == CauldronEntry.PossibleFluids.NoWater)
-            {
-                recipeLayout.getItemStacks().init(6, false, 55, 29);
-                recipeLayout.getItemStacks().set(6, new ItemStack(Blocks.BARRIER));
-            }
+            recipeLayout.getFluidStacks().set(0, fluid);
+        }
+        else if (cauldronWrapper.getEntry().getPossibleFluids() == CauldronEntry.PossibleFluids.NoWater)
+        {
+            recipeLayout.getItemStacks().init(6, false, 37, 29);
+            recipeLayout.getItemStacks().set(6, new ItemStack(Blocks.BARRIER));
         }
         
         recipeLayout.getItemStacks().addTooltipCallback(cauldronWrapper);

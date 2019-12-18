@@ -58,7 +58,7 @@ public abstract class CauldronEntry
     @Nullable
     public FluidStack getFluid()
     {
-        if (fluid == PossibleFluids.Water || fluid == PossibleFluids.NoWater)
+        if (fluid == PossibleFluids.Water)
             return FluidRegistry.getFluidStack("water", 1000);
         else if (fluid == PossibleFluids.Lava)
             return FluidRegistry.getFluidStack("lava", 1000);
