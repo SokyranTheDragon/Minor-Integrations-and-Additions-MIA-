@@ -36,6 +36,8 @@ public class Thaumcraft implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
+        if (jeiLoaded)
+            modIntegration.accept(ModIds.JEI, new JeiThaumcraftIntegration());
         if (enableJerIntegration && jerLoaded)
             modIntegration.accept(ModIds.JER, new JerThaumcraftIntegration());
         if (enableTeIntegration && thermalExpansionLoaded)

@@ -20,7 +20,7 @@ class DungeonTacticsThaumcraftIntegration implements IDungeonTacticsIntegration
             case ARBOUR:
                 LootUtils.addDtLoot(loot, BlocksTC.logGreatwood, "Thaumcraft:LogGreatwood", 2);
                 LootUtils.addDtLoot(loot, BlocksTC.logSilverwood, "Thaumcraft:LogSilverwood", 2);
-                LootUtils.addDtLoot(loot, BlocksTC.saplingGreatwood, "Thaumcraft:SaplingSilverwood", 2);
+                LootUtils.addDtLoot(loot, BlocksTC.saplingGreatwood, "Thaumcraft:SaplingGreatwood", 2);
                 LootUtils.addDtLoot(loot, BlocksTC.saplingSilverwood, "Thaumcraft:SaplingSilverwood", 2);
                 break;
             case BOOK:

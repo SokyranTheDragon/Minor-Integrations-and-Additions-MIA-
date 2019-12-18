@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class LootBagWrapper implements IRecipeWrapper, ITooltipCallback<ItemStac
     @Override
     public void getIngredients(@Nonnull IIngredients ingredients)
     {
-        ingredients.setInput(VanillaTypes.ITEM, entry.getInput());
+        ingredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(entry.getInput()));
         ingredients.setOutputLists(VanillaTypes.ITEM, entry.getOutputs().stream().map(LootBagEntry.BagOutputEntry::getItems).collect(Collectors.toList()));
     }
     
