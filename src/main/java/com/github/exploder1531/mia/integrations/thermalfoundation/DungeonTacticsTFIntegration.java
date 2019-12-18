@@ -15,15 +15,19 @@ class DungeonTacticsTFIntegration implements IDungeonTacticsIntegration
     {
         if (type == BagTypes.ORE)
         {
-            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreCommon", LootUtils.setMetadataFunction(0, 5));
-            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreUncommon", 3, LootUtils.setMetadataFunction(6, 7));
-            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreRare", 1, LootUtils.setMetadataFunction(8, 8));
-            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidOilSand", 2, LootUtils.setMetadataFunction(0, 0));
-            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidOilGravel", 2, LootUtils.setMetadataFunction(1, 1));
-            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidOilRedSand", 2, LootUtils.setMetadataFunction(5, 5));
-            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidOilRedstone", 5, LootUtils.setMetadataFunction(2, 2));
-            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidOilGlowstone", 4, LootUtils.setMetadataFunction(3, 3));
-            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidOilEnder", 3, LootUtils.setMetadataFunction(4, 4));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreCommonCopper", LootUtils.setMetadataFunction(0, 0));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreCommonTin", LootUtils.setMetadataFunction(1, 1));
+//            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreCommonSilver", LootUtils.setMetadataFunction(2, 2));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreCommonLead", LootUtils.setMetadataFunction(3, 3));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreCommonAluminum", LootUtils.setMetadataFunction(4, 4));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreCommonNickel", LootUtils.setMetadataFunction(5, 5));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreUncommonPlatinum", 3, LootUtils.setMetadataFunction(6, 6));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreUncommonIridium", 3, LootUtils.setMetadataFunction(7, 7));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOre, "TF:OreRareMithril", 1, LootUtils.setMetadataFunction(8, 8));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidOil", 5);
+            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidRedstone", 5, LootUtils.setMetadataFunction(2, 2));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidGlowstone", 4, LootUtils.setMetadataFunction(3, 3));
+            LootUtils.addDtLoot(loot, TFBlocks.blockOreFluid, "TF:OreFluidEnder", 3, LootUtils.setMetadataFunction(4, 4));
         }
     }
     
