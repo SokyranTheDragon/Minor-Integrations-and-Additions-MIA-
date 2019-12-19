@@ -40,7 +40,7 @@ public class IceAndFire implements IBaseMod
             modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
         if (hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
-        if (dungeonTacticsLoaded)
+        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
             modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsIceAndFireIntegration());
     }
     
@@ -100,7 +100,7 @@ public class IceAndFire implements IBaseMod
         
         RegisterUtils.registerItemblockRenderer(MiaBlocks.pixie_dust_extractor);
     }
-    
+
 //    @Override
 //    public void aspectRegistrationEvent(AspectRegistryEvent event)
 //    {

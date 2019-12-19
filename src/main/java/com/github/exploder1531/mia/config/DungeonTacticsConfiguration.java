@@ -18,6 +18,18 @@ public class DungeonTacticsConfiguration
     @Config.RequiresMcRestart
     public static boolean dungeonTacticsAdditionsEnabled = true;
     
+    @Config.Name("Enable Thermal Expansion integration")
+    @Config.Comment("Set to false to completely disable integration with Thermal Expansion")
+    @Config.LangKey("mia.config.shared.enable_thermal_expansion_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableTeIntegration = true;
+    
+    @Config.Name("Enable Tinker's Construct integration")
+    @Config.Comment("Set to false to completely disable integration with Tinker's Construct")
+    @Config.LangKey("mia.config.shared.enable_tconstruct_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableTConstructIntegration = true;
+    
     @Config.Name("Enable JER integration")
     @Config.Comment("Set to false to completely disable integration with JER")
     @Config.LangKey("mia.config.shared.enable_jer_integration")

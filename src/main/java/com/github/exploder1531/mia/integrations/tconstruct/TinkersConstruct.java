@@ -48,7 +48,7 @@ public class TinkersConstruct implements IBaseMod
             modIntegration.accept(ModIds.JER, new JerTConstructIntegration());
         if (enableTeIntegration && thermalExpansionLoaded)
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionTConstructIntegration());
-        if (dungeonTacticsLoaded)
+        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
             modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsTConstructIntegration());
         if (hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryTConstructIntegration(enableHatcheryIntegration));

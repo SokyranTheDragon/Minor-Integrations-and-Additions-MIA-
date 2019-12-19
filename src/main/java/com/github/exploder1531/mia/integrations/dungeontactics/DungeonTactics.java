@@ -16,8 +16,7 @@ import pegbeard.dungeontactics.handlers.DTLoots;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import static com.github.exploder1531.mia.config.DungeonTacticsConfiguration.dungeonTacticsAdditionsEnabled;
-import static com.github.exploder1531.mia.config.DungeonTacticsConfiguration.registerCustomBagLoot;
+import static com.github.exploder1531.mia.config.DungeonTacticsConfiguration.*;
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class DungeonTactics implements IBaseMod
@@ -27,13 +26,13 @@ public class DungeonTactics implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (tinkersConstructLoaded)
+        if (enableTConstructIntegration && tinkersConstructLoaded)
             modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructDungeonTacticsIntegration());
-        if (thermalExpansionLoaded)
+        if (enableTeIntegration && thermalExpansionLoaded)
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionDungeonTacticsIntegration());
         if (jeiLoaded)
             modIntegration.accept(ModIds.JEI, new JeiDungeonTacticsIntegration());
-        if (jerLoaded)
+        if (enableJerIntegration && jerLoaded)
             modIntegration.accept(ModIds.JER, new JerDungeonTacticsIntegration());
     }
     
