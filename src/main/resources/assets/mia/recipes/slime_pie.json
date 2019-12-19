@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "harvestcraft:bakewareitem"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "slimeball"
+    },
+    {
+      "item": "harvestcraft:doughitem"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "listAllmushroom"
+    },
+    {
+      "item": "minecraft:waterlily"
+    }
+  ],
+  "result": {
+    "item": "harvestcraft:slimepieitem"
+  }
+}

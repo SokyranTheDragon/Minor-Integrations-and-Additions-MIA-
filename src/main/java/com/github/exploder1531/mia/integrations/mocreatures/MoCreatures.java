@@ -80,7 +80,7 @@ public class MoCreatures implements IBaseMod
         OreDictionary.registerOre("foodRatburger", MoCItems.ratBurger);
         
         OreDictionary.registerOre("egg", new ItemStack(MoCItems.mocegg, 1, OreDictionary.WILDCARD_VALUE));
-        OreDictionary.registerOre("listAllegg", MoCItems.mocegg);
+        OreDictionary.registerOre("listAllegg", new ItemStack(MoCItems.mocegg, 1, OreDictionary.WILDCARD_VALUE));
         
         OreDictionary.registerOre("foodOmelet", MoCItems.omelet);
         

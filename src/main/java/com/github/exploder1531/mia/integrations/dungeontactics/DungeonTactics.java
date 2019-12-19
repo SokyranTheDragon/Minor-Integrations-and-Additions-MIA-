@@ -106,5 +106,7 @@ public class DungeonTactics implements IBaseMod
         OreDictionary.registerOre("foodToastslice", DTItems.TOASTSLICE);
         OreDictionary.registerOre("foodJamtoast", DTItems.JAMSLICE);
         OreDictionary.registerOre("foodBreadslice", DTItems.BREADSLICE);
+        
+        OreDictionary.registerOre("flourEqualswheat", DTItems.FLOUR);
     }
 }

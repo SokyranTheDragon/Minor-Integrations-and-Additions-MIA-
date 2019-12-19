@@ -4,6 +4,7 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.pam.harvestcraft.blocks.FruitRegistry;
+import com.pam.harvestcraft.item.ItemRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -30,6 +31,8 @@ public class Harvestcraft implements IBaseMod
     {
         if (!harvestcraftAdditionsEnabled)
             return;
+        
+        OreDictionary.registerOre("egg", ItemRegistry.rawtofeegItem);
         
         OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.SPIDERWEB));
         OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.AVOCADO));
