@@ -3,6 +3,7 @@ package com.github.exploder1531.mia.events;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.config.HarvestcraftConfiguration;
 import com.github.exploder1531.mia.config.MoCreaturesConfiguration;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.pam.harvestcraft.item.ItemRegistry;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityCrab;
@@ -23,6 +24,7 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
@@ -112,61 +114,8 @@ public class EntityEvents
             }
         }
         
-        if (moCreaturesLoaded)
-        {
-            if (MoCreaturesConfiguration.replaceFishDrops)
-            {
-                if (event.getEntityLiving() instanceof MoCEntityCod)
-                {
-                    replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.COOKED_FISH, 1, MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning());
-                    return;
-                }
-                else if (event.getEntityLiving() instanceof MoCEntityClownFish)
-                {
-                    replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.COOKED_FISH, 2, MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning());
-                    return;
-                }
-            }
-            
-            if (MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning())
-            {
-                if (event.getEntityLiving() instanceof MoCEntityAquatic)
-                {
-                    replaceItemDrop(event.getDrops(), Items.FISH, Items.COOKED_FISH);
-                    return;
-                }
-                else if (event.getEntityLiving() instanceof MoCEntityDuck)
-                {
-                    replaceItemDrop(event.getDrops(), MoCItems.crabraw, MoCItems.ostrichcooked);
-                    return;
-                }
-                else if (event.getEntityLiving() instanceof MoCEntityCrab)
-                {
-                    replaceItemDrop(event.getDrops(), MoCItems.crabraw, MoCItems.crabcooked);
-                    return;
-                }
-                else if (event.getEntityLiving() instanceof MoCEntityRat)
-                {
-                    replaceItemDrop(event.getDrops(), MoCItems.ratRaw, MoCItems.ratCooked);
-                    return;
-                }
-                else if (event.getEntityLiving() instanceof MoCEntityTurkey)
-                {
-                    replaceItemDrop(event.getDrops(), MoCItems.rawTurkey, MoCItems.cookedTurkey);
-                    return;
-                }
-                else if (event.getEntityLiving() instanceof MoCEntityBoar)
-                {
-                    replaceItemDrop(event.getDrops(), Items.PORKCHOP, Items.COOKED_PORKCHOP);
-                    return;
-                }
-                else if (harvestcraftLoaded && event.getEntityLiving() instanceof MoCEntityTurtle)
-                {
-                    replaceItemDrop(event.getDrops(), MoCItems.turtleraw, ItemRegistry.turtlecookedItem);
-                    return;
-                }
-            }
-        }
+        if (moCreaturesLoaded && registerMoCreaturesDrops(event))
+            return;
     }
     
     private static void replaceItemDrop(List<EntityItem> drops, Item itemToReplace, Item targetItem)
@@ -215,5 +164,64 @@ public class EntityEvents
         {
             entity.dropItem(item, 1);
         }
+    }
+    
+    @Optional.Method(modid = ModIds.MO_CREATURES)
+    private static boolean registerMoCreaturesDrops(LivingDropsEvent event)
+    {
+        if (MoCreaturesConfiguration.replaceFishDrops)
+        {
+            if (event.getEntityLiving() instanceof MoCEntityCod)
+            {
+                replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.COOKED_FISH, 1, MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning());
+                return true;
+            }
+            else if (event.getEntityLiving() instanceof MoCEntityClownFish)
+            {
+                replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.COOKED_FISH, 2, MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning());
+                return true;
+            }
+        }
+    
+        if (MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning())
+        {
+            if (event.getEntityLiving() instanceof MoCEntityAquatic)
+            {
+                replaceItemDrop(event.getDrops(), Items.FISH, Items.COOKED_FISH);
+                return true;
+            }
+            else if (event.getEntityLiving() instanceof MoCEntityDuck)
+            {
+                replaceItemDrop(event.getDrops(), MoCItems.crabraw, MoCItems.ostrichcooked);
+                return true;
+            }
+            else if (event.getEntityLiving() instanceof MoCEntityCrab)
+            {
+                replaceItemDrop(event.getDrops(), MoCItems.crabraw, MoCItems.crabcooked);
+                return true;
+            }
+            else if (event.getEntityLiving() instanceof MoCEntityRat)
+            {
+                replaceItemDrop(event.getDrops(), MoCItems.ratRaw, MoCItems.ratCooked);
+                return true;
+            }
+            else if (event.getEntityLiving() instanceof MoCEntityTurkey)
+            {
+                replaceItemDrop(event.getDrops(), MoCItems.rawTurkey, MoCItems.cookedTurkey);
+                return true;
+            }
+            else if (event.getEntityLiving() instanceof MoCEntityBoar)
+            {
+                replaceItemDrop(event.getDrops(), Items.PORKCHOP, Items.COOKED_PORKCHOP);
+                return true;
+            }
+            else if (harvestcraftLoaded && event.getEntityLiving() instanceof MoCEntityTurtle)
+            {
+                replaceItemDrop(event.getDrops(), MoCItems.turtleraw, ItemRegistry.turtlecookedItem);
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.dungeontactics;
 
 import cofh.thermalexpansion.util.managers.machine.*;
+import cofh.thermalfoundation.init.TFFluids;
 import cofh.thermalfoundation.item.ItemFertilizer;
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.integrations.ModIds;
@@ -241,7 +242,8 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         
         
         // Magmatic Crucible
-        CrucibleManager.addRecipe(250, new ItemStack(DTItems.INCINDIBERRY), new FluidStack(FluidRegistry.LAVA, 25));
+        CrucibleManager.addRecipe(5000, new ItemStack(DTItems.INCINDIBERRY, 16), new FluidStack(FluidRegistry.LAVA, 250));
+        CrucibleManager.addRecipe(250, new ItemStack(DTItems.GLOWCURRENT, 16), new FluidStack(TFFluids.fluidGlowstone, 250));
     }
     
     @Nonnull

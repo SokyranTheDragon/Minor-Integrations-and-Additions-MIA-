@@ -15,6 +15,7 @@ import com.rwtema.extrautils2.utils.datastructures.ItemRef;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockSlime;
@@ -82,8 +83,8 @@ public class ExtraUtilities2 implements IBaseMod
                 // I tried getting all the items from oredict, but it didn't work for modded items (and I'm not sure why)
                 // so that's why I'm adding them like this.
                 slimeList.add(new ItemStack(Blocks.SLIME_BLOCK));
-                for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
-                    slimeList.add(new ItemStack(TinkerCommons.blockSlime, 1, slimeType.meta));
+                if (ModLoadStatus.tinkersConstructLoaded)
+                    registerSlimeBlocks(slimeList);
                 
                 XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
                         RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
@@ -99,5 +100,12 @@ public class ExtraUtilities2 implements IBaseMod
             for (IExtraUtilsIntegration integration : modIntegrations)
                 integration.addRecipes(slimeSecondary);
         }
+    }
+    
+    @Optional.Method(modid = ModIds.TINKERS_CONSTRUCT)
+    private void registerSlimeBlocks(List<ItemStack> slimeList)
+    {
+        for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
+            slimeList.add(new ItemStack(TinkerCommons.blockSlime, 1, slimeType.meta));
     }
 }
