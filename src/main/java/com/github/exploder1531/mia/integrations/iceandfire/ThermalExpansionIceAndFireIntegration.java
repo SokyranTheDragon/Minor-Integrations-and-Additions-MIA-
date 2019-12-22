@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.iceandfire;
 
 import cofh.thermalexpansion.util.managers.dynamo.NumismaticManager;
+import cofh.thermalexpansion.util.managers.machine.CrucibleManager;
 import cofh.thermalexpansion.util.managers.machine.PulverizerManager;
 import cofh.thermalexpansion.util.managers.machine.SawmillManager;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
@@ -12,6 +13,8 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.thermalexpansion.IThermalExpansionIntegration;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
@@ -169,6 +172,11 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         
         // Numismatic dynamo - accept sapphire as currency (no upgrade) as it's used as currency with ice villagers. Matches emerald behaviour.
         NumismaticManager.addFuel(new ItemStack(ModItems.sapphireGem), 200_000);
+        
+        
+        // Magma Crucible
+        CrucibleManager.addRecipe(1_600, new ItemStack(ModBlocks.dragon_ice), new FluidStack(FluidRegistry.WATER, 1000));
+        CrucibleManager.addRecipe(1_600, new ItemStack(ModBlocks.dragon_ice_spikes), new FluidStack(FluidRegistry.WATER, 1000));
     }
     
     @Nonnull
