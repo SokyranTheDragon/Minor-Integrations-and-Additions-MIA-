@@ -1,5 +1,6 @@
 package com.github.exploder1531.mia.integrations.xu2;
 
+import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
@@ -8,6 +9,7 @@ import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.google.common.collect.Lists;
 import com.rwtema.extrautils2.api.machine.MachineSlotItem;
 import com.rwtema.extrautils2.api.machine.RecipeBuilder;
+import com.rwtema.extrautils2.api.machine.XUMachineCrusher;
 import com.rwtema.extrautils2.api.machine.XUMachineGenerators;
 import com.rwtema.extrautils2.machine.EnergyBaseRecipe;
 import com.rwtema.extrautils2.machine.MachineInit;
@@ -15,10 +17,7 @@ import com.rwtema.extrautils2.utils.datastructures.ItemRef;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.BlockSlime;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -66,6 +65,12 @@ public class ExtraUtilities2 implements IBaseMod
             
             XUMachineGenerators.PINK_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(Blocks.PINK_GLAZED_TERRACOTTA), 400, 40));
             XUMachineGenerators.PINK_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(Blocks.PINK_SHULKER_BOX), 400, 40));
+            
+            // Crusher
+            if (ModLoadStatus.thermalExpansionLoaded)
+                XUMachineCrusher.addRecipe(new ItemStack(Blocks.NETHERRACK), new ItemStack(Blocks.GRAVEL), ItemMaterial.dustSulfur, 0.1f);
+            else
+                XUMachineCrusher.addRecipe(new ItemStack(Blocks.NETHERRACK), new ItemStack(Blocks.GRAVEL));
         }
         
         if (modIntegrations.size() > 0)
@@ -79,17 +84,11 @@ public class ExtraUtilities2 implements IBaseMod
                 slimeSecondary = (MachineSlotItem) secondInputField.get(null);
                 
                 // Slime blocks
-                List<ItemStack> slimeList = Lists.newLinkedList();
-                // I tried getting all the items from oredict, but it didn't work for modded items (and I'm not sure why)
-                // so that's why I'm adding them like this.
-                slimeList.add(new ItemStack(Blocks.SLIME_BLOCK));
-                if (ModLoadStatus.tinkersConstructLoaded)
-                    registerSlimeBlocks(slimeList);
-                
+                // Ideally, this would just use ore dictionary, but XU2 machines don't seem to like wildcard metadata
                 XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
                         RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                     .setRFRate(432000, 400.0F)
-                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
+                                     .setRFRate(432_000, 400.0f)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, new ItemStack(Blocks.SLIME_BLOCK), 1)
                                      .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
                                      .build());
             } catch (Exception e)
@@ -100,12 +99,5 @@ public class ExtraUtilities2 implements IBaseMod
             for (IExtraUtilsIntegration integration : modIntegrations)
                 integration.addRecipes(slimeSecondary);
         }
-    }
-    
-    @Optional.Method(modid = ModIds.TINKERS_CONSTRUCT)
-    private void registerSlimeBlocks(List<ItemStack> slimeList)
-    {
-        for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
-            slimeList.add(new ItemStack(TinkerCommons.blockSlime, 1, slimeType.meta));
     }
 }
