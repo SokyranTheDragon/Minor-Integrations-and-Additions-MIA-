@@ -31,18 +31,23 @@ import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.github.exploder1531.mia.integrations.jer.JustEnoughResources.loadResource;
 
+@ParametersAreNonnullByDefault
 class JerIceAndFireIntegration implements IJerIntegration
 {
     // We're not checking the setters for Myrmex and Dragons, as we're using the same class for more than a single mob type.
     // Using their base class did not work as it wasn't considered the exact class that was required, but it accepted no class.
     @SuppressWarnings("unchecked")
+    @Nonnull
     @Override
-    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
+    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
         builder.add(EntityAmphithere.LOOT, EntityAmphithere.class);
         builder.add(EntityCockatrice.LOOT, EntityCockatrice.class);
@@ -91,7 +96,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         ignoreMobOverrides.add(EntityFireDragon.class);
         ignoreMobOverrides.add(EntityIceDragon.class);
         
-        return Sets.newHashSet(
+        return Stream.of(
                 EntityAmphithere.class,
                 EntityCockatrice.class,
                 EntityCyclops.class,
@@ -111,7 +116,7 @@ class JerIceAndFireIntegration implements IJerIntegration
                 EntitySiren.class,
                 EntityStymphalianBird.class,
                 EntityTroll.class
-        );
+        ).collect(Collectors.toSet());
     }
     
     @Override

@@ -29,7 +29,7 @@ import static com.github.exploder1531.mia.config.JerConfiguration.externalIntegr
 public class JustEnoughResources implements IBaseMod
 {
     private final Map<String, IJerIntegration> modIntegrations = Maps.newHashMap();
-    private final Set<Object> ignoreMobOverrides = Sets.newHashSet();
+    private final Set<Class<? extends EntityLivingBase>> ignoreMobOverrides = Sets.newHashSet();
     
     public JustEnoughResources()
     {
@@ -83,7 +83,7 @@ public class JustEnoughResources implements IBaseMod
             Map<Object, String> allMobs = Maps.newHashMap();
             for (IJerIntegration mod : modIntegrations.values())
             {
-                Set<Object> modMobs = mod.addMobs(mobTableBuilder, ignoreMobOverrides);
+                Set<Class<? extends EntityLivingBase>> modMobs = mod.addMobs(mobTableBuilder, ignoreMobOverrides);
                 for (Object modMob : modMobs)
                     allMobs.put(modMob, mod.getModId());
                 mod.addMobRenderHooks(mobRegistry);

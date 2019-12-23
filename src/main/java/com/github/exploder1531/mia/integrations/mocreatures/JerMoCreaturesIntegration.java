@@ -37,19 +37,24 @@ import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.addCookedDrops;
 import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.replaceFishDrops;
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.harvestcraftLoaded;
 import static com.github.exploder1531.mia.integrations.jer.JustEnoughResources.loadResource;
 
+@ParametersAreNonnullByDefault
 class JerMoCreaturesIntegration implements IJerIntegration
 {
     @SuppressWarnings("unchecked")
+    @Nonnull
     @Override
-    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
+    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
         // Horses
         for (int i = 21; i <= 26; i++)
@@ -145,7 +150,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
         builder.add(loadResource("mocreatures/aquatic/fish_small/piranha"), MoCEntityPiranha.class);
         
         
-        return Sets.newHashSet(
+        return Stream.of(
                 // Horses
                 MoCEntityHorse.class,
                 // Passive entities
@@ -197,12 +202,12 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityWerewolf.class,
                 // Wild wolf
                 MoCEntityWWolf.class,
-                
+        
                 // Ambient
                 MoCEntityCrab.class,
                 MoCEntitySnail.class,
                 MoCEntityMaggot.class,
-                
+        
                 // Aquatic
                 MoCEntityDolphin.class,
                 MoCEntityJellyFish.class,
@@ -220,7 +225,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityHippoTang.class,
                 MoCEntityManderin.class,
                 MoCEntityPiranha.class
-        );
+        ).collect(Collectors.toSet());
     }
     
     @Override
@@ -284,7 +289,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
             else if (item == MoCItems.katana && entity instanceof MoCEntityTurtle)
                 lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Leonardo', 'leonardo'"));
             else if (item == MoCItems.sai && entity instanceof MoCEntityTurtle)
-                lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Rafael', 'rafael', 'raphael', 'Raphael'"));
+                lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Rafael', 'rafael', 'Raphael', 'raphael'"));
             else if (item == MoCItems.nunchaku && entity instanceof MoCEntityTurtle)
                 lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Michelangelo', 'michelangelo', 'Michaelangelo', 'michaelangelo'"));
             else if (item == Items.STRING && (entity instanceof MoCEntityScorpion || entity instanceof MoCEntityPetScorpion))

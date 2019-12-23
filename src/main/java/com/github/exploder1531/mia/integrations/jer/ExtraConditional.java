@@ -11,6 +11,7 @@ public class ExtraConditional
     public static final Conditional named = new Conditional("mia.jer.named", TextModifier.lilac);
     public static final Conditional isAdult = new Conditional("mia.jer.adult", TextModifier.orange);
     public static final Conditional isNotAdult = new Conditional("mia.jer.not_adult", isAdult);
+    public static final Conditional carryingItem = new Conditional("mia.jer.carrying", TextModifier.lightGreen);
     
     private ExtraConditional()
     {

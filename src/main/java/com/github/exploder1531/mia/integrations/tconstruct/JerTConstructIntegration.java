@@ -2,7 +2,6 @@ package com.github.exploder1531.mia.integrations.tconstruct;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
-import com.google.common.collect.Sets;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
@@ -15,16 +14,20 @@ import net.minecraft.world.storage.loot.LootTableManager;
 import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collections;
 import java.util.Set;
 
+@ParametersAreNonnullByDefault
 class JerTConstructIntegration implements IJerIntegration
 {
+    @Nonnull
     @Override
-    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
+    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
         builder.add(EntityBlueSlime.LOOT_TABLE, EntityBlueSlime.class);
         
-        return Sets.newHashSet(EntityBlueSlime.class);
+        return Collections.singleton(EntityBlueSlime.class);
     }
     
     @Override

@@ -10,7 +10,9 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
 class JerHarvestcraftIntegration implements IJerIntegration
 {
     @Override

@@ -32,16 +32,19 @@ import thaumcraft.common.entities.monster.cult.EntityCultistKnight;
 import thaumcraft.common.entities.monster.tainted.*;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@ParametersAreNonnullByDefault
 class JerThaumcraftIntegration implements IJerIntegration
 {
+    @Nonnull
     @Override
-    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
+    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
         builder.add(LootTableList.ENTITIES_ZOMBIE, EntityBrainyZombie.class);
         builder.add(EntityPech.LOOT, EntityPech.class);
@@ -63,7 +66,7 @@ class JerThaumcraftIntegration implements IJerIntegration
         builder.add(new ResourceLocation("mia", "thaumcraft/cultist_knight"), EntityCultistKnight.class);
         builder.add(new ResourceLocation("mia", "thaumcraft/cultist_leader"), EntityCultistLeader.class);
         
-        return Sets.newHashSet(
+        return Stream.of(
                 EntityBrainyZombie.class,
                 EntityPech.class,
                 EntityFireBat.class,
@@ -84,7 +87,7 @@ class JerThaumcraftIntegration implements IJerIntegration
                 EntityCultistLeader.class,
                 EntityCultistCleric.class,
                 EntityCultistKnight.class
-        );
+        ).collect(Collectors.toSet());
     }
     
     @Override

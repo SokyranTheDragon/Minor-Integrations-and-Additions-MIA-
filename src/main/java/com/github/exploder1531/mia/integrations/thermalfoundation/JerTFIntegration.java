@@ -27,18 +27,23 @@ import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+@ParametersAreNonnullByDefault
 class JerTFIntegration implements IJerIntegration
 {
+    @Nonnull
     @Override
-    public Set<Object> addMobs(MobTableBuilder mobTableBuilder, Set<Object> ignoreMobOverrides)
+    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder mobTableBuilder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
         mobTableBuilder.add(new ResourceLocation("thermalfoundation", "entities/basalz"), EntityBasalz.class);
         mobTableBuilder.add(new ResourceLocation("thermalfoundation", "entities/blitz"), EntityBlitz.class);
         mobTableBuilder.add(new ResourceLocation("thermalfoundation", "entities/blizz"), EntityBlizz.class);
         
-        return Sets.newHashSet(EntityBasalz.class, EntityBlitz.class, EntityBlizz.class);
+        return Stream.of(EntityBasalz.class, EntityBlitz.class, EntityBlizz.class).collect(Collectors.toSet());
     }
     
     @Override

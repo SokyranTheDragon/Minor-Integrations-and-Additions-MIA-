@@ -2,7 +2,6 @@ package com.github.exploder1531.mia.integrations.dungeontactics;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
-import com.google.common.collect.Sets;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
@@ -22,16 +21,20 @@ import pegbeard.dungeontactics.handlers.DTItems;
 import pegbeard.dungeontactics.handlers.DTLoots;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collections;
 import java.util.Set;
 
+@ParametersAreNonnullByDefault
 class JerDungeonTacticsIntegration implements IJerIntegration
 {
+    @Nonnull
     @Override
-    public Set<Object> addMobs(MobTableBuilder builder, Set<Object> ignoreMobOverrides)
+    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
         builder.add(DTLoots.TOWERGUARDIAN_LOOT, DTEntityTowerGuardian.class);
         
-        return Sets.newHashSet(
+        return Collections.singleton(
                 DTEntityTowerGuardian.class
         );
     }
