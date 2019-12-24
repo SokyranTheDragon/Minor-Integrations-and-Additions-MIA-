@@ -1,14 +1,17 @@
 package com.github.exploder1531.mia.integrations.iceandfire;
 
 import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
 import com.github.exploder1531.mia.block.BlockPixieDustExtractor;
 import com.github.exploder1531.mia.core.MiaBlocks;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
+import com.github.exploder1531.mia.integrations.iceandfire.client.RenderHippocampusJer;
 import com.github.exploder1531.mia.tile.TilePixieDustExtractor;
 import com.github.exploder1531.mia.utilities.RegisterUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -16,8 +19,11 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.function.BiConsumer;
@@ -63,6 +69,14 @@ public class IceAndFire implements IBaseMod
         furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_chestplate), new ItemStack(ModItems.silverNugget), 0.1f);
         furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_leggings), new ItemStack(ModItems.silverNugget), 0.1f);
         furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_boots), new ItemStack(ModItems.silverNugget), 0.1f);
+    }
+    
+    @Override
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        if (jerLoaded && event.getSide() == Side.CLIENT)
+            //noinspection deprecation
+            RenderingRegistry.registerEntityRenderingHandler(EntityHippocampus.class, new RenderHippocampusJer(Minecraft.getMinecraft().getRenderManager()));
     }
     
     @Override
