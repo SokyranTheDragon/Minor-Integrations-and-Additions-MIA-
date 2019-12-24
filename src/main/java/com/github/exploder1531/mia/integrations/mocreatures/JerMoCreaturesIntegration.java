@@ -259,11 +259,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
                         lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH, lootDrop.item.getCount(), 1);
                 }
                 else if (replaceFishDrops && entity instanceof MoCEntityClownFish)
-                {
                     lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 2);
-                    if (addCookedDrops)
-                        lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH, lootDrop.item.getCount(), 2);
-                }
                 else if (harvestcraftLoaded && entity instanceof MoCEntityAnchovy)
                     lootDrop.item = new ItemStack(ItemRegistry.anchovyrawItem);
                 else if (harvestcraftLoaded && entity instanceof MoCEntityBass)

@@ -178,7 +178,7 @@ public class EntityEvents
             }
             else if (event.getEntityLiving() instanceof MoCEntityClownFish)
             {
-                replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.COOKED_FISH, 2, MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning());
+                replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.FISH, 2, false);
                 return true;
             }
         }
