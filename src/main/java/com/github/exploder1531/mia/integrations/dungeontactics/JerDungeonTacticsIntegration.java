@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.integrations.dungeontactics;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
+import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
@@ -14,6 +15,7 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.LootTableManager;
 import pegbeard.dungeontactics.entities.DTEntityTowerGuardian;
 import pegbeard.dungeontactics.handlers.DTConfigHandler;
@@ -87,6 +89,45 @@ class JerDungeonTacticsIntegration implements IJerIntegration
 //                mobEntry.addDrops(new LootDrop(item));
 //            }
 //        }
+    }
+    
+    @Override
+    public void addDungeonLoot(IDungeonRegistry dungeonRegistry)
+    {
+        final String dungeon = "chests/dt_dungeon";
+        final String tower = "chests/dt_tower";
+        final String miniBunker = "chests/dt_mini_bunker";
+        final String pirateShip = "chests/dt_pirate_ship";
+        final String gypsyWagon = "chests/dt_gypsy_wagon";
+        final String wizardTower = "chests/dt_wizard_tower";
+        
+        dungeonRegistry.registerCategory(dungeon, "mia.jer.dungeon.dt_dungeon");
+        dungeonRegistry.registerCategory(tower, "mia.jer.dungeon.dt_tower");
+        dungeonRegistry.registerCategory(miniBunker, "mia.jer.dungeon.dt_mini_bunker");
+        dungeonRegistry.registerCategory(pirateShip, "mia.jer.dungeon.dt_pirate_ship");
+        dungeonRegistry.registerCategory(gypsyWagon, "mia.jer.dungeon.dt_gypsy_wagon");
+        dungeonRegistry.registerCategory(wizardTower, "mia.jer.dungeon.dt_wizard_tower");
+        
+        dungeonRegistry.registerChest(dungeon, LootTableList.CHESTS_NETHER_BRIDGE);
+        dungeonRegistry.registerChest(dungeon, LootTableList.CHESTS_SIMPLE_DUNGEON);
+        
+        dungeonRegistry.registerChest(tower, LootTableList.CHESTS_NETHER_BRIDGE);
+        dungeonRegistry.registerChest(tower, LootTableList.CHESTS_SIMPLE_DUNGEON);
+        dungeonRegistry.registerChest(tower, LootTableList.CHESTS_SPAWN_BONUS_CHEST);
+        dungeonRegistry.registerChest(tower, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+        
+        dungeonRegistry.registerChest(miniBunker, LootTableList.CHESTS_STRONGHOLD_CORRIDOR);
+        
+        dungeonRegistry.registerChest(pirateShip, LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+        dungeonRegistry.registerChest(pirateShip, LootTableList.CHESTS_STRONGHOLD_CORRIDOR);
+        dungeonRegistry.registerChest(pirateShip, LootTableList.CHESTS_SIMPLE_DUNGEON);
+        
+        dungeonRegistry.registerChest(gypsyWagon, DTLoots.WAGGON_LOOT);
+        
+        dungeonRegistry.registerChest(wizardTower, LootTableList.CHESTS_STRONGHOLD_LIBRARY);
+        dungeonRegistry.registerChest(wizardTower, DTLoots.TOWER_INGREDIANTS);
+        dungeonRegistry.registerChest(wizardTower, DTLoots.TOWER_MAGIC);
+        dungeonRegistry.registerChest(wizardTower, LootTableList.CHESTS_STRONGHOLD_LIBRARY);
     }
     
     @Nonnull

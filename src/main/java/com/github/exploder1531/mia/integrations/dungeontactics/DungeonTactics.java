@@ -55,35 +55,35 @@ public class DungeonTactics implements IBaseMod
             return;
         
         LootPool main = event.getTable().getPool("main");
-        IDungeonTacticsIntegration.BagTypes bagType = null;
+        IDungeonTacticsIntegration.BagTypes bagTypes = null;
         
         if (event.getName().equals(DTLoots.ARBOUR_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.ARBOUR;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.ARBOUR;
         else if (event.getName().equals(DTLoots.BOOK_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.BOOK;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.BOOK;
         else if (event.getName().equals(DTLoots.FOOD_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.FOOD;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.FOOD;
         else if (event.getName().equals(DTLoots.MAGIC_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.MAGIC;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.MAGIC;
         else if (event.getName().equals(DTLoots.ORE_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.ORE;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.ORE;
         else if (event.getName().equals(DTLoots.POTION_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.POTION;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.POTION;
         else if (event.getName().equals(DTLoots.QUIVER_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.QUIVER;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.QUIVER;
         else if (event.getName().equals(DTLoots.RECORD_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.RECORD;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.RECORD;
         else if (event.getName().equals(DTLoots.SAMHAIN_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.SAMHAIN;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.SAMHAIN;
         else if (event.getName().equals(DTLoots.SOLSTICE_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.SOLSTICE;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.SOLSTICE;
         else if (event.getName().equals(DTLoots.TOOL_LOOT))
-            bagType = IDungeonTacticsIntegration.BagTypes.TOOL;
+            bagTypes = IDungeonTacticsIntegration.BagTypes.TOOL;
         
-        if (bagType != null)
+        if (bagTypes != null)
         {
             for (IDungeonTacticsIntegration integrations : modIntegrations)
-                integrations.insertBagLoot(bagType, main);
+                integrations.insertBagLoot(bagTypes, main);
         }
     }
     
