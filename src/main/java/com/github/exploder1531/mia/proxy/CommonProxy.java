@@ -7,6 +7,7 @@ import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.ModIntegrator;
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.oredict.OreDictionary;
 
 @SuppressWarnings("WeakerAccess")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
@@ -39,6 +41,9 @@ public class CommonProxy
     {
         Mia.network = NetworkRegistry.INSTANCE.newSimpleChannel(Mia.MODID + "_NETWORK");
         Mia.network.registerMessage(MessageSyncMusicPlayer.Handler.class, MessageSyncMusicPlayer.class, 0, Side.SERVER);
+        
+        OreDictionary.registerOre("buttonWood", Blocks.WOODEN_BUTTON);
+        OreDictionary.registerOre("trapdoorWood", Blocks.TRAPDOOR);
         
         modIntegrator.init(event);
     }

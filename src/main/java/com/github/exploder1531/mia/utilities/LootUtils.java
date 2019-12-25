@@ -85,6 +85,11 @@ public class LootUtils
         return new EnchantWithLevels(new LootCondition[]{ new RandomChance(chance) }, new RandomValueRange(minLevel, maxLevel), isTreasure);
     }
     
+    public static LootFunction setMetadataFunction(int value)
+    {
+        return setMetadataFunction(value, value);
+    }
+    
     public static LootFunction setMetadataFunction(int min, int max)
     {
         return new SetMetadata(new LootCondition[0], new RandomValueRange(min, max));

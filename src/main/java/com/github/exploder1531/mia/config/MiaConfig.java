@@ -18,6 +18,11 @@ public class MiaConfig
     @Config.RequiresMcRestart
     public static boolean musicPlayerEnabled = true;
     
+    @Config.Name("Replaces all raw meat drops with cooked ones while animal died on fire")
+    @Config.Comment("Replaces any raw meat dropped by creatures that were set on fire with their cooked version (if possible), similarly to vanilla mobs")
+    @Config.LangKey("mia.config.shared.add_cooked_drops")
+    public static boolean addCookedDrops = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

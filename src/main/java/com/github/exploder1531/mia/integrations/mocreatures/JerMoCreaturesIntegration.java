@@ -1,5 +1,6 @@
 package com.github.exploder1531.mia.integrations.mocreatures;
 
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.ExtraConditional;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
@@ -43,7 +44,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.addCookedDrops;
 import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.replaceFishDrops;
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.harvestcraftLoaded;
 import static com.github.exploder1531.mia.integrations.jer.JustEnoughResources.loadResource;
@@ -202,12 +202,12 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 MoCEntityWerewolf.class,
                 // Wild wolf
                 MoCEntityWWolf.class,
-        
+                
                 // Ambient
                 MoCEntityCrab.class,
                 MoCEntitySnail.class,
                 MoCEntityMaggot.class,
-        
+                
                 // Aquatic
                 MoCEntityDolphin.class,
                 MoCEntityJellyFish.class,
@@ -255,7 +255,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 if (replaceFishDrops && entity instanceof MoCEntityCod)
                 {
                     lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 1);
-                    if (addCookedDrops)
+                    if (MiaConfig.addCookedDrops)
                         lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH, lootDrop.item.getCount(), 1);
                 }
                 else if (replaceFishDrops && entity instanceof MoCEntityClownFish)
@@ -268,17 +268,17 @@ class JerMoCreaturesIntegration implements IJerIntegration
                     lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH);
                 
             }
-            else if (item == MoCItems.rawTurkey && addCookedDrops)
+            else if (item == MoCItems.rawTurkey && MiaConfig.addCookedDrops)
                 lootDrop.smeltedItem = new ItemStack(MoCItems.cookedTurkey);
-            else if (item == MoCItems.ratRaw && addCookedDrops)
+            else if (item == MoCItems.ratRaw && MiaConfig.addCookedDrops)
                 lootDrop.smeltedItem = new ItemStack(MoCItems.ratCooked);
-            else if (item == MoCItems.ostrichraw && addCookedDrops)
+            else if (item == MoCItems.ostrichraw && MiaConfig.addCookedDrops)
                 lootDrop.smeltedItem = new ItemStack(MoCItems.ostrichcooked);
-            else if (item == MoCItems.crabraw && addCookedDrops)
+            else if (item == MoCItems.crabraw && MiaConfig.addCookedDrops)
                 lootDrop.smeltedItem = new ItemStack(MoCItems.crabcooked);
-            else if (item == Items.PORKCHOP && addCookedDrops)
+            else if (item == Items.PORKCHOP && MiaConfig.addCookedDrops)
                 lootDrop.smeltedItem = new ItemStack(Items.COOKED_PORKCHOP);
-            else if (item == MoCItems.turtleraw && addCookedDrops && harvestcraftLoaded)
+            else if (item == MoCItems.turtleraw && MiaConfig.addCookedDrops && harvestcraftLoaded)
                 lootDrop.smeltedItem = new ItemStack(ItemRegistry.turtlecookedItem);
             else if (item == MoCItems.bo && entity instanceof MoCEntityTurtle)
                 lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Donatello', 'donatello'"));
@@ -320,14 +320,14 @@ class JerMoCreaturesIntegration implements IJerIntegration
             if (entity instanceof MoCEntityDeer)
             {
                 LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.venisonrawItem), 0, 2, Conditional.affectedByLooting);
-                if (addCookedDrops)
+                if (MiaConfig.addCookedDrops)
                     drop.smeltedItem = new ItemStack(ItemRegistry.venisoncookedItem);
                 drops.add(drop);
             }
             else if (entity instanceof MoCEntityDuck)
             {
                 LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.duckrawItem), 0, 2, Conditional.affectedByLooting);
-                if (addCookedDrops)
+                if (MiaConfig.addCookedDrops)
                     drop.smeltedItem = new ItemStack(ItemRegistry.duckcookedItem);
                 drops.add(drop);
             }

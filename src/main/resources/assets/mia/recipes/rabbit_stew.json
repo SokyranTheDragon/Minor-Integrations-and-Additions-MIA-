@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " r ",
+    "cpm",
+    " b "
+  ],
+  "key": {
+    "r": {
+      "type": "forge:ore_dict",
+      "ore": "listAllrabbitraw"
+    },
+    "c": {
+      "item": "minecraft:carrot"
+    },
+    "p": {
+      "item": "minecraft:baked_potato"
+    },
+    "m": {
+      "type": "forge:ore_dict",
+      "ore": "listAllmushroom"
+    },
+    "b": {
+      "item": "minecraft:bowl"
+    }
+  },
+  "result": {
+    "item": "minecraft:rabbit_stew"
+  }
+}

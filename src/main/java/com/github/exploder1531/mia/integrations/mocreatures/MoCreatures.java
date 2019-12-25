@@ -19,6 +19,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -96,7 +97,7 @@ public class MoCreatures implements IBaseMod
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        if (jerLoaded)
+        if (jerLoaded && event.getSide() == Side.CLIENT)
         {
             RenderingRegistry.registerEntityRenderingHandler(MoCEntityTurtle.class, new MoCRenderTurtleJer());
             RenderingRegistry.registerEntityRenderingHandler(MoCEntitySnake.class, new MoCRenderSnakeJer());

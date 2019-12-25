@@ -2,8 +2,8 @@ package com.github.exploder1531.mia.events;
 
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.config.HarvestcraftConfiguration;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.config.MoCreaturesConfiguration;
-import com.github.exploder1531.mia.integrations.ModIds;
 import com.pam.harvestcraft.item.ItemRegistry;
 import drzhark.mocreatures.entity.MoCEntityAquatic;
 import drzhark.mocreatures.entity.ambient.MoCEntityCrab;
@@ -26,11 +26,16 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import vazkii.quark.world.entity.EntityCrab;
+import vazkii.quark.world.entity.EntityFrog;
+import vazkii.quark.world.feature.Crabs;
+import vazkii.quark.world.feature.Frogs;
 
 import java.util.List;
 
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.harvestcraftLoaded;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.moCreaturesLoaded;
+import static com.github.exploder1531.mia.integrations.ModIds.MO_CREATURES;
+import static com.github.exploder1531.mia.integrations.ModIds.QUARK;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class EntityEvents
@@ -97,7 +102,7 @@ public class EntityEvents
                 }
                 else if (event.getEntityLiving() instanceof MoCEntityDuck)
                 {
-                    if (MoCreaturesConfiguration.addCookedDrops)
+                    if (MiaConfig.addCookedDrops)
                         dropFewItems(ItemRegistry.duckrawItem, ItemRegistry.duckcookedItem, event);
                     else
                         dropFewItems(ItemRegistry.duckrawItem, event);
@@ -105,7 +110,7 @@ public class EntityEvents
                 }
                 else if (event.getEntityLiving() instanceof MoCEntityDeer)
                 {
-                    if (MoCreaturesConfiguration.addCookedDrops)
+                    if (MiaConfig.addCookedDrops)
                         dropFewItems(ItemRegistry.venisonrawItem, ItemRegistry.venisoncookedItem, event);
                     else
                         dropFewItems(ItemRegistry.venisonrawItem, event);
@@ -115,6 +120,9 @@ public class EntityEvents
         }
         
         if (moCreaturesLoaded && registerMoCreaturesDrops(event))
+            return;
+        
+        if (quarkLoaded && registerQuarkDrops(event))
             return;
     }
     
@@ -166,14 +174,14 @@ public class EntityEvents
         }
     }
     
-    @Optional.Method(modid = ModIds.MO_CREATURES)
+    @Optional.Method(modid = MO_CREATURES)
     private static boolean registerMoCreaturesDrops(LivingDropsEvent event)
     {
         if (MoCreaturesConfiguration.replaceFishDrops)
         {
             if (event.getEntityLiving() instanceof MoCEntityCod)
             {
-                replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.COOKED_FISH, 1, MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning());
+                replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.COOKED_FISH, 1, MiaConfig.addCookedDrops && event.getEntityLiving().isBurning());
                 return true;
             }
             else if (event.getEntityLiving() instanceof MoCEntityClownFish)
@@ -182,8 +190,8 @@ public class EntityEvents
                 return true;
             }
         }
-    
-        if (MoCreaturesConfiguration.addCookedDrops && event.getEntityLiving().isBurning())
+        
+        if (MiaConfig.addCookedDrops && event.getEntityLiving().isBurning())
         {
             if (event.getEntityLiving() instanceof MoCEntityAquatic)
             {
@@ -218,6 +226,26 @@ public class EntityEvents
             else if (harvestcraftLoaded && event.getEntityLiving() instanceof MoCEntityTurtle)
             {
                 replaceItemDrop(event.getDrops(), MoCItems.turtleraw, ItemRegistry.turtlecookedItem);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    @Optional.Method(modid = QUARK)
+    private static boolean registerQuarkDrops(LivingDropsEvent event)
+    {
+        if (MiaConfig.addCookedDrops)
+        {
+            if (Crabs.crabLeg != null && event.getEntity() instanceof EntityCrab)
+            {
+                replaceItemDrop(event.getDrops(), Crabs.crabLeg, Crabs.cookedCrabLeg);
+                return true;
+            }
+            else if (Frogs.frogLeg != null && event.getEntity() instanceof EntityFrog)
+            {
+                replaceItemDrop(event.getDrops(), Frogs.frogLeg, Frogs.cookedFrogLeg);
                 return true;
             }
         }

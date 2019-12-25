@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 import java.util.List;
 
@@ -48,5 +49,12 @@ public class ThermalExpansion implements IBaseMod
         
         for (IThermalExpansionIntegration integration : modIntegrations)
             integration.addRecipes();
+    }
+    
+    @Override
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        for (IThermalExpansionIntegration integration : modIntegrations)
+            integration.addPostInitRecipes();
     }
 }

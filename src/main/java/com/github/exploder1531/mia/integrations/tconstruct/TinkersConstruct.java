@@ -57,17 +57,17 @@ public class TinkersConstruct implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (!tconstructAdditionsEnabled)
-            return;
-        
-        Fluid fluid = FluidRegistry.getFluid("iron");
-        
-        if (fluid != null)
+        if (tconstructAdditionsEnabled)
         {
-            TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.CHAINMAIL_HELMET, Material.VALUE_Nugget * 5 * 4), fluid));
-            TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.CHAINMAIL_CHESTPLATE, Material.VALUE_Nugget * 8 * 4), fluid));
-            TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.CHAINMAIL_LEGGINGS, Material.VALUE_Nugget * 7 * 4), fluid));
-            TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.CHAINMAIL_BOOTS, Material.VALUE_Nugget * 4 * 4), fluid));
+            Fluid fluid = FluidRegistry.getFluid("iron");
+            
+            if (fluid != null)
+            {
+                TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.CHAINMAIL_HELMET, Material.VALUE_Nugget * 5 * 4), fluid));
+                TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.CHAINMAIL_CHESTPLATE, Material.VALUE_Nugget * 8 * 4), fluid));
+                TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.CHAINMAIL_LEGGINGS, Material.VALUE_Nugget * 7 * 4), fluid));
+                TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.CHAINMAIL_BOOTS, Material.VALUE_Nugget * 4 * 4), fluid));
+            }
         }
         
         for (ITConstructIntegration integration : modIntegrations)

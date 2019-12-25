@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.integrations.base;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.botania.Botania;
+import com.github.exploder1531.mia.integrations.cofhcore.CofhCore;
 import com.github.exploder1531.mia.integrations.dungeontactics.DungeonTactics;
 import com.github.exploder1531.mia.integrations.extrabotany.ExtraBotany;
 import com.github.exploder1531.mia.integrations.harvestcraft.Harvestcraft;
@@ -10,6 +11,7 @@ import com.github.exploder1531.mia.integrations.iceandfire.IceAndFire;
 import com.github.exploder1531.mia.integrations.jei.Jei;
 import com.github.exploder1531.mia.integrations.jer.JustEnoughResources;
 import com.github.exploder1531.mia.integrations.mocreatures.MoCreatures;
+import com.github.exploder1531.mia.integrations.quark.Quark;
 import com.github.exploder1531.mia.integrations.tconstruct.TinkersConstruct;
 import com.github.exploder1531.mia.integrations.thaumcraft.Thaumcraft;
 import com.github.exploder1531.mia.integrations.theoneprobe.TheOneProbe;
@@ -58,6 +60,8 @@ public class ModIntegrator
         
         if (extraUtilitiesLoaded)
             modIntegrations.put(ModIds.EXTRA_UTILITIES, new ExtraUtilities2());
+        if (cofhCoreLoaded)
+            modIntegrations.put(ModIds.COFH_CORE, new CofhCore());
         if (thermalFoundationLoaded)
             modIntegrations.put(ModIds.THERMAL_FOUNDATION, new ThermalFoundation());
         if (thermalExpansionLoaded)
@@ -86,6 +90,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.BOTANIA, new Botania());
         if (extraBotanyLoaded)
             modIntegrations.put(ModIds.EXTRABOTANY, new ExtraBotany());
+        if (quarkLoaded)
+            modIntegrations.put(ModIds.QUARK, new Quark());
         
         for (IBaseMod mod : modIntegrations.values())
             mod.register(this::registerIntegration);

@@ -36,6 +36,8 @@ public class ExtraUtilities2 implements IBaseMod
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionExtraUtilsIntegration());
         if (ModLoadStatus.hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryExtraUtilsIntegration(enableHatcheryIntegration));
+        if (ModLoadStatus.quarkLoaded)
+            modIntegration.accept(ModIds.QUARK, new QuarkExtraUtilsIntegration());
     }
     
     @Override

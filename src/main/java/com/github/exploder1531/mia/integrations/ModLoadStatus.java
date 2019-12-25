@@ -9,6 +9,7 @@ public class ModLoadStatus
     }
     
     public static boolean extraUtilitiesLoaded = false;
+    public static boolean cofhCoreLoaded = false;
     public static boolean thermalFoundationLoaded = false;
     public static boolean thermalExpansionLoaded = false;
     public static boolean tinkersConstructLoaded = false;
@@ -24,11 +25,14 @@ public class ModLoadStatus
     public static boolean dungeonTacticsLoaded = false;
     public static boolean botaniaLoaded = false;
     public static boolean extraBotanyLoaded = false;
+    public static boolean quarkLoaded = false;
     
     public static void preInit()
     {
         if (Loader.isModLoaded(ModIds.EXTRA_UTILITIES))
             extraUtilitiesLoaded = true;
+        if (Loader.isModLoaded(ModIds.COFH_CORE))
+            cofhCoreLoaded = true;
         if (Loader.isModLoaded(ModIds.THERMAL_FOUNDATION))
             thermalFoundationLoaded = true;
         if (Loader.isModLoaded(ModIds.THERMAL_EXPANSION))
@@ -59,5 +63,7 @@ public class ModLoadStatus
             botaniaLoaded = true;
         if (Loader.isModLoaded(ModIds.EXTRABOTANY))
             extraBotanyLoaded = true;
+        if (Loader.isModLoaded(ModIds.QUARK))
+            quarkLoaded = true;
     }
 }

@@ -100,6 +100,7 @@ public class ItemMusicPlayer extends Item implements IBauble
     }
     
     @Override
+    @Optional.Method(modid = ModIds.BAUBLES)
     public BaubleType getBaubleType(ItemStack itemStack)
     {
         return BaubleType.TRINKET;

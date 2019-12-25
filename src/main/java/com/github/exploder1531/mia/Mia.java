@@ -28,6 +28,12 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ICE_AND_FIRE +
                 ";after:" + ModIds.HATCHERY +
                 ";after:" + ModIds.THAUMCRAFT +
+                ";after:" + ModIds.MO_CREATURES +
+                ";after:" + ModIds.HARVESTCRAFT +
+                ";after:" + ModIds.DUNGEON_TACTICS +
+                ";after:" + ModIds.BOTANIA +
+                ";after:" + ModIds.EXTRABOTANY +
+                ";after:" + ModIds.QUARK +
                 ";")
 public class Mia
 {

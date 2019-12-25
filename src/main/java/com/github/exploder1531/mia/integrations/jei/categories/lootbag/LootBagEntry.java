@@ -12,7 +12,9 @@ import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootEntryTable;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraft.world.storage.loot.RandomValueRange;
-import net.minecraft.world.storage.loot.functions.*;
+import net.minecraft.world.storage.loot.functions.LootFunction;
+import net.minecraft.world.storage.loot.functions.SetMetadata;
+import net.minecraft.world.storage.loot.functions.SetNBT;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -143,7 +145,7 @@ public class LootBagEntry
     {
         int min = 0;
         int max = 0;
-        boolean enchanted = false;
+//        boolean enchanted = false;
         SetNBT tag = null;
         
         for (LootFunction function : functions)
@@ -156,8 +158,8 @@ public class LootBagEntry
             }
             else if (function instanceof SetNBT)
                 tag = (SetNBT) function;
-            else if (function instanceof EnchantRandomly || function instanceof EnchantWithLevels)
-                enchanted = true;
+//            else if (function instanceof EnchantRandomly || function instanceof EnchantWithLevels)
+//                enchanted = true;
         }
         
         List<ItemStack> items = new ArrayList<>();
