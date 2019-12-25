@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " t ",
+    "bjb",
+    " c "
+  ],
+  "key": {
+    "b": {
+      "type": "forge:ore_dict",
+      "ore": "buttonWood"
+    },
+    "j": {
+      "item": "minecraft:jukebox"
+    },
+    "t": {
+      "type": "forge:ore_dict",
+      "ore": "trapdoorWood"
+    },
+    "c": {
+      "item": "minecraft:comparator"
+    }
+  },
+  "result": {
+    "item": "mia:music_player",
+    "count": 1
+  }
+}
