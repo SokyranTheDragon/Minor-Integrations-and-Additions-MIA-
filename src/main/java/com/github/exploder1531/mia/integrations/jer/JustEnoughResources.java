@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
+import jeresources.api.IPlantRegistry;
 import jeresources.compatibility.JERAPI;
 import jeresources.entry.MobEntry;
 import jeresources.registry.MobRegistry;
@@ -79,6 +80,7 @@ public class JustEnoughResources implements IBaseMod
             MobTableBuilder mobTableBuilder = new MobTableBuilder(world);
             IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
             IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
+            IPlantRegistry plantRegistry = JERAPI.getInstance().getPlantRegistry();
             
             Map<Object, String> allMobs = Maps.newHashMap();
             for (IJerIntegration mod : modIntegrations.values())
@@ -89,6 +91,7 @@ public class JustEnoughResources implements IBaseMod
                 mod.addMobRenderHooks(mobRegistry);
                 
                 mod.addDungeonLoot(dungeonRegistry);
+                mod.addPlantDrops(plantRegistry);
             }
             
             for (Map.Entry<ResourceLocation, EntityLivingBase> entry : mobTableBuilder.getMobTables().entrySet())

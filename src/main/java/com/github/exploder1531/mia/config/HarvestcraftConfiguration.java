@@ -30,6 +30,12 @@ public class HarvestcraftConfiguration
     @Config.RequiresMcRestart
     public static boolean squidDropsCalamari = true;
     
+    @Config.Name("Enable JER integration")
+    @Config.Comment("Set to false to completely disable integration with JER")
+    @Config.LangKey("mia.config.shared.enable_jer_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableJerIntegration = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

@@ -3,6 +3,7 @@ package com.github.exploder1531.mia.integrations.jer;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
+import jeresources.api.IPlantRegistry;
 import jeresources.entry.MobEntry;
 import jeresources.util.MobTableBuilder;
 import net.minecraft.entity.EntityLivingBase;
@@ -36,6 +37,10 @@ public interface IJerIntegration extends IModIntegration
     }
     
     default void addDungeonLoot(IDungeonRegistry dungeonRegistry)
+    {
+    }
+    
+    default void addPlantDrops(IPlantRegistry plantRegistry)
     {
     }
 }

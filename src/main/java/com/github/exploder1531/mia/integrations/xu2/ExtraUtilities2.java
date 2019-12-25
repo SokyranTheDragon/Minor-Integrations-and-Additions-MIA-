@@ -32,12 +32,14 @@ public class ExtraUtilities2 implements IBaseMod
     @Override
     public void register(BiConsumer<String, IModIntegration> modIntegration)
     {
-        if (ModLoadStatus.thermalExpansionLoaded)
+        if (enableTeIntegration && ModLoadStatus.thermalExpansionLoaded)
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionExtraUtilsIntegration());
         if (ModLoadStatus.hatcheryLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryExtraUtilsIntegration(enableHatcheryIntegration));
-        if (ModLoadStatus.quarkLoaded)
+        if (enableQuarkIntegration && ModLoadStatus.quarkLoaded)
             modIntegration.accept(ModIds.QUARK, new QuarkExtraUtilsIntegration());
+        if (enableJerIntegration && ModLoadStatus.jerLoaded)
+            modIntegration.accept(ModIds.JER, new JerExtraUtilsIntegration());
     }
     
     @Override
