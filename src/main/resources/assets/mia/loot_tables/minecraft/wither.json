@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "wither",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:nether_star"
+        }
+      ]
+    }
+  ]
+}

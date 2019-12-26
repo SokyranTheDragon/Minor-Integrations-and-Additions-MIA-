@@ -10,6 +10,8 @@ import com.google.common.collect.Sets;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
+import jeresources.api.conditionals.LightLevel;
+import jeresources.api.drop.PlantDrop;
 import jeresources.compatibility.JERAPI;
 import jeresources.entry.MobEntry;
 import jeresources.registry.MobRegistry;
@@ -18,13 +20,20 @@ import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -77,20 +86,33 @@ public class JustEnoughResources implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
+        World world = Minecraft.getMinecraft().world;
+        
+        if (world == null)
+            world = new FakeClientWorld();
+        
+        IPlantRegistry plantRegistry = JERAPI.getInstance().getPlantRegistry();
+        MobTableBuilder mobTableBuilder = new MobTableBuilder(world);
+        IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
+        
+        mobTableBuilder.add(loadResource("minecraft/wither"), EntityWither.class);
+        Optional<Map.Entry<ResourceLocation, EntityLivingBase>> wither = mobTableBuilder.getMobTables().entrySet().stream().findAny();
+        wither.ifPresent(entry -> mobRegistry.register(entry.getValue(), LightLevel.any, 50, entry.getKey()));
+        
+        // It's a little redundant, but might as well be 100% sure
+        if (Items.NETHER_WART instanceof IPlantable)
+        {
+            plantRegistry.registerWithSoil(
+                    (Item & IPlantable) Items.NETHER_WART,
+                    Blocks.SOUL_SAND.getDefaultState(),
+                    new PlantDrop(new ItemStack(Items.NETHER_WART), 2, 5));
+        }
+        
         if (modIntegrations.size() > 0)
         {
-            World world = Minecraft.getMinecraft().world;
-            
-            if (world == null)
-            {
-                world = new FakeClientWorld();
-            }
-            
             LootTableManager manager = LootTableHelper.getManager(world);
-            MobTableBuilder mobTableBuilder = new MobTableBuilder(world);
-            IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
             IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
-            IPlantRegistry plantRegistry = JERAPI.getInstance().getPlantRegistry();
+            mobTableBuilder = new MobTableBuilder(world);
             
             Map<Object, String> allMobs = Maps.newHashMap();
             for (IJerIntegration mod : modIntegrations.values())
