@@ -17,6 +17,7 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.IPlantable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -54,28 +55,33 @@ class JerHarvestcraftIntegration implements IJerIntegration
                 entries = new PlantDrop[]{
                         new PlantDrop(new ItemStack(seeds), 1, 1),
                         new PlantDrop(new ItemStack(food), 0, 2) };
-//            if (seeds instanceof IPlantable)
-//                plantRegistry.register((Item & IPlantable) seeds, entries);
-//            else
-            plantRegistry.register(new ItemStack(seeds), entries);
+            if (seeds instanceof IPlantable)
+                plantRegistry.register((Item & IPlantable) seeds, entries);
+            else
+                plantRegistry.register(new ItemStack(seeds), entries);
         }
         
         for (BlockPamFruit fruit : FruitRegistry.fruits)
         {
-            plantRegistry.register(
-                    new ItemStack(fruit.getSapling()),
-                    new PlantDrop(new ItemStack(fruit.getFruitItem()), 1, 1));
+            Item sapling = Item.getItemFromBlock(fruit.getSapling());
+            PlantDrop entry = new PlantDrop(new ItemStack(fruit.getFruitItem()), 1, 1);
+            
+            if (sapling instanceof IPlantable)
+                plantRegistry.registerWithSoil((Item & IPlantable) sapling, Blocks.DIRT.getDefaultState(), entry);
+            else
+                plantRegistry.registerWithSoil(new ItemStack(fruit.getSapling()), Blocks.DIRT.getDefaultState(), entry);
         }
         
         for (BlockPamFruitLog log : FruitRegistry.logs.values())
         {
-            plantRegistry.registerWithSoil(
-                    new ItemStack(log.getSapling()),
-//                    Blocks.AIR.getDefaultState(),
-                    Blocks.DIRT.getDefaultState(),
-                    new PlantDrop(new ItemStack(log.getFruitItem()), 1, 1));
+            Item sapling = Item.getItemFromBlock(log.getSapling());
+            PlantDrop entry = new PlantDrop(new ItemStack(log.getFruitItem()), 1, 1);
+            
+            if (sapling instanceof IPlantable)
+                plantRegistry.registerWithSoil(new ItemStack(sapling), (Item & IPlantable) sapling, Blocks.DIRT.getDefaultState(), entry);
+            else
+                plantRegistry.registerWithSoil(new ItemStack(sapling), Blocks.DIRT.getDefaultState(), entry);
         }
-        
     }
     
     @Nonnull

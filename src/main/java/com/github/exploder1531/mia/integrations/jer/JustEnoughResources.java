@@ -1,6 +1,8 @@
 package com.github.exploder1531.mia.integrations.jer;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.integrations.ModIds;
+import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.google.common.collect.Maps;
@@ -24,6 +26,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.JerConfiguration.externalIntegrationsEnabled;
 
@@ -45,8 +48,15 @@ public class JustEnoughResources implements IBaseMod
             field.set(MobRegistry.getInstance(), set);
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
-            e.printStackTrace();
+            Mia.LOGGER.error("Could not access MobRegistry.registry, mob loot overrides won't work.");
         }
+    }
+    
+    @Override
+    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    {
+        if (ModLoadStatus.jeiLoaded)
+            modIntegration.accept(ModIds.JEI, new JeiJerIntegration());
     }
     
     @Override
