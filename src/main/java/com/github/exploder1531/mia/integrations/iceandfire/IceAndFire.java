@@ -71,11 +71,11 @@ public class IceAndFire implements IBaseMod
         furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_boots), new ItemStack(ModItems.silverNugget), 0.1f);
     }
     
+    @SuppressWarnings("deprecation")
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
         if (jerLoaded && event.getSide() == Side.CLIENT)
-            //noinspection deprecation
             RenderingRegistry.registerEntityRenderingHandler(EntityHippocampus.class, new RenderHippocampusJer(Minecraft.getMinecraft().getRenderManager()));
     }
     

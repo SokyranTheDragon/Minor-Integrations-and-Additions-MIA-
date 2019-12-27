@@ -1,9 +1,9 @@
 package com.github.exploder1531.mia.integrations.base;
 
-import javax.annotation.Nonnull;
+import mcp.MethodsReturnNonnullByDefault;
 
+@MethodsReturnNonnullByDefault
 public interface IModIntegration
 {
-    @Nonnull
     String getModId();
 }

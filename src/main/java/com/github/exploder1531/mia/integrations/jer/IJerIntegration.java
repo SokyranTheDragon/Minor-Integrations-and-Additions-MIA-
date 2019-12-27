@@ -6,19 +6,19 @@ import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
 import jeresources.entry.MobEntry;
 import jeresources.util.MobTableBuilder;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableManager;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
 import java.util.Set;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public interface IJerIntegration extends IModIntegration
 {
-    @Nonnull
     default Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
         return new HashSet<>();

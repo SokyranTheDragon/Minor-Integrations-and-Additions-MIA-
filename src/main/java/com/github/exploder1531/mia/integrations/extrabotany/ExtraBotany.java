@@ -21,5 +21,7 @@ public class ExtraBotany implements IBaseMod
             modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsExtraBotanyIntegration());
         if (enableTeIntegration && thermalExpansionLoaded)
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionExtraBotanyIntegration());
+        if (jerLoaded)
+            modIntegration.accept(ModIds.JER, new JerExtraBotanyIntegration());
     }
 }

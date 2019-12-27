@@ -27,10 +27,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@SuppressWarnings("deprecation")
 public class JeiJerIntegration implements IJeiIntegration
 {
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
     @Override
     public void register(IModRegistry registry, Collection<String> registeredCategories)
     {

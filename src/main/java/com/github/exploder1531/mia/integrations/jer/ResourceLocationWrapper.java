@@ -15,7 +15,17 @@ public class ResourceLocationWrapper extends ResourceLocation
     
     public ResourceLocationWrapper(ResourceLocation base, int resourceId)
     {
-        super(base.getNamespace(), base.getPath());
+        this(base.getNamespace(), base.getPath(), resourceId);
+    }
+    
+    public ResourceLocationWrapper(String namespace, String path)
+    {
+        this(namespace, path, 0);
+    }
+    
+    public ResourceLocationWrapper(String namespace, String path, int resourceId)
+    {
+        super(namespace, path);
         this.resourceId = resourceId;
     }
     
