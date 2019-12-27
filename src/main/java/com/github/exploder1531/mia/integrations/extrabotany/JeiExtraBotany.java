@@ -11,11 +11,12 @@ import com.github.exploder1531.mia.integrations.jei.categories.lootbag.LootBagWr
 import com.meteor.extrabotany.api.item.WeightCategory;
 import com.meteor.extrabotany.common.item.ModItems;
 import com.meteor.extrabotany.common.item.bonus.ItemBonusBase;
+import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +25,9 @@ import java.util.stream.Collectors;
 
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.jerLoaded;
 
-public class JeiExtraBotany implements IJeiIntegration
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+class JeiExtraBotany implements IJeiIntegration
 {
     @Override
     public void register(IModRegistry registry, Collection<String> registeredCategories)
@@ -68,7 +71,6 @@ public class JeiExtraBotany implements IJeiIntegration
             Mia.LOGGER.error("Could not access Loot Bag recipe registry, this shouldn't have happened as Dungeon Tactics and JER are loaded. Something is very wrong.");
     }
     
-    @Nonnull
     @Override
     public String getModId()
     {

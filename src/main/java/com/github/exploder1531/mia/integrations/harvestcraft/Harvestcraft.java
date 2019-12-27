@@ -12,8 +12,7 @@ import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.HarvestcraftConfiguration.enableTeIntegration;
 import static com.github.exploder1531.mia.config.HarvestcraftConfiguration.harvestcraftAdditionsEnabled;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.jerLoaded;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.thermalExpansionLoaded;
+import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class Harvestcraft implements IBaseMod
 {
@@ -24,6 +23,8 @@ public class Harvestcraft implements IBaseMod
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionHarvestcraftIntegration());
         if (jerLoaded)
             modIntegration.accept(ModIds.JER, new JerHarvestcraftIntegration());
+        if (jeiLoaded)
+            modIntegration.accept(ModIds.JEI, new JeiHarvestcraftIntegration());
     }
     
     @Override

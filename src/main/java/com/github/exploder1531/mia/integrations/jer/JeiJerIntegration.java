@@ -27,7 +27,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class JeiJerIntegration implements IJeiIntegration
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+class JeiJerIntegration implements IJeiIntegration
 {
     @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
     @Override
@@ -88,7 +90,6 @@ public class JeiJerIntegration implements IJeiIntegration
         }
     }
     
-    @Nonnull
     @Override
     public String getModId()
     {

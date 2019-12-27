@@ -29,6 +29,7 @@ import pegbeard.dungeontactics.handlers.DTItems;
 import pegbeard.dungeontactics.handlers.DTLoots;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -36,9 +37,10 @@ import java.util.List;
 import static com.github.exploder1531.mia.integrations.ModLoadStatus.jerLoaded;
 
 @SuppressWarnings("SameParameterValue")
-public class JeiDungeonTacticsIntegration implements IJeiIntegration
+class JeiDungeonTacticsIntegration implements IJeiIntegration
 {
     @Override
+    @ParametersAreNonnullByDefault
     public void register(IModRegistry registry, Collection<String> registeredCategories)
     {
         if (registeredCategories.add(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON))
@@ -96,6 +98,7 @@ public class JeiDungeonTacticsIntegration implements IJeiIntegration
     }
     
     @Override
+    @ParametersAreNonnullByDefault
     public void registerCategories(IRecipeCategoryRegistration registry, Collection<String> registeredCategories)
     {
         if (registeredCategories.add(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON))

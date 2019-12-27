@@ -8,6 +8,7 @@ import com.github.exploder1531.mia.integrations.jei.categories.lootbag.LootBagCa
 import com.github.exploder1531.mia.integrations.jei.categories.lootbag.LootBagEntry;
 import com.github.exploder1531.mia.integrations.jei.categories.lootbag.LootBagRegistry;
 import com.github.exploder1531.mia.integrations.jei.categories.lootbag.LootBagWrapper;
+import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
@@ -16,13 +17,16 @@ import thaumcraft.api.internal.WeightedRandomLoot;
 import thaumcraft.api.items.ItemsTC;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class JeiThaumcraftIntegration implements IJeiIntegration
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+class JeiThaumcraftIntegration implements IJeiIntegration
 {
     @Override
     public void register(IModRegistry registry, Collection<String> registeredCategories)
@@ -62,7 +66,7 @@ public class JeiThaumcraftIntegration implements IJeiIntegration
             registerLootBag(lootBagRegistry, WeightedRandomLoot.lootBagRare, new ItemStack(ItemsTC.lootBag, 1, 2), new ItemStack(BlocksTC.lootCrateRare), new ItemStack(BlocksTC.lootUrnRare));
         }
         else
-            Mia.LOGGER.error("Could not access Loot Bag recipe registry, this shouldn't have happened as Thaumcraft and JER are loaded. Something is very wrong.");
+            Mia.LOGGER.error("Could not access Loot Bag recipe registry, this shouldn't have happened. Something is very wrong.");
     }
     
     @Nonnull

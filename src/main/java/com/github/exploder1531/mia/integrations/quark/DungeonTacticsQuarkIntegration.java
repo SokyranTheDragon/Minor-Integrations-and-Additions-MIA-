@@ -51,11 +51,11 @@ class DungeonTacticsQuarkIntegration implements IDungeonTacticsIntegration
                 break;
             case QUIVER:
                 if (ExtraArrows.arrow_ender != null)
-                    LootUtils.addDtLoot(loot, ExtraArrows.arrow_ender);
+                    LootUtils.addDtLoot(loot, ExtraArrows.arrow_ender, 7, LootUtils.setCountFunction(1, 16));
                 if (ExtraArrows.arrow_explosive != null)
-                    LootUtils.addDtLoot(loot, ExtraArrows.arrow_explosive);
+                    LootUtils.addDtLoot(loot, ExtraArrows.arrow_explosive, 7, LootUtils.setCountFunction(1, 16));
                 if (ExtraArrows.arrow_torch != null)
-                    LootUtils.addDtLoot(loot, ExtraArrows.arrow_torch);
+                    LootUtils.addDtLoot(loot, ExtraArrows.arrow_torch, 7, LootUtils.setCountFunction(1, 16));
                 break;
             case FOOD:
                 if (Crabs.crabLeg != null)

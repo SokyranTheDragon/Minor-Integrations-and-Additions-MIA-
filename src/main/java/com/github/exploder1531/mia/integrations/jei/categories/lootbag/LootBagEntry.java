@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LootBagEntry
 {
@@ -96,7 +97,7 @@ public class LootBagEntry
         
         public BagOutputEntry(List<ItemStack> items, float chance)
         {
-            this.items = items;
+            this.items = items.stream().filter(stack -> stack != null && !stack.isEmpty()).collect(Collectors.toList());
             this.chance = chance;
         }
         
