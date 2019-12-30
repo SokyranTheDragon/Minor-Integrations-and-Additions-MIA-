@@ -1,5 +1,6 @@
 package com.github.exploder1531.mia.integrations.iceandfire;
 
+import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
 import com.github.exploder1531.mia.block.BlockPixieDustExtractor;
@@ -20,11 +21,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import java.util.function.BiConsumer;
 
@@ -114,14 +119,15 @@ public class IceAndFire implements IBaseMod
         
         RegisterUtils.registerItemblockRenderer(MiaBlocks.pixie_dust_extractor);
     }
-
-//    @Override
-//    public void aspectRegistrationEvent(AspectRegistryEvent event)
-//    {
-//        if (!iceandfireAdditionsEnabled)
-//            return;
-//
-//        Aspect MYTHICAL = Aspect.getAspect("mythus");
-//        event.register.registerObjectTag(new ItemStack(ModBlocks.pixieHouse, 1, 0), (new AspectList()).add(Aspect.EARTH, 2).add(Aspect.CRAFT, 5).add(Aspect.PLANT, 2).add(MYTHICAL, 2).add(Aspect.MAGIC, 2).add(Aspect.METAL, 60).add(Aspect.LIGHT, 3).add(Aspect.SENSES, 1).add(Aspect.AIR, 1).add(Aspect.CRYSTAL, 1));
-//    }
+    
+    @Override
+    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    public void registerAspects(AspectRegistryEvent event)
+    {
+        if (!iceandfireAdditionsEnabled)
+            return;
+        
+        Aspect MYTHICAL = Aspect.getAspect("mythus");
+        event.register.registerObjectTag(new ItemStack(ModBlocks.pixieHouse, 1, 0), (new AspectList()).add(Aspect.EARTH, 2).add(Aspect.CRAFT, 5).add(Aspect.PLANT, 2).add(MYTHICAL, 2).add(Aspect.MAGIC, 2).add(Aspect.METAL, 60).add(Aspect.LIGHT, 3).add(Aspect.SENSES, 1).add(Aspect.AIR, 1).add(Aspect.CRYSTAL, 1));
+    }
 }

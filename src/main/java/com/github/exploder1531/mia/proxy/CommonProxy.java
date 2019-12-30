@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.aspects.AspectRegistryEvent;
 
 @SuppressWarnings("WeakerAccess")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
@@ -81,9 +83,11 @@ public class CommonProxy
     {
         modIntegrator.lootTableLoad(event);
     }
-
-//    @SubscribeEvent
-//    public static void aspectRegistrationEvent(AspectRegistryEvent event)
-//    {
-//    }
+    
+    @SubscribeEvent
+    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    public static void aspectRegistrationEvent(AspectRegistryEvent event)
+    {
+        modIntegrator.registerAspects(event);
+    }
 }

@@ -1,5 +1,6 @@
 package com.github.exploder1531.mia.integrations.xu2;
 
+import cofh.thermalexpansion.util.managers.device.FactorizerManager;
 import cofh.thermalexpansion.util.managers.machine.EnchanterManager;
 import cofh.thermalexpansion.util.managers.machine.PulverizerManager;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
@@ -37,6 +38,11 @@ class ThermalExpansionExtraUtilsIntegration implements IThermalExpansionIntegrat
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(XU2Entries.itemIngredients.value, 4, ItemIngredients.Type.RED_COAL.meta), "extrautils2:xu.burnerang", 3);
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(XU2Entries.openium.value, 1, 0), "extrautils2:xu.bladerang", 2);
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(XU2Entries.sickles[2].value), "extrautils2:xu.boomereaperang", 1);
+    
+        FactorizerManager.removeRecipe(XU2Entries.unstableIngots.newStackMeta(0), true);
+        FactorizerManager.removeRecipe(XU2Entries.unstableIngots.newStackMeta(1), false);
+        
+        FactorizerManager.addDefaultRecipe(XU2Entries.unstableIngots.newStackMeta(1), XU2Entries.unstableIngots.newStackMeta(2));
     }
     
     @Nonnull

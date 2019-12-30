@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -139,7 +139,7 @@ public class JustEnoughResources implements IBaseMod
     }
     
     @Override
-    public void postInit(FMLPostInitializationEvent event)
+    public void loadCompleted(FMLLoadCompleteEvent event)
     {
         set.jer = null;
     }

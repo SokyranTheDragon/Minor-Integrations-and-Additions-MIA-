@@ -1,5 +1,7 @@
 package com.github.exploder1531.mia.integrations.base;
 
+import com.gendeathrow.morechickens.core.ChickensMore;
+import com.gendeathrow.morechickens.core.ModItems;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.botania.Botania;
 import com.github.exploder1531.mia.integrations.cofhcore.CofhCore;
@@ -19,17 +21,24 @@ import com.github.exploder1531.mia.integrations.thermalexpansion.ThermalExpansio
 import com.github.exploder1531.mia.integrations.thermalfoundation.ThermalFoundation;
 import com.github.exploder1531.mia.integrations.xu2.ExtraUtilities2;
 import com.google.common.collect.Maps;
+import com.setycz.chickens.ChickensMod;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
@@ -177,5 +186,23 @@ public class ModIntegrator
     {
         for (IBaseMod mod : modIntegrations.values())
             mod.lootLoad(event);
+    }
+    
+    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    public void registerAspects(AspectRegistryEvent event)
+    {
+        for (IBaseMod mod : modIntegrations.values())
+            mod.registerAspects(event);
+        
+        event.register.registerObjectTag("bookshelf", new AspectList().add(Aspect.PLANT, 20).add(Aspect.MIND, 8));
+        
+        // If those mods are added as full integration then these should be moved there
+        if (Loader.isModLoaded(ChickensMod.MODID))
+        {
+            event.register.registerObjectTag(new ItemStack(ChickensMod.liquidEgg, 1, 0), new AspectList().add(Aspect.WATER, 20));
+            event.register.registerObjectTag(new ItemStack(ChickensMod.liquidEgg, 1, 1), new AspectList().add(Aspect.FIRE, 20));
+        }
+        if (Loader.isModLoaded(ChickensMore.MODID))
+            event.register.registerObjectTag(new ItemStack(ModItems.solidXp), new AspectList().add(Aspect.MIND, 20));
     }
 }

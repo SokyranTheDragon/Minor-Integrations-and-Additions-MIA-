@@ -2,9 +2,11 @@ package com.github.exploder1531.mia.integrations.hatchery;
 
 import com.gendeathrow.hatchery.block.nestpen.NestPenTileEntity;
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
+import com.gendeathrow.hatchery.core.init.ModItems;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.block.BlockEggSorter;
 import com.github.exploder1531.mia.core.MiaBlocks;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.github.exploder1531.mia.tile.TileEggSorter;
@@ -14,14 +16,19 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import java.util.List;
 
@@ -107,5 +114,15 @@ public class Hatchery implements IBaseMod
         RegisterUtils.registerItemblockRenderer(MiaBlocks.egg_sorter);
 //        Item eggSorterItem = Item.getItemFromBlock(MiaBlocks.egg_sorter);
 //        ModelLoader.setCustomModelResourceLocation(eggSorterItem, 0, new ModelResourceLocation("mia:" + eggSorterItem.getRegistryName().getPath(), "inventory"));
+    }
+    
+    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    @Override
+    public void registerAspects(AspectRegistryEvent event)
+    {
+        if (!hatcheryAdditionsEnabled)
+            return;
+        
+        event.register.registerObjectTag(new ItemStack(ModItems.hatcheryEgg), new AspectList().add(Aspect.LIFE, 5).add(Aspect.BEAST, 5));
     }
 }
