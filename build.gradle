@@ -175,16 +175,20 @@ dependencies {
     // Harvestcraft
     // For use with deobfuscated code, provide the original source for IntelliJ Idea
     // https://github.com/MatrexsVigil/harvestcraft
-    if (project.run_harvestcraft.equals("true"))
+    if (project.run_harvestcraft.equals("true")) {
         provided "curse.maven:PamsHarvestcraft_1.12.2zf:2771840"
-    else
+        deobfProvided "curse.maven:JustEnoughHarvestcraft_1.12.2-1.7.0:2849443"
+    }
+    else {
         compileOnly "curse.maven:PamsHarvestcraft_1.12.2zf:2771840"
+        compileOnly "curse.maven:JustEnoughHarvestcraft_1.12.2-1.7.0:2849443"
+    }
 
     // Botania and friends
-     if (project.run_botania.equals("true")) {
-         deobfProvided "curse.maven:Bontina_r1.10-362:2782181"
-         deobfProvided "curse.maven:ExtraBontina_r1.1-59:2815560"
-     }
+    if (project.run_botania.equals("true")) {
+     deobfProvided "curse.maven:Bontina_r1.10-362:2782181"
+     deobfProvided "curse.maven:ExtraBontina_r1.1-59:2815560"
+    }
     else {
          compileOnly "curse.maven:Bontina_r1.10-362:2782181"
          compileOnly "curse.maven:ExtraBontina_r1.1-59:2815560"
@@ -199,6 +203,12 @@ dependencies {
         compileOnly "curse.maven:AutoRegLib_1.3-32:2746011"
         compileOnly "curse.maven:Quark_r1.6-177:2759240"
     }
+
+    // Craft Tweaker
+    if (project.run_craft_tweaker.equals("true"))
+        provided "curse.maven:CraftTweaker2_1.12-4.1.20:2838090"
+    else
+        compileOnly "curse.maven:CraftTweaker2_1.12-4.1.20:2838090"
 }
 
 processResources {

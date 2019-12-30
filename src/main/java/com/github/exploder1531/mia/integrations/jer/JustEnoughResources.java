@@ -30,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -43,6 +44,7 @@ public class JustEnoughResources implements IBaseMod
 {
     private final Map<String, IJerIntegration> modIntegrations = Maps.newHashMap();
     private final Set<Class<? extends EntityLivingBase>> ignoreMobOverrides = Sets.newHashSet();
+    private CustomLinkedHashSet<MobEntry> set;
     
     public JustEnoughResources()
     {
@@ -51,7 +53,7 @@ public class JustEnoughResources implements IBaseMod
             Field field = MobRegistry.getInstance().getClass().getDeclaredField("registry");
             field.setAccessible(true);
             
-            CustomLinkedHashSet<MobEntry> set = new CustomLinkedHashSet<>();
+            set = new CustomLinkedHashSet<>();
             set.jer = this;
             
             field.set(MobRegistry.getInstance(), set);
@@ -134,6 +136,12 @@ public class JustEnoughResources implements IBaseMod
                 modIntegrations.get(allMobs.get(entity.getClass())).configureMob(resource, entity, manager, mobRegistry);
             }
         }
+    }
+    
+    @Override
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        set.jer = null;
     }
     
     void overrideMobDrop(MobEntry entry)

@@ -26,6 +26,7 @@ public class ModLoadStatus
     public static boolean botaniaLoaded = false;
     public static boolean extraBotanyLoaded = false;
     public static boolean quarkLoaded = false;
+    public static boolean craftTweakerLoaded = false;
     
     public static void preInit()
     {
@@ -65,5 +66,7 @@ public class ModLoadStatus
             extraBotanyLoaded = true;
         if (Loader.isModLoaded(ModIds.QUARK))
             quarkLoaded = true;
+        if (Loader.isModLoaded(ModIds.CRAFT_TWEAKER))
+            craftTweakerLoaded = true;
     }
 }

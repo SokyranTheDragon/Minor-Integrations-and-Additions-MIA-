@@ -34,6 +34,7 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.BOTANIA +
                 ";after:" + ModIds.EXTRABOTANY +
                 ";after:" + ModIds.QUARK +
+                ";after:" + ModIds.CRAFT_TWEAKER +
                 ";")
 public class Mia
 {

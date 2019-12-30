@@ -8,6 +8,7 @@ import com.gendeathrow.hatchery.Hatchery;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.meteor.extrabotany.ExtraBotany;
 import com.rwtema.extrautils2.ExtraUtils2;
+import crafttweaker.mc1120.CraftTweaker;
 import mcjty.theoneprobe.TheOneProbe;
 import pegbeard.dungeontactics.reference.Reference;
 import slimeknights.tconstruct.TConstruct;
@@ -35,4 +36,5 @@ public class ModIds
     public static final String BOTANIA = vazkii.botania.common.lib.LibMisc.MOD_ID;
     public static final String EXTRABOTANY = ExtraBotany.MODID;
     public static final String QUARK = vazkii.quark.base.lib.LibMisc.MOD_ID;
+    public static final String CRAFT_TWEAKER = CraftTweaker.MODID;
 }

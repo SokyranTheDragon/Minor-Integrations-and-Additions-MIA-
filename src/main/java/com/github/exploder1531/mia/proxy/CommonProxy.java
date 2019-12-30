@@ -3,8 +3,10 @@ package com.github.exploder1531.mia.proxy;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.exploder1531.mia.core.MiaItems;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.ModIntegrator;
+import com.github.exploder1531.mia.integrations.harvestcraft.CraftTweakerHarvestcraftIntegration;
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -46,6 +48,9 @@ public class CommonProxy
         OreDictionary.registerOre("trapdoorWood", Blocks.TRAPDOOR);
         
         modIntegrator.init(event);
+    
+        if (ModLoadStatus.harvestcraftLoaded && ModLoadStatus.craftTweakerLoaded)
+            CraftTweakerHarvestcraftIntegration.applyRemovals();
     }
     
     public void postInit(FMLPostInitializationEvent event)
