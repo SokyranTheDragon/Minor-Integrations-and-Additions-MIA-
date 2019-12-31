@@ -1,5 +1,6 @@
 package com.github.exploder1531.mia.integrations.xu2;
 
+import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
 import com.github.exploder1531.mia.integrations.jer.custom.CustomPlantEntry;
@@ -30,29 +31,29 @@ class JerExtraUtilsIntegration implements IJerIntegration
             registersField.setAccessible(true);
             //noinspection unchecked
             Collection<PlantEntry> registers = (Collection<PlantEntry>) registersField.get(plantRegistry);
-            
+    
             CustomPlantEntry redOrchid = new CustomPlantEntry(
                     XU2Entries.blockRedOrchid.newStack(),
                     XU2Entries.blockRedOrchid.value,
                     BlockRedOrchid.GROWTH_STATE,
                     new PlantDrop(XU2Entries.blockRedOrchid.newStack(), 1, 1),
                     new PlantDrop(new ItemStack(Items.REDSTONE), 1, 3));
-            
+    
             redOrchid.setSoil(Blocks.REDSTONE_ORE.getDefaultState());
             registers.add(redOrchid);
-            
+    
             CustomPlantEntry enderLilly = new CustomPlantEntry(
                     XU2Entries.blockEnderLilly.newStack(),
                     XU2Entries.blockEnderLilly.value,
                     BlockEnderLilly.GROWTH_STATE,
                     new PlantDrop(XU2Entries.blockEnderLilly.newStack(), 1, 1),
                     new PlantDrop(new ItemStack(Items.ENDER_PEARL), 1, 2));
-            
+    
             enderLilly.setSoil(Blocks.END_STONE.getDefaultState());
             registers.add(enderLilly);
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
-            e.printStackTrace();
+            Mia.LOGGER.error("Could not access IPlantRegistry.registers, plant registration for XU2 won't work.");
         }
     }
     

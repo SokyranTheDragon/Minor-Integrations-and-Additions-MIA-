@@ -109,9 +109,6 @@ class JeiJerIntegration implements IJeiIntegration
         {
             super(entry);
             plantEntry = entry;
-            
-            if (plantEntry instanceof CustomPlantEntry)
-                ageProperty = ((CustomPlantEntry)entry).getAgeProperty();
         }
         
         @Override
@@ -123,32 +120,42 @@ class JeiJerIntegration implements IJeiIntegration
         
         private IBlockState getBlockState()
         {
-            if (plantEntry.getPlant() != null)
+            if (state == null)
+            {
+                if (plantEntry instanceof CustomPlantEntry)
+                {
+                    CustomPlantEntry plant = (CustomPlantEntry) plantEntry;
+                    if (plant.getBlockState() != null)
+                        state = plant.getBlockState();
+                    if (plant.getAgeProperty() != null)
+                        ageProperty = plant.getAgeProperty();
+                }
+                if (state == null)
+                {
+                    if (plantEntry.getPlant() != null)
+                        state = plantEntry.getPlant().getPlant(null, null);
+                    else
+                        return Block.getBlockFromItem(plantEntry.getPlantItemStack().getItem()).getDefaultState();
+                }
+                if (ageProperty == null)
+                {
+                    Optional<IProperty<?>> ageProperty = state.getPropertyKeys().stream().filter(property -> property.getName().equals("age")).findAny();
+                    ageProperty.ifPresent(property -> this.ageProperty = property);
+                }
+            }
+            
+            if (ageProperty != null)
             {
                 if (timer == -1L)
                     timer = System.currentTimeMillis() + TICKS;
-                
-                if (state == null)
-                {
-                    state = plantEntry.getPlant().getPlant(null, null);
-                    
-                    if (ageProperty == null)
-                    {
-                        Optional<IProperty<?>> ageProperty = state.getPropertyKeys().stream().filter(property -> property.getName().equals("age")).findAny();
-                        ageProperty.ifPresent(property -> this.ageProperty = property);
-                    }
-                }
-                
-                if (ageProperty != null && System.currentTimeMillis() > timer)
+                else if (System.currentTimeMillis() > timer)
                 {
                     state = state.cycleProperty(ageProperty);
                     timer = System.currentTimeMillis() + TICKS;
                 }
-                
-                return state;
             }
-            else
-                return Block.getBlockFromItem(plantEntry.getPlantItemStack().getItem()).getDefaultState();
+            
+            return state;
         }
         
         private IBlockState getFarmland()
