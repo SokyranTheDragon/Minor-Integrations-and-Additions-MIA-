@@ -2,15 +2,14 @@ package com.github.exploder1531.mia.integrations.jei;
 
 import com.github.exploder1531.mia.config.JeiConfiguration;
 import com.github.exploder1531.mia.core.MiaBlocks;
+import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.integrations.ModLoadStatus;
-import mezz.jei.api.IJeiRuntime;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.*;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -19,6 +18,20 @@ public class MiaJeiPlugin implements IModPlugin
 {
     private static IJeiRuntime jeiRuntime;
     static Jei jeiIntegration = null;
+    
+    @Override
+    public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry)
+    {
+        subtypeRegistry.registerSubtypeInterpreter(MiaItems.music_player, new ISubtypeRegistry.ISubtypeInterpreter()
+        {
+            @Nonnull
+            @Override
+            public String apply(@Nonnull ItemStack itemStack)
+            {
+                return "mia:music_player:0";
+            }
+        });
+    }
     
     @Override
     public void register(IModRegistry registry)
