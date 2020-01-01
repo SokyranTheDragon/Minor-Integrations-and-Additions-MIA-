@@ -102,12 +102,19 @@ public class JustEnoughResources implements IBaseMod
         wither.ifPresent(entry -> mobRegistry.register(entry.getValue(), LightLevel.any, 50, entry.getKey()));
         
         // It's a little redundant, but might as well be 100% sure
+        if (Items.BEETROOT_SEEDS instanceof IPlantable)
+        {
+            plantRegistry.register(
+                    (Item & IPlantable) Items.BEETROOT_SEEDS,
+                    new PlantDrop(new ItemStack(Items.BEETROOT), 1, 1),
+                    new PlantDrop(new ItemStack(Items.BEETROOT_SEEDS), 0, 3));
+        }
         if (Items.NETHER_WART instanceof IPlantable)
         {
             plantRegistry.registerWithSoil(
                     (Item & IPlantable) Items.NETHER_WART,
                     Blocks.SOUL_SAND.getDefaultState(),
-                    new PlantDrop(new ItemStack(Items.NETHER_WART), 2, 5));
+                    new PlantDrop(new ItemStack(Items.NETHER_WART), 2, 4));
         }
         
         if (modIntegrations.size() > 0)
