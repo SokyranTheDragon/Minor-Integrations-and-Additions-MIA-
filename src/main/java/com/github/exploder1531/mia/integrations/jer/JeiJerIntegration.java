@@ -135,7 +135,7 @@ class JeiJerIntegration implements IJeiIntegration
                     if (plantEntry.getPlant() != null)
                         state = plantEntry.getPlant().getPlant(null, null);
                     else
-                        return Block.getBlockFromItem(plantEntry.getPlantItemStack().getItem()).getDefaultState();
+                        state = Block.getBlockFromItem(plantEntry.getPlantItemStack().getItem()).getDefaultState();
                 }
                 if (ageProperty == null)
                 {

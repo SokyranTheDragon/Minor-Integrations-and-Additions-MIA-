@@ -4,8 +4,10 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
+import jeresources.api.IPlantRegistry;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
+import jeresources.api.drop.PlantDrop;
 import jeresources.entry.MobEntry;
 import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
@@ -13,11 +15,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityGuardian;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.LootTableManager;
 import pegbeard.dungeontactics.entities.DTEntityTowerGuardian;
+import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTConfigHandler;
 import pegbeard.dungeontactics.handlers.DTItems;
 import pegbeard.dungeontactics.handlers.DTLoots;
@@ -128,6 +133,23 @@ class JerDungeonTacticsIntegration implements IJerIntegration
         dungeonRegistry.registerChest(wizardTower, DTLoots.TOWER_INGREDIANTS);
         dungeonRegistry.registerChest(wizardTower, DTLoots.TOWER_MAGIC);
         dungeonRegistry.registerChest(wizardTower, LootTableList.CHESTS_STRONGHOLD_LIBRARY);
+    }
+    
+    @Override
+    public void addPlantDrops(IPlantRegistry plantRegistry)
+    {
+        plantRegistry.registerWithSoil(
+                new ItemStack(DTBlocks.CHERRYBOMB_BUSH),
+                Blocks.DIRT.getDefaultState(),
+                new PlantDrop(new ItemStack(DTItems.CHERRYBOMB), 1, 3));
+        plantRegistry.registerWithSoil(
+                new ItemStack(DTBlocks.INCINDIBERRY_BUSH),
+                Blocks.DIRT.getDefaultState(),
+                new PlantDrop(new ItemStack(DTItems.INCINDIBERRY), 1, 3));
+        plantRegistry.registerWithSoil(
+                new ItemStack(DTBlocks.GLOWCURRENT_BUSH),
+                Blocks.DIRT.getDefaultState(),
+                new PlantDrop(new ItemStack(DTItems.GLOWCURRENT), 1, 3));
     }
     
     @Nonnull
