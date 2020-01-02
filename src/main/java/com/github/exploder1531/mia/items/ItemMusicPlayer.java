@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.Optional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@Optional.Interface(iface = "baubles.api.IBauble", modid = ModIds.BAUBLES)
+@Optional.Interface(iface = "baubles.api.IBauble", modid = ModIds.ConstantIds.BAUBLES)
 public class ItemMusicPlayer extends Item implements IBauble
 {
     public ItemMusicPlayer()
@@ -100,21 +100,21 @@ public class ItemMusicPlayer extends Item implements IBauble
     }
     
     @Override
-    @Optional.Method(modid = ModIds.BAUBLES)
+    @Optional.Method(modid = ModIds.ConstantIds.BAUBLES)
     public BaubleType getBaubleType(ItemStack itemStack)
     {
         return BaubleType.TRINKET;
     }
     
     @Override
-    @Optional.Method(modid = ModIds.BAUBLES)
+    @Optional.Method(modid = ModIds.ConstantIds.BAUBLES)
     public void onEquipped(ItemStack itemstack, EntityLivingBase player)
     {
         player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, .75F, 1.9f);
     }
     
     @Override
-    @Optional.Method(modid = ModIds.BAUBLES)
+    @Optional.Method(modid = ModIds.ConstantIds.BAUBLES)
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player)
     {
         player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, .75F, 2f);

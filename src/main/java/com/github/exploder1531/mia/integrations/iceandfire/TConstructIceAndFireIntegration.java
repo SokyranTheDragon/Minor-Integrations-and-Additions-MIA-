@@ -1,17 +1,12 @@
 package com.github.exploder1531.mia.integrations.iceandfire;
 
-import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import com.github.alexthe666.iceandfire.compat.tinkers.TinkersCompat;
 import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.entity.EntitySnowVillager;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.tconstruct.ITConstructIntegration;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -60,5 +55,5 @@ class TConstructIceAndFireIntegration implements ITConstructIntegration
 
     @Nonnull
     @Override
-    public String getModId() { return ModIds.ICE_AND_FIRE; }
+    public ModIds getModId() { return ModIds.ICE_AND_FIRE; }
 }

@@ -34,8 +34,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.jerLoaded;
-
 @SuppressWarnings("SameParameterValue")
 class JeiDungeonTacticsIntegration implements IJeiIntegration
 {
@@ -162,13 +160,13 @@ class JeiDungeonTacticsIntegration implements IJeiIntegration
             registerLootBag(lootBagRegistry, DTItems.BAG_SOLSTICE, DTLoots.SOLSTICE_LOOT);
             registerLootBag(lootBagRegistry, DTItems.BAG_TOOL, DTLoots.TOOL_LOOT);
         }
-        else if (jerLoaded)
+        else if (ModIds.JER.isLoaded)
             Mia.LOGGER.error("Could not access Loot Bag recipe registry, this shouldn't have happened as Dungeon Tactics and JER are loaded. Something is very wrong.");
     }
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.DUNGEON_TACTICS;
     }

@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.integrations.hatchery;
 
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
@@ -17,9 +18,9 @@ class LuckyEggLoader
     final Set<String> loadedFiles = Sets.newHashSet();
     public final List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
     
-    void tryCreateNewLootFile(String modId, int configVersion, @Nonnull List<ConfigLootHandler.ItemDrop> loot)
+    void tryCreateNewLootFile(ModIds modId, int configVersion, @Nonnull List<ConfigLootHandler.ItemDrop> loot)
     {
-        loadedFiles.add(modId);
+        loadedFiles.add(modId.modId);
         File lootFile = new File("config/mia/lucky_eggs/" + modId + ".json");
         
         if (!lootFile.isFile())

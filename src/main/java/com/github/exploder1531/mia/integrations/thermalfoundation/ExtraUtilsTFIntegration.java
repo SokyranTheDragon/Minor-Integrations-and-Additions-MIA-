@@ -119,7 +119,7 @@ class ExtraUtilsTFIntegration implements IExtraUtilsIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.THERMAL_FOUNDATION;
     }

@@ -2,7 +2,6 @@ package com.github.exploder1531.mia.integrations.jer;
 
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.google.common.collect.Maps;
@@ -42,7 +41,7 @@ import static com.github.exploder1531.mia.config.JerConfiguration.externalIntegr
 
 public class JustEnoughResources implements IBaseMod
 {
-    private final Map<String, IJerIntegration> modIntegrations = Maps.newHashMap();
+    private final Map<ModIds, IJerIntegration> modIntegrations = Maps.newHashMap();
     private final Set<Class<? extends EntityLivingBase>> ignoreMobOverrides = Sets.newHashSet();
     private CustomLinkedHashSet<MobEntry> set;
     
@@ -64,9 +63,9 @@ public class JustEnoughResources implements IBaseMod
     }
     
     @Override
-    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (ModLoadStatus.jeiLoaded)
+        if (ModIds.JEI.isLoaded)
             modIntegration.accept(ModIds.JEI, new JeiJerIntegration());
     }
     
@@ -123,7 +122,7 @@ public class JustEnoughResources implements IBaseMod
             IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
             mobTableBuilder = new MobTableBuilder(world);
             
-            Map<Object, String> allMobs = Maps.newHashMap();
+            Map<Object, ModIds> allMobs = Maps.newHashMap();
             for (IJerIntegration mod : modIntegrations.values())
             {
                 Set<Class<? extends EntityLivingBase>> modMobs = mod.addMobs(mobTableBuilder, ignoreMobOverrides);

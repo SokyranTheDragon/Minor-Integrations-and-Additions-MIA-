@@ -20,7 +20,6 @@ import com.github.exploder1531.mia.integrations.theoneprobe.TheOneProbe;
 import com.github.exploder1531.mia.integrations.thermalexpansion.ThermalExpansion;
 import com.github.exploder1531.mia.integrations.thermalfoundation.ThermalFoundation;
 import com.github.exploder1531.mia.integrations.xu2.ExtraUtilities2;
-import com.google.common.collect.Maps;
 import com.setycz.chickens.ChickensMod;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -41,13 +40,14 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashMap;
 import java.util.Map;
 
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class ModIntegrator
 {
-    private Map<String, IBaseMod> modIntegrations = Maps.newHashMap();
+    private Map<ModIds, IBaseMod> modIntegrations = new HashMap<>();
     
     private boolean modsRegistered = false;
     private boolean modsPreInitialized = false;
@@ -67,47 +67,47 @@ public class ModIntegrator
             return;
         modsRegistered = true;
         
-        if (extraUtilitiesLoaded)
-            modIntegrations.put(ModIds.EXTRA_UTILITIES, new ExtraUtilities2());
-        if (cofhCoreLoaded)
-            modIntegrations.put(ModIds.COFH_CORE, new CofhCore());
-        if (thermalFoundationLoaded)
-            modIntegrations.put(ModIds.THERMAL_FOUNDATION, new ThermalFoundation());
-        if (thermalExpansionLoaded)
-            modIntegrations.put(ModIds.THERMAL_EXPANSION, new ThermalExpansion());
-        if (tinkersConstructLoaded)
-            modIntegrations.put(ModIds.TINKERS_CONSTRUCT, new TinkersConstruct());
-        if (jeiLoaded)
-            modIntegrations.put(ModIds.JEI, new Jei());
-        if (jerLoaded)
-            modIntegrations.put(ModIds.JER, new JustEnoughResources());
-        if (iceAndFireLoaded)
-            modIntegrations.put(ModIds.ICE_AND_FIRE, new IceAndFire());
-        if (hatcheryLoaded)
-            modIntegrations.put(ModIds.HATCHERY, new Hatchery());
-        if (thaumcraftLoaded)
-            modIntegrations.put(ModIds.THAUMCRAFT, new Thaumcraft());
-        if (theOneProbeLoaded)
-            modIntegrations.put(ModIds.THE_ONE_PROBE, new TheOneProbe());
-        if (moCreaturesLoaded)
-            modIntegrations.put(ModIds.MO_CREATURES, new MoCreatures());
-        if (dungeonTacticsLoaded)
-            modIntegrations.put(ModIds.DUNGEON_TACTICS, new DungeonTactics());
-        if (harvestcraftLoaded)
-            modIntegrations.put(ModIds.HARVESTCRAFT, new Harvestcraft());
-        if (botaniaLoaded)
-            modIntegrations.put(ModIds.BOTANIA, new Botania());
-        if (extraBotanyLoaded)
-            modIntegrations.put(ModIds.EXTRABOTANY, new ExtraBotany());
-        if (quarkLoaded)
-            modIntegrations.put(ModIds.QUARK, new Quark());
+        if (EXTRA_UTILITIES.isLoaded)
+            modIntegrations.put(EXTRA_UTILITIES, new ExtraUtilities2());
+        if (COFH_CORE.isLoaded)
+            modIntegrations.put(COFH_CORE, new CofhCore());
+        if (THERMAL_FOUNDATION.isLoaded)
+            modIntegrations.put(THERMAL_FOUNDATION, new ThermalFoundation());
+        if (THERMAL_EXPANSION.isLoaded)
+            modIntegrations.put(THERMAL_EXPANSION, new ThermalExpansion());
+        if (TINKERS_CONSTRUCT.isLoaded)
+            modIntegrations.put(TINKERS_CONSTRUCT, new TinkersConstruct());
+        if (JEI.isLoaded)
+            modIntegrations.put(JEI, new Jei());
+        if (JER.isLoaded)
+            modIntegrations.put(JER, new JustEnoughResources());
+        if (ICE_AND_FIRE.isLoaded)
+            modIntegrations.put(ICE_AND_FIRE, new IceAndFire());
+        if (HATCHERY.isLoaded)
+            modIntegrations.put(HATCHERY, new Hatchery());
+        if (THAUMCRAFT.isLoaded)
+            modIntegrations.put(THAUMCRAFT, new Thaumcraft());
+        if (THE_ONE_PROBE.isLoaded)
+            modIntegrations.put(THE_ONE_PROBE, new TheOneProbe());
+        if (MO_CREATURES.isLoaded)
+            modIntegrations.put(MO_CREATURES, new MoCreatures());
+        if (DUNGEON_TACTICS.isLoaded)
+            modIntegrations.put(DUNGEON_TACTICS, new DungeonTactics());
+        if (HARVESTCRAFT.isLoaded)
+            modIntegrations.put(HARVESTCRAFT, new Harvestcraft());
+        if (BOTANIA.isLoaded)
+            modIntegrations.put(BOTANIA, new Botania());
+        if (EXTRABOTANY.isLoaded)
+            modIntegrations.put(EXTRABOTANY, new ExtraBotany());
+        if (QUARK.isLoaded)
+            modIntegrations.put(QUARK, new Quark());
         
         for (IBaseMod mod : modIntegrations.values())
             mod.register(this::registerIntegration);
     }
     
     @ParametersAreNonnullByDefault
-    private void registerIntegration(String mod, IModIntegration integration)
+    private void registerIntegration(ModIds mod, IModIntegration integration)
     {
         IBaseMod baseMod = modIntegrations.get(mod);
         
@@ -188,7 +188,7 @@ public class ModIntegrator
             mod.lootLoad(event);
     }
     
-    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    @Optional.Method(modid = ConstantIds.THAUMCRAFT)
     public void registerAspects(AspectRegistryEvent event)
     {
         for (IBaseMod mod : modIntegrations.values())

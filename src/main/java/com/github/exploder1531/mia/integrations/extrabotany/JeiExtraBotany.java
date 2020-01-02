@@ -23,7 +23,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.jerLoaded;
+import static com.github.exploder1531.mia.integrations.ModIds.EXTRABOTANY;
+import static com.github.exploder1531.mia.integrations.ModIds.JER;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -67,14 +68,14 @@ class JeiExtraBotany implements IJeiIntegration
             registerLootBag(lootBagRegistry, new ItemStack(ModItems.rewardbag943));
             registerLootBag(lootBagRegistry, new ItemStack(ModItems.candybag));
         }
-        else if (jerLoaded)
+        else if (JER.isLoaded)
             Mia.LOGGER.error("Could not access Loot Bag recipe registry, this shouldn't have happened as Dungeon Tactics and JER are loaded. Something is very wrong.");
     }
     
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
-        return ModIds.EXTRABOTANY;
+        return EXTRABOTANY;
     }
     
     private void registerLootBag(LootBagRegistry registry, ItemStack stack)

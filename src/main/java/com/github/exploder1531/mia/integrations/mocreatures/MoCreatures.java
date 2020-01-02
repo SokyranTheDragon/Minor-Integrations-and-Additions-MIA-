@@ -26,19 +26,19 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.*;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class MoCreatures implements IBaseMod
 {
     @Override
-    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableJerIntegration && jerLoaded)
-            modIntegration.accept(ModIds.JER, new JerMoCreaturesIntegration());
-        if (enableTeIntegration && thermalExpansionLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionMoCreaturesIntegration());
-        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsMoCreaturesIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerMoCreaturesIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionMoCreaturesIntegration());
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsMoCreaturesIntegration());
     }
     
     @Override
@@ -49,7 +49,7 @@ public class MoCreatures implements IBaseMod
         
         FurnaceRecipes smelting = FurnaceRecipes.instance();
         
-        if (harvestcraftLoaded)
+        if (HARVESTCRAFT.isLoaded)
             smelting.addSmelting(MoCItems.turtleraw, new ItemStack(ItemRegistry.turtlecookedItem), 0.1f);
         List<ItemStack> nuggets = OreDictionary.getOres("nuggetSilver");
         if (nuggets.size() > 0)
@@ -97,7 +97,7 @@ public class MoCreatures implements IBaseMod
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        if (jerLoaded && event.getSide() == Side.CLIENT)
+        if (JER.isLoaded && event.getSide() == Side.CLIENT)
         {
             RenderingRegistry.registerEntityRenderingHandler(MoCEntityTurtle.class, new MoCRenderTurtleJer());
             RenderingRegistry.registerEntityRenderingHandler(MoCEntitySnake.class, new MoCRenderSnakeJer());

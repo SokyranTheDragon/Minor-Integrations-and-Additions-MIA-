@@ -248,7 +248,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.DUNGEON_TACTICS;
     }

@@ -1,6 +1,6 @@
 package com.github.exploder1531.mia.integrations.jei.categories.lootbag;
 
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.google.common.collect.Lists;
 import jeresources.util.LootTableHelper;
 import jeresources.util.ReflectionHelper;
@@ -70,7 +70,7 @@ public class LootBagEntry
     @Nonnull
     public static List<LootBagEntry> getEntries(ItemStack lootBag, @Nonnull ResourceLocation resourceLocation)
     {
-        if (!ModLoadStatus.jerLoaded || lootBag.isEmpty())
+        if (!ModIds.JER.isLoaded || lootBag.isEmpty())
             return new ArrayList<>();
         
         List<BagOutputEntry> drops = new ArrayList<>();

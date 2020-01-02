@@ -135,7 +135,7 @@ class TConstructDungeonTacticsIntegration implements ITConstructIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.TINKERS_CONSTRUCT;
     }

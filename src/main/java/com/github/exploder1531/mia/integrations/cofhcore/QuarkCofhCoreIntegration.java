@@ -23,7 +23,7 @@ class QuarkCofhCoreIntegration implements IQuarkIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.COFH_CORE;
     }

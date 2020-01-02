@@ -19,7 +19,7 @@ import java.util.function.BiConsumer;
 
 public interface IBaseMod
 {
-    default void register(BiConsumer<String, IModIntegration> modIntegration)
+    default void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
     }
     
@@ -60,7 +60,7 @@ public interface IBaseMod
     {
     }
     
-    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
     default void registerAspects(AspectRegistryEvent event)
     {
     }

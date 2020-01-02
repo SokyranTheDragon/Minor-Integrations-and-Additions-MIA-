@@ -4,7 +4,6 @@ import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.integrations.ModIds;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.base.ModIntegrator;
 import com.github.exploder1531.mia.integrations.harvestcraft.CraftTweakerHarvestcraftIntegration;
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
@@ -33,7 +32,6 @@ public class CommonProxy
     
     public void preInit(FMLPreInitializationEvent event)
     {
-        ModLoadStatus.preInit();
         MusicPlayerCapabilityProvider.register();
         
         modIntegrator = new ModIntegrator();
@@ -50,8 +48,8 @@ public class CommonProxy
         OreDictionary.registerOre("trapdoorWood", Blocks.TRAPDOOR);
         
         modIntegrator.init(event);
-    
-        if (ModLoadStatus.harvestcraftLoaded && ModLoadStatus.craftTweakerLoaded)
+        
+        if (ModIds.HARVESTCRAFT.isLoaded && ModIds.CRAFT_TWEAKER.isLoaded)
             CraftTweakerHarvestcraftIntegration.applyRemovals();
     }
     
@@ -85,7 +83,7 @@ public class CommonProxy
     }
     
     @SubscribeEvent
-    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
     public static void aspectRegistrationEvent(AspectRegistryEvent event)
     {
         modIntegrator.registerAspects(event);

@@ -75,7 +75,7 @@ class ThermalExpansionHarvestcraftIntegration implements IThermalExpansionIntegr
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.HARVESTCRAFT;
     }

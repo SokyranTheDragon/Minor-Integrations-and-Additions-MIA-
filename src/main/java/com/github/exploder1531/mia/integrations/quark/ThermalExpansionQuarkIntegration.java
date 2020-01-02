@@ -126,7 +126,7 @@ class ThermalExpansionQuarkIntegration implements IThermalExpansionIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.QUARK;
     }

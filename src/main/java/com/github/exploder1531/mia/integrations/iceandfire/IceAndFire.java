@@ -34,25 +34,25 @@ import thaumcraft.api.aspects.AspectRegistryEvent;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.IceAndFireConfiguration.*;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class IceAndFire implements IBaseMod
 {
     @Override
-    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration && extraUtilitiesLoaded)
-            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsIceAndFireIntegration());
-        if (enableTeIntegration && thermalExpansionLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionIceAndFireIntegration());
-        if (enableJerIntegration && jerLoaded)
-            modIntegration.accept(ModIds.JER, new JerIceAndFireIntegration());
-        if (enableTConstructIntegration && tinkersConstructLoaded)
-            modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
-        if (hatcheryLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
-        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsIceAndFireIntegration());
+        if (enableXu2Integration && EXTRA_UTILITIES.isLoaded)
+            modIntegration.accept(EXTRA_UTILITIES, new ExtraUtilsIceAndFireIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionIceAndFireIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerIceAndFireIntegration());
+        if (enableTConstructIntegration && TINKERS_CONSTRUCT.isLoaded)
+            modIntegration.accept(TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsIceAndFireIntegration());
     }
     
     @Override
@@ -80,7 +80,7 @@ public class IceAndFire implements IBaseMod
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        if (jerLoaded && event.getSide() == Side.CLIENT)
+        if (JER.isLoaded && event.getSide() == Side.CLIENT)
             RenderingRegistry.registerEntityRenderingHandler(EntityHippocampus.class, new RenderHippocampusJer(Minecraft.getMinecraft().getRenderManager()));
     }
     
@@ -121,7 +121,7 @@ public class IceAndFire implements IBaseMod
     }
     
     @Override
-    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    @Optional.Method(modid = ConstantIds.THAUMCRAFT)
     public void registerAspects(AspectRegistryEvent event)
     {
         if (!iceandfireAdditionsEnabled)

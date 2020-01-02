@@ -23,8 +23,8 @@ class JerBotaniaIntegration implements IJerIntegration
     @Override
     public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
-        builder.add(new ResourceLocation(ModIds.BOTANIA, "gaia_guardian"), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " I"));
-        builder.add(new ResourceLocation(ModIds.BOTANIA, "gaia_guardian_2"), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " II"));
+        builder.add(ModIds.BOTANIA.loadResource("gaia_guardian"), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " I"));
+        builder.add(ModIds.BOTANIA.loadResource("gaia_guardian_2"), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " II"));
         
         return Collections.singleton(EntityDoppleganger.class);
     }
@@ -38,7 +38,7 @@ class JerBotaniaIntegration implements IJerIntegration
     }
     
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.BOTANIA;
     }

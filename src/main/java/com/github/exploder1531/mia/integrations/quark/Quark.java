@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.quark;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import net.minecraft.init.Items;
@@ -24,22 +25,21 @@ import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.QuarkConfiguration.*;
 import static com.github.exploder1531.mia.integrations.ModIds.*;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
 
 public class Quark implements IBaseMod
 {
     private List<IQuarkIntegration> modIntegrations = new ArrayList<>();
     
     @Override
-    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration && extraUtilitiesLoaded)
+        if (enableXu2Integration && EXTRA_UTILITIES.isLoaded)
             modIntegration.accept(EXTRA_UTILITIES, new ExtraUtilsQuarkIntegration());
-        if (enableTeIntegration && thermalExpansionLoaded)
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionQuarkIntegration());
-        if (enableJerIntegration && jerLoaded)
+        if (enableJerIntegration && JER.isLoaded)
             modIntegration.accept(JER, new JerQuarkIntegration());
-        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsQuarkIntegration());
     }
     

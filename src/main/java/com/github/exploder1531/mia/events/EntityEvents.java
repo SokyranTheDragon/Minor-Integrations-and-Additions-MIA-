@@ -33,9 +33,7 @@ import vazkii.quark.world.feature.Frogs;
 
 import java.util.List;
 
-import static com.github.exploder1531.mia.integrations.ModIds.MO_CREATURES;
-import static com.github.exploder1531.mia.integrations.ModIds.QUARK;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class EntityEvents
@@ -43,7 +41,7 @@ public class EntityEvents
     @SubscribeEvent
     public static void onEntityHit(LivingHurtEvent event)
     {
-        if (moCreaturesLoaded && MoCreaturesConfiguration.buffOtherModSilverWeapons)
+        if (MO_CREATURES.isLoaded && MoCreaturesConfiguration.buffOtherModSilverWeapons)
         {
             // Make it stronger when Tinker's weapon is holy?
             if (event.getAmount() < 10f && event.getSource() instanceof EntityDamageSource && event.getEntityLiving() instanceof MoCEntityWerewolf && !((MoCEntityWerewolf) event.getEntityLiving()).getIsHumanForm())
@@ -75,14 +73,14 @@ public class EntityEvents
         if (!event.getEntityLiving().world.getGameRules().getBoolean("doMobLoot"))
             return;
         
-        if (harvestcraftLoaded)
+        if (HARVESTCRAFT.isLoaded)
         {
             if (HarvestcraftConfiguration.squidDropsCalamari && event.getEntityLiving() instanceof EntitySquid)
             {
                 dropFewItems(ItemRegistry.calamaricookedItem, ItemRegistry.calamaricookedItem, event);
                 return;
             }
-            else if (moCreaturesLoaded)
+            else if (MO_CREATURES.isLoaded)
             {
                 if (event.getEntityLiving() instanceof MoCEntityAnchovy)
                 {
@@ -119,10 +117,10 @@ public class EntityEvents
             }
         }
         
-        if (moCreaturesLoaded && registerMoCreaturesDrops(event))
+        if (MO_CREATURES.isLoaded && registerMoCreaturesDrops(event))
             return;
         
-        if (quarkLoaded && registerQuarkDrops(event))
+        if (QUARK.isLoaded && registerQuarkDrops(event))
             return;
     }
     
@@ -174,7 +172,7 @@ public class EntityEvents
         }
     }
     
-    @Optional.Method(modid = MO_CREATURES)
+    @Optional.Method(modid = ConstantIds.MO_CREATURES)
     private static boolean registerMoCreaturesDrops(LivingDropsEvent event)
     {
         if (MoCreaturesConfiguration.replaceFishDrops)
@@ -223,7 +221,7 @@ public class EntityEvents
                 replaceItemDrop(event.getDrops(), Items.PORKCHOP, Items.COOKED_PORKCHOP);
                 return true;
             }
-            else if (harvestcraftLoaded && event.getEntityLiving() instanceof MoCEntityTurtle)
+            else if (HARVESTCRAFT.isLoaded && event.getEntityLiving() instanceof MoCEntityTurtle)
             {
                 replaceItemDrop(event.getDrops(), MoCItems.turtleraw, ItemRegistry.turtlecookedItem);
                 return true;
@@ -233,7 +231,7 @@ public class EntityEvents
         return false;
     }
     
-    @Optional.Method(modid = QUARK)
+    @Optional.Method(modid = ConstantIds.QUARK)
     private static boolean registerQuarkDrops(LivingDropsEvent event)
     {
         if (MiaConfig.addCookedDrops)

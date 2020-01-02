@@ -2,7 +2,6 @@ package com.github.exploder1531.mia.integrations.quark;
 
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.integrations.ModIds;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.github.exploder1531.mia.integrations.xu2.IExtraUtilsIntegration;
 import com.github.exploder1531.mia.utilities.ItemStackUtils;
 import com.rwtema.extrautils2.api.machine.MachineSlotItem;
@@ -28,6 +27,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.exploder1531.mia.integrations.ModIds.QUARK;
+import static com.github.exploder1531.mia.integrations.ModIds.THERMAL_FOUNDATION;
+
 class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
 {
     @Override
@@ -38,10 +40,10 @@ class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
             XUMachineCrusher.addRecipe(new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite), new ItemStack(Biotite.biotite, 3), 0.2f);
             for (int meta = 0; meta <= 2; meta++)
                 XUMachineCrusher.addRecipe(new ItemStack(Biotite.biotite_block, 1, meta), new ItemStack(Biotite.biotite, 4));
-            ItemStack slab = ItemStackUtils.getStack(ModIds.QUARK, "biotite_slab");
+            ItemStack slab = ItemStackUtils.getStack(QUARK.modId, "biotite_slab");
             if (!slab.isEmpty())
                 XUMachineCrusher.addRecipe(slab, new ItemStack(Biotite.biotite, 1));
-            ItemStack stairs = ItemStackUtils.getStack(ModIds.QUARK, "biotite_stairs");
+            ItemStack stairs = ItemStackUtils.getStack(QUARK.modId, "biotite_stairs");
             if (!stairs.isEmpty())
                 XUMachineCrusher.addRecipe(stairs, new ItemStack(Biotite.biotite, 2));
         }
@@ -55,7 +57,7 @@ class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
             }
             if (UndergroundBiomes.icystoneEnabled)
             {
-                XUMachineCrusher.addRecipe(new ItemStack(UndergroundBiomes.biome_cobblestone, 1, 1), new ItemStack(Blocks.GRAVEL), ModLoadStatus.thermalFoundationLoaded ? ItemMaterial.dustBlizz : new ItemStack(Items.SNOWBALL), 0.05f);
+                XUMachineCrusher.addRecipe(new ItemStack(UndergroundBiomes.biome_cobblestone, 1, 1), new ItemStack(Blocks.GRAVEL), THERMAL_FOUNDATION.isLoaded ? ItemMaterial.dustBlizz : new ItemStack(Items.SNOWBALL), 0.05f);
                 TileTerraformerClimograph.register(BlockTerraformer.Type.COOLER, ItemRef.wrap(new ItemStack(UndergroundBiomes.biome_cobblestone, 1, 1)), 8);
             }
         }
@@ -79,9 +81,9 @@ class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
         if (Wraiths.soul_bead != null)
             XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(
                     RecipeBuilder.newbuilder(XUMachineGenerators.DEATH_GENERATOR)
-                            .setRFRate(8_000, 20.0f)
-                            .setItemInput(XUMachineGenerators.INPUT_ITEM, new ItemStack(Wraiths.soul_bead), 1)
-                            .build());
+                                 .setRFRate(8_000, 20.0f)
+                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, new ItemStack(Wraiths.soul_bead), 1)
+                                 .build());
         
         // Slime generator
         if (ColorSlime.color_slime != null && slimeSecondary != null)
@@ -102,8 +104,8 @@ class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
-        return ModIds.QUARK;
+        return QUARK;
     }
 }

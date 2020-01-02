@@ -20,21 +20,21 @@ import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.TfConfiguration.*;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class ThermalFoundation implements IBaseMod
 {
     @Override
-    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration && extraUtilitiesLoaded)
-            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsTFIntegration());
-        if (enableJerIntegration && jerLoaded)
-            modIntegration.accept(ModIds.JER, new JerTFIntegration());
-        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsTFIntegration());
-        if (hatcheryLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryTFIntegration(enableHatcheryIntegration));
+        if (enableXu2Integration && EXTRA_UTILITIES.isLoaded)
+            modIntegration.accept(EXTRA_UTILITIES, new ExtraUtilsTFIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerTFIntegration());
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsTFIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryTFIntegration(enableHatcheryIntegration));
     }
     
     @Override

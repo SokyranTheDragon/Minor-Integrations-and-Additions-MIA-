@@ -65,7 +65,7 @@ public class Hatchery implements IBaseMod
                     integration.registerShredder();
                 }
                 else
-                    loader.loadedFiles.add(integration.getModId());
+                    loader.loadedFiles.add(integration.getModId().modId);
             }
         }
         
@@ -116,7 +116,7 @@ public class Hatchery implements IBaseMod
 //        ModelLoader.setCustomModelResourceLocation(eggSorterItem, 0, new ModelResourceLocation("mia:" + eggSorterItem.getRegistryName().getPath(), "inventory"));
     }
     
-    @Optional.Method(modid = ModIds.THAUMCRAFT)
+    @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
     @Override
     public void registerAspects(AspectRegistryEvent event)
     {

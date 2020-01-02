@@ -71,7 +71,7 @@ class ExtraUtilsIceAndFireIntegration implements IExtraUtilsIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.ICE_AND_FIRE;
     }

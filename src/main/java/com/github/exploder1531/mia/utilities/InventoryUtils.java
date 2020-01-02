@@ -2,7 +2,6 @@ package com.github.exploder1531.mia.utilities;
 
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import com.google.common.collect.ImmutableSet;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
@@ -17,6 +16,8 @@ import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import static com.github.exploder1531.mia.integrations.ModIds.BAUBLES;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -57,7 +58,7 @@ public class InventoryUtils
         int type = 0;
         int slot = -1;
         
-        if (ModLoadStatus.baublesLoaded)
+        if (BAUBLES.isLoaded)
         {
             slot = BaublesApi.isBaubleEquipped(player, targetItem);
             
@@ -105,7 +106,7 @@ public class InventoryUtils
     {
         ImmutableSet.Builder<ItemStack> set = ImmutableSet.builder();
         
-        if (ModLoadStatus.baublesLoaded)
+        if (BAUBLES.isLoaded)
         {
             IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
             
@@ -149,7 +150,7 @@ public class InventoryUtils
                 break;
             // Baubles inventory
             case 3:
-                if (ModLoadStatus.baublesLoaded)
+                if (BAUBLES.isLoaded)
                     itemStack = BaublesApi.getBaublesHandler(player).getStackInSlot(slot);
                 break;
         }

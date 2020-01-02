@@ -45,7 +45,7 @@ class ExtraUtilsThaumcraftIntegration implements IExtraUtilsIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.THAUMCRAFT;
     }

@@ -3,7 +3,6 @@ package com.github.exploder1531.mia.events;
 import com.gendeathrow.hatchery.block.nestpen.NestPenTileEntity;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.config.ThaumcraftConfiguration;
-import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.utilities.ExtraUtilitiesUtils;
 import com.rwtema.extrautils2.backend.entries.XU2Entries;
 import net.minecraft.entity.Entity;
@@ -31,8 +30,8 @@ import thaumcraft.api.capabilities.IPlayerKnowledge;
 import thaumcraft.api.capabilities.ThaumcraftCapabilities;
 import thaumcraft.common.config.ModConfig;
 
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.hatcheryLoaded;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.thaumcraftLoaded;
+import static com.github.exploder1531.mia.integrations.ModIds.HATCHERY;
+import static com.github.exploder1531.mia.integrations.ModIds.THAUMCRAFT;
 
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class PlayerEvents
@@ -51,7 +50,7 @@ public class PlayerEvents
         
         final TileEntity tile = event.getWorld().getTileEntity(event.getPos());
         
-        if (hatcheryLoaded && tile instanceof NestPenTileEntity)
+        if (HATCHERY.isLoaded && tile instanceof NestPenTileEntity)
         {
             final NestPenTileEntity pen = (NestPenTileEntity) tile;
             
@@ -113,7 +112,7 @@ public class PlayerEvents
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
     {
-        if (!thaumcraftLoaded && !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
+        if (!THAUMCRAFT.isLoaded && !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
             return;
         
         handleWussResearch(event.player);
@@ -123,10 +122,10 @@ public class PlayerEvents
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
     {
-        if (!thaumcraftLoaded || !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
+        if (!THAUMCRAFT.isLoaded || !ThaumcraftConfiguration.thaumcraftAdditionsEnabled)
             return;
         
-        if (event.getModID().equals(ModIds.THAUMCRAFT))
+        if (event.getModID().equals(THAUMCRAFT.modId))
         {
             final WorldServer[] worlds = FMLCommonHandler.instance().getMinecraftServerInstance().worlds;
             
@@ -144,7 +143,7 @@ public class PlayerEvents
     // Thaumcraft
     private static void handleWussResearch(EntityPlayer player)
     {
-        if (!thaumcraftLoaded || player instanceof FakePlayer)
+        if (!THAUMCRAFT.isLoaded || player instanceof FakePlayer)
             return;
         
         IPlayerKnowledge knowledge = ThaumcraftCapabilities.getKnowledge(player);

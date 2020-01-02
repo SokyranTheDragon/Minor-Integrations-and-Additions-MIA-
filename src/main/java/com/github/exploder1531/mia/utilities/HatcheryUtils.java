@@ -1,7 +1,7 @@
 package com.github.exploder1531.mia.utilities;
 
 import com.gendeathrow.hatchery.core.init.ModItems;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.integrations.ModIds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -10,7 +10,7 @@ public class HatcheryUtils
 {
     public static boolean isItemAnimalNet(ItemStack item)
     {
-        if (!ModLoadStatus.hatcheryLoaded)
+        if (!ModIds.HATCHERY.isLoaded)
             return false;
         return item.getItem() == ModItems.animalNet;
     }

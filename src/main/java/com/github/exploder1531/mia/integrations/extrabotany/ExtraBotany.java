@@ -8,20 +8,20 @@ import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.ExtraBotanyConfig.enableDungeonTacticsIntegration;
 import static com.github.exploder1531.mia.config.ExtraBotanyConfig.enableTeIntegration;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class ExtraBotany implements IBaseMod
 {
     @Override
-    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (jeiLoaded)
-            modIntegration.accept(ModIds.JEI, new JeiExtraBotany());
-        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsExtraBotanyIntegration());
-        if (enableTeIntegration && thermalExpansionLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionExtraBotanyIntegration());
-        if (jerLoaded)
-            modIntegration.accept(ModIds.JER, new JerExtraBotanyIntegration());
+        if (JEI.isLoaded)
+            modIntegration.accept(JEI, new JeiExtraBotany());
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsExtraBotanyIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionExtraBotanyIntegration());
+        if (JER.isLoaded)
+            modIntegration.accept(JER, new JerExtraBotanyIntegration());
     }
 }

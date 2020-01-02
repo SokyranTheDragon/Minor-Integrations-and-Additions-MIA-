@@ -5,7 +5,7 @@ import baubles.api.cap.IBaublesItemHandler;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.exploder1531.mia.handlers.MusicPlayerStackHandler;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -70,7 +70,7 @@ public class MusicUtils
         ItemStack record = musicPlayer.getCurrentSong();
         if (!record.isEmpty() && record.getItem() instanceof ItemRecord)
         {
-            PositionedSoundRecord currentSong = new PositionedSoundRecord(((ItemRecord)record.getItem()).getSound().getSoundName(), SoundCategory.MUSIC, 4.0f, 1.0f, false, 0, ISound.AttenuationType.NONE, 0, 0, 0);
+            PositionedSoundRecord currentSong = new PositionedSoundRecord(((ItemRecord) record.getItem()).getSound().getSoundName(), SoundCategory.MUSIC, 4.0f, 1.0f, false, 0, ISound.AttenuationType.NONE, 0, 0, 0);
             listener.addListener(musicPlayer.itemUuid, currentSong);
             currentlyPlayedSongs.put(musicPlayer.itemUuid, currentSong);
             soundHandler.playSound(currentSong);
@@ -139,7 +139,7 @@ public class MusicUtils
     
     public static void updateMusicPlayerWithUuid(EntityPlayer player, MusicPlayerStackHandler musicPlayer)
     {
-        if (ModLoadStatus.baublesLoaded)
+        if (ModIds.BAUBLES.isLoaded)
         {
             IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
             

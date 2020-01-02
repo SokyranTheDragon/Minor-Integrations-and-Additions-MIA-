@@ -29,7 +29,7 @@ class DungeonTacticsExtraBotanyIntegration implements IDungeonTacticsIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.EXTRABOTANY;
     }

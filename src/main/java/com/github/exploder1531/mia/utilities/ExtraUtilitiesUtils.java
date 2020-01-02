@@ -1,6 +1,6 @@
 package com.github.exploder1531.mia.utilities;
 
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.rwtema.extrautils2.backend.entries.XU2Entries;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,7 +9,7 @@ public class ExtraUtilitiesUtils
 {
     public static boolean isItemLasso(ItemStack item)
     {
-        if (!ModLoadStatus.extraUtilitiesLoaded)
+        if (!ModIds.EXTRA_UTILITIES.isLoaded)
             return false;
         return item.getItem() == XU2Entries.goldenLasso.value;
     }

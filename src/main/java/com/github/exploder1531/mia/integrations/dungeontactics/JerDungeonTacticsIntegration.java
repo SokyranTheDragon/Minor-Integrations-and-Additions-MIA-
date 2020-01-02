@@ -132,7 +132,7 @@ class JerDungeonTacticsIntegration implements IJerIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.DUNGEON_TACTICS;
     }

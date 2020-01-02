@@ -17,23 +17,23 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.DungeonTacticsConfiguration.*;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class DungeonTactics implements IBaseMod
 {
     private final List<IDungeonTacticsIntegration> modIntegrations = Lists.newLinkedList();
     
     @Override
-    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableTConstructIntegration && tinkersConstructLoaded)
-            modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructDungeonTacticsIntegration());
-        if (enableTeIntegration && thermalExpansionLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionDungeonTacticsIntegration());
-        if (jeiLoaded)
-            modIntegration.accept(ModIds.JEI, new JeiDungeonTacticsIntegration());
-        if (enableJerIntegration && jerLoaded)
-            modIntegration.accept(ModIds.JER, new JerDungeonTacticsIntegration());
+        if (enableTConstructIntegration && TINKERS_CONSTRUCT.isLoaded)
+            modIntegration.accept(TINKERS_CONSTRUCT, new TConstructDungeonTacticsIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionDungeonTacticsIntegration());
+        if (JEI.isLoaded)
+            modIntegration.accept(JEI, new JeiDungeonTacticsIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerDungeonTacticsIntegration());
     }
     
     @Override

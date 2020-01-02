@@ -121,7 +121,7 @@ class ThermalExpansionBotaniaIntegration implements IThermalExpansionIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.BOTANIA;
     }

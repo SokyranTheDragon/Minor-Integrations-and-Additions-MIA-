@@ -122,7 +122,7 @@ class JerHarvestcraftIntegration implements IJerIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.HARVESTCRAFT;
     }

@@ -7,7 +7,7 @@ import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.gui.GuiHandler;
 import com.github.exploder1531.mia.handlers.MusicPlayerStackHandler;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import com.github.exploder1531.mia.utilities.InventoryUtils;
 import com.github.exploder1531.mia.utilities.MusicUtils;
@@ -88,7 +88,7 @@ public class ClientEvents
         
         Set<UUID> uuidList = Sets.newHashSet();
         
-        if (ModLoadStatus.baublesLoaded)
+        if (ModIds.BAUBLES.isLoaded)
         {
             IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
             

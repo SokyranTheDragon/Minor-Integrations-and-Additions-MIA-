@@ -3,7 +3,6 @@ package com.github.exploder1531.mia.integrations.jei;
 import com.github.exploder1531.mia.config.JeiConfiguration;
 import com.github.exploder1531.mia.core.MiaBlocks;
 import com.github.exploder1531.mia.core.MiaItems;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
@@ -12,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashSet;
+
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 @JEIPlugin
 public class MiaJeiPlugin implements IModPlugin
@@ -41,11 +42,11 @@ public class MiaJeiPlugin implements IModPlugin
         for (IJeiIntegration integration : jeiIntegration.modIntegrations)
             integration.register(registry, registeredCategories);
         
-        if (ModLoadStatus.hatcheryLoaded)
+        if (HATCHERY.isLoaded)
             registry.addIngredientInfo(new ItemStack(MiaBlocks.egg_sorter), VanillaTypes.ITEM, "mia.jei.info.egg_sorter");
-        if (ModLoadStatus.iceAndFireLoaded)
+        if (ICE_AND_FIRE.isLoaded)
             registry.addIngredientInfo(new ItemStack(MiaBlocks.pixie_dust_extractor), VanillaTypes.ITEM, "mia.jei.info.pixie_dust_extractor");
-        if (ModLoadStatus.thaumcraftLoaded)
+        if (THAUMCRAFT.isLoaded)
             registry.addIngredientInfo(new ItemStack(MiaBlocks.void_creator), VanillaTypes.ITEM, "mia.jei.info.void_creator");
     }
     

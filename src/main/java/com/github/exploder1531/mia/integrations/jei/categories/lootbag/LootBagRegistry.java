@@ -1,6 +1,6 @@
 package com.github.exploder1531.mia.integrations.jei.categories.lootbag;
 
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.integrations.ModIds;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,7 +20,7 @@ public class LootBagRegistry
     @Nullable
     public static LootBagRegistry getInstance()
     {
-        if (ModLoadStatus.jerLoaded)
+        if (ModIds.JER.isLoaded)
         {
             if (instance != null)
                 return instance;

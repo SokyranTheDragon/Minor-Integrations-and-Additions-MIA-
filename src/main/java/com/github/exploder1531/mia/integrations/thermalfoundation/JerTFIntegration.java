@@ -32,6 +32,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.github.exploder1531.mia.integrations.ModIds.THERMAL_FOUNDATION;
+
 @ParametersAreNonnullByDefault
 class JerTFIntegration implements IJerIntegration
 {
@@ -39,9 +41,9 @@ class JerTFIntegration implements IJerIntegration
     @Override
     public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder mobTableBuilder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
-        mobTableBuilder.add(new ResourceLocation("thermalfoundation", "entities/basalz"), EntityBasalz.class);
-        mobTableBuilder.add(new ResourceLocation("thermalfoundation", "entities/blitz"), EntityBlitz.class);
-        mobTableBuilder.add(new ResourceLocation("thermalfoundation", "entities/blizz"), EntityBlizz.class);
+        mobTableBuilder.add(THERMAL_FOUNDATION.loadResource("entities/basalz"), EntityBasalz.class);
+        mobTableBuilder.add(THERMAL_FOUNDATION.loadResource("entities/blitz"), EntityBlitz.class);
+        mobTableBuilder.add(THERMAL_FOUNDATION.loadResource("entities/blizz"), EntityBlizz.class);
         
         return Stream.of(EntityBasalz.class, EntityBlitz.class, EntityBlizz.class).collect(Collectors.toSet());
     }
@@ -105,8 +107,8 @@ class JerTFIntegration implements IJerIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
-        return ModIds.THERMAL_FOUNDATION;
+        return THERMAL_FOUNDATION;
     }
 }

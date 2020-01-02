@@ -1,10 +1,7 @@
 package com.github.exploder1531.mia.integrations.jei.categories.cauldron;
 
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -17,19 +14,14 @@ public class CauldronRegistry
     {
     }
     
-    @Nullable
+    @Nonnull
     public static CauldronRegistry getInstance()
     {
-        if (ModLoadStatus.dungeonTacticsLoaded)
-        {
-            if (instance != null)
-                return instance;
-            instance = new CauldronRegistry();
-            instance.registry = new LinkedHashSet<>();
+        if (instance != null)
             return instance;
-        }
-        else
-            return null;
+        instance = new CauldronRegistry();
+        instance.registry = new LinkedHashSet<>();
+        return instance;
     }
     
     @SuppressWarnings("UnusedReturnValue")
@@ -47,7 +39,7 @@ public class CauldronRegistry
     @Nonnull
     public static Set<CauldronEntry> getRecipesOrEmpty()
     {
-        return getInstance() != null ? getInstance().getRecipes() : new HashSet<>();
+        return getInstance().getRecipes();
     }
     
     public void clear()

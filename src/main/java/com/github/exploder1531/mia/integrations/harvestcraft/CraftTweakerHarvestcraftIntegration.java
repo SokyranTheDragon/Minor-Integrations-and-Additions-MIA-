@@ -31,7 +31,7 @@ import java.util.Set;
 
 @ZenClass("mods.mia.harvestcraft")
 @ZenRegister
-@ModOnly(ModIds.HARVESTCRAFT)
+@ModOnly(ModIds.ConstantIds.HARVESTCRAFT)
 public class CraftTweakerHarvestcraftIntegration
 {
     public static final Collection<MarketData> marketRecipes;

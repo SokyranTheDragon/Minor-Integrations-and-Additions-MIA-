@@ -2,7 +2,6 @@ package com.github.exploder1531.mia.integrations.extrabotany;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
-import com.github.exploder1531.mia.integrations.jer.ResourceLocationWrapper;
 import com.meteor.extrabotany.common.entity.gaia.EntityVoidHerrscher;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
@@ -25,8 +24,8 @@ class JerExtraBotanyIntegration implements IJerIntegration
     @Override
     public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
     {
-        builder.add(new ResourceLocationWrapper(ModIds.EXTRABOTANY, "gaia_guardian_3", 0), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " III"));
-        builder.add(new ResourceLocationWrapper(ModIds.EXTRABOTANY, "gaia_guardian_3", 1), EntityVoidHerrscher.class);
+        builder.add(ModIds.EXTRABOTANY.loadResource("gaia_guardian_3", 0), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " III"));
+        builder.add(ModIds.EXTRABOTANY.loadResource("gaia_guardian_3", 1), EntityVoidHerrscher.class);
         
         return Collections.singleton(EntityVoidHerrscher.class);
     }
@@ -38,7 +37,7 @@ class JerExtraBotanyIntegration implements IJerIntegration
     }
     
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.EXTRABOTANY;
     }

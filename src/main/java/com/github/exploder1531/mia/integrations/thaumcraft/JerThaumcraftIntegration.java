@@ -48,23 +48,23 @@ class JerThaumcraftIntegration implements IJerIntegration
     {
         builder.add(LootTableList.ENTITIES_ZOMBIE, EntityBrainyZombie.class);
         builder.add(EntityPech.LOOT, EntityPech.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/firebat"), EntityFireBat.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/mind_spider"), EntityMindSpider.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/wisp"), EntityWisp.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/firebat"), EntityFireBat.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/mind_spider"), EntityMindSpider.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/wisp"), EntityWisp.class);
         // Eldritch bosses
-        builder.add(new ResourceLocation("mia", "thaumcraft/eldritch_golem"), EntityEldritchGolem.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/eldritch_warden"), EntityEldritchWarden.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/eldritch_golem"), EntityEldritchGolem.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/eldritch_warden"), EntityEldritchWarden.class);
         // Taint
-        builder.add(new ResourceLocation("mia", "thaumcraft/taintancle"), EntityTaintacle.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/taintacle_giant"), EntityTaintacleGiant.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/taint_crawler"), EntityTaintCrawler.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/taint_swarm"), EntityTaintSwarm.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/taint_seed"), EntityTaintSeed.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/taint_prime"), EntityTaintSeedPrime.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/taintancle"), EntityTaintacle.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/taintacle_giant"), EntityTaintacleGiant.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/taint_crawler"), EntityTaintCrawler.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/taint_swarm"), EntityTaintSwarm.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/taint_seed"), EntityTaintSeed.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/taint_prime"), EntityTaintSeedPrime.class);
         // Cultists
-        builder.add(new ResourceLocation("mia", "thaumcraft/cultist_cleric"), EntityCultistCleric.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/cultist_knight"), EntityCultistKnight.class);
-        builder.add(new ResourceLocation("mia", "thaumcraft/cultist_leader"), EntityCultistLeader.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/cultist_cleric"), EntityCultistCleric.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/cultist_knight"), EntityCultistKnight.class);
+        builder.add(ModIds.MIA.loadSimple("thaumcraft/cultist_leader"), EntityCultistLeader.class);
         
         return Stream.of(
                 EntityBrainyZombie.class,
@@ -220,7 +220,7 @@ class JerThaumcraftIntegration implements IJerIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.THAUMCRAFT;
     }

@@ -20,21 +20,21 @@ import org.apache.logging.log4j.Logger;
         modid = Mia.MODID,
         name = Mia.NAME,
         version = Mia.VERSION,
-        dependencies = "after:" + ModIds.EXTRA_UTILITIES +
-                ";after:" + ModIds.THERMAL_FOUNDATION +
-                ";after:" + ModIds.THERMAL_EXPANSION +
-                ";after:" + ModIds.TINKERS_CONSTRUCT +
-                ";after:" + ModIds.JER +
-                ";after:" + ModIds.ICE_AND_FIRE +
-                ";after:" + ModIds.HATCHERY +
-                ";after:" + ModIds.THAUMCRAFT +
-                ";after:" + ModIds.MO_CREATURES +
-                ";after:" + ModIds.HARVESTCRAFT +
-                ";after:" + ModIds.DUNGEON_TACTICS +
-                ";after:" + ModIds.BOTANIA +
-                ";after:" + ModIds.EXTRABOTANY +
-                ";after:" + ModIds.QUARK +
-                ";after:" + ModIds.CRAFT_TWEAKER +
+        dependencies = "after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
+                ";after:" + ModIds.ConstantIds.THERMAL_FOUNDATION +
+                ";after:" + ModIds.ConstantIds.THERMAL_EXPANSION +
+                ";after:" + ModIds.ConstantIds.TINKERS_CONSTRUCT +
+                ";after:" + ModIds.ConstantIds.JER +
+                ";after:" + ModIds.ConstantIds.ICE_AND_FIRE +
+                ";after:" + ModIds.ConstantIds.HATCHERY +
+                ";after:" + ModIds.ConstantIds.THAUMCRAFT +
+                ";after:" + ModIds.ConstantIds.MO_CREATURES +
+                ";after:" + ModIds.ConstantIds.HARVESTCRAFT +
+                ";after:" + ModIds.ConstantIds.DUNGEON_TACTICS +
+                ";after:" + ModIds.ConstantIds.BOTANIA +
+                ";after:" + ModIds.ConstantIds.EXTRABOTANY +
+                ";after:" + ModIds.ConstantIds.QUARK +
+                ";after:" + ModIds.ConstantIds.CRAFT_TWEAKER +
                 ";")
 public class Mia
 {

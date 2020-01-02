@@ -47,7 +47,7 @@ class ThermalExpansionExtraUtilsIntegration implements IThermalExpansionIntegrat
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.EXTRA_UTILITIES;
     }

@@ -1,7 +1,7 @@
 package com.github.exploder1531.mia.utilities;
 
 import cofh.thermalexpansion.init.TEItems;
-import com.github.exploder1531.mia.integrations.ModLoadStatus;
+import com.github.exploder1531.mia.integrations.ModIds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -14,7 +14,7 @@ public class ThermalExpansionUtils
     
     public static boolean isItemStackMorb(ItemStack item)
     {
-        if (!ModLoadStatus.thermalExpansionLoaded)
+        if (!ModIds.THERMAL_EXPANSION.isLoaded)
             return false;
         return item.getItem() == TEItems.itemMorb;
     }

@@ -37,7 +37,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.github.exploder1531.mia.integrations.jer.JustEnoughResources.loadResource;
+import static com.github.exploder1531.mia.integrations.ModIds.ICE_AND_FIRE;
+import static com.github.exploder1531.mia.integrations.ModIds.MIA;
 
 @ParametersAreNonnullByDefault
 class JerIceAndFireIntegration implements IJerIntegration
@@ -68,8 +69,8 @@ class JerIceAndFireIntegration implements IJerIntegration
         {
             // ResourceLocation is used as a key in HashMap, so we need to create our own to prevent replacing entries,
             // leaving us with drops for only a single dragon of each type.
-            builder.add(loadResource("iceandfire/dragon/fire_dragon_" + i), EntityFireDragon.class, new DragonSetter(i));
-            builder.add(loadResource("iceandfire/dragon/ice_dragon_" + i), EntityIceDragon.class, new DragonSetter(i));
+            builder.add(MIA.loadSimple("iceandfire/dragon/fire_dragon_" + i), EntityFireDragon.class, new DragonSetter(i));
+            builder.add(MIA.loadSimple("iceandfire/dragon/ice_dragon_" + i), EntityIceDragon.class, new DragonSetter(i));
         }
         builder.add(EntityHippocampus.LOOT, EntityHippocampus.class);
         builder.add(EntityHippogryph.LOOT, EntityHippogryph.class);
@@ -86,7 +87,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         builder.add(EntityMyrmexWorker.JUNGLE_LOOT, EntityMyrmexWorker.class, new MyrmexSetter(true));
         builder.add(EntityPixie.LOOT, EntityPixie.class);
         for (int i = 0; i <= 6; i++)
-            builder.add(loadResource("iceandfire/seaserpent/sea_serpent_" + i), EntitySeaSerpent.class, new SeaSerpentSetter(i));
+            builder.add(MIA.loadSimple("iceandfire/seaserpent/sea_serpent_" + i), EntitySeaSerpent.class, new SeaSerpentSetter(i));
         builder.add(EntitySiren.LOOT, EntitySiren.class);
         builder.add(EntityStymphalianBird.LOOT, EntityStymphalianBird.class);
         builder.add(EntityTroll.FOREST_LOOT, EntityTroll.class, new TrollSetter(EnumTroll.FOREST));
@@ -361,9 +362,9 @@ class JerIceAndFireIntegration implements IJerIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
-        return ModIds.ICE_AND_FIRE;
+        return ICE_AND_FIRE;
     }
     
     private static class DeathWormSetter implements MobTableBuilder.EntityPropertySetter<EntityDeathWorm>
@@ -382,6 +383,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
     }
     
+    @SuppressWarnings("rawtypes")
     private static class DragonSetter implements MobTableBuilder.EntityPropertySetter
     {
         private final int variant;
@@ -421,6 +423,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
     }
     
+    @SuppressWarnings("rawtypes")
     private static class MyrmexSetter implements MobTableBuilder.EntityPropertySetter
     {
         private final boolean jungle;
@@ -454,24 +457,28 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
     }
     
+    @SuppressWarnings("rawtypes")
     private static final IMobRenderHook RENDER_HOOK_DRAGON = ((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, 1f, 0f);
         return renderInfo;
     });
     
+    @SuppressWarnings("rawtypes")
     private static final IMobRenderHook RENDER_HOOK_SEA_SERPENT = ((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, 0.5f, 0f);
         return renderInfo;
     });
     
+    @SuppressWarnings("rawtypes")
     private static final IMobRenderHook RENDER_HOOK_TROLL = (((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, -1f, 0f);
         return renderInfo;
     }));
     
+    @SuppressWarnings("rawtypes")
     private static final IMobRenderHook RENDER_HOOK_CYCLOPS = (((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, -2f, 0f);

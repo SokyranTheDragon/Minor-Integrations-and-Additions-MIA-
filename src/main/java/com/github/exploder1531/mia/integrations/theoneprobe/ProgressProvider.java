@@ -5,7 +5,6 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexEgg;
 import com.github.alexthe666.iceandfire.entity.tile.*;
 import com.github.exploder1531.mia.Mia;
-import com.github.exploder1531.mia.integrations.ModIds;
 import com.pam.harvestcraft.HarvestCraft;
 import com.pam.harvestcraft.tileentities.*;
 import drzhark.mocreatures.entity.item.MoCEntityEgg;
@@ -31,7 +30,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 @SuppressWarnings("UnnecessaryReturnStatement")
 public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityProvider
@@ -54,7 +53,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
         Method harvestWaterTrapMethod = null;
         Method iceFireDragonforgeBrick = null;
         
-        if (Loader.isModLoaded(ModIds.MO_CREATURES))
+        if (Loader.isModLoaded(MO_CREATURES.modId))
         {
             try
             {
@@ -65,7 +64,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 Mia.LOGGER.error("Cannot access MoCEntityEgg tCounter field, no hatching progress will be displayed");
             }
         }
-        if (Loader.isModLoaded(ModIds.ICE_AND_FIRE))
+        if (Loader.isModLoaded(ICE_AND_FIRE.modId))
         {
             try
             {
@@ -84,7 +83,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 Mia.LOGGER.error("Cannot access TileEntityDragonforgeBrick getConnectedTileEntity() method, no smelting progress will be displayed");
             }
         }
-        if (Loader.isModLoaded(ModIds.HARVESTCRAFT))
+        if (Loader.isModLoaded(HARVESTCRAFT.modId))
         {
             try
             {
@@ -139,7 +138,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             return;
         }
         
-        if (thaumcraftLoaded)
+        if (THAUMCRAFT.isLoaded)
         {
             if (blockState.getBlock() instanceof BlockVisBattery)
             {
@@ -166,7 +165,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             }
         }
         
-        if (iceAndFireLoaded)
+        if (ICE_AND_FIRE.isLoaded)
         {
             if (tile instanceof TileEntityJar)
             {
@@ -194,7 +193,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                     try
                     {
                         TileEntityDragonforgeBrick input = (TileEntityDragonforgeBrick) tile;
-                        ICapabilityProvider capacity = (ICapabilityProvider)iceFireDragonforgeBrickCore.invoke(input);
+                        ICapabilityProvider capacity = (ICapabilityProvider) iceFireDragonforgeBrickCore.invoke(input);
                         
                         if (capacity instanceof TileEntityDragonforge)
                         {
@@ -234,7 +233,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             }
         }
         
-        if (harvestcraftLoaded)
+        if (HARVESTCRAFT.isLoaded)
         {
             if (tile instanceof TileEntityApiary)
             {
@@ -352,7 +351,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
     @Override
     public void addProbeEntityInfo(ProbeMode probeMode, IProbeInfo probeInfo, EntityPlayer entityPlayer, World world, Entity entity, IProbeHitEntityData iProbeHitEntityData)
     {
-        if (moCreaturesLoaded)
+        if (MO_CREATURES.isLoaded)
         {
             if (entity instanceof MoCEntityEgg)
             {
@@ -371,7 +370,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 return;
             }
         }
-        if (iceAndFireLoaded)
+        if (ICE_AND_FIRE.isLoaded)
         {
             if (entity instanceof EntityDragonEgg)
             {
@@ -388,7 +387,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                     name.append("Jungle ");
                 else
                     name.append("Desert ");
-
+                
                 switch (egg.getMyrmexCaste())
                 {
                     case 1:

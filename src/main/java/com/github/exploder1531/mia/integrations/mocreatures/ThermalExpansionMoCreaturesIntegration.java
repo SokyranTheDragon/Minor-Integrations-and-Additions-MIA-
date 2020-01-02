@@ -97,7 +97,7 @@ class ThermalExpansionMoCreaturesIntegration implements IThermalExpansionIntegra
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
         return ModIds.MO_CREATURES;
     }

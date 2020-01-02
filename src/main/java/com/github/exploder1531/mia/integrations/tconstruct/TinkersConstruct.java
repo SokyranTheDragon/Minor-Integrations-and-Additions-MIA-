@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.TConstructConfiguration.*;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.*;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class TinkersConstruct implements IBaseMod
 {
@@ -40,18 +40,18 @@ public class TinkersConstruct implements IBaseMod
     }
     
     @Override
-    public void register(BiConsumer<String, IModIntegration> modIntegration)
+    public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration && extraUtilitiesLoaded)
-            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsTConstructIntegration());
-        if (enableJerIntegration && jerLoaded)
-            modIntegration.accept(ModIds.JER, new JerTConstructIntegration());
-        if (enableTeIntegration && thermalExpansionLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionTConstructIntegration());
-        if (enableDungeonTacticsIntegration && dungeonTacticsLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsTConstructIntegration());
-        if (hatcheryLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryTConstructIntegration(enableHatcheryIntegration));
+        if (enableXu2Integration && EXTRA_UTILITIES.isLoaded)
+            modIntegration.accept(EXTRA_UTILITIES, new ExtraUtilsTConstructIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerTConstructIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionTConstructIntegration());
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsTConstructIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryTConstructIntegration(enableHatcheryIntegration));
     }
     
     @Override

@@ -45,8 +45,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.github.exploder1531.mia.config.MoCreaturesConfiguration.replaceFishDrops;
-import static com.github.exploder1531.mia.integrations.ModLoadStatus.harvestcraftLoaded;
-import static com.github.exploder1531.mia.integrations.jer.JustEnoughResources.loadResource;
+import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 @ParametersAreNonnullByDefault
 class JerMoCreaturesIntegration implements IJerIntegration
@@ -58,96 +57,96 @@ class JerMoCreaturesIntegration implements IJerIntegration
     {
         // Horses
         for (int i = 21; i <= 26; i++)
-            builder.add(loadResource("mocreatures/horse/horse_" + i), MoCEntityHorse.class, new GenericVariantSetter(i));
+            builder.add(MIA.loadSimple("mocreatures/horse/horse_" + i), MoCEntityHorse.class, new GenericVariantSetter(i));
         for (int i = 38; i <= 40; i++)
-            builder.add(loadResource("mocreatures/horse/horse_" + i), MoCEntityHorse.class, new GenericVariantSetter(i));
-        builder.add(loadResource("mocreatures/horse/horse_32"), MoCEntityHorse.class, new GenericVariantSetter(32));
-        builder.add(loadResource("mocreatures/horse/horse_36"), MoCEntityHorse.class, new GenericVariantSetter(36));
+            builder.add(MIA.loadSimple("mocreatures/horse/horse_" + i), MoCEntityHorse.class, new GenericVariantSetter(i));
+        builder.add(MIA.loadSimple("mocreatures/horse/horse_32"), MoCEntityHorse.class, new GenericVariantSetter(32));
+        builder.add(MIA.loadSimple("mocreatures/horse/horse_36"), MoCEntityHorse.class, new GenericVariantSetter(36));
         // Passive entities
-        builder.add(loadResource("mocreatures/passive/bird"), MoCEntityBird.class);
-        builder.add(loadResource("mocreatures/passive/boar"), MoCEntityBoar.class);
-        builder.add(loadResource("mocreatures/passive/crocodile"), MoCEntityCrocodile.class);
-        builder.add(loadResource("mocreatures/passive/deer"), MoCEntityDeer.class);
-        builder.add(loadResource("mocreatures/passive/duck"), MoCEntityDuck.class);
-        builder.add(loadResource("mocreatures/passive/ent"), MoCEntityEnt.class);
-        builder.add(loadResource("mocreatures/passive/fox"), MoCEntityFox.class);
-        builder.add(loadResource("mocreatures/passive/goat"), MoCEntityGoat.class);
-        builder.add(loadResource("mocreatures/passive/komodo"), MoCEntityKomodo.class);
-        builder.add(loadResource("mocreatures/passive/mole"), MoCEntityMole.class);
-        builder.add(loadResource("mocreatures/passive/mouse"), MoCEntityMouse.class);
-        builder.add(loadResource("mocreatures/passive/raccoon"), MoCEntityRaccoon.class);
-        builder.add(loadResource("mocreatures/passive/turkey"), MoCEntityTurkey.class);
-        builder.add(loadResource("mocreatures/passive/turtle"), MoCEntityTurtle.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/bird"), MoCEntityBird.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/boar"), MoCEntityBoar.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/crocodile"), MoCEntityCrocodile.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/deer"), MoCEntityDeer.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/duck"), MoCEntityDuck.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/ent"), MoCEntityEnt.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/fox"), MoCEntityFox.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/goat"), MoCEntityGoat.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/komodo"), MoCEntityKomodo.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/mole"), MoCEntityMole.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/mouse"), MoCEntityMouse.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/raccoon"), MoCEntityRaccoon.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/turkey"), MoCEntityTurkey.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/turtle"), MoCEntityTurtle.class);
         // Bears
-        builder.add(loadResource("mocreatures/passive/bear/black"), MoCEntityBlackBear.class);
-        builder.add(loadResource("mocreatures/passive/bear/grizzly"), MoCEntityGrizzlyBear.class);
-        builder.add(loadResource("mocreatures/passive/bear/panda"), MoCEntityPandaBear.class);
-        builder.add(loadResource("mocreatures/passive/bear/polar"), MoCEntityPolarBear.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/bear/black"), MoCEntityBlackBear.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/bear/grizzly"), MoCEntityGrizzlyBear.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/bear/panda"), MoCEntityPandaBear.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/bear/polar"), MoCEntityPolarBear.class);
         // Big cats
-        builder.add(loadResource("mocreatures/passive/big_cat/leopard"), MoCEntityLeopard.class);
-        builder.add(loadResource("mocreatures/passive/big_cat/lion"), MoCEntityLion.class);
-        builder.add(loadResource("mocreatures/passive/big_cat/panther"), MoCEntityPanther.class);
-        builder.add(loadResource("mocreatures/passive/big_cat/tiger"), MoCEntityTiger.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/big_cat/leopard"), MoCEntityLeopard.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/big_cat/lion"), MoCEntityLion.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/big_cat/panther"), MoCEntityPanther.class);
+        builder.add(MIA.loadSimple("mocreatures/passive/big_cat/tiger"), MoCEntityTiger.class);
         // Ostrich
         for (int i = 4; i <= 8; i++)
-            builder.add(loadResource("mocreatures/passive/ostrich/ostrich_" + i), MoCEntityOstrich.class, new GenericVariantSetter(i));
+            builder.add(MIA.loadSimple("mocreatures/passive/ostrich/ostrich_" + i), MoCEntityOstrich.class, new GenericVariantSetter(i));
         // Pet scorpion
         for (int i = 1; i <= 5; i++)
-            builder.add(loadResource("mocreatures/passive/scorpion/scorpion_" + i), MoCEntityPetScorpion.class, new GenericVariantSetter(i));
+            builder.add(MIA.loadSimple("mocreatures/passive/scorpion/scorpion_" + i), MoCEntityPetScorpion.class, new GenericVariantSetter(i));
         // Snake
         for (int i = 1; i <= 5; i++)
-            builder.add(loadResource("mocreatures/passive/snake/snake_" + i), MoCEntitySnake.class, new GenericVariantSetter(i));
+            builder.add(MIA.loadSimple("mocreatures/passive/snake/snake_" + i), MoCEntitySnake.class, new GenericVariantSetter(i));
         
         
         // Hostile entities
         // Ogres
-        builder.add(loadResource("mocreatures/hostile/ogre_cave"), MoCEntityCaveOgre.class);
-        builder.add(loadResource("mocreatures/hostile/ogre_fire"), MoCEntityFireOgre.class);
-        builder.add(loadResource("mocreatures/hostile/ogre_green"), MoCEntityGreenOgre.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/ogre_cave"), MoCEntityCaveOgre.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/ogre_fire"), MoCEntityFireOgre.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/ogre_green"), MoCEntityGreenOgre.class);
         // Wraiths
-        builder.add(loadResource("mocreatures/hostile/wraith"), MoCEntityWraith.class);
-        builder.add(loadResource("mocreatures/hostile/wraith_flame"), MoCEntityFlameWraith.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/wraith"), MoCEntityWraith.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/wraith_flame"), MoCEntityFlameWraith.class);
         // Manticores
         for (int i = 1; i <= 4; i++)
-            builder.add(loadResource("mocreatures/hostile/manticore/manticore_" + i), MoCEntityManticore.class, new GenericVariantSetter(i));
+            builder.add(MIA.loadSimple("mocreatures/hostile/manticore/manticore_" + i), MoCEntityManticore.class, new GenericVariantSetter(i));
         // Rats
-        builder.add(loadResource("mocreatures/hostile/rat"), MoCEntityRat.class);
-        builder.add(loadResource("mocreatures/hostile/rat_hell"), MoCEntityHellRat.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/rat"), MoCEntityRat.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/rat_hell"), MoCEntityHellRat.class);
         // Scorpions
         for (int i = 1; i <= 4; i++)
-            builder.add(loadResource("mocreatures/hostile/scorpion/scorpion_" + i), MoCEntityScorpion.class, new GenericVariantSetter(i));
+            builder.add(MIA.loadSimple("mocreatures/hostile/scorpion/scorpion_" + i), MoCEntityScorpion.class, new GenericVariantSetter(i));
         // Silver skeletons
-        builder.add(loadResource("mocreatures/hostile/skeleton_silver"), MoCEntitySilverSkeleton.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/skeleton_silver"), MoCEntitySilverSkeleton.class);
         // Werewolf
-        builder.add(loadResource("mocreatures/hostile/werewolf_human"), MoCEntityWerewolf.class, new WerewolfSetter(true));
-        builder.add(loadResource("mocreatures/hostile/werewolf_wild"), MoCEntityWerewolf.class, new WerewolfSetter(false));
+        builder.add(MIA.loadSimple("mocreatures/hostile/werewolf_human"), MoCEntityWerewolf.class, new WerewolfSetter(true));
+        builder.add(MIA.loadSimple("mocreatures/hostile/werewolf_wild"), MoCEntityWerewolf.class, new WerewolfSetter(false));
         // Wild wolf
-        builder.add(loadResource("mocreatures/hostile/wolf_wild"), MoCEntityWWolf.class);
+        builder.add(MIA.loadSimple("mocreatures/hostile/wolf_wild"), MoCEntityWWolf.class);
         
         
         // Ambient
-        builder.add(loadResource("mocreatures/ambient/crab"), MoCEntityCrab.class);
-        builder.add(loadResource("mocreatures/ambient/snail"), MoCEntitySnail.class);
-        builder.add(loadResource("mocreatures/ambient/maggot"), MoCEntityMaggot.class);
+        builder.add(MIA.loadSimple("mocreatures/ambient/crab"), MoCEntityCrab.class);
+        builder.add(MIA.loadSimple("mocreatures/ambient/snail"), MoCEntitySnail.class);
+        builder.add(MIA.loadSimple("mocreatures/ambient/maggot"), MoCEntityMaggot.class);
         
         
         // Aquatic
-        builder.add(loadResource("mocreatures/aquatic/dolphin"), MoCEntityDolphin.class);
-        builder.add(loadResource("mocreatures/aquatic/jellyfish"), MoCEntityJellyFish.class);
-        builder.add(loadResource("mocreatures/aquatic/shark"), MoCEntityShark.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/dolphin"), MoCEntityDolphin.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/jellyfish"), MoCEntityJellyFish.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/shark"), MoCEntityShark.class);
         // Medium fish
-        builder.add(loadResource("mocreatures/aquatic/fish_medium/bass"), MoCEntityBass.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_medium/cod"), MoCEntityCod.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_medium/salmon"), MoCEntitySalmon.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_medium/bass"), MoCEntityBass.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_medium/cod"), MoCEntityCod.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_medium/salmon"), MoCEntitySalmon.class);
         // Small fish
-        builder.add(loadResource("mocreatures/aquatic/fish_small/anchovy"), MoCEntityAnchovy.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_small/angel_fish"), MoCEntityAngelFish.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_small/angler"), MoCEntityAngler.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_small/clownfish"), MoCEntityClownFish.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_small/goldfish"), MoCEntityGoldFish.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_small/hippo_tang"), MoCEntityHippoTang.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_small/manderin"), MoCEntityManderin.class);
-        builder.add(loadResource("mocreatures/aquatic/fish_small/piranha"), MoCEntityPiranha.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_small/anchovy"), MoCEntityAnchovy.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_small/angel_fish"), MoCEntityAngelFish.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_small/angler"), MoCEntityAngler.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_small/clownfish"), MoCEntityClownFish.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_small/goldfish"), MoCEntityGoldFish.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_small/hippo_tang"), MoCEntityHippoTang.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_small/manderin"), MoCEntityManderin.class);
+        builder.add(MIA.loadSimple("mocreatures/aquatic/fish_small/piranha"), MoCEntityPiranha.class);
         
         
         return Stream.of(
@@ -260,9 +259,9 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 }
                 else if (replaceFishDrops && entity instanceof MoCEntityClownFish)
                     lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 2);
-                else if (harvestcraftLoaded && entity instanceof MoCEntityAnchovy)
+                else if (HARVESTCRAFT.isLoaded && entity instanceof MoCEntityAnchovy)
                     lootDrop.item = new ItemStack(ItemRegistry.anchovyrawItem);
-                else if (harvestcraftLoaded && entity instanceof MoCEntityBass)
+                else if (HARVESTCRAFT.isLoaded && entity instanceof MoCEntityBass)
                     lootDrop.item = new ItemStack(ItemRegistry.bassrawItem);
                 else
                     lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH);
@@ -278,7 +277,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 lootDrop.smeltedItem = new ItemStack(MoCItems.crabcooked);
             else if (item == Items.PORKCHOP && MiaConfig.addCookedDrops)
                 lootDrop.smeltedItem = new ItemStack(Items.COOKED_PORKCHOP);
-            else if (item == MoCItems.turtleraw && MiaConfig.addCookedDrops && harvestcraftLoaded)
+            else if (item == MoCItems.turtleraw && MiaConfig.addCookedDrops && HARVESTCRAFT.isLoaded)
                 lootDrop.smeltedItem = new ItemStack(ItemRegistry.turtlecookedItem);
             else if (item == MoCItems.bo && entity instanceof MoCEntityTurtle)
                 lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Donatello', 'donatello'"));
@@ -315,7 +314,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
                 lootDrop.chance = MoCreatures.proxy.rareItemDropChance / 100f;
         });
         
-        if (harvestcraftLoaded)
+        if (HARVESTCRAFT.isLoaded)
         {
             if (entity instanceof MoCEntityDeer)
             {
@@ -471,11 +470,12 @@ class JerMoCreaturesIntegration implements IJerIntegration
     
     @Nonnull
     @Override
-    public String getModId()
+    public ModIds getModId()
     {
-        return ModIds.MO_CREATURES;
+        return MO_CREATURES;
     }
     
+    @SuppressWarnings("rawtypes")
     private static class GenericVariantSetter implements MobTableBuilder.EntityPropertySetter
     {
         private final int variant;
@@ -509,12 +509,14 @@ class JerMoCreaturesIntegration implements IJerIntegration
         }
     }
     
+    @SuppressWarnings("rawtypes")
     private static final IMobRenderHook RENDER_HOOK_GENERIC_HIGHER = ((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, 0.5f, 0f);
         return renderInfo;
     });
     
+    @SuppressWarnings("rawtypes")
     private static final IMobRenderHook RENDER_HOOK_GENERIC_LOWER = ((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, -0.5f, 0f);
