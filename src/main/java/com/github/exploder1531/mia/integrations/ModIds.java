@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.Loader;
 import pegbeard.dungeontactics.reference.Reference;
 import slimeknights.tconstruct.TConstruct;
 import thaumcraft.Thaumcraft;
+import thedarkcolour.futuremc.FutureMC;
 
 public enum ModIds
 {
@@ -40,7 +41,8 @@ public enum ModIds
     BOTANIA(ConstantIds.BOTANIA),
     EXTRABOTANY(ConstantIds.EXTRABOTANY),
     QUARK(ConstantIds.QUARK),
-    CRAFT_TWEAKER(ConstantIds.CRAFT_TWEAKER);
+    CRAFT_TWEAKER(ConstantIds.CRAFT_TWEAKER),
+    FUTURE_MC(ConstantIds.FUTURE_MC);
     
     public final String modId;
     public final boolean isLoaded;
@@ -97,5 +99,6 @@ public enum ModIds
         public static final String EXTRABOTANY = ExtraBotany.MODID;
         public static final String QUARK = vazkii.quark.base.lib.LibMisc.MOD_ID;
         public static final String CRAFT_TWEAKER = CraftTweaker.MODID;
+        public static final String FUTURE_MC = FutureMC.ID;
     }
 }

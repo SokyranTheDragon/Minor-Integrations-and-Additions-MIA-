@@ -209,6 +209,11 @@ dependencies {
         provided "curse.maven:CraftTweaker2_1.12-4.1.20:2838090"
     else
         compileOnly "curse.maven:CraftTweaker2_1.12-4.1.20:2838090"
+
+    if (project.run_future_mc.equals("true"))
+        deobfProvided "curse.maven:FutureMC_0.1.13:2812165"
+    else
+        compileOnly "curse.maven:FutureMC_0.1.13:2812165"
 }
 
 processResources {

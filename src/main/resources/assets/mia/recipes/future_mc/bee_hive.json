@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "hhh",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "c": {
+      "type": "forge:ore_dict",
+      "ore": "honeycomb"
+    }
+  },
+  "result": {
+    "item": "minecraftfuture:bee_hive"
+  }
+}
