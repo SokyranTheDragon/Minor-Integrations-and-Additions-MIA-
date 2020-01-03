@@ -10,7 +10,7 @@
       "type": "forge:ore_dict",
       "ore": "plankWood"
     },
-    "c": {
+    "h": {
       "type": "forge:ore_dict",
       "ore": "honeycomb"
     }
