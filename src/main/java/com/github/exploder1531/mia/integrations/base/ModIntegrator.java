@@ -2,11 +2,14 @@ package com.github.exploder1531.mia.integrations.base;
 
 import com.gendeathrow.morechickens.core.ChickensMore;
 import com.gendeathrow.morechickens.core.ModItems;
+import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
+import com.github.exploder1531.mia.integrations.base.LootTableIntegrator.LootTableListener;
 import com.github.exploder1531.mia.integrations.botania.Botania;
 import com.github.exploder1531.mia.integrations.cofhcore.CofhCore;
 import com.github.exploder1531.mia.integrations.dungeontactics.DungeonTactics;
 import com.github.exploder1531.mia.integrations.extrabotany.ExtraBotany;
+import com.github.exploder1531.mia.integrations.futuremc.FutureMc;
 import com.github.exploder1531.mia.integrations.harvestcraft.Harvestcraft;
 import com.github.exploder1531.mia.integrations.hatchery.Hatchery;
 import com.github.exploder1531.mia.integrations.iceandfire.IceAndFire;
@@ -25,7 +28,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
@@ -41,6 +43,7 @@ import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import static com.github.exploder1531.mia.integrations.ModIds.*;
@@ -57,14 +60,20 @@ public class ModIntegrator
     
     private boolean registeredBlocks = false;
     private boolean registeredItems = false;
+    @SideOnly(Side.CLIENT)
+    private boolean registeredRenders = false;
+    private boolean registeredLootTableListeners = false;
     
+    private boolean registeredAspects = false;
     
-    // TODO: add logs for incorrect status
     
     public void registerMods()
     {
         if (modsRegistered)
+        {
+            Mia.LOGGER.warn("ModIntegrator.registerMods() was called more than once, this is not something that should happen.");
             return;
+        }
         modsRegistered = true;
         
         if (EXTRA_UTILITIES.isLoaded)
@@ -101,6 +110,8 @@ public class ModIntegrator
             modIntegrations.put(EXTRABOTANY, new ExtraBotany());
         if (QUARK.isLoaded)
             modIntegrations.put(QUARK, new Quark());
+        if (FUTURE_MC.isLoaded)
+            modIntegrations.put(FUTURE_MC, new FutureMc());
         
         for (IBaseMod mod : modIntegrations.values())
             mod.register(this::registerIntegration);
@@ -118,7 +129,10 @@ public class ModIntegrator
     public void preInit(FMLPreInitializationEvent event)
     {
         if (modsPreInitialized)
+        {
+            Mia.LOGGER.warn("ModIntegrator.preInit() was called more than once, this is not something that should happen.");
             return;
+        }
         modsPreInitialized = true;
         
         for (IBaseMod mod : modIntegrations.values())
@@ -128,7 +142,10 @@ public class ModIntegrator
     public void init(FMLInitializationEvent event)
     {
         if (modsInitialized)
+        {
+            Mia.LOGGER.warn("ModIntegrator.init() was called more than once, this is not something that should happen.");
             return;
+        }
         modsInitialized = true;
         
         for (IBaseMod mod : modIntegrations.values())
@@ -138,7 +155,10 @@ public class ModIntegrator
     public void postInit(FMLPostInitializationEvent event)
     {
         if (modsPostInitialized)
+        {
+            Mia.LOGGER.warn("ModIntegrator.postInit() was called more than once, this is not something that should happen.");
             return;
+        }
         modsPostInitialized = true;
         
         for (IBaseMod mod : modIntegrations.values())
@@ -148,7 +168,10 @@ public class ModIntegrator
     public void loadCompleted(FMLLoadCompleteEvent event)
     {
         if (modsLoadCompleted)
+        {
+            Mia.LOGGER.warn("ModIntegrator.loadCompleted() was called more than once, this is not something that should happen.");
             return;
+        }
         modsLoadCompleted = true;
         
         for (IBaseMod mod : modIntegrations.values())
@@ -158,7 +181,10 @@ public class ModIntegrator
     public void registerBlocks(RegistryEvent.Register<Block> event)
     {
         if (registeredBlocks)
+        {
+            Mia.LOGGER.warn("ModIntegrator.registerBlocks() was called more than once, this is not something that should happen.");
             return;
+        }
         registeredBlocks = true;
         
         for (IBaseMod mod : modIntegrations.values())
@@ -168,7 +194,10 @@ public class ModIntegrator
     public void registerItems(RegistryEvent.Register<Item> event)
     {
         if (registeredItems)
+        {
+            Mia.LOGGER.warn("ModIntegrator.registerItems() was called more than once, this is not something that should happen.");
             return;
+        }
         registeredItems = true;
         
         for (IBaseMod mod : modIntegrations.values())
@@ -178,19 +207,44 @@ public class ModIntegrator
     @SideOnly(Side.CLIENT)
     public void registerRenders(ModelRegistryEvent event)
     {
+        if (registeredRenders)
+        {
+            Mia.LOGGER.warn("ModIntegrator.registerRenders() was called more than once, this is not something that should happen.");
+            return;
+        }
+        registeredRenders = true;
+        
         for (IBaseMod mod : modIntegrations.values())
             mod.registerRenders(event);
     }
     
-    public void lootTableLoad(LootTableLoadEvent event)
+    public void registerLootTableListeners(HashSet<LootTableListener> integrations)
     {
+        if (registeredLootTableListeners)
+        {
+            Mia.LOGGER.warn("ModIntegrator.registerLootTableListeners() was called more than once, this is not something that should happen.");
+            return;
+        }
+        registeredLootTableListeners = true;
+        
         for (IBaseMod mod : modIntegrations.values())
-            mod.lootLoad(event);
+        {
+            LootTableListener listener = mod.registerLootListener();
+            if (listener != null)
+                integrations.add(listener);
+        }
     }
     
     @Optional.Method(modid = ConstantIds.THAUMCRAFT)
     public void registerAspects(AspectRegistryEvent event)
     {
+        if (registeredAspects)
+        {
+            Mia.LOGGER.warn("ModIntegrator.registerAspects() was called more than once, this is not something that should happen.");
+            return;
+        }
+        registeredAspects = true;
+        
         for (IBaseMod mod : modIntegrations.values())
             mod.registerAspects(event);
         

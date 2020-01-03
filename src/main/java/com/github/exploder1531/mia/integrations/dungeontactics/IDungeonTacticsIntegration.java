@@ -1,7 +1,9 @@
 package com.github.exploder1531.mia.integrations.dungeontactics;
 
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
-import net.minecraft.world.storage.loot.LootPool;
+import com.github.exploder1531.mia.integrations.dungeontactics.DungeonTactics.ILootBagListener;
+
+import javax.annotation.Nullable;
 
 public interface IDungeonTacticsIntegration extends IModIntegration
 {
@@ -20,5 +22,6 @@ public interface IDungeonTacticsIntegration extends IModIntegration
         TOOL
     }
     
-    void insertBagLoot(BagTypes type, LootPool loot);
+    @Nullable
+    ILootBagListener registerLootBagListener();
 }

@@ -4,6 +4,7 @@ import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
+import com.github.exploder1531.mia.integrations.base.LootTableIntegrator.LootTableListener;
 import com.google.common.collect.Lists;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraftforge.event.LootTableLoadEvent;
@@ -13,6 +14,8 @@ import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTItems;
 import pegbeard.dungeontactics.handlers.DTLoots;
 
+import javax.annotation.Nullable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -49,42 +52,21 @@ public class DungeonTactics implements IBaseMod
     }
     
     @Override
-    public void lootLoad(LootTableLoadEvent event)
+    @Nullable
+    public LootTableListener registerLootListener()
     {
         if (!dungeonTacticsAdditionsEnabled || !registerCustomBagLoot)
-            return;
+            return null;
         
-        LootPool main = event.getTable().getPool("main");
-        IDungeonTacticsIntegration.BagTypes bagTypes = null;
-        
-        if (event.getName().equals(DTLoots.ARBOUR_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.ARBOUR;
-        else if (event.getName().equals(DTLoots.BOOK_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.BOOK;
-        else if (event.getName().equals(DTLoots.FOOD_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.FOOD;
-        else if (event.getName().equals(DTLoots.MAGIC_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.MAGIC;
-        else if (event.getName().equals(DTLoots.ORE_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.ORE;
-        else if (event.getName().equals(DTLoots.POTION_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.POTION;
-        else if (event.getName().equals(DTLoots.QUIVER_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.QUIVER;
-        else if (event.getName().equals(DTLoots.RECORD_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.RECORD;
-        else if (event.getName().equals(DTLoots.SAMHAIN_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.SAMHAIN;
-        else if (event.getName().equals(DTLoots.SOLSTICE_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.SOLSTICE;
-        else if (event.getName().equals(DTLoots.TOOL_LOOT))
-            bagTypes = IDungeonTacticsIntegration.BagTypes.TOOL;
-        
-        if (bagTypes != null)
+        LootBagLootTableHandler lootBag = new LootBagLootTableHandler();
+        for (IDungeonTacticsIntegration integration : modIntegrations)
         {
-            for (IDungeonTacticsIntegration integrations : modIntegrations)
-                integrations.insertBagLoot(bagTypes, main);
+            ILootBagListener listener = integration.registerLootBagListener();
+            if (listener != null)
+                lootBag.addIntegration(listener);
         }
+        
+        return lootBag::insertBagLoot;
     }
     
     @Override
@@ -108,5 +90,60 @@ public class DungeonTactics implements IBaseMod
         OreDictionary.registerOre("foodBreadslice", DTItems.BREADSLICE);
         
         OreDictionary.registerOre("flourEqualswheat", DTItems.FLOUR);
+    }
+    
+    private static class LootBagLootTableHandler
+    {
+        private HashSet<ILootBagListener> integrations = new HashSet<>();
+        
+        public LootBagLootTableHandler()
+        {
+        }
+        
+        public void addIntegration(ILootBagListener integration)
+        {
+            integrations.add(integration);
+        }
+        
+        public void insertBagLoot(LootTableLoadEvent event)
+        {
+            LootPool main = event.getTable().getPool("main");
+            IDungeonTacticsIntegration.BagTypes bagTypes = null;
+            
+            if (event.getName().equals(DTLoots.ARBOUR_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.ARBOUR;
+            else if (event.getName().equals(DTLoots.BOOK_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.BOOK;
+            else if (event.getName().equals(DTLoots.FOOD_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.FOOD;
+            else if (event.getName().equals(DTLoots.MAGIC_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.MAGIC;
+            else if (event.getName().equals(DTLoots.ORE_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.ORE;
+            else if (event.getName().equals(DTLoots.POTION_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.POTION;
+            else if (event.getName().equals(DTLoots.QUIVER_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.QUIVER;
+            else if (event.getName().equals(DTLoots.RECORD_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.RECORD;
+            else if (event.getName().equals(DTLoots.SAMHAIN_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.SAMHAIN;
+            else if (event.getName().equals(DTLoots.SOLSTICE_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.SOLSTICE;
+            else if (event.getName().equals(DTLoots.TOOL_LOOT))
+                bagTypes = IDungeonTacticsIntegration.BagTypes.TOOL;
+            
+            if (bagTypes != null)
+            {
+                for (ILootBagListener integration : integrations)
+                    integration.insertBagLoot(bagTypes, main);
+            }
+        }
+    }
+    
+    @FunctionalInterface
+    public interface ILootBagListener
+    {
+        void insertBagLoot(IDungeonTacticsIntegration.BagTypes type, LootPool loot);
     }
 }
