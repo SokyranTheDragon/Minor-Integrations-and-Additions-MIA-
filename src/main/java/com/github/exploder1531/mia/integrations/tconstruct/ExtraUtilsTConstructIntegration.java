@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockSlime;
@@ -29,81 +30,112 @@ class ExtraUtilsTConstructIntegration implements IExtraUtilsIntegration
     @Override
     public void addRecipes(@Nullable MachineSlotItem slimeSecondary)
     {
+        boolean tinkerGadgets = TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId);
+        
         // Explosion generator
-        XUMachineGenerators.TNT_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(new ItemStack(TinkerGadgets.throwball, 1, 1)), 80_000, 160));
+        if (tinkerGadgets)
+            XUMachineGenerators.TNT_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(new ItemStack(TinkerGadgets.throwball, 1, 1)), 80_000, 160));
         
         // Slime generator
         if (slimeSecondary != null)
         {
+            boolean tinkerCommons = TConstruct.pulseManager.isPulseLoaded(TinkerCommons.PulseId);
+            boolean tinkerWorld = TConstruct.pulseManager.isPulseLoaded(TinkerWorld.PulseId);
+            
             // Slime blocks
             List<ItemStack> slimeList = new ArrayList<>();
-            for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
-                slimeList.add(new ItemStack(TinkerCommons.blockSlime, 1, slimeType.meta));
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(432_000, 400.0F)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
-                                 .build());
+            if (tinkerCommons)
+            {
+                for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
+                    slimeList.add(new ItemStack(TinkerCommons.blockSlime, 1, slimeType.meta));
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(432_000, 400.0F)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
+                                     .build());
+                
+                slimeList = new ArrayList<>();
+            }
             
             // Congealed slime, dirt, grass
-            slimeList = new ArrayList<>();
-            for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
-                slimeList.add(new ItemStack(TinkerCommons.blockSlimeCongealed, 1, slimeType.meta));
-            for (BlockSlimeDirt.DirtType dirtType : BlockSlimeDirt.DirtType.values())
-                slimeList.add(new ItemStack(TinkerWorld.slimeDirt, 1, dirtType.meta));
-            for (BlockSlimeGrass.DirtType dirtType : BlockSlimeGrass.DirtType.values())
-                for (BlockSlimeGrass.FoliageType foliageType : BlockSlimeGrass.FoliageType.values())
-                    slimeList.add(new ItemStack(TinkerWorld.slimeGrass, 1, dirtType.ordinal() + foliageType.ordinal() * 5));
+            if (tinkerCommons)
+            {
+                for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
+                    slimeList.add(new ItemStack(TinkerCommons.blockSlimeCongealed, 1, slimeType.meta));
+            }
+            if (tinkerWorld)
+            {
+                for (BlockSlimeDirt.DirtType dirtType : BlockSlimeDirt.DirtType.values())
+                    slimeList.add(new ItemStack(TinkerWorld.slimeDirt, 1, dirtType.meta));
+                for (BlockSlimeGrass.DirtType dirtType : BlockSlimeGrass.DirtType.values())
+                    for (BlockSlimeGrass.FoliageType foliageType : BlockSlimeGrass.FoliageType.values())
+                        slimeList.add(new ItemStack(TinkerWorld.slimeGrass, 1, dirtType.ordinal() + foliageType.ordinal() * 5));
+            }
             
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(192_000, 400.0F)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
-                                 .build());
+            if (!slimeList.isEmpty())
+            {
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(192_000, 400.0F)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
+                                     .build());
+                
+                slimeList = new ArrayList<>();
+            }
             
             // Slimedrops
-            slimeList = new ArrayList<>();
-            slimeList.add(TinkerCommons.slimedropGreen);
-            slimeList.add(TinkerCommons.slimedropBlue);
-            slimeList.add(TinkerCommons.slimedropPurple);
-            slimeList.add(TinkerCommons.slimedropMagma);
-            slimeList.add(TinkerCommons.slimedropBlood);
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(192_000, 400.0F)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 3)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
-                                 .build());
+            if (tinkerCommons)
+            {
+                slimeList.add(TinkerCommons.slimedropGreen);
+                slimeList.add(TinkerCommons.slimedropBlue);
+                slimeList.add(TinkerCommons.slimedropPurple);
+                slimeList.add(TinkerCommons.slimedropMagma);
+                slimeList.add(TinkerCommons.slimedropBlood);
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(192_000, 400.0F)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 3)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
+                                     .build());
+                
+                slimeList = new ArrayList<>();
+            }
             
             // Sapplings
-            slimeList = new ArrayList<>();
-            for (BlockSlimeGrass.FoliageType foliage : BlockSlimeGrass.FoliageType.values())
-                slimeList.add(new ItemStack(TinkerWorld.slimeSapling, 1, foliage.getMeta()));
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(192_000, 400.0F)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 4)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
-                                 .build());
+            if (tinkerWorld)
+            {
+                for (BlockSlimeGrass.FoliageType foliage : BlockSlimeGrass.FoliageType.values())
+                    slimeList.add(new ItemStack(TinkerWorld.slimeSapling, 1, foliage.getMeta()));
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(192_000, 400.0F)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 4)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
+                                     .build());
+                
+                slimeList = new ArrayList<>();
+            }
             
             // Leaves
-            slimeList = new ArrayList<>();
-            for (BlockSlimeGrass.FoliageType foliage : BlockSlimeGrass.FoliageType.values())
-                slimeList.add(new ItemStack(TinkerWorld.slimeLeaves, 1, foliage.getMeta()));
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(192_000, 400.0F)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 8)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
-                                 .build());
-            
-            slimeList = new ArrayList<>();
+            if (tinkerWorld)
+            {
+                for (BlockSlimeGrass.FoliageType foliage : BlockSlimeGrass.FoliageType.values())
+                    slimeList.add(new ItemStack(TinkerWorld.slimeLeaves, 1, foliage.getMeta()));
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(192_000, 400.0F)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 8)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
+                                     .build());
+                
+                slimeList = new ArrayList<>();
+            }
             
             // Buckets of slime
             FluidStack fluid = FluidRegistry.getFluidStack("blueslime", 1_000);
@@ -136,66 +168,77 @@ class ExtraUtilsTConstructIntegration implements IExtraUtilsIntegration
             }
             
             
-            // Leaves
-            for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
-                slimeList.add(new ItemStack(TinkerGadgets.slimeChannel, 1, slimeType.getMeta()));
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(192_000, 400.0F)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 3)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
-                                 .build());
+            // Slime channels
+            if (tinkerGadgets)
+            {
+                for (BlockSlime.SlimeType slimeType : BlockSlime.SlimeType.values())
+                    slimeList.add(new ItemStack(TinkerGadgets.slimeChannel, 1, slimeType.getMeta()));
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(192_000, 400.0F)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 3)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
+                                     .build());
+                
+                slimeList = new ArrayList<>();
+            }
             
             // Slimy mud
             // Slightly stronger than normal
-            slimeList = new ArrayList<>();
-            slimeList.add(TinkerCommons.slimyMudBlue);
-            slimeList.add(TinkerCommons.slimyMudGreen);
-            slimeList.add(TinkerCommons.slimyMudMagma);
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(240_000, 400.0f)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
-                                 .build());
+            if (tinkerCommons)
+            {
+                slimeList.add(TinkerCommons.slimyMudBlue);
+                slimeList.add(TinkerCommons.slimyMudGreen);
+                slimeList.add(TinkerCommons.slimyMudMagma);
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(240_000, 400.0f)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.MILK_BUCKET, 1))
+                                     .build());
+                
+                slimeList = new ArrayList<>();
+            }
             
             // Slime crystals
             // Same total energy as mud, but require lava instead of milk and produce more energy per tick.
-            slimeList = new ArrayList<>();
-            slimeList.add(TinkerCommons.matSlimeCrystalBlue);
-            slimeList.add(TinkerCommons.matSlimeCrystalGreen);
-            slimeList.add(TinkerCommons.matSlimeCrystalMagma);
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(240_000, 800.0f)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.LAVA_BUCKET, 1))
-                                 .build());
-            
-            // Knighslime
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(648_000, 800.0f)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, TinkerCommons.blockKnightSlime, 1)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.LAVA_BUCKET, 1))
-                                 .build());
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(648_000, 800.0f)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, TinkerCommons.ingotKnightSlime, 9)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.LAVA_BUCKET, 1))
-                                 .build());
-            
-            XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
-                    RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
-                                 .setRFRate(512_000, 800.0f)
-                                 .setItemInput(XUMachineGenerators.INPUT_ITEM, TinkerCommons.nuggetKnightSlime, 64)
-                                 .setItemInput(slimeSecondary, new ItemStack(Items.LAVA_BUCKET, 1))
-                                 .build());
+            if (tinkerCommons)
+            {
+                slimeList.add(TinkerCommons.matSlimeCrystalBlue);
+                slimeList.add(TinkerCommons.matSlimeCrystalGreen);
+                slimeList.add(TinkerCommons.matSlimeCrystalMagma);
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(240_000, 800.0f)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, slimeList, 1)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.LAVA_BUCKET, 1))
+                                     .build());
+                
+                // Knighslime
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(648_000, 800.0f)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, TinkerCommons.blockKnightSlime, 1)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.LAVA_BUCKET, 1))
+                                     .build());
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(648_000, 800.0f)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, TinkerCommons.ingotKnightSlime, 9)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.LAVA_BUCKET, 1))
+                                     .build());
+                
+                XUMachineGenerators.SLIME_GENERATOR.recipes_registry.addRecipe(
+                        RecipeBuilder.newbuilder(XUMachineGenerators.SLIME_GENERATOR)
+                                     .setRFRate(512_000, 800.0f)
+                                     .setItemInput(XUMachineGenerators.INPUT_ITEM, TinkerCommons.nuggetKnightSlime, 64)
+                                     .setItemInput(slimeSecondary, new ItemStack(Items.LAVA_BUCKET, 1))
+                                     .build());
+            }
             
             fluid = FluidRegistry.getFluidStack("knightslime", 1_000);
             if (fluid != null)
