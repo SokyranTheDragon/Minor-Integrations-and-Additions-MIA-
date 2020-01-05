@@ -4,6 +4,7 @@ import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.integrations.ModIds;
+import com.github.exploder1531.mia.integrations.base.LootTableIntegrator;
 import com.github.exploder1531.mia.integrations.base.ModIntegrator;
 import com.github.exploder1531.mia.integrations.harvestcraft.CraftTweakerHarvestcraftIntegration;
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
@@ -29,6 +30,7 @@ import thaumcraft.api.aspects.AspectRegistryEvent;
 public class CommonProxy
 {
     protected static ModIntegrator modIntegrator;
+    protected static LootTableIntegrator lootTableIntegrator;
     
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -36,6 +38,10 @@ public class CommonProxy
         
         modIntegrator = new ModIntegrator();
         modIntegrator.registerMods();
+        
+        lootTableIntegrator = new LootTableIntegrator();
+        lootTableIntegrator.registerLootTableIntegration(modIntegrator);
+        
         modIntegrator.preInit(event);
     }
     
@@ -61,6 +67,9 @@ public class CommonProxy
     public void loadCompleted(FMLLoadCompleteEvent event)
     {
         modIntegrator.loadCompleted(event);
+        // It will no longer used after this point, as loadCompleted is the last time it's called.
+        // It should clear the only reference to modIntegrator, which I hope would let GC clear all the stuff in there.
+        modIntegrator = null;
     }
     
     @SubscribeEvent
@@ -79,7 +88,7 @@ public class CommonProxy
     @SubscribeEvent
     public static void lootTableLoad(LootTableLoadEvent event)
     {
-        modIntegrator.lootTableLoad(event);
+        lootTableIntegrator.lootTableLoad(event);
     }
     
     @SubscribeEvent
