@@ -3,6 +3,7 @@ package com.github.exploder1531.mia.integrations.harvestcraft;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
+import com.pam.harvestcraft.HarvestCraft;
 import com.pam.harvestcraft.blocks.FruitRegistry;
 import com.pam.harvestcraft.item.ItemRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -25,6 +26,8 @@ public class Harvestcraft implements IBaseMod
             modIntegration.accept(JER, new JerHarvestcraftIntegration());
         if (JEI.isLoaded)
             modIntegration.accept(JEI, new JeiHarvestcraftIntegration());
+        if (FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcHarvestcraftIntegration());
     }
     
     @Override
@@ -33,7 +36,10 @@ public class Harvestcraft implements IBaseMod
         if (!harvestcraftAdditionsEnabled)
             return;
         
-        OreDictionary.registerOre("egg", ItemRegistry.rawtofeegItem);
+        if (HarvestCraft.config.enableTofuAsMeatInRecipes)
+            OreDictionary.registerOre("egg", ItemRegistry.rawtofeegItem);
+        
+        OreDictionary.registerOre("honeycomb", ItemRegistry.honeycombItem);
         
         OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.SPIDERWEB));
         OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.AVOCADO));

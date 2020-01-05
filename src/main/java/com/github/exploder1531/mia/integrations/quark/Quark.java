@@ -41,6 +41,8 @@ public class Quark implements IBaseMod
             modIntegration.accept(JER, new JerQuarkIntegration());
         if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsQuarkIntegration());
+        if (FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcQuarkIntegration());
     }
     
     @Override

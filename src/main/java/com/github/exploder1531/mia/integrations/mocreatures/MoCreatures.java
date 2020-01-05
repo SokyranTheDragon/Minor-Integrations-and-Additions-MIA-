@@ -39,6 +39,8 @@ public class MoCreatures implements IBaseMod
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionMoCreaturesIntegration());
         if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsMoCreaturesIntegration());
+        if (FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcMoCreaturesIntegration());
     }
     
     @Override

@@ -35,6 +35,8 @@ public class ThermalFoundation implements IBaseMod
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsTFIntegration());
         if (HATCHERY.isLoaded)
             modIntegration.accept(HATCHERY, new HatcheryTFIntegration(enableHatcheryIntegration));
+        if (FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcTFIntegration());
     }
     
     @Override

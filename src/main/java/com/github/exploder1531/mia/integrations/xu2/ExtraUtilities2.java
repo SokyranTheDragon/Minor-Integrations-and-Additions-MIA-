@@ -46,6 +46,8 @@ public class ExtraUtilities2 implements IBaseMod
             modIntegration.accept(QUARK, new QuarkExtraUtilsIntegration());
         if (enableJerIntegration && JER.isLoaded)
             modIntegration.accept(JER, new JerExtraUtilsIntegration());
+        if (FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcExtraUtilsIntegration());
     }
     
     @Override

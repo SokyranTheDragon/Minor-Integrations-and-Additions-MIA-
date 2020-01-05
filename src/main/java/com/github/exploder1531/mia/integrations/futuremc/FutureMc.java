@@ -4,9 +4,12 @@ import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import thedarkcolour.futuremc.block.BlockFurnaceAdvanced;
 import thedarkcolour.futuremc.init.Init;
+import thedarkcolour.futuremc.tile.TileCampfire;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -52,5 +55,16 @@ public class FutureMc implements IBaseMod
         OreDictionary.registerOre("listAllsugar", Init.HONEY_BOTTLE);
         OreDictionary.registerOre("dropHoney", Init.HONEY_BOTTLE);
         OreDictionary.registerOre("foodHoneydrop", Init.HONEY_BOTTLE);
+    }
+    
+    public static void addFoodRecipe(ItemStack input, ItemStack output, int duration)
+    {
+        TileCampfire.Recipes.recipe(input, output, duration);
+        BlockFurnaceAdvanced.Recipes.smokerRecipe(input, output);
+    }
+    
+    public static void addFoodRecipe(ItemStack input, ItemStack output)
+    {
+        addFoodRecipe(input, output, 600);
     }
 }

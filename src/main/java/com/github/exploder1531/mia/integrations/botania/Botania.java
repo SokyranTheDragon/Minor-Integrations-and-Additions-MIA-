@@ -21,5 +21,7 @@ public class Botania implements IBaseMod
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionBotaniaIntegration());
         if (JER.isLoaded)
             modIntegration.accept(JER, new JerBotaniaIntegration());
+        if (FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcBotaniaIntegration());
     }
 }

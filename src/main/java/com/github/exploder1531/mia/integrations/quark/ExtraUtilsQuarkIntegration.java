@@ -40,12 +40,10 @@ class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
             XUMachineCrusher.addRecipe(new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite), new ItemStack(Biotite.biotite, 3), 0.2f);
             for (int meta = 0; meta <= 2; meta++)
                 XUMachineCrusher.addRecipe(new ItemStack(Biotite.biotite_block, 1, meta), new ItemStack(Biotite.biotite, 4));
-            ItemStack slab = ItemStackUtils.getStack(QUARK.modId, "biotite_slab");
-            if (!slab.isEmpty())
-                XUMachineCrusher.addRecipe(slab, new ItemStack(Biotite.biotite, 1));
-            ItemStack stairs = ItemStackUtils.getStack(QUARK.modId, "biotite_stairs");
-            if (!stairs.isEmpty())
-                XUMachineCrusher.addRecipe(stairs, new ItemStack(Biotite.biotite, 2));
+            ItemStackUtils.getStack(QUARK, "biotite_slab")
+                          .ifPresent(slab -> XUMachineCrusher.addRecipe(slab, new ItemStack(Biotite.biotite, 1)));
+            ItemStackUtils.getStack(QUARK, "biotite_stairs")
+                          .ifPresent(stairs -> XUMachineCrusher.addRecipe(stairs, new ItemStack(Biotite.biotite, 2)));
         }
         
         if (UndergroundBiomes.biome_cobblestone != null)
