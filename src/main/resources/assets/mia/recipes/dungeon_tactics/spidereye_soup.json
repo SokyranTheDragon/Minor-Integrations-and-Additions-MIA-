@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:spider_eye"
+        },
+        {
+            "item": "minecraft:spider_eye"
+        },
+        {
+            "item": "minecraft:spider_eye"
+        },
+        {
+            "item": "minecraft:spider_eye"
+        },
+        {
+          "type": "forge:ore_dict",
+          "ore": "listAllsugar"
+        },
+        {
+            "item": "minecraft:bowl"
+        }
+    ],
+    "result": {
+        "item": "dungeontactics:spidereye_soup",
+        "count": 1
+    }
+}

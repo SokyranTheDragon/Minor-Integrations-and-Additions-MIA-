@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "listAllsugar"
+    },
+    {
+      "item": "#BERRIES"
+    },
+    {
+      "item": "#BERRIES"
+    }
+  ],
+  "result": {
+    "item": "dungeontactics:jam",
+    "count": 1
+  }
+}

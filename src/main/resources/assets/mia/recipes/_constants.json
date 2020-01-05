@@ -1,0 +1,29 @@
+[
+  {
+    "name": "BERRIES",
+    "ingredient": [
+      {
+        "item": "minecraft:apple"
+      },
+      {
+        "item": "minecraft:melon"
+      },
+      {
+        "item": "minecraft:pumpkin"
+      },
+      {
+        "item": "dungeontactics:cherry_bomb"
+      },
+      {
+        "item": "dungeontactics:incindiberry"
+      },
+      {
+        "item": "dungeontactics:glowcurrent"
+      },
+      {
+        "type": "forge:ore_dict",
+        "ore": "listAllberry"
+      }
+    ]
+  }
+]

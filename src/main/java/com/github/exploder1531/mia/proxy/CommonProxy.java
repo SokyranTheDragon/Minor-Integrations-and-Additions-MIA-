@@ -10,6 +10,7 @@ import com.github.exploder1531.mia.integrations.harvestcraft.CraftTweakerHarvest
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -52,6 +53,10 @@ public class CommonProxy
         
         OreDictionary.registerOre("buttonWood", Blocks.WOODEN_BUTTON);
         OreDictionary.registerOre("trapdoorWood", Blocks.TRAPDOOR);
+        OreDictionary.registerOre("listAllsugar", Items.SUGAR);
+        OreDictionary.registerOre("listAllmilk", Items.MILK_BUCKET);
+//        OreDictionary.registerOre("listAllmushroom", Blocks.BROWN_MUSHROOM);
+//        OreDictionary.registerOre("listAllmushroom", Blocks.RED_MUSHROOM);
         
         modIntegrator.init(event);
         
