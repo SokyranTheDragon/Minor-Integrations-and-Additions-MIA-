@@ -1,10 +1,13 @@
 package com.github.exploder1531.mia.utilities;
 
+import com.github.exploder1531.mia.integrations.ModIds;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
+import java.util.Optional;
 
 public class ItemStackUtils
 {
@@ -12,18 +15,23 @@ public class ItemStackUtils
     {
     }
     
-    public static ItemStack getStack(String id, String name, int amount, int meta)
+    public static Optional<ItemStack> getStack(String id, String name, int amount, int meta)
     {
         Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(id + ":" + name));
-        return item != null ? new ItemStack(item, amount, meta) : ItemStack.EMPTY;
+        return item != null ? Optional.of(new ItemStack(item, amount, meta)) : Optional.empty();
     }
     
-    public static ItemStack getStack(String id, String name, int amount)
+    public static Optional<ItemStack> getStack(ModIds id, String name, int amount, int meta)
+    {
+        return getStack(id.modId, name, amount, meta);
+    }
+    
+    public static Optional<ItemStack> getStack(ModIds id, String name, int amount)
     {
         return getStack(id, name, amount, 0);
     }
     
-    public static ItemStack getStack(String id, String name)
+    public static Optional<ItemStack> getStack(ModIds id, String name)
     {
         return getStack(id, name, 1);
     }
