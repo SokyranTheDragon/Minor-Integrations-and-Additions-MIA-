@@ -48,6 +48,8 @@ public class Thaumcraft implements IBaseMod
             modIntegration.accept(HATCHERY, new HatcheryThaumcraftIntegration(enableHatcheryIntegration));
         if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsThaumcraftIntegration());
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcThaumcraftIntegration());
     }
     
     @Override

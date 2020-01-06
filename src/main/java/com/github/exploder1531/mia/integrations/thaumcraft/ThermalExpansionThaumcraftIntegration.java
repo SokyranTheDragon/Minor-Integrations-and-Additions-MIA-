@@ -49,6 +49,8 @@ class ThermalExpansionThaumcraftIntegration implements IThermalExpansionIntegrat
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.thaumiumLegs), ingot, 3);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.thaumiumBoots), ingot, 2);
         
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.plate, 1, 2), ingot, 1);
+        
         // Void
         ingot = new ItemStack(ItemsTC.ingots, 1, 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.voidSword), ingot, 1);
@@ -61,6 +63,11 @@ class ThermalExpansionThaumcraftIntegration implements IThermalExpansionIntegrat
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.voidChest), ingot, 4);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.voidLegs), ingot, 3);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.voidBoots), ingot, 2);
+        
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.plate, 1, 3), ingot, 1);
+        
+        // Brass
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.plate, 1, 0), new ItemStack(ItemsTC.ingots, 1, 2), 1);
         
         // Recycling stuff
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsTC.thaumometer), new ItemStack(Items.GOLD_INGOT), 2);

@@ -102,9 +102,15 @@ dependencies {
     else
         compileOnly "curse.maven:Baubles_1.5.2:2518667"
     if (project.run_thaumcraft.equals("true") && project.run_baubles.equals("true"))
+    {
         deobfProvided "curse.maven:Thaumcraft_6.1.BETA26:2629023"
+        deobfProvided "curse.maven:Thaumic_Jei_1.6.0-27:2705304"
+    }
     else
+    {
         compileOnly "curse.maven:Thaumcraft_6.1.BETA26:2629023"
+        compileOnly "curse.maven:Thaumic_Jei_1.6.0-27:2705304"
+    }
 
     // JEI and addons
     deobfProvided "curse.maven:JEI_4.15.0.291:2803400"
