@@ -4,7 +4,9 @@ import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import thedarkcolour.futuremc.block.BlockFurnaceAdvanced;
@@ -18,6 +20,7 @@ import java.util.function.BiConsumer;
 import static com.github.exploder1531.mia.config.FutureMcConfiguration.externalIntegrationsEnabled;
 import static com.github.exploder1531.mia.config.FutureMcConfiguration.futureMcAdditionsEnabled;
 import static com.github.exploder1531.mia.integrations.ModIds.*;
+import static thedarkcolour.futuremc.block.BlockFurnaceAdvanced.Recipes.blastFurnaceRecipe;
 
 public class FutureMc implements IBaseMod
 {
@@ -71,5 +74,30 @@ public class FutureMc implements IBaseMod
     public static void addFoodRecipe(ItemStack input, ItemStack output)
     {
         addFoodRecipe(input, output, 600);
+    }
+    
+    public static void oreDictBlastFurnaceRecipe(ItemStack input, String output, int count)
+    {
+        NonNullList<ItemStack> ores = OreDictionary.getOres(output);
+        if (!ores.isEmpty())
+        {
+            ItemStack ore = ores.get(0);
+            blastFurnaceRecipe(input, new ItemStack(ore.getItem(), count, ore.getMetadata()));
+        }
+    }
+    
+    public static void oreDictBlastFurnaceRecipe(ItemStack input, String output)
+    {
+        oreDictBlastFurnaceRecipe(input, output, 1);
+    }
+    
+    public static void oreDictBlastFurnaceRecipe(Item input, int meta, String output, int count)
+    {
+        oreDictBlastFurnaceRecipe(new ItemStack(input, 1, meta), output, count);
+    }
+    
+    public static void oreDictBlastFurnaceRecipe(Item input, String output)
+    {
+        oreDictBlastFurnaceRecipe(new ItemStack(input), output);
     }
 }
