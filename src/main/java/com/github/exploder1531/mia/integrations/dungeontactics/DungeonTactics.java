@@ -39,6 +39,8 @@ public class DungeonTactics implements IBaseMod
             modIntegration.accept(JER, new JerDungeonTacticsIntegration());
         if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
             modIntegration.accept(FUTURE_MC, new FutureMcDungeonTacticsIntegration());
+        if (enableQuarkIntegration && QUARK.isLoaded)
+            modIntegration.accept(QUARK, new QuarkDungeonTacticsIntegration());
     }
     
     @Override

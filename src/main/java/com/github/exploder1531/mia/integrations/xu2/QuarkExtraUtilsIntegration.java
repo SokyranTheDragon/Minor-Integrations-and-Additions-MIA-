@@ -2,11 +2,15 @@ package com.github.exploder1531.mia.integrations.xu2;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.quark.IQuarkIntegration;
+import com.rwtema.extrautils2.backend.entries.XU2Entries;
+import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
+@MethodsReturnNonnullByDefault
 class QuarkExtraUtilsIntegration implements IQuarkIntegration
 {
     @Override
@@ -19,7 +23,12 @@ class QuarkExtraUtilsIntegration implements IQuarkIntegration
                 "extrautils2:xu.boomereaperang");
     }
     
-    @Nonnull
+    @Override
+    public Collection<ItemStack> getItemsToShowEnchantmentsFor()
+    {
+        return Collections.singleton(XU2Entries.boomerang.newStack());
+    }
+    
     @Override
     public ModIds getModId()
     {

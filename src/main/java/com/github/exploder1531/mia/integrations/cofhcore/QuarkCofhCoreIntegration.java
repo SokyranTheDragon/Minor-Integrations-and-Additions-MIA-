@@ -2,11 +2,12 @@ package com.github.exploder1531.mia.integrations.cofhcore;
 
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.quark.IQuarkIntegration;
+import mcp.MethodsReturnNonnullByDefault;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 
+@MethodsReturnNonnullByDefault
 class QuarkCofhCoreIntegration implements IQuarkIntegration
 {
     @Override
@@ -21,7 +22,6 @@ class QuarkCofhCoreIntegration implements IQuarkIntegration
                 "cofhcore:vorpal");
     }
     
-    @Nonnull
     @Override
     public ModIds getModId()
     {

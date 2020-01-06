@@ -37,6 +37,8 @@ public class ThermalFoundation implements IBaseMod
             modIntegration.accept(HATCHERY, new HatcheryTFIntegration(enableHatcheryIntegration));
         if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
             modIntegration.accept(FUTURE_MC, new FutureMcTFIntegration());
+        if (enableQuarkIntegration && QUARK.isLoaded)
+            modIntegration.accept(QUARK, new QuarkTFIntegration());
     }
     
     @Override

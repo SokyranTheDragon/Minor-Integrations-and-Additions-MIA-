@@ -24,6 +24,18 @@ public class FutureMcConfiguration
     @Config.RequiresMcRestart
     public static boolean externalIntegrationsEnabled = true;
     
+    @Config.Name("Enable Quark integration")
+    @Config.Comment("Set to false to completely disable integration with Quark")
+    @Config.LangKey("mia.config.shared.enable_quark_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableQuarkIntegration = true;
+    
+    @Config.Name("Enable Thermal Expansion integration")
+    @Config.Comment("Set to false to completely disable integration with Thermal Expansion")
+    @Config.LangKey("mia.config.shared.enable_thermal_expansion_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableTeIntegration = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

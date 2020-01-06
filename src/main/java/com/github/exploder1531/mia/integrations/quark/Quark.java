@@ -25,7 +25,7 @@ import vazkii.quark.world.feature.UndergroundBiomes;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -84,7 +84,8 @@ public class Quark implements IBaseMod
                     Object obj = enchantNames.get(ancientTomesFeature);
                     if (obj instanceof String[])
                     {
-                        List<String> enchants = Arrays.asList(((String[]) obj));
+                        List<String> enchants = new ArrayList<>();
+                        Collections.addAll(enchants, (String[]) obj);
                         enchants.addAll(tempEnchants);
                         enchantNames.set(ancientTomesFeature, enchants.toArray(new String[0]));
                     }
@@ -99,6 +100,35 @@ public class Quark implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
+        if (event.getSide() == Side.CLIENT && isFeatureEnabled(EnchantedBooksShowItems.class))
+        {
+            List<ItemStack> tempItems = new ArrayList<>();
+            for (IQuarkIntegration integration : modIntegrations)
+                tempItems.addAll(integration.getItemsToShowEnchantmentsFor());
+        
+            if (!tempItems.isEmpty())
+            {
+                try
+                {
+                    Field testItems = EnchantedBooksShowItems.class.getDeclaredField("testItemLocations");
+                    testItems.setAccessible(true);
+                
+                    Object obj = testItems.get(testItems);
+                    if (obj instanceof List)
+                    {
+                        //noinspection unchecked
+                        List<Pair<ResourceLocation, Integer>> items = (List<Pair<ResourceLocation, Integer>>) obj;
+                    
+                        for (ItemStack item : tempItems)
+                            items.add(Pair.of(item.getItem().getRegistryName(), item.getMetadata()));
+                    }
+                } catch (NoSuchFieldException | IllegalAccessException e)
+                {
+                    Mia.LOGGER.error("Could not access Quark EnchantedBooksShowItems.testItemLocations, no default items to be displayed on enchanted books will be added.");
+                }
+            }
+        }
+        
         if (quarkAdditionsEnabled)
         {
             if (isFeatureEnabled(Trowel.class))
