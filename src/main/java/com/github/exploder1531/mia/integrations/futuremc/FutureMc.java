@@ -50,7 +50,6 @@ public class FutureMc implements IBaseMod
             integration.addRecipes();
         
         OreDictionary.registerOre("blockHoney", Init.HONEY_BLOCK);
-        OreDictionary.registerOre("blockSlime", Init.HONEY_BLOCK);
         OreDictionary.registerOre("honeycomb", Init.HONEY_COMB);
         OreDictionary.registerOre("listAllsugar", Init.HONEY_BOTTLE);
         OreDictionary.registerOre("dropHoney", Init.HONEY_BOTTLE);

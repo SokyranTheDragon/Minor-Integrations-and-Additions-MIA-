@@ -44,7 +44,7 @@ class FutureMcDungeonTacticsIntegration implements IFutureMcIntegration
         oreDictBlastFurnace(DTItems.CLUSTER_OSMIUM, "ingotOsmium");
         
         addFoodRecipe(new ItemStack(Items.BREAD), new ItemStack(DTItems.TOAST));
-        addFoodRecipe(new ItemStack(DTItems.BREADSLICE), new ItemStack(DTItems.TOASTSLICE), 100);
+        addFoodRecipe(new ItemStack(DTItems.BREADSLICE), new ItemStack(DTItems.TOASTSLICE), 120);
         
         // Same order as mod IDs
         addFoodRecipe(new ItemStack(DTItems.FISH_SWIFT), new ItemStack(DTItems.FISH_SWIFT_COOKED), 1200);
