@@ -29,13 +29,14 @@ import java.util.List;
 
 import static com.github.exploder1531.mia.integrations.ModIds.QUARK;
 import static com.github.exploder1531.mia.integrations.ModIds.THERMAL_FOUNDATION;
+import static com.github.exploder1531.mia.utilities.QuarkUtils.isFeatureEnabled;
 
 class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
 {
     @Override
     public void addRecipes(@Nullable MachineSlotItem slimeSecondary)
     {
-        if (Biotite.biotite_block != null)
+        if (isFeatureEnabled(Biotite.class))
         {
             XUMachineCrusher.addRecipe(new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite), new ItemStack(Biotite.biotite, 3), 0.2f);
             for (int meta = 0; meta <= 2; meta++)
@@ -46,7 +47,7 @@ class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
                           .ifPresent(stairs -> XUMachineCrusher.addRecipe(stairs, new ItemStack(Biotite.biotite, 2)));
         }
         
-        if (UndergroundBiomes.biome_cobblestone != null)
+        if (isFeatureEnabled(UndergroundBiomes.class))
         {
             if (UndergroundBiomes.firestoneEnabled)
             {
@@ -60,23 +61,23 @@ class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
             }
         }
         
-        if (BlazeLantern.blaze_lantern != null)
+        if (isFeatureEnabled(BlazeLantern.class))
         {
             XUMachineCrusher.addRecipe(new ItemStack(BlazeLantern.blaze_lantern), new ItemStack(Items.BLAZE_POWDER, 16));
             TileTerraformerClimograph.register(BlockTerraformer.Type.HEATER, ItemRef.wrap(BlazeLantern.blaze_lantern), 37);
         }
         
-        if (SugarBlock.sugar_block != null)
+        if (isFeatureEnabled(SugarBlock.class))
             TileTerraformerClimograph.register(BlockTerraformer.Type.HUMIDIFIER, ItemRef.wrap(SugarBlock.sugar_block), 36);
         
-        if (BlackAsh.black_ash != null)
+        if (isFeatureEnabled(BlackAsh.class))
             XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(
                     RecipeBuilder.newbuilder(XUMachineGenerators.DEATH_GENERATOR)
                                  .setRFRate(10_333, 80.0f)
                                  .setItemInput(XUMachineGenerators.INPUT_ITEM, new ItemStack(BlackAsh.black_ash), 1)
                                  .build());
         
-        if (Wraiths.soul_bead != null)
+        if (isFeatureEnabled(Wraiths.class))
             XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(
                     RecipeBuilder.newbuilder(XUMachineGenerators.DEATH_GENERATOR)
                                  .setRFRate(8_000, 20.0f)
@@ -84,7 +85,7 @@ class ExtraUtilsQuarkIntegration implements IExtraUtilsIntegration
                                  .build());
         
         // Slime generator
-        if (ColorSlime.color_slime != null && slimeSecondary != null)
+        if (isFeatureEnabled(ColorSlime.class) && slimeSecondary != null)
         {
             List<ItemStack> slimeList = new ArrayList<>();
             

@@ -17,6 +17,8 @@ import javax.annotation.Nonnull;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import static com.github.exploder1531.mia.utilities.QuarkUtils.isFeatureEnabled;
+
 class DungeonTacticsQuarkIntegration implements IDungeonTacticsIntegration
 {
     @Override
@@ -27,7 +29,7 @@ class DungeonTacticsQuarkIntegration implements IDungeonTacticsIntegration
             switch (type)
             {
                 case ARBOUR:
-                    if (TreeVariants.variant_sapling != null)
+                    if (isFeatureEnabled(TreeVariants.class))
                     {
                         if (TreeVariants.enableSakura && TreeVariants.enableSwamp)
                             LootUtils.addDtLoot(loot, TreeVariants.variant_sapling, LootUtils.setMetadataFunction(0, 1));
@@ -38,7 +40,7 @@ class DungeonTacticsQuarkIntegration implements IDungeonTacticsIntegration
                     }
                     break;
                 case BOOK:
-                    if (AncientTomes.ancient_tome != null)
+                    if (isFeatureEnabled(AncientTomes.class))
                     {
                         try
                         {
@@ -52,27 +54,30 @@ class DungeonTacticsQuarkIntegration implements IDungeonTacticsIntegration
                     }
                     break;
                 case QUIVER:
-                    if (ExtraArrows.arrow_ender != null)
-                        LootUtils.addDtLoot(loot, ExtraArrows.arrow_ender, 7, LootUtils.setCountFunction(1, 16));
-                    if (ExtraArrows.arrow_explosive != null)
-                        LootUtils.addDtLoot(loot, ExtraArrows.arrow_explosive, 7, LootUtils.setCountFunction(1, 16));
-                    if (ExtraArrows.arrow_torch != null)
-                        LootUtils.addDtLoot(loot, ExtraArrows.arrow_torch, 7, LootUtils.setCountFunction(1, 16));
+                    if (isFeatureEnabled(ExtraArrows.class))
+                    {
+                        if (ExtraArrows.enableEnder)
+                            LootUtils.addDtLoot(loot, ExtraArrows.arrow_ender, 7, LootUtils.setCountFunction(1, 16));
+                        if (ExtraArrows.enableExplosive)
+                            LootUtils.addDtLoot(loot, ExtraArrows.arrow_explosive, 7, LootUtils.setCountFunction(1, 16));
+                        if (ExtraArrows.enableTorch)
+                            LootUtils.addDtLoot(loot, ExtraArrows.arrow_torch, 7, LootUtils.setCountFunction(1, 16));
+                    }
                     break;
                 case FOOD:
-                    if (Crabs.crabLeg != null)
+                    if (isFeatureEnabled(Crabs.class))
                     {
                         LootUtils.addDtLoot(loot, Crabs.crabLeg);
                         LootUtils.addDtLoot(loot, Crabs.cookedCrabLeg);
                     }
-                    if (Frogs.frogLeg != null)
+                    if (isFeatureEnabled(Frogs.class))
                     {
                         LootUtils.addDtLoot(loot, Frogs.frogLeg);
                         LootUtils.addDtLoot(loot, Frogs.cookedFrogLeg);
                     }
                     break;
                 case ORE:
-                    if (Biotite.biotite_ore != null)
+                    if (isFeatureEnabled(Biotite.class))
                         LootUtils.addDtLoot(loot, Biotite.biotite_ore);
                     break;
             }

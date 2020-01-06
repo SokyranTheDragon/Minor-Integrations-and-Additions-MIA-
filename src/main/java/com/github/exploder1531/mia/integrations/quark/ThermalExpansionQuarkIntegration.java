@@ -30,37 +30,42 @@ import vazkii.quark.world.feature.UndergroundBiomes;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
+import static com.github.exploder1531.mia.utilities.QuarkUtils.isFeatureEnabled;
+
 class ThermalExpansionQuarkIntegration implements IThermalExpansionIntegration
 {
     @Override
     public void addRecipes()
     {
-        if (PistonSpikes.iron_rod != null)
+        if (isFeatureEnabled(PistonSpikes.class))
             SmelterManager.addRecycleRecipe(8_000, new ItemStack(PistonSpikes.iron_rod), new ItemStack(Items.IRON_INGOT), 1);
-        if (Trowel.trowel != null)
+        if (isFeatureEnabled(Trowel.class))
             SmelterManager.addRecycleRecipe(8_000, new ItemStack(Trowel.trowel), new ItemStack(Items.IRON_INGOT), 1);
-        if (Grate.grate != null)
+        if (isFeatureEnabled(Grate.class))
             SmelterManager.addRecycleRecipe(8_000, new ItemStack(Grate.grate), new ItemStack(Items.IRON_NUGGET), 12);
-        if (MetalButtons.gold_button != null)
-            SmelterManager.addRecycleRecipe(8_000, new ItemStack(MetalButtons.gold_button), new ItemStack(Items.GOLD_INGOT), 1);
-        if (MetalButtons.iron_button != null)
-            SmelterManager.addRecycleRecipe(8_000, new ItemStack(MetalButtons.iron_button), new ItemStack(Items.IRON_INGOT), 1);
+        if (isFeatureEnabled(MetalButtons.class))
+        {
+            if (MetalButtons.enableGold)
+                SmelterManager.addRecycleRecipe(8_000, new ItemStack(MetalButtons.gold_button), new ItemStack(Items.GOLD_INGOT), 1);
+            if (MetalButtons.enableIron)
+                SmelterManager.addRecycleRecipe(8_000, new ItemStack(MetalButtons.iron_button), new ItemStack(Items.IRON_INGOT), 1);
+        }
         
-        if (Biotite.biotite_block != null)
+        if (isFeatureEnabled(Biotite.class))
         {
             FactorizerManager.addDefaultRecipe(new ItemStack(Biotite.biotite), new ItemStack(Biotite.biotite_block), 4);
             PulverizerManager.addRecipe(3_000, new ItemStack(Biotite.biotite_block, 1, 2), new ItemStack(Biotite.biotite));
             FurnaceManager.addRecipe(2_000, new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite));
         }
         
-        if (SoulSandstone.soul_sandstone != null)
+        if (isFeatureEnabled(SoulSandstone.class))
         {
             for (int meta = 1; meta <= 2; meta++)
                 PulverizerManager.addRecipe(3_000, new ItemStack(SoulSandstone.soul_sandstone, 1, meta), new ItemStack(Blocks.SOUL_SAND), ItemMaterial.dustSulfur, 40);
         }
         
         
-        if (UndergroundBiomes.biome_cobblestone != null)
+        if (isFeatureEnabled(UndergroundBiomes.class))
         {
             if (UndergroundBiomes.firestoneEnabled)
                 CrucibleManager.addRecipe(40_000, new ItemStack(UndergroundBiomes.biome_cobblestone, 1, 0), new FluidStack(FluidRegistry.LAVA, 1000));
@@ -69,18 +74,21 @@ class ThermalExpansionQuarkIntegration implements IThermalExpansionIntegration
         }
         
         // Igneous Extruder
-        if (Basalt.basalt != null)
+        if (isFeatureEnabled(Basalt.class))
             ExtruderManager.addRecipeIgneous(800, new ItemStack(Basalt.basalt), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 1000));
-        // Technically metamorphic rocks, but we don't have an upgrade for that (yet? maybe I'll look into it)
-        if (RevampStoneGen.marble != null)
-            ExtruderManager.addRecipeIgneous(800, new ItemStack(RevampStoneGen.marble), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 1000));
-        if (RevampStoneGen.slate != null)
-            ExtruderManager.addRecipeIgneous(800, new ItemStack(RevampStoneGen.slate), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 1000));
-        // Sedimentary Deposition
-        if (RevampStoneGen.limestone != null)
-            ExtruderManager.addRecipeSedimentary(6_400, new ItemStack(RevampStoneGen.limestone), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 2000));
-        if (RevampStoneGen.jasper != null)
-            ExtruderManager.addRecipeSedimentary(6_400, new ItemStack(RevampStoneGen.jasper), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 2000));
+        if (isFeatureEnabled(RevampStoneGen.class))
+        {
+            // Technically metamorphic rocks, but we don't have an upgrade for that (yet? maybe I'll look into it)
+            if (RevampStoneGen.enableMarble)
+                ExtruderManager.addRecipeIgneous(800, new ItemStack(RevampStoneGen.marble), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 1000));
+            if (RevampStoneGen.enableSlate)
+                ExtruderManager.addRecipeIgneous(800, new ItemStack(RevampStoneGen.slate), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 1000));
+            // Sedimentary Deposition
+            if (RevampStoneGen.enableLimestone)
+                ExtruderManager.addRecipeSedimentary(6_400, new ItemStack(RevampStoneGen.limestone), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 2000));
+            if (RevampStoneGen.enableJasper)
+                ExtruderManager.addRecipeSedimentary(6_400, new ItemStack(RevampStoneGen.jasper), new FluidStack(FluidRegistry.LAVA, 0), new FluidStack(FluidRegistry.WATER, 2000));
+        }
     }
     
     @Override

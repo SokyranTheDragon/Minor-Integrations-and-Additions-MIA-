@@ -7,12 +7,16 @@ import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.tuple.Pair;
 import vazkii.quark.base.module.Feature;
 import vazkii.quark.base.module.ModuleLoader;
 import vazkii.quark.building.feature.Trowel;
+import vazkii.quark.client.feature.EnchantedBooksShowItems;
 import vazkii.quark.misc.feature.AncientTomes;
 import vazkii.quark.world.feature.Biotite;
 import vazkii.quark.world.feature.Crabs;
@@ -20,11 +24,14 @@ import vazkii.quark.world.feature.Frogs;
 import vazkii.quark.world.feature.UndergroundBiomes;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.QuarkConfiguration.*;
 import static com.github.exploder1531.mia.integrations.ModIds.*;
+import static com.github.exploder1531.mia.utilities.QuarkUtils.isFeatureEnabled;
 
 public class Quark implements IBaseMod
 {
@@ -60,29 +67,26 @@ public class Quark implements IBaseMod
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        if (addAncientTomes && AncientTomes.ancient_tome != null && modIntegrations.size() > 0)
+        Feature ancientTomesFeature = ModuleLoader.featureInstances.get(AncientTomes.class);
+        if (addAncientTomes && ancientTomesFeature.isEnabled() && modIntegrations.size() > 0)
         {
-            Feature feature = ModuleLoader.featureInstances.get(AncientTomes.class);
-            if (feature.isEnabled())
+            List<String> tempEnchants = new ArrayList<>();
+            for (IQuarkIntegration integration : modIntegrations)
+                tempEnchants.addAll(integration.getAllowedAncientTomeEnchants());
+            
+            if (!tempEnchants.isEmpty())
             {
                 try
                 {
                     Field enchantNames = AncientTomes.class.getDeclaredField("enchantNames");
                     enchantNames.setAccessible(true);
                     
-                    Object obj = enchantNames.get(feature);
+                    Object obj = enchantNames.get(ancientTomesFeature);
                     if (obj instanceof String[])
                     {
-                        Set<String> enchants = new HashSet<>();
-                        Collections.addAll(enchants, ((String[]) obj));
-                        
-                        int size = enchants.size();
-                        
-                        for (IQuarkIntegration integration : modIntegrations)
-                            enchants.addAll(integration.getAllowedAncientTomeEnchants());
-                        
-                        if (enchants.size() > size)
-                            enchantNames.set(feature, enchants.toArray(new String[0]));
+                        List<String> enchants = Arrays.asList(((String[]) obj));
+                        enchants.addAll(tempEnchants);
+                        enchantNames.set(ancientTomesFeature, enchants.toArray(new String[0]));
                     }
                 } catch (NoSuchFieldException | IllegalAccessException e)
                 {
@@ -97,24 +101,24 @@ public class Quark implements IBaseMod
     {
         if (quarkAdditionsEnabled)
         {
-            if (Trowel.trowel != null)
+            if (isFeatureEnabled(Trowel.class))
                 FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(Trowel.trowel), new ItemStack(Items.IRON_NUGGET), 0.1f);
             
-            if (Frogs.frogLeg != null)
+            if (isFeatureEnabled(Frogs.class))
             {
                 OreDictionary.registerOre("foodFrograw", Frogs.frogLeg);
                 OreDictionary.registerOre("foodFrogcooked", Frogs.cookedFrogLeg);
             }
             
-            if (Crabs.crabLeg != null)
+            if (isFeatureEnabled(Crabs.class))
             {
                 OreDictionary.registerOre("foodCrabraw", Crabs.crabLeg);
                 OreDictionary.registerOre("foodCrabcooked", Crabs.cookedCrabLeg);
             }
             
-            if (Biotite.biotite_ore != null)
+            if (isFeatureEnabled(Biotite.class))
                 OreDictionary.registerOre("oreEnderBiotite", Biotite.biotite_ore);
-            if (UndergroundBiomes.glowshroom != null)
+            if (isFeatureEnabled(UndergroundBiomes.class))
                 OreDictionary.registerOre("listAllmushroom", UndergroundBiomes.glowshroom);
         }
     }
