@@ -61,6 +61,12 @@ public class QuarkConfiguration
     @LangKey("mia.config.quark.ancient_tomes_crafting")
     public static boolean ancientTomesCrafting = true;
     
+    @Config.Name("Enable FutureMC integration")
+    @Config.Comment("Set to false to completely disable integration with FutureMC")
+    @Config.LangKey("mia.config.shared.enable_future_mc_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableFutureMcIntegration = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

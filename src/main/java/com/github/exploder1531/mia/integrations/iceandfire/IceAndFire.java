@@ -53,7 +53,7 @@ public class IceAndFire implements IBaseMod
             modIntegration.accept(HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
         if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsIceAndFireIntegration());
-        if (FUTURE_MC.isLoaded)
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
             modIntegration.accept(FUTURE_MC, new FutureMcIceAndFireIntegration());
     }
     

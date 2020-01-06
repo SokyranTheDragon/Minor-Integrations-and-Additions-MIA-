@@ -52,7 +52,7 @@ public class TinkersConstruct implements IBaseMod
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsTConstructIntegration());
         if (HATCHERY.isLoaded)
             modIntegration.accept(HATCHERY, new HatcheryTConstructIntegration(enableHatcheryIntegration));
-        if (FUTURE_MC.isLoaded)
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
             modIntegration.accept(FUTURE_MC, new FutureMcTConstructIntegration());
     }
     

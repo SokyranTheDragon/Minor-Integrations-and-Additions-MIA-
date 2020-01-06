@@ -6,8 +6,7 @@ import com.github.exploder1531.mia.integrations.base.IModIntegration;
 
 import java.util.function.BiConsumer;
 
-import static com.github.exploder1531.mia.config.BotaniaConfiguration.enableDungeonTacticsIntegration;
-import static com.github.exploder1531.mia.config.BotaniaConfiguration.enableTeIntegration;
+import static com.github.exploder1531.mia.config.BotaniaConfiguration.*;
 import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class Botania implements IBaseMod
@@ -21,7 +20,7 @@ public class Botania implements IBaseMod
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionBotaniaIntegration());
         if (JER.isLoaded)
             modIntegration.accept(JER, new JerBotaniaIntegration());
-        if (FUTURE_MC.isLoaded)
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
             modIntegration.accept(FUTURE_MC, new FutureMcBotaniaIntegration());
     }
 }

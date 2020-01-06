@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.github.exploder1531.mia.config.FutureMcConfiguration.externalIntegrationsEnabled;
+import static com.github.exploder1531.mia.config.FutureMcConfiguration.futureMcAdditionsEnabled;
 import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class FutureMc implements IBaseMod
@@ -35,7 +37,8 @@ public class FutureMc implements IBaseMod
     @Override
     public void addIntegration(IModIntegration integration)
     {
-        // TODO: check if integrations are enabled
+        if (!externalIntegrationsEnabled)
+            return;
         
         if (integration instanceof IFutureMcIntegration)
             modIntegrations.add((IFutureMcIntegration)integration);
@@ -46,14 +49,17 @@ public class FutureMc implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
+        if (futureMcAdditionsEnabled)
+        {
+            OreDictionary.registerOre("blockHoney", Init.HONEY_BLOCK);
+            OreDictionary.registerOre("honeycomb", Init.HONEY_COMB);
+            OreDictionary.registerOre("listAllsugar", Init.HONEY_BOTTLE);
+            OreDictionary.registerOre("dropHoney", Init.HONEY_BOTTLE);
+            OreDictionary.registerOre("foodHoneydrop", Init.HONEY_BOTTLE);
+        }
+        
         for (IFutureMcIntegration integration : modIntegrations)
             integration.addRecipes();
-        
-        OreDictionary.registerOre("blockHoney", Init.HONEY_BLOCK);
-        OreDictionary.registerOre("honeycomb", Init.HONEY_COMB);
-        OreDictionary.registerOre("listAllsugar", Init.HONEY_BOTTLE);
-        OreDictionary.registerOre("dropHoney", Init.HONEY_BOTTLE);
-        OreDictionary.registerOre("foodHoneydrop", Init.HONEY_BOTTLE);
     }
     
     public static void addFoodRecipe(ItemStack input, ItemStack output, int duration)

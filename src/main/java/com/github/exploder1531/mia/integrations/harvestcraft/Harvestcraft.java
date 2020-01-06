@@ -11,8 +11,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.function.BiConsumer;
 
-import static com.github.exploder1531.mia.config.HarvestcraftConfiguration.enableTeIntegration;
-import static com.github.exploder1531.mia.config.HarvestcraftConfiguration.harvestcraftAdditionsEnabled;
+import static com.github.exploder1531.mia.config.HarvestcraftConfiguration.*;
 import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class Harvestcraft implements IBaseMod
@@ -26,7 +25,7 @@ public class Harvestcraft implements IBaseMod
             modIntegration.accept(JER, new JerHarvestcraftIntegration());
         if (JEI.isLoaded)
             modIntegration.accept(JEI, new JeiHarvestcraftIntegration());
-        if (FUTURE_MC.isLoaded)
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
             modIntegration.accept(FUTURE_MC, new FutureMcHarvestcraftIntegration());
     }
     

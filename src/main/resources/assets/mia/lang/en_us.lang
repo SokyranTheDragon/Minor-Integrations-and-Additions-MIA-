@@ -30,6 +30,7 @@ mia.config.hatchery.title.tooltip=Browse and manage Hatchery settings
 mia.config.thaumcraft.title.tooltip=Browse and manage Thaumcraft settings
 mia.config.mocreatures.title.tooltip=Browse and manage Mo' Creatures settings
 mia.config.quark.title.tooltip=Browse and manage Quark settings
+mia.config.future_mc.title.tooltip=Browse and manage FutureMC settings
 
 ## Shared
 
@@ -41,6 +42,7 @@ mia.config.shared.enable_extra_utils_integration=Enable Extra Utilities 2 integr
 mia.config.shared.enable_hatchery_integration=Enable Hatchery integration
 mia.config.shared.enable_dungeon_tactics_integration=Enable Dungeon Tactics integration
 mia.config.shared.enable_quark_integration=Enable Quark integration
+mia.config.shared.enable_future_mc_integration=Enable FutureMC integration
 
 ## Additions text
 

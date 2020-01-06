@@ -7,22 +7,30 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static net.minecraftforge.common.config.Config.*;
+
 @Config(modid = Mia.MODID, name = "mia/botania")
-@Config.LangKey("mia.config.botania.title")
+@LangKey("mia.config.botania.title")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class BotaniaConfiguration
 {
-    @Config.Name("Enable Thermal Expansion integration")
-    @Config.Comment("Set to false to completely disable integration with Thermal Expansion")
-    @Config.LangKey("mia.config.shared.enable_thermal_expansion_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Thermal Expansion integration")
+    @Comment("Set to false to completely disable integration with Thermal Expansion")
+    @LangKey("mia.config.shared.enable_thermal_expansion_integration")
+    @RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
-    @Config.Name("Enable Hatchery integration")
-    @Config.Comment("Set to false to completely disable integration with Dungeon Tactics")
-    @Config.LangKey("mia.config.shared.enable_dungeon_tactics_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Hatchery integration")
+    @Comment("Set to false to completely disable integration with Dungeon Tactics")
+    @LangKey("mia.config.shared.enable_dungeon_tactics_integration")
+    @RequiresMcRestart
     public static boolean enableDungeonTacticsIntegration = true;
+    
+    @Name("Enable FutureMC integration")
+    @Comment("Set to false to completely disable integration with FutureMC")
+    @LangKey("mia.config.shared.enable_future_mc_integration")
+    @RequiresMcRestart
+    public static boolean enableFutureMcIntegration = true;
     
     
     /**
@@ -33,7 +41,7 @@ public class BotaniaConfiguration
     @SubscribeEvent
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(Mia.MODID)) {
-            ConfigManager.sync(Mia.MODID, Config.Type.INSTANCE);
+            ConfigManager.sync(Mia.MODID, Type.INSTANCE);
         }
     }
 }
