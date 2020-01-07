@@ -21,9 +21,11 @@ import org.apache.logging.log4j.Logger;
         name = Mia.NAME,
         version = Mia.VERSION,
         dependencies = "after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
+                ";after:" + ModIds.ConstantIds.COFH_CORE +
                 ";after:" + ModIds.ConstantIds.THERMAL_FOUNDATION +
                 ";after:" + ModIds.ConstantIds.THERMAL_EXPANSION +
                 ";after:" + ModIds.ConstantIds.TINKERS_CONSTRUCT +
+                ";after:" + ModIds.ConstantIds.JEI +
                 ";after:" + ModIds.ConstantIds.JER +
                 ";after:" + ModIds.ConstantIds.ICE_AND_FIRE +
                 ";after:" + ModIds.ConstantIds.HATCHERY +
@@ -36,6 +38,7 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ConstantIds.QUARK +
                 ";after:" + ModIds.ConstantIds.CRAFT_TWEAKER +
                 ";after:" + ModIds.ConstantIds.FUTURE_MC +
+                ";after:" + ModIds.ConstantIds.THE_ONE_PROBE +
                 ";")
 public class Mia
 {
