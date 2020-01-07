@@ -21,7 +21,6 @@ public class ContainerMusicPlayer extends Container
     {
         this.inventory = inventory;
         inventory.inventory.container = this;
-//        this.addSlotToContainer(new InventoryValidityCheckSlot(inventory, -1, 80, 6));
         
         for (int i = 0; i < 3; i++)
             for (int k = 0; k < 9; k++)
@@ -30,7 +29,7 @@ public class ContainerMusicPlayer extends Container
         for (int i = 0; i < 9; i++)
             this.addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
         
-        this.addSlotToContainer(new FakeMusicPlayerSlot(inventory, -1, 152, 6));
+        this.addSlotToContainer(new FakeMusicPlayerSlot(inventory, -1, 80, 6));
         
         while (slots < inventory.getSizeInventory() + 1)
             insertNextSlot();

@@ -152,12 +152,12 @@ public class GuiMusicPlayer extends GuiContainer
         
         pageLeftButton = addButton(new GuiButtonImage(0, 9 + guiLeft, 53 + guiTop, 10, 18, 189, 0, 19, texture));
         pageRightButton = addButton(new GuiButtonImage(1, 157 + guiLeft, 53 + guiTop, 10, 18, 177, 0, 19, texture));
-        musicToggleButton = addButton(new GuiToggleButton(2, 78 + guiLeft, 28 + guiTop, 20, 20, 0, 198, 19, 19, texture));
-        playNextButton = addButton(new GuiButtonImageDisableable(3, 98 + guiLeft, 28 + guiTop, 20, 20, 38, 198, 19, texture));
-        playPreviousButton = addButton(new GuiButtonImageDisableable(4, 58 + guiLeft, 28 + guiTop, 20, 20, 57, 198, 19, texture));
-        autoplayButton = addButton(new GuiToggleButton(5, 6 + guiLeft, 4 + guiTop, 20, 20, 76, 198, 19, 19, texture));
-        shuffleButton = addButton(new GuiToggleButton(6, 26 + guiLeft, 4 + guiTop, 20, 20, 152, 198, 19, 19, texture));
-        repeatButton = addButton(new GuiToggleButton(7, 46 + guiLeft, 4 + guiTop, 20, 20, 114, 198, 19, 19, texture));
+        musicToggleButton = addButton(new GuiToggleButton(2, 111 + guiLeft, 28 + guiTop, 20, 20, 0, 198, 19, 19, texture));
+        playNextButton = addButton(new GuiButtonImageDisableable(3, 131 + guiLeft, 28 + guiTop, 20, 20, 38, 198, 19, texture));
+        playPreviousButton = addButton(new GuiButtonImageDisableable(4, 91 + guiLeft, 28 + guiTop, 20, 20, 57, 198, 19, texture));
+        autoplayButton = addButton(new GuiToggleButton(5, 25 + guiLeft, 28 + guiTop, 20, 20, 76, 198, 19, 19, texture));
+        shuffleButton = addButton(new GuiToggleButton(6, 45 + guiLeft, 28 + guiTop, 20, 20, 152, 198, 19, 19, texture));
+        repeatButton = addButton(new GuiToggleButton(7, 65 + guiLeft, 28 + guiTop, 20, 20, 114, 198, 19, 19, texture));
         
         updateButtons();
     }
