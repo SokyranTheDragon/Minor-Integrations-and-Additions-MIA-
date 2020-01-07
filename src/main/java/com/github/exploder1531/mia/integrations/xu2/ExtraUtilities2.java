@@ -18,8 +18,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.aspects.*;
 
@@ -85,8 +85,10 @@ public class ExtraUtilities2 implements IBaseMod
                 XUMachineCrusher.addRecipe(new ItemStack(Blocks.NETHERRACK), new ItemStack(Blocks.GRAVEL));
         }
         
-        if (modIntegrations.size() > 0)
+        if (!modIntegrations.isEmpty())
         {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("ExtraUtilities2 addRecipes - setting up", modIntegrations.size());
+            
             MachineSlotItem slimeSecondary;
             try
             {
@@ -109,13 +111,12 @@ public class ExtraUtilities2 implements IBaseMod
             }
             
             for (IExtraUtilsIntegration integration : modIntegrations)
+            {
+                progressBar.step("ExtraUtilities2 addRecipes - " + integration.getModId().modId);
                 integration.addRecipes(slimeSecondary);
+            }
+            ProgressManager.pop(progressBar);
         }
-    }
-    
-    @Override
-    public void postInit(FMLPostInitializationEvent event)
-    {
     }
     
     @Override

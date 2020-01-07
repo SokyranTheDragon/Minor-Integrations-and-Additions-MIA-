@@ -9,6 +9,7 @@ import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
@@ -57,14 +58,30 @@ public class ThermalExpansion implements IBaseMod
             SmelterManager.addRecycleRecipe(energy, new ItemStack(Items.CHAINMAIL_BOOTS), ingot, 2);
         }
         
-        for (IThermalExpansionIntegration integration : modIntegrations)
-            integration.addRecipes();
+        if (!modIntegrations.isEmpty())
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion addRecipes - setting up", modIntegrations.size());
+            for (IThermalExpansionIntegration integration : modIntegrations)
+            {
+                progressBar.step("ThermalExpansion addRecipes - " + integration.getModId().modId);
+                integration.addRecipes();
+            }
+            ProgressManager.pop(progressBar);
+        }
     }
     
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        for (IThermalExpansionIntegration integration : modIntegrations)
-            integration.addPostInitRecipes();
+        if (!modIntegrations.isEmpty())
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion addPostInitRecipes - setting up", modIntegrations.size());
+            for (IThermalExpansionIntegration integration : modIntegrations)
+            {
+                progressBar.step("ThermalExpansion addPostInitRecipes - " + integration.getModId().modId);
+                integration.addPostInitRecipes();
+            }
+            ProgressManager.pop(progressBar);
+        }
     }
 }

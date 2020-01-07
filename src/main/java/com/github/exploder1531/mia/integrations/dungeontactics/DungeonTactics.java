@@ -8,6 +8,7 @@ import com.github.exploder1531.mia.integrations.base.LootTableIntegrator.LootTab
 import com.google.common.collect.Lists;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import pegbeard.dungeontactics.handlers.DTBlocks;
@@ -59,18 +60,30 @@ public class DungeonTactics implements IBaseMod
     @Nullable
     public LootTableListener registerLootListener()
     {
-        if (!dungeonTacticsAdditionsEnabled || !registerCustomBagLoot)
+        if (!registerCustomBagLoot || modIntegrations.isEmpty())
             return null;
         
         LootBagLootTableHandler lootBag = new LootBagLootTableHandler();
+        
+        boolean anyListener = false;
+        ProgressManager.ProgressBar progressBar = ProgressManager.push("DungeonTactics registerLootBagListener - setting up", modIntegrations.size());
         for (IDungeonTacticsIntegration integration : modIntegrations)
         {
+            progressBar.step("DungeonTactics registerLootBagListener - " + integration.getModId().modId);
             ILootBagListener listener = integration.registerLootBagListener();
             if (listener != null)
+            {
+                anyListener = true;
                 lootBag.addIntegration(listener);
+            }
         }
         
-        return lootBag::insertBagLoot;
+        ProgressManager.pop(progressBar);
+        
+        if (anyListener)
+            return null;
+        else
+            return lootBag::insertBagLoot;
     }
     
     @Override
@@ -94,6 +107,12 @@ public class DungeonTactics implements IBaseMod
         OreDictionary.registerOre("foodBreadslice", DTItems.BREADSLICE);
         
         OreDictionary.registerOre("flourEqualswheat", DTItems.FLOUR);
+    }
+    
+    @FunctionalInterface
+    public interface ILootBagListener
+    {
+        void insertBagLoot(IDungeonTacticsIntegration.BagTypes type, LootPool loot);
     }
     
     private static class LootBagLootTableHandler
@@ -143,11 +162,5 @@ public class DungeonTactics implements IBaseMod
                     integration.insertBagLoot(bagTypes, main);
             }
         }
-    }
-    
-    @FunctionalInterface
-    public interface ILootBagListener
-    {
-        void insertBagLoot(IDungeonTacticsIntegration.BagTypes type, LootPool loot);
     }
 }

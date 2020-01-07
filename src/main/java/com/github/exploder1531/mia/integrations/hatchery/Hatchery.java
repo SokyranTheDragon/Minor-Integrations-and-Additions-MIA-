@@ -21,6 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -55,10 +56,14 @@ public class Hatchery implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
+        ProgressManager.ProgressBar progressBar = ProgressManager.push("Hatchery - setting up", modIntegrations.size() + 1);
+        
         if (externalIntegrationsEnabled)
         {
             for (IHatcheryIntegration integration : modIntegrations)
             {
+                progressBar.step("Hatchery - " + integration.getModId().modId);
+                
                 if (integration.isModEnabled())
                 {
                     loader.tryCreateNewLootFile(integration.getModId(), integration.getCurrentLootVersion(), integration.getDefaultEggDrops());
@@ -69,12 +74,15 @@ public class Hatchery implements IBaseMod
             }
         }
         
+        progressBar.step("Hatchery - finishing up");
+        
         if (registerCustomLuckyEggLoot)
             loader.loadRemainingFiles();
         ConfigLootHandler.drops.addAll(loader.drops);
         
         if (disableNestingPenChickenDisplay)
             TileEntityRendererDispatcher.instance.renderers.remove(NestPenTileEntity.class);
+        ProgressManager.pop(progressBar);
     }
     
     @Override

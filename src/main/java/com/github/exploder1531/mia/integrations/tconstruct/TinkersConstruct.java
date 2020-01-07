@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -72,7 +73,15 @@ public class TinkersConstruct implements IBaseMod
             }
         }
         
-        for (ITConstructIntegration integration : modIntegrations)
-            integration.init(event);
+        if (!modIntegrations.isEmpty())
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion init - setting up", modIntegrations.size());
+            for (ITConstructIntegration integration : modIntegrations)
+            {
+                progressBar.step("ThermalExpansion init - " + integration.getModId().modId);
+                integration.init(event);
+            }
+            ProgressManager.pop(progressBar);
+        }
     }
 }

@@ -28,6 +28,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 
@@ -60,6 +61,11 @@ public class JustEnoughResources implements IBaseMod
         {
             Mia.LOGGER.error("Could not access MobRegistry.registry, mob loot overrides won't work.");
         }
+    }
+    
+    public static ResourceLocation loadResource(String path)
+    {
+        return new ResourceLocation("mia", path);
     }
     
     @Override
@@ -116,8 +122,10 @@ public class JustEnoughResources implements IBaseMod
                     new PlantDrop(new ItemStack(Items.NETHER_WART), 2, 4));
         }
         
-        if (modIntegrations.size() > 0)
+        if (!modIntegrations.isEmpty())
         {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughResources entry registration - setting up", modIntegrations.size());
+            
             LootTableManager manager = LootTableHelper.getManager(world);
             IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
             mobTableBuilder = new MobTableBuilder(world);
@@ -125,6 +133,8 @@ public class JustEnoughResources implements IBaseMod
             Map<Object, ModIds> allMobs = Maps.newHashMap();
             for (IJerIntegration mod : modIntegrations.values())
             {
+                progressBar.step("JustEnoughResources entry registration - " + mod.getModId().modId);
+                
                 Set<Class<? extends EntityLivingBase>> modMobs = mod.addMobs(mobTableBuilder, ignoreMobOverrides);
                 for (Object modMob : modMobs)
                     allMobs.put(modMob, mod.getModId());
@@ -133,13 +143,23 @@ public class JustEnoughResources implements IBaseMod
                 mod.addDungeonLoot(dungeonRegistry);
                 mod.addPlantDrops(plantRegistry);
             }
+    
+            ProgressManager.pop(progressBar);
+    
+            Set<Map.Entry<ResourceLocation, EntityLivingBase>> entries = mobTableBuilder.getMobTables().entrySet();
             
-            for (Map.Entry<ResourceLocation, EntityLivingBase> entry : mobTableBuilder.getMobTables().entrySet())
+            if (!entries.isEmpty())
             {
-                ResourceLocation resource = entry.getKey();
-                EntityLivingBase entity = entry.getValue();
-                
-                modIntegrations.get(allMobs.get(entity.getClass())).configureMob(resource, entity, manager, mobRegistry);
+                progressBar = ProgressManager.push("JustEnoughResources mob configuration - setting up", entries.size());
+                for (Map.Entry<ResourceLocation, EntityLivingBase> entry : entries)
+                {
+                    ResourceLocation resource = entry.getKey();
+                    progressBar.step("JustEnoughResources mob configuration - " + resource.toString());
+                    EntityLivingBase entity = entry.getValue();
+                    
+                    modIntegrations.get(allMobs.get(entity.getClass())).configureMob(resource, entity, manager, mobRegistry);
+                }
+                ProgressManager.pop(progressBar);
             }
         }
     }
@@ -148,15 +168,6 @@ public class JustEnoughResources implements IBaseMod
     public void loadCompleted(FMLLoadCompleteEvent event)
     {
         set.jer = null;
-    }
-    
-    void overrideMobDrop(MobEntry entry)
-    {
-        if (ignoreMobOverrides.contains(entry.getEntity().getClass()))
-            return;
-        
-        for (IJerIntegration mod : modIntegrations.values())
-            mod.overrideExistingMobDrops(entry);
     }
 
 //    @Override
@@ -177,8 +188,12 @@ public class JustEnoughResources implements IBaseMod
 //        }
 //    }
     
-    public static ResourceLocation loadResource(String path)
+    void overrideMobDrop(MobEntry entry)
     {
-        return new ResourceLocation("mia", path);
+        if (ignoreMobOverrides.contains(entry.getEntity().getClass()))
+            return;
+        
+        for (IJerIntegration mod : modIntegrations.values())
+            mod.overrideExistingMobDrops(entry);
     }
 }

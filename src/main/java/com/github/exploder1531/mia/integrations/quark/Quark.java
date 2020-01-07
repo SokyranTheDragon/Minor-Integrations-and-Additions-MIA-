@@ -68,7 +68,7 @@ public class Quark implements IBaseMod
     public void preInit(FMLPreInitializationEvent event)
     {
         Feature ancientTomesFeature = ModuleLoader.featureInstances.get(AncientTomes.class);
-        if (addAncientTomes && ancientTomesFeature.isEnabled() && !modIntegrations.isEmpty())
+        if (addAncientTomes && !modIntegrations.isEmpty() && ancientTomesFeature.isEnabled())
         {
             List<String> tempEnchants = new ArrayList<>();
             for (IQuarkIntegration integration : modIntegrations)
@@ -100,7 +100,7 @@ public class Quark implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (addItemTooltips && event.getSide() == Side.CLIENT && isFeatureEnabled(EnchantedBooksShowItems.class))
+        if (addItemTooltips && event.getSide() == Side.CLIENT && !modIntegrations.isEmpty() && isFeatureEnabled(EnchantedBooksShowItems.class))
         {
             List<ItemStack> tempItems = new ArrayList<>();
             for (IQuarkIntegration integration : modIntegrations)
