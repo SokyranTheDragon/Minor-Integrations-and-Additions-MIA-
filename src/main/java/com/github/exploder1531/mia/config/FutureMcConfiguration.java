@@ -36,6 +36,12 @@ public class FutureMcConfiguration
     @Config.RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
+    @Config.Name("Enable Hatchery integration")
+    @Config.Comment("Set to false to completely disable integration with Hatchery")
+    @Config.LangKey("mia.config.shared.enable_hatchery_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableHatcheryIntegration = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

@@ -41,6 +41,8 @@ public class MoCreatures implements IBaseMod
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsMoCreaturesIntegration());
         if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
             modIntegration.accept(FUTURE_MC, new FutureMcMoCreaturesIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryMoCreaturesIntegration(enableHatcheryIntegration));
     }
     
     @Override

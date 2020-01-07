@@ -133,4 +133,49 @@ public class Hatchery implements IBaseMod
         
         event.register.registerObjectTag(new ItemStack(ModItems.hatcheryEgg), new AspectList().add(Aspect.LIFE, 5).add(Aspect.BEAST, 5));
     }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(ItemStack item, int weight, int minQuantity, int maxQuantity)
+    {
+        return new ConfigLootHandler.ItemDrop(item, weight, minQuantity, maxQuantity);
+    }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(Item item, int meta, int weight, int minQuantity, int maxQuantity)
+    {
+        return getDrop(new ItemStack(item, 1, meta), weight, minQuantity, maxQuantity);
+    }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(Item item, int weight, int minQuantity, int maxQuantity)
+    {
+        return getDrop(new ItemStack(item), weight, minQuantity, maxQuantity);
+    }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(Item item, int meta, int weight)
+    {
+        return getDrop(new ItemStack(item, 1, meta), weight, 1, 1);
+    }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(Item item, int weight)
+    {
+        return getDrop(new ItemStack(item), weight, 1, 1);
+    }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(Block item, int meta, int weight, int minQuantity, int maxQuantity)
+    {
+        return getDrop(new ItemStack(item, 1, meta), weight, minQuantity, maxQuantity);
+    }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(Block item, int weight, int minQuantity, int maxQuantity)
+    {
+        return getDrop(new ItemStack(item), weight, minQuantity, maxQuantity);
+    }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(Block item, int meta, int weight)
+    {
+        return getDrop(new ItemStack(item, 1, meta), weight, 1, 1);
+    }
+    
+    public static ConfigLootHandler.ItemDrop getDrop(Block item, int weight)
+    {
+        return getDrop(new ItemStack(item), weight, 1, 1);
+    }
 }

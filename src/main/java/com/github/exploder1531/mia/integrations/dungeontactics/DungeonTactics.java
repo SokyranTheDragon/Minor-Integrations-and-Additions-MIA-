@@ -42,6 +42,8 @@ public class DungeonTactics implements IBaseMod
             modIntegration.accept(FUTURE_MC, new FutureMcDungeonTacticsIntegration());
         if (enableQuarkIntegration && QUARK.isLoaded)
             modIntegration.accept(QUARK, new QuarkDungeonTacticsIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryDungeonTacticsIntegration(enableHatcheryIntegration));
     }
     
     @Override

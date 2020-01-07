@@ -22,5 +22,7 @@ public class Botania implements IBaseMod
             modIntegration.accept(JER, new JerBotaniaIntegration());
         if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
             modIntegration.accept(FUTURE_MC, new FutureMcBotaniaIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryBotaniaIntegration(enableHatcheryIntegration));
     }
 }

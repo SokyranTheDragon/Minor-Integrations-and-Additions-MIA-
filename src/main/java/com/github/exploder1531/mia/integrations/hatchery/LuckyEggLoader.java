@@ -12,11 +12,12 @@ import javax.annotation.Nonnull;
 import java.io.*;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 class LuckyEggLoader
 {
-    final Set<String> loadedFiles = Sets.newHashSet();
     public final List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
+    final Set<String> loadedFiles = Sets.newHashSet();
     
     void tryCreateNewLootFile(ModIds modId, int configVersion, @Nonnull List<ConfigLootHandler.ItemDrop> loot)
     {
@@ -41,7 +42,10 @@ class LuckyEggLoader
         if (config.modCanAutomaticallyReplaceConfig && config.configVersion < configVersion)
             writeConfig(lootFile, configVersion, loot);
         else
+        {
+            config.cleanLoot();
             drops.addAll(config.loot);
+        }
     }
     
     void loadRemainingFiles()
@@ -60,7 +64,10 @@ class LuckyEggLoader
                 LuckyEggLootConfig config = loadConfig(file);
                 
                 if (config != null)
+                {
+                    config.cleanLoot();
                     drops.addAll(config.loot);
+                }
             }
         }
     }
@@ -71,12 +78,11 @@ class LuckyEggLoader
         
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         LuckyEggLootConfig config = new LuckyEggLootConfig(configVersion, loot);
-    
+        
         try (FileWriter writer = new FileWriter(lootFile))
         {
             gson.toJson(config, writer);
-        }
-        catch (IOException ignored)
+        } catch (IOException ignored)
         {
             Mia.LOGGER.warn("Could not save lucky egg config: " + lootFile + ", config version: " + configVersion + ", drop entries: " + loot.size());
         }
@@ -90,8 +96,7 @@ class LuckyEggLoader
         try (Reader reader = new FileReader(lootFile))
         {
             config = gson.fromJson(reader, LuckyEggLootConfig.class);
-        }
-        catch (Exception ignored)
+        } catch (Exception ignored)
         {
             Mia.LOGGER.warn("Could not load lucky egg config: " + lootFile);
         }
@@ -109,6 +114,11 @@ class LuckyEggLoader
         {
             this.configVersion = configVersion;
             this.loot = loot;
+        }
+        
+        void cleanLoot()
+        {
+            loot = loot.stream().filter(entry -> entry.getItem() != null).collect(Collectors.toList());
         }
     }
 }

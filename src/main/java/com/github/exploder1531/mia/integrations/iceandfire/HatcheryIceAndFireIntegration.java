@@ -50,6 +50,8 @@ class HatcheryIceAndFireIntegration implements IHatcheryIntegration
         List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
     
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.silverIngot), 4, 1, 1));
+        drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.dragonsteel_fire_ingot), 1, 1, 1));
+        drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.dragonsteel_ice_ingot), 1, 1, 1));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.sapphireGem), 1, 1, 1));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.pixie_dust), 2, 1, 2));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.rotten_egg), 1, 1, 1));
@@ -58,14 +60,15 @@ class HatcheryIceAndFireIntegration implements IHatcheryIntegration
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.dragonbone_arrow), 5, 1, 3));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.sea_serpent_arrow), 5, 1, 3));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.manuscript), 7, 2, 4));
-        drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.myrmex_desert_resin), 10, 1, 4));
-        drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.myrmex_jungle_resin), 5, 1, 3));
+        drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.myrmex_desert_resin), 5, 1, 4));
+        drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.myrmex_jungle_resin), 5, 1, 4));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.myrmex_desert_chitin), 3, 1, 3));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.myrmex_jungle_chitin), 3, 1, 3));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.myrmex_stinger), 6, 1, 1));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.fishing_spear), 5, 1, 1));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.witherbone), 10, 1, 3));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.dragonbone), 3, 1, 2));
+        drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.shiny_scales), 3, 1, 2));
         
         return drops;
     }

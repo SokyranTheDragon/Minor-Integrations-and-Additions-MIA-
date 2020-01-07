@@ -6,8 +6,7 @@ import com.github.exploder1531.mia.integrations.base.IModIntegration;
 
 import java.util.function.BiConsumer;
 
-import static com.github.exploder1531.mia.config.ExtraBotanyConfig.enableDungeonTacticsIntegration;
-import static com.github.exploder1531.mia.config.ExtraBotanyConfig.enableTeIntegration;
+import static com.github.exploder1531.mia.config.ExtraBotanyConfig.*;
 import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class ExtraBotany implements IBaseMod
@@ -23,5 +22,7 @@ public class ExtraBotany implements IBaseMod
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionExtraBotanyIntegration());
         if (JER.isLoaded)
             modIntegration.accept(JER, new JerExtraBotanyIntegration());
+        if (EXTRABOTANY.isLoaded)
+            modIntegration.accept(EXTRABOTANY, new HatcheryExtraBotanyIntegration(enableHatcheryIntegration));
     }
 }

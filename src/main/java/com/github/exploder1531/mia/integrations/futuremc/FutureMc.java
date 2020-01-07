@@ -35,6 +35,8 @@ public class FutureMc implements IBaseMod
             modIntegration.accept(QUARK, new QuarkFutureMcIntegration());
         if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionFutureMcIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryFutureMcIntegration(enableHatcheryIntegration));
     }
     
     @Override

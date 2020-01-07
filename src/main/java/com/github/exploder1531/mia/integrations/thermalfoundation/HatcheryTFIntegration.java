@@ -10,7 +10,7 @@ import com.google.common.collect.Lists;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class HatcheryTFIntegration implements IHatcheryIntegration
+class HatcheryTFIntegration implements IHatcheryIntegration
 {
     private final boolean modEnabled;
     
