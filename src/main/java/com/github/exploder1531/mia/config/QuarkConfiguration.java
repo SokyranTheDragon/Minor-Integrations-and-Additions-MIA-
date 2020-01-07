@@ -56,6 +56,11 @@ public class QuarkConfiguration
     @RequiresMcRestart
     public static boolean addAncientTomes = true;
     
+    @Name("Add enchanted book item tooltips for supported mods")
+    @Comment("If enabled, items from supported mods will be automatically added as enchanted book tooltips")
+    @LangKey("mia.config.quark.add_item_tooltip")
+    public static boolean addItemTooltips = true;
+    
     @Name("Add ancient tome crafting in supported mods")
     @Comment("If enabled, all supported mods that allow for enchanted book crafting will have ancient tomes recipes added")
     @LangKey("mia.config.quark.ancient_tomes_crafting")

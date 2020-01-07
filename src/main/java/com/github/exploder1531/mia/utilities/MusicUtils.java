@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -70,16 +71,20 @@ public class MusicUtils
             return;
         }
         
-        ItemStack record = musicPlayer.getCurrentSong();
-        if (!record.isEmpty() && record.getItem() instanceof ItemRecord)
+        ItemStack item = musicPlayer.getCurrentSong();
+        if (!item.isEmpty() && item.getItem() instanceof ItemRecord)
         {
+            ItemRecord record = (ItemRecord) item.getItem();
+            
             PositionedSoundRecord currentSong = new PositionedSoundRecord(
-                    ((ItemRecord) record.getItem()).getSound().getSoundName(), SoundCategory.MASTER,
+                    record.getSound().getSoundName(), SoundCategory.MASTER,
                     4.0f * MiaConfig.musicPlayerVolume / 100f, 1.0f,
                     false, 0, ISound.AttenuationType.NONE, 0, 0, 0);
             listener.addListener(musicPlayer.itemUuid, currentSong);
             currentlyPlayedSongs.put(musicPlayer.itemUuid, currentSong);
             soundHandler.playSound(currentSong);
+            
+            Minecraft.getMinecraft().player.sendStatusMessage(new TextComponentString(record.getRecordNameLocal()), true);
         }
     }
     

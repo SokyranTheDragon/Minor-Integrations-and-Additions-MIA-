@@ -30,8 +30,9 @@ public class MiaConfig
     @SideOnly(Side.CLIENT)
     public static int musicPlayerVolume = 30;
     
-    @Name("Replaces all raw meat drops with cooked ones for mobs that died while on fire")
-    @Comment("Replaces any raw meat dropped by creatures that were set on fire with their cooked version (if possible), similarly to vanilla mobs")
+    @Name("Replaces all raw meat drops with cooked ones")
+    @Comment({ "Replaces raw meat dropped by mobs on fire with their cooked version (if possible)",
+            "This is done to match modded mobs with vanilla behavior, as not all modded mobs do this" })
     @LangKey("mia.config.base.add_cooked_drops")
     public static boolean addCookedDrops = true;
     

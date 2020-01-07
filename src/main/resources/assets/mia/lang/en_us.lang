@@ -16,6 +16,13 @@ mia.config.hatchery.title=Hatchery
 mia.config.thaumcraft.title=Thaumcraft
 mia.config.mocreatures.title=Mo' Creatures
 mia.config.quark.title=Quark
+mia.config.future_mc.title=FutureMC
+mia.config.botania.title=Botania
+mia.config.extrabotany.title=ExtraBotany
+mia.config.cofh_core.title=CoFH Core
+mia.config.dungeon_tactics.title=Dungeon Tactics
+mia.config.harvestcraft.title=Harvestcraft
+mia.config.jei.title=Just Enough Items
 
 ## Tooltips
 
@@ -31,6 +38,21 @@ mia.config.thaumcraft.title.tooltip=Browse and manage Thaumcraft settings
 mia.config.mocreatures.title.tooltip=Browse and manage Mo' Creatures settings
 mia.config.quark.title.tooltip=Browse and manage Quark settings
 mia.config.future_mc.title.tooltip=Browse and manage FutureMC settings
+mia.config.botania.title.tooltip=Browse and manage Botania settings
+mia.config.extrabotany.title.tooltip=Browse and manage ExtraBotany settings
+mia.config.cofh_core.title.tooltip=Browse and manage CoFH Core settings
+mia.config.dungeon_tactics.title.tooltip=Browse and manage Dungeon Tactics settings
+mia.config.harvestcraft.title.tooltip=Browse and manage Harvestcraft settings
+mia.config.jei.title.tooltip=Browse and manage Just Enough Items settings
+
+###
+### To anyone who might be translating anything below (until TOP integrations section):
+###
+### Make sure those actually fit in the screen,
+### or at least as much as possible - it's possible
+### to get the full title while hovering over it, however,
+### it's still a good idea to try to make it fit
+###
 
 ## Shared
 
@@ -59,8 +81,8 @@ mia.config.quark.additions_enabled=Enable Quark additions
 
 ## Mia specific
 
-mia.config.base.add_cooked_drops=Replace raw meat drops with cooked one while mob is on fire
-mia.config.base.music_player_volume=Volume of the songs played by the music player
+mia.config.base.add_cooked_drops=Add cooked mob drops
+mia.config.base.music_player_volume=Music player volume
 
 ## Mod specific
 
@@ -69,8 +91,9 @@ mia.config.mocreatures.buff_silver_weapons=Buff silver weapons from other mods
 mia.config.mocreatures.replace_fish_drops=Replace fish drops
 mia.config.dungeon_tactics.register_custom_loot=Register custom loot for loot bags
 mia.config.harvestcraft.squid_drops_calamari=Squid drops calamari
-mia.config.quark.add_ancient_tomes=Automatically add all supported enchantments as ancient tomes
-mia.config.quark.ancient_tomes_crafting=Add ancient tome crafting for mods supporting enchanted book creation
+mia.config.quark.add_ancient_tomes=Add all supported enchantments as ancient tomes
+mia.config.quark.add_item_tooltip=Add supported items to enchanted book tooltips
+mia.config.quark.ancient_tomes_crafting=Add ancient tome crafting
 
 
 
