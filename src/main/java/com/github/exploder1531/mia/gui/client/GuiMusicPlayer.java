@@ -78,6 +78,8 @@ public class GuiMusicPlayer extends GuiContainer
                         I18n.format("mia.gui.music_player.tooltip.repeat"),
                         I18n.format("mia.gui.music_player.tooltip.autoplay_required")), mouseX, mouseY);
         }
+        else if (musicToggleButton.isMouseOver() && !MusicUtils.isMusicOn())
+            this.drawHoveringText(I18n.format("mia.gui.music_player.tooltip.sound_off"), mouseX, mouseY);
     }
     
     @Override
@@ -181,7 +183,7 @@ public class GuiMusicPlayer extends GuiContainer
             else
                 musicToggleButton.isAltVariant = false;
         }
-        musicToggleButton.enabled = isEnabled;
+        musicToggleButton.enabled = isEnabled && MusicUtils.isMusicOn();
         playNextButton.enabled = isEnabled && inventory.getSizeInventory() > 1;
         playPreviousButton.enabled = isEnabled && inventory.getSizeInventory() > 1;
         

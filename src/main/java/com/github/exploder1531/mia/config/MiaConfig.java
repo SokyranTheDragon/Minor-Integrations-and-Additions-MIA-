@@ -6,21 +6,33 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import static net.minecraftforge.common.config.Config.*;
 
 @Config(modid = Mia.MODID, name = "mia/base")
-@Config.LangKey("mia.config.base.title")
+@LangKey("mia.config.base.title")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class MiaConfig
 {
-    @Config.Name("Enable music player")
-    @Config.Comment("Set to false to completely disable the music player item")
-    @Config.LangKey("mia.config.base.music_player")
-    @Config.RequiresMcRestart
+    @Name("Enable music player")
+    @Comment("Set to false to completely disable the music player item")
+    @LangKey("mia.config.base.music_player")
+    @RequiresMcRestart
     public static boolean musicPlayerEnabled = true;
     
-    @Config.Name("Replaces all raw meat drops with cooked ones while animal died on fire")
-    @Config.Comment("Replaces any raw meat dropped by creatures that were set on fire with their cooked version (if possible), similarly to vanilla mobs")
-    @Config.LangKey("mia.config.shared.add_cooked_drops")
+    @Name("Music player volume")
+    @Comment("Volume of the songs played by music player")
+    @LangKey("mia.config.base.music_player_volume")
+    @RangeInt(min = 0, max = 100)
+    @SlidingOption
+    @SideOnly(Side.CLIENT)
+    public static int musicPlayerVolume = 30;
+    
+    @Name("Replaces all raw meat drops with cooked ones for mobs that died while on fire")
+    @Comment("Replaces any raw meat dropped by creatures that were set on fire with their cooked version (if possible), similarly to vanilla mobs")
+    @LangKey("mia.config.base.add_cooked_drops")
     public static boolean addCookedDrops = true;
     
     
@@ -34,7 +46,7 @@ public class MiaConfig
     {
         if (event.getModID().equals(Mia.MODID))
         {
-            ConfigManager.sync(Mia.MODID, Config.Type.INSTANCE);
+            ConfigManager.sync(Mia.MODID, Type.INSTANCE);
         }
     }
 }

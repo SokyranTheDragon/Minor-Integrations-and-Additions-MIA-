@@ -59,7 +59,8 @@ mia.config.quark.additions_enabled=Enable Quark additions
 
 ## Mia specific
 
-mia.config.shared.add_cooked_drops=Replace raw meat drops with cooked one while mob is on fire
+mia.config.base.add_cooked_drops=Replace raw meat drops with cooked one while mob is on fire
+mia.config.base.music_player_volume=Volume of the songs played by the music player
 
 ## Mod specific
 
@@ -224,6 +225,7 @@ mia.gui.music_player.tooltip.shuffle_alt=Randomly pick the next song
 mia.gui.music_player.tooltip.repeat=Play the next song when the current one finishes
 mia.gui.music_player.tooltip.repeat_alt=Repeat current song when it finishes
 mia.gui.music_player.tooltip.autoplay_required=(Autoplay needs to be on)
+mia.gui.music_player.tooltip.sound_off=Can't play music due to volume being disabled
 
 
 
@@ -247,4 +249,5 @@ key.music_player_previous=Play previous song
 ###############################
 ### Generic texts, reusable ###
 ###############################
+
 mia.generic.chance=Chance: %s%%
