@@ -42,6 +42,12 @@ public class FutureMcConfiguration
     @Config.RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
     
+    @Config.Name("Enable Harvestcraft integration")
+    @Config.Comment("Set to false to completely disable integration with Harvestcraft")
+    @Config.LangKey("mia.config.shared.enable_harvestcraft_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableHarvestcraftIntegration = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

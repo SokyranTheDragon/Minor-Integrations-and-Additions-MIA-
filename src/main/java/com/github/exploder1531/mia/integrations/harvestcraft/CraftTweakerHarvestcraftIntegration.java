@@ -1,15 +1,9 @@
 package com.github.exploder1531.mia.integrations.harvestcraft;
 
-import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.utilities.ItemStackUtils;
-import com.pam.harvestcraft.item.GrinderRecipes;
-import com.pam.harvestcraft.item.PresserRecipes;
-import com.pam.harvestcraft.item.WaterFilterRecipes;
 import com.pam.harvestcraft.tileentities.MarketData;
-import com.pam.harvestcraft.tileentities.MarketItems;
 import com.pam.harvestcraft.tileentities.ShippingBinData;
-import com.pam.harvestcraft.tileentities.ShippingBinItems;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenDoc;
@@ -23,108 +17,16 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
+
+import static com.github.exploder1531.mia.integrations.harvestcraft.HarvestcraftRecipes.*;
 
 @ZenClass("mods.mia.harvestcraft")
 @ZenRegister
 @ModOnly(ModIds.ConstantIds.HARVESTCRAFT)
 public class CraftTweakerHarvestcraftIntegration
 {
-    public static final Collection<MarketData> marketRecipes;
-    public static final Collection<ShippingBinData> shippingRecipes;
-    public static final Map<ItemStack, ItemStack[]> pressingRecipes;
-    public static final Map<ItemStack, ItemStack[]> grindingRecipes;
-    public static final Map<ItemStack, ItemStack[]> waterFilterRecipes;
-    
-    static
-    {
-        Collection<MarketData> tempMarket = null;
-        Collection<ShippingBinData> tempShipping = null;
-        Map<ItemStack, ItemStack[]> tempPressing = null;
-        Map<ItemStack, ItemStack[]> tempGrinding = null;
-        Map<ItemStack, ItemStack[]> tempWaterFiltering = null;
-        
-        try
-        {
-            Field items = MarketItems.class.getDeclaredField("items");
-            items.setAccessible(true);
-            Object o = items.get(null);
-            
-            if (o instanceof Collection<?>)
-                //noinspection unchecked
-                tempMarket = (Collection<MarketData>) o;
-        } catch (NoSuchFieldException | IllegalAccessException e)
-        {
-            Mia.LOGGER.error("Could not access MarketItems.items, CraftTweaker Harvestcraft integration might not work properly");
-        }
-        
-        try
-        {
-            Field items = ShippingBinItems.class.getDeclaredField("items");
-            items.setAccessible(true);
-            Object o = items.get(null);
-            
-            if (o instanceof Collection<?>)
-                //noinspection unchecked
-                tempShipping = (Collection<ShippingBinData>) o;
-        } catch (NoSuchFieldException | IllegalAccessException e)
-        {
-            Mia.LOGGER.error("Could not access MarketBin.items, CraftTweaker Harvestcraft integration might not work properly");
-        }
-        
-        try
-        {
-            Field items = PresserRecipes.class.getDeclaredField("pressingList");
-            items.setAccessible(true);
-            Object o = items.get(null);
-            
-            if (o instanceof Map<?, ?>)
-                //noinspection unchecked
-                tempPressing = (Map<ItemStack, ItemStack[]>) o;
-        } catch (NoSuchFieldException | IllegalAccessException e)
-        {
-            Mia.LOGGER.error("Could not access PressingRecipes.pressingList, CraftTweaker Harvestcraft integration might not work properly");
-        }
-        
-        try
-        {
-            Field items = GrinderRecipes.class.getDeclaredField("grindingList");
-            items.setAccessible(true);
-            Object o = items.get(null);
-            
-            if (o instanceof Map<?, ?>)
-                //noinspection unchecked
-                tempGrinding = (Map<ItemStack, ItemStack[]>) o;
-        } catch (NoSuchFieldException | IllegalAccessException e)
-        {
-            Mia.LOGGER.error("Could not access GrinderRecipes.grindingList, CraftTweaker Harvestcraft integration might not work properly");
-        }
-        
-        try
-        {
-            Field items = WaterFilterRecipes.class.getDeclaredField("waterfilterList");
-            items.setAccessible(true);
-            Object o = items.get(null);
-            
-            if (o instanceof Map<?, ?>)
-                //noinspection unchecked
-                tempWaterFiltering = (Map<ItemStack, ItemStack[]>) o;
-        } catch (NoSuchFieldException | IllegalAccessException e)
-        {
-            Mia.LOGGER.error("Could not access WaterFilterRecipes.waterfilterList, CraftTweaker Harvestcraft integration might not work properly");
-        }
-        
-        marketRecipes = tempMarket;
-        shippingRecipes = tempShipping;
-        pressingRecipes = tempPressing;
-        grindingRecipes = tempGrinding;
-        waterFilterRecipes = tempWaterFiltering;
-    }
-    
     private static Set<ItemStack> marketRemove = new HashSet<>();
     private static Set<ItemStack> shippingBinRemove = new HashSet<>();
     private static Set<ItemStack> pressingRemove = new HashSet<>();
@@ -133,35 +35,50 @@ public class CraftTweakerHarvestcraftIntegration
     
     public static void applyRemovals()
     {
-        for (ItemStack item : marketRemove)
-            marketRecipes.removeIf(recipe -> ItemStackUtils.areItemStackEqualIgnoreCount(item, recipe.getItem()));
-        for (ItemStack item : shippingBinRemove)
-            shippingRecipes.removeIf(recipe -> ItemStackUtils.areItemStackEqualIgnoreCount(item, recipe.getCurrency()));
-        for (ItemStack item : pressingRemove)
+        if (marketRecipes != null)
         {
-            java.util.Optional<ItemStack> result = pressingRecipes.keySet().stream().filter(entry -> isSameItem(item, entry)).findAny();
-            if (result.isPresent())
-                pressingRecipes.remove(result.get());
-            else
-                CraftTweakerAPI.logInfo("Cannot remove non-existent recipe, input: " + item.toString());
+            for (ItemStack item : marketRemove)
+                marketRecipes.removeIf(recipe -> ItemStackUtils.areItemStackEqualIgnoreCount(item, recipe.getItem()));
         }
-        for (ItemStack item : grindingRemove)
+        if (shippingRecipes != null)
         {
-            java.util.Optional<ItemStack> result = grindingRecipes.keySet().stream().filter(entry -> isSameItem(item, entry)).findAny();
-            if (result.isPresent())
-                grindingRecipes.remove(result.get());
-            else
-                CraftTweakerAPI.logInfo("Cannot remove non-existent recipe, input: " + item.toString());
+            for (ItemStack item : shippingBinRemove)
+                shippingRecipes.removeIf(recipe -> ItemStackUtils.areItemStackEqualIgnoreCount(item, recipe.getCurrency()));
         }
-        for (ItemStack item : waterFilteringRemove)
+        if (pressingRecipes != null)
         {
-            java.util.Optional<ItemStack> result = waterFilterRecipes.keySet().stream().filter(entry -> isSameItem(item, entry)).findAny();
-            if (result.isPresent())
-                waterFilterRecipes.remove(result.get());
-            else
-                CraftTweakerAPI.logInfo("Cannot remove non-existent recipe, input: " + item.toString());
+            for (ItemStack item : pressingRemove)
+            {
+                java.util.Optional<ItemStack> result = pressingRecipes.keySet().stream().filter(entry -> isSameItem(item, entry)).findAny();
+                if (result.isPresent())
+                    pressingRecipes.remove(result.get());
+                else
+                    CraftTweakerAPI.logInfo("Cannot remove non-existent recipe, input: " + item.toString());
+            }
         }
-    
+        if (grindingRecipes != null)
+        {
+            for (ItemStack item : grindingRemove)
+            {
+                java.util.Optional<ItemStack> result = grindingRecipes.keySet().stream().filter(entry -> isSameItem(item, entry)).findAny();
+                if (result.isPresent())
+                    grindingRecipes.remove(result.get());
+                else
+                    CraftTweakerAPI.logInfo("Cannot remove non-existent recipe, input: " + item.toString());
+            }
+        }
+        if (waterFilterRecipes != null)
+        {
+            for (ItemStack item : waterFilteringRemove)
+            {
+                java.util.Optional<ItemStack> result = waterFilterRecipes.keySet().stream().filter(entry -> isSameItem(item, entry)).findAny();
+                if (result.isPresent())
+                    waterFilterRecipes.remove(result.get());
+                else
+                    CraftTweakerAPI.logInfo("Cannot remove non-existent recipe, input: " + item.toString());
+            }
+        }
+        
         marketRemove = null;
         shippingBinRemove = null;
         pressingRemove = null;
@@ -207,18 +124,13 @@ public class CraftTweakerHarvestcraftIntegration
         if (cost > inputStack.getMaxStackSize())
             cost = inputStack.getMaxStackSize();
         
-        int finalCost = cost;
-        if (marketRecipes.stream().noneMatch(recipe ->
-                recipe.getPrice() == finalCost
-                        && ItemStackUtils.areItemStackEqualIgnoreCount(recipe.getCurrency(), inputStack)
-                        && ItemStackUtils.areItemStackEqualIgnoreCount(recipe.getItem(), outputStack)))
+        if (!doesMarketRecipeExist(outputStack, inputStack))
             marketRecipes.add(new MarketData(outputStack, inputStack, cost));
         else
         {
             CraftTweakerAPI.logWarning("Market recipe already exists!");
             CraftTweakerAPI.logWarning("Input: " + inputStack.toString());
             CraftTweakerAPI.logWarning("Output: " + outputStack.toString());
-            CraftTweakerAPI.logWarning("Cost: " + cost);
         }
     }
     
@@ -278,11 +190,7 @@ public class CraftTweakerHarvestcraftIntegration
         if (cost > inputStack.getMaxStackSize())
             cost = inputStack.getMaxStackSize();
         
-        int finalCost = cost;
-        if (shippingRecipes.stream().noneMatch(recipe ->
-                recipe.getPrice() == finalCost
-                        && ItemStackUtils.areItemStackEqualIgnoreCount(recipe.getCurrency(), outputStack)
-                        && ItemStackUtils.areItemStackEqualIgnoreCount(recipe.getItem(), inputStack)))
+        if (!doesShippingRecipeExist(inputStack, outputStack))
             shippingRecipes.add(new ShippingBinData(outputStack, inputStack, cost));
         else
         {
@@ -350,7 +258,7 @@ public class CraftTweakerHarvestcraftIntegration
         
         ItemStack stackInput = CraftTweakerMC.getItemStack(input);
         
-        if (pressingRecipes.keySet().stream().anyMatch(stack -> isSameItem(stack, stackInput)))
+        if (doesPressingRecipeExist(stackInput))
         {
             CraftTweakerAPI.logError("Recipe using provided input already exists! Item: " + stackInput.toString());
             return;
@@ -363,7 +271,7 @@ public class CraftTweakerHarvestcraftIntegration
         else
             stackOutputSecond = CraftTweakerMC.getItemStack(secondOutput);
         
-        pressingRecipes.put(stackInput, new ItemStack[] { stackOutputFirst, stackOutputSecond });
+        pressingRecipes.put(stackInput, new ItemStack[]{ stackOutputFirst, stackOutputSecond });
     }
     
     @ZenMethod
@@ -423,7 +331,7 @@ public class CraftTweakerHarvestcraftIntegration
         
         ItemStack stackInput = CraftTweakerMC.getItemStack(input);
         
-        if (grindingRecipes.keySet().stream().anyMatch(stack -> isSameItem(stack, stackInput)))
+        if (doesGrindingRecipeExist(stackInput))
         {
             CraftTweakerAPI.logError("Recipe using provided input already exists! Item: " + stackInput.toString());
             return;
@@ -436,7 +344,7 @@ public class CraftTweakerHarvestcraftIntegration
         else
             stackOutputSecond = CraftTweakerMC.getItemStack(secondOutput);
         
-        grindingRecipes.put(stackInput, new ItemStack[] { stackOutputFirst, stackOutputSecond });
+        grindingRecipes.put(stackInput, new ItemStack[]{ stackOutputFirst, stackOutputSecond });
     }
     
     @ZenMethod
@@ -496,7 +404,7 @@ public class CraftTweakerHarvestcraftIntegration
         
         ItemStack stackInput = CraftTweakerMC.getItemStack(input);
         
-        if (waterFilterRecipes.keySet().stream().anyMatch(stack -> isSameItem(stack, stackInput)))
+        if (doesFilteringRecipeExist(stackInput))
         {
             CraftTweakerAPI.logError("Recipe using provided input already exists! Item: " + stackInput.toString());
             return;
@@ -508,8 +416,8 @@ public class CraftTweakerHarvestcraftIntegration
             stackOutputSecond = ItemStack.EMPTY;
         else
             stackOutputSecond = CraftTweakerMC.getItemStack(secondOutput);
-    
-        waterFilterRecipes.put(stackInput, new ItemStack[] { stackOutputFirst, stackOutputSecond });
+        
+        waterFilterRecipes.put(stackInput, new ItemStack[]{ stackOutputFirst, stackOutputSecond });
     }
     
     @ZenMethod

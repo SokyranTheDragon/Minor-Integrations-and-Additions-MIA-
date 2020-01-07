@@ -18,6 +18,12 @@ public class HarvestcraftConfiguration
     @Config.RequiresMcRestart
     public static boolean harvestcraftAdditionsEnabled = true;
     
+    @Config.Name("Enable external integrations")
+    @Config.Comment("Set to false to prevent other mods from integrating with FutureMC")
+    @Config.LangKey("mia.config.shared.enable_external_integrations")
+    @Config.RequiresMcRestart
+    public static boolean externalIntegrationsEnabled = true;
+    
     @Config.Name("Enable Thermal Expansion integration")
     @Config.Comment("Set to false to completely disable integration with Thermal Expansion")
     @Config.LangKey("mia.config.shared.enable_thermal_expansion_integration")

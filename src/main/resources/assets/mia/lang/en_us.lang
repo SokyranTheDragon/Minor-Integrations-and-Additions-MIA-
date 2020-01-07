@@ -65,6 +65,7 @@ mia.config.shared.enable_hatchery_integration=Enable Hatchery integration
 mia.config.shared.enable_dungeon_tactics_integration=Enable Dungeon Tactics integration
 mia.config.shared.enable_quark_integration=Enable Quark integration
 mia.config.shared.enable_future_mc_integration=Enable FutureMC integration
+mia.config.shared.enable_harvestcraft_integration=Enable Harvestcraft integration
 
 ## Additions text
 

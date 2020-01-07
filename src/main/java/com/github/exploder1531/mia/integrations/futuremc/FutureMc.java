@@ -37,6 +37,8 @@ public class FutureMc implements IBaseMod
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionFutureMcIntegration());
         if (HATCHERY.isLoaded)
             modIntegration.accept(HATCHERY, new HatcheryFutureMcIntegration(enableHatcheryIntegration));
+        if (enableHarvestcraftIntegration && HARVESTCRAFT.isLoaded)
+            modIntegration.accept(HARVESTCRAFT, new HarvestcraftFutureMcIntegration());
     }
     
     @Override
