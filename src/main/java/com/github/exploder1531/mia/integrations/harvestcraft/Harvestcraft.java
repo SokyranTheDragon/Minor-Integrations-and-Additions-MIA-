@@ -64,7 +64,7 @@ public class Harvestcraft implements IBaseMod
         
         if (!modIntegrations.isEmpty())
         {
-            ProgressManager.ProgressBar progressBar = ProgressManager.push("Harvestcraft addRecipes - ", modIntegrations.size());
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Harvestcraft addRecipes", modIntegrations.size());
             
             for (IHarvestcraftIntegration integration : modIntegrations)
             {

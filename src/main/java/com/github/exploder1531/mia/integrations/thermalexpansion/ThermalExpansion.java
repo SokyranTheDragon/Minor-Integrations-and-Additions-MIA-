@@ -60,10 +60,10 @@ public class ThermalExpansion implements IBaseMod
         
         if (!modIntegrations.isEmpty())
         {
-            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion addRecipes - setting up", modIntegrations.size());
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion addRecipes", modIntegrations.size());
             for (IThermalExpansionIntegration integration : modIntegrations)
             {
-                progressBar.step("ThermalExpansion addRecipes - " + integration.getModId().modId);
+                progressBar.step(integration.getModId().modId);
                 integration.addRecipes();
             }
             ProgressManager.pop(progressBar);
@@ -75,10 +75,10 @@ public class ThermalExpansion implements IBaseMod
     {
         if (!modIntegrations.isEmpty())
         {
-            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion addPostInitRecipes - setting up", modIntegrations.size());
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion addPostInitRecipes", modIntegrations.size());
             for (IThermalExpansionIntegration integration : modIntegrations)
             {
-                progressBar.step("ThermalExpansion addPostInitRecipes - " + integration.getModId().modId);
+                progressBar.step(integration.getModId().modId);
                 integration.addPostInitRecipes();
             }
             ProgressManager.pop(progressBar);

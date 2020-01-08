@@ -87,7 +87,8 @@ public class ExtraUtilities2 implements IBaseMod
         
         if (!modIntegrations.isEmpty())
         {
-            ProgressManager.ProgressBar progressBar = ProgressManager.push("ExtraUtilities2 addRecipes - setting up", modIntegrations.size());
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("ExtraUtilities2 addRecipes", modIntegrations.size() + 1);
+            progressBar.step("setting up");
             
             MachineSlotItem slimeSecondary;
             try
@@ -112,7 +113,7 @@ public class ExtraUtilities2 implements IBaseMod
             
             for (IExtraUtilsIntegration integration : modIntegrations)
             {
-                progressBar.step("ExtraUtilities2 addRecipes - " + integration.getModId().modId);
+                progressBar.step(integration.getModId().modId);
                 integration.addRecipes(slimeSecondary);
             }
             ProgressManager.pop(progressBar);

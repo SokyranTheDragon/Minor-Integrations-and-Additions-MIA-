@@ -75,10 +75,10 @@ public class TinkersConstruct implements IBaseMod
         
         if (!modIntegrations.isEmpty())
         {
-            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion init - setting up", modIntegrations.size());
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion init", modIntegrations.size());
             for (ITConstructIntegration integration : modIntegrations)
             {
-                progressBar.step("ThermalExpansion init - " + integration.getModId().modId);
+                progressBar.step(integration.getModId().modId);
                 integration.init(event);
             }
             ProgressManager.pop(progressBar);

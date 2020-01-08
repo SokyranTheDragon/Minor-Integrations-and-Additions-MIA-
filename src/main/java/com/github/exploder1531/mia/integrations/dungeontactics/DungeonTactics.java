@@ -68,10 +68,10 @@ public class DungeonTactics implements IBaseMod
         LootBagLootTableHandler lootBag = new LootBagLootTableHandler();
         
         boolean anyListener = false;
-        ProgressManager.ProgressBar progressBar = ProgressManager.push("DungeonTactics registerLootBagListener - setting up", modIntegrations.size());
+        ProgressManager.ProgressBar progressBar = ProgressManager.push("DungeonTactics registerLootBagListener", modIntegrations.size());
         for (IDungeonTacticsIntegration integration : modIntegrations)
         {
-            progressBar.step("DungeonTactics registerLootBagListener - " + integration.getModId().modId);
+            progressBar.step(integration.getModId().modId);
             ILootBagListener listener = integration.registerLootBagListener();
             if (listener != null)
             {

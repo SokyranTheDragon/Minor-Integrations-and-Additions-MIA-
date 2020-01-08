@@ -67,10 +67,10 @@ public class FutureMc implements IBaseMod
         
         if (!modIntegrations.isEmpty())
         {
-            ProgressManager.ProgressBar progressBar = ProgressManager.push("FutureMc addRecipes - setting up", modIntegrations.size());
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("FutureMc addRecipes", modIntegrations.size());
             for (IFutureMcIntegration integration : modIntegrations)
             {
-                progressBar.step("FutureMc addRecipes - " + integration.getModId().modId);
+                progressBar.step(integration.getModId().modId);
                 integration.addRecipes();
             }
             ProgressManager.pop(progressBar);

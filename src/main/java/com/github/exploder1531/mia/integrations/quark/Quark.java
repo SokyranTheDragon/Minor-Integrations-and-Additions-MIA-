@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -70,9 +71,16 @@ public class Quark implements IBaseMod
         Feature ancientTomesFeature = ModuleLoader.featureInstances.get(AncientTomes.class);
         if (addAncientTomes && !modIntegrations.isEmpty() && ancientTomesFeature.isEnabled())
         {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Quark ancient tomes", modIntegrations.size() + 1);
+            
             List<String> tempEnchants = new ArrayList<>();
             for (IQuarkIntegration integration : modIntegrations)
+            {
+                progressBar.step(integration.getModId().modId);
                 tempEnchants.addAll(integration.getAllowedAncientTomeEnchants());
+            }
+            
+            progressBar.step("adding tomes");
             
             if (!tempEnchants.isEmpty())
             {
@@ -94,6 +102,8 @@ public class Quark implements IBaseMod
                     Mia.LOGGER.error("Could not access Quark AncientTomes.enchantNames, no default ancient tome insertions will be added.");
                 }
             }
+            
+            ProgressManager.pop(progressBar);
         }
     }
     
@@ -102,9 +112,16 @@ public class Quark implements IBaseMod
     {
         if (addItemTooltips && event.getSide() == Side.CLIENT && !modIntegrations.isEmpty() && isFeatureEnabled(EnchantedBooksShowItems.class))
         {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Quark enchantment tooltips", modIntegrations.size() + 1);
+    
             List<ItemStack> tempItems = new ArrayList<>();
             for (IQuarkIntegration integration : modIntegrations)
+            {
+                progressBar.step(integration.getModId().modId);
                 tempItems.addAll(integration.getItemsToShowEnchantmentsFor());
+            }
+            
+            progressBar.step("adding tooltips");
         
             if (!tempItems.isEmpty())
             {
@@ -127,6 +144,8 @@ public class Quark implements IBaseMod
                     Mia.LOGGER.error("Could not access Quark EnchantedBooksShowItems.testItemLocations, no default items to be displayed on enchanted books will be added.");
                 }
             }
+            
+            ProgressManager.pop(progressBar);
         }
         
         if (quarkAdditionsEnabled)

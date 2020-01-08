@@ -34,10 +34,10 @@ public class Jei implements IBaseMod
     {
         if (!modIntegrations.isEmpty())
         {
-            ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughItems registerRecipes - setting up", modIntegrations.size());
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughItems registerRecipes", modIntegrations.size());
             for (IJeiIntegration integration : modIntegrations)
             {
-                progressBar.step("JustEnoughItems registerRecipes - " + integration.getModId().modId);
+                progressBar.step(integration.getModId().modId);
                 integration.registerRecipes();
             }
             ProgressManager.pop(progressBar);

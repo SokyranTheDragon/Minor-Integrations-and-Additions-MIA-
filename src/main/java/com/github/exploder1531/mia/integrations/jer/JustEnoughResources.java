@@ -93,6 +93,9 @@ public class JustEnoughResources implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
+        ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughResources entry registration", modIntegrations.size() + 1);
+        progressBar.step("setting up");
+        
         World world = Minecraft.getMinecraft().world;
         
         if (world == null)
@@ -122,45 +125,40 @@ public class JustEnoughResources implements IBaseMod
                     new PlantDrop(new ItemStack(Items.NETHER_WART), 2, 4));
         }
         
-        if (!modIntegrations.isEmpty())
+        LootTableManager manager = LootTableHelper.getManager(world);
+        IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
+        mobTableBuilder = new MobTableBuilder(world);
+        
+        Map<Object, ModIds> allMobs = Maps.newHashMap();
+        for (IJerIntegration mod : modIntegrations.values())
         {
-            ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughResources entry registration - setting up", modIntegrations.size());
+            progressBar.step(mod.getModId().modId);
             
-            LootTableManager manager = LootTableHelper.getManager(world);
-            IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
-            mobTableBuilder = new MobTableBuilder(world);
+            Set<Class<? extends EntityLivingBase>> modMobs = mod.addMobs(mobTableBuilder, ignoreMobOverrides);
+            for (Object modMob : modMobs)
+                allMobs.put(modMob, mod.getModId());
+            mod.addMobRenderHooks(mobRegistry);
             
-            Map<Object, ModIds> allMobs = Maps.newHashMap();
-            for (IJerIntegration mod : modIntegrations.values())
+            mod.addDungeonLoot(dungeonRegistry);
+            mod.addPlantDrops(plantRegistry);
+        }
+
+        ProgressManager.pop(progressBar);
+
+        Set<Map.Entry<ResourceLocation, EntityLivingBase>> entries = mobTableBuilder.getMobTables().entrySet();
+        
+        if (!entries.isEmpty())
+        {
+            progressBar = ProgressManager.push("JustEnoughResources mob configuration", entries.size());
+            for (Map.Entry<ResourceLocation, EntityLivingBase> entry : entries)
             {
-                progressBar.step("JustEnoughResources entry registration - " + mod.getModId().modId);
+                ResourceLocation resource = entry.getKey();
+                progressBar.step(resource.toString());
+                EntityLivingBase entity = entry.getValue();
                 
-                Set<Class<? extends EntityLivingBase>> modMobs = mod.addMobs(mobTableBuilder, ignoreMobOverrides);
-                for (Object modMob : modMobs)
-                    allMobs.put(modMob, mod.getModId());
-                mod.addMobRenderHooks(mobRegistry);
-                
-                mod.addDungeonLoot(dungeonRegistry);
-                mod.addPlantDrops(plantRegistry);
+                modIntegrations.get(allMobs.get(entity.getClass())).configureMob(resource, entity, manager, mobRegistry);
             }
-    
             ProgressManager.pop(progressBar);
-    
-            Set<Map.Entry<ResourceLocation, EntityLivingBase>> entries = mobTableBuilder.getMobTables().entrySet();
-            
-            if (!entries.isEmpty())
-            {
-                progressBar = ProgressManager.push("JustEnoughResources mob configuration - setting up", entries.size());
-                for (Map.Entry<ResourceLocation, EntityLivingBase> entry : entries)
-                {
-                    ResourceLocation resource = entry.getKey();
-                    progressBar.step("JustEnoughResources mob configuration - " + resource.toString());
-                    EntityLivingBase entity = entry.getValue();
-                    
-                    modIntegrations.get(allMobs.get(entity.getClass())).configureMob(resource, entity, manager, mobRegistry);
-                }
-                ProgressManager.pop(progressBar);
-            }
         }
     }
     

@@ -31,6 +31,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -113,8 +114,16 @@ public class ModIntegrator
         if (FUTURE_MC.isLoaded)
             modIntegrations.put(FUTURE_MC, new FutureMc());
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.register(this::registerIntegration);
+        if (!modIntegrations.isEmpty())
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Registering integrations", modIntegrations.size());
+            for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+            {
+                progressBar.step(mod.getKey().modId);
+                mod.getValue().register(this::registerIntegration);
+            }
+            ProgressManager.pop(progressBar);
+        }
     }
     
     @ParametersAreNonnullByDefault

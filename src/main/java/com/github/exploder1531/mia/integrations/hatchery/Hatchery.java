@@ -56,13 +56,14 @@ public class Hatchery implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        ProgressManager.ProgressBar progressBar = ProgressManager.push("Hatchery - setting up", modIntegrations.size() + 1);
+        ProgressManager.ProgressBar progressBar = ProgressManager.push("Hatchery", modIntegrations.size() + 2);
+        progressBar.step("setting up");
         
         if (externalIntegrationsEnabled)
         {
             for (IHatcheryIntegration integration : modIntegrations)
             {
-                progressBar.step("Hatchery - " + integration.getModId().modId);
+                progressBar.step(integration.getModId().modId);
                 
                 if (integration.isModEnabled())
                 {
@@ -74,7 +75,7 @@ public class Hatchery implements IBaseMod
             }
         }
         
-        progressBar.step("Hatchery - finishing up");
+        progressBar.step("finishing up");
         
         if (registerCustomLuckyEggLoot)
             loader.loadRemainingFiles();
@@ -82,6 +83,7 @@ public class Hatchery implements IBaseMod
         
         if (disableNestingPenChickenDisplay)
             TileEntityRendererDispatcher.instance.renderers.remove(NestPenTileEntity.class);
+        
         ProgressManager.pop(progressBar);
     }
     
