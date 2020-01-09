@@ -87,6 +87,8 @@ public class TileEggSorter extends TileBaseInventory implements ITickable
         if (eggEntityId == null && !stack.isEmpty())
             //noinspection ConstantConditions
             eggEntityId = stack.getTagCompound().getCompoundTag("storedEntity").getString("Type");
+        else if (eggEntityId != null && stack.isEmpty() && isEmpty())
+            eggEntityId = null;
         
         if (index <= 2 && !areItemStacksEqual)
             markDirty();
@@ -118,7 +120,7 @@ public class TileEggSorter extends TileBaseInventory implements ITickable
         return egg.isEmpty() || egg.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(egg, stack);
     }
     
-    @SuppressWarnings({"RedundantIfStatement", "BooleanMethodIsAlwaysInverted", "ConstantConditions"})
+    @SuppressWarnings({ "RedundantIfStatement", "BooleanMethodIsAlwaysInverted", "ConstantConditions" })
     public static boolean isItemValid(ItemStack stack)
     {
         if (stack.getItem() != ModItems.hatcheryEgg)
@@ -143,7 +145,7 @@ public class TileEggSorter extends TileBaseInventory implements ITickable
     @Override
     public void update()
     {
-        boolean[] isDirty = {false};
+        boolean[] isDirty = { false };
         
         for (int i = 0; i < 3; i++)
         {
@@ -228,83 +230,102 @@ public class TileEggSorter extends TileBaseInventory implements ITickable
         
         if (stack.isEmpty())
             return false;
+        // Make sure we are 100% sure we can move the item into output if we need to get rid of one of the stacks
         if (!stacks.get(6).isEmpty() && !stacks.get(7).isEmpty() && !stacks.get(8).isEmpty())
             return true;
         
+        // The 3 ints are what is important for comparison (we trust that the egg that was put in matches the type)
         final NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("storedEntity");
         final int growth = nbt.getInteger("Growth");
         final int gain = nbt.getInteger("Gain");
         final int strength = nbt.getInteger("Strength");
+        
         int slotMatch = 0;
         int improvement = 0;
         int improvementTotal = 0;
         
+        // Iterate over the slots containing the 3 stats in order of: growth, gain, strength
         for (int k = 3; k < 6; k++)
         {
             ItemStack inventoryStack = stacks.get(k);
             
+            // If we have an empty slot then it's safe to assume we can put our item there
+            // We still continue to look through the other slots, in case we have a better match
             if (inventoryStack.isEmpty())
             {
                 if (slotMatch == 0)
                     slotMatch = k;
             }
-            else if (stack.isItemEqual(inventoryStack) && ItemStack.areItemStackTagsEqual(stack, inventoryStack) && inventoryStack.getCount() < getInventoryStackLimit())
-            {
-                int total = stack.getCount() + inventoryStack.getCount();
-                
-                if (total <= getInventoryStackLimit())
-                {
-                    inventoryStack.setCount(total);
-                    stack = ItemStack.EMPTY;
-                    stacks.set(eggIndex, ItemStack.EMPTY);
-                    isDirty[0] = true;
-                    break;
-                }
-                else
-                {
-                    inventoryStack.setCount(getInventoryStackLimit());
-                    stack.setCount(total - getInventoryStackLimit());
-                }
-            }
             else
             {
+                // We get the same stats for the egg in the slot
                 NBTTagCompound inventoryNbt = inventoryStack.getTagCompound().getCompoundTag("storedEntity");
                 final int inventoryGrowth = inventoryNbt.getInteger("Growth");
                 final int inventoryGain = inventoryNbt.getInteger("Gain");
                 final int inventoryStrength = inventoryNbt.getInteger("Strength");
-                final int total = growth + gain + strength;
-                final int inventoryTotal = inventoryGrowth + inventoryGain + inventoryStrength;
-                int tempImprovement;
-                int tempImprovementTotal = total - inventoryTotal;
                 
-                switch (k)
+                // We've found a perfect match (identical stats), join the 2 stack if possible
+                if (stack.isItemEqual(inventoryStack) && growth == inventoryGrowth && gain == inventoryGain && strength == inventoryStrength && inventoryStack.getCount() < getInventoryStackLimit())
                 {
-                    default:
-                    case 3:
-                        tempImprovement = growth - inventoryGrowth;
+                    int total = stack.getCount() + inventoryStack.getCount();
+                    
+                    if (total <= getInventoryStackLimit())
+                    {
+                        inventoryStack.setCount(total);
+                        stack = ItemStack.EMPTY;
+                        stacks.set(eggIndex, ItemStack.EMPTY);
+                        isDirty[0] = true;
                         break;
-                    case 4:
-                        tempImprovement = gain - inventoryGain;
-                        break;
-                    case 5:
-                        tempImprovement = strength - inventoryStrength;
-                        break;
+                    }
+                    else
+                    {
+                        inventoryStack.setCount(getInventoryStackLimit());
+                        stack.setCount(total - getInventoryStackLimit());
+                    }
                 }
-                
-                if (tempImprovement > improvement)
+                // If it's not a perfect match, then we check which item is better to keep in here
+                else
                 {
-                    improvement = tempImprovement;
-                    improvementTotal = tempImprovementTotal;
-                    slotMatch = k;
-                }
-                else if (tempImprovement == improvement && tempImprovementTotal > improvementTotal)
-                {
-                    improvementTotal = tempImprovementTotal;
-                    slotMatch = k;
+                    final int total = growth + gain + strength;
+                    final int inventoryTotal = inventoryGrowth + inventoryGain + inventoryStrength;
+                    int tempImprovement;
+                    // We check by how much the total stats have improved (sum of all 3)
+                    int tempImprovementTotal = total - inventoryTotal;
+                    
+                    // We check how the main stat (based on slot) increased
+                    switch (k)
+                    {
+                        default:
+                        case 3:
+                            tempImprovement = growth - inventoryGrowth;
+                            break;
+                        case 4:
+                            tempImprovement = gain - inventoryGain;
+                            break;
+                        case 5:
+                            tempImprovement = strength - inventoryStrength;
+                            break;
+                    }
+                    
+                    // The egg does have better main stat
+                    if (tempImprovement > improvement)
+                    {
+                        improvement = tempImprovement;
+                        improvementTotal = tempImprovementTotal;
+                        slotMatch = k;
+                    }
+                    // The egg does have identical main stat, but better total stats
+                    else if (tempImprovement == improvement && tempImprovementTotal > improvementTotal)
+                    {
+                        improvementTotal = tempImprovementTotal;
+                        slotMatch = k;
+                    }
                 }
             }
         }
         
+        // If we still have the egg left and we have a matching slot, and we still have the egg,
+        // we swap the 2 spots and repeat the process for the egg we replaced to check if it does have a better match
         if (slotMatch != 0 && !stack.isEmpty())
         {
             stacks.set(eggIndex, stacks.get(slotMatch));
@@ -312,11 +333,13 @@ public class TileEggSorter extends TileBaseInventory implements ITickable
             processEgg(eggIndex, isDirty, ++depth);
             isDirty[0] = true;
         }
+        // If we no longer have the egg we ensure that the slot it was in is empty
         else if (stack.isEmpty())
         {
             stacks.set(eggIndex, ItemStack.EMPTY);
             isDirty[0] = true;
         }
+        // In any other case, we just move the egg into output
         else
         {
             for (int k = 6; k < 9; k++)
@@ -329,7 +352,13 @@ public class TileEggSorter extends TileBaseInventory implements ITickable
                     isDirty[0] = true;
                     break;
                 }
-                else if ((outputStack.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(outputStack, stack)))
+                
+                NBTTagCompound inventoryNbt = outputStack.getTagCompound().getCompoundTag("storedEntity");
+                final int outputGrowth = inventoryNbt.getInteger("Growth");
+                final int outputGain = inventoryNbt.getInteger("Gain");
+                final int outputStrength = inventoryNbt.getInteger("Strength");
+                
+                if (outputStack.isItemEqual(stack) && growth == outputGrowth && gain == outputGain && strength == outputStrength)
                 {
                     int maxSize = 64 - outputStack.getCount();
                     
