@@ -21,10 +21,13 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @SideOnly(Side.CLIENT)
 @ParametersAreNonnullByDefault
@@ -44,6 +47,9 @@ public class MusicUtils
     
     public static void toggleSong(MusicPlayerStackHandler musicPlayer)
     {
+        if (!listener.startedPlaying(musicPlayer.itemUuid))
+            return;
+        
         SoundHandler soundHandler = Minecraft.getMinecraft().getSoundHandler();
         
         PositionedSoundRecord currentSong = currentlyPlayedSongs.remove(musicPlayer.itemUuid);
@@ -51,11 +57,18 @@ public class MusicUtils
         if (currentSong != null && soundHandler.isSoundPlaying(currentSong))
             soundHandler.stopSound(currentSong);
         else
+        {
+            if (currentSong != null)
+                soundHandler.stopSound(currentSong);
             playSong(musicPlayer, soundHandler);
+        }
     }
     
     public static void playSong(MusicPlayerStackHandler musicPlayer)
     {
+        if (!listener.startedPlaying(musicPlayer.itemUuid))
+            return;
+        
         SoundHandler soundHandler = Minecraft.getMinecraft().getSoundHandler();
         
         stopSong(musicPlayer, soundHandler);
@@ -103,7 +116,7 @@ public class MusicUtils
     
     public static void playNext(MusicPlayerStackHandler musicPlayer)
     {
-        if (musicPlayer.getSlots() > 0)
+        if (musicPlayer.getSlots() > 0 && listener.startedPlaying(musicPlayer.itemUuid))
         {
             ItemStack currentSong = musicPlayer.getCurrentSong();
             
@@ -118,7 +131,7 @@ public class MusicUtils
     
     public static void playPrevious(MusicPlayerStackHandler musicPlayer)
     {
-        if (musicPlayer.getSlots() > 0)
+        if (musicPlayer.getSlots() > 0 && listener.startedPlaying(musicPlayer.itemUuid))
         {
             ItemStack currentSong = musicPlayer.getCurrentSong();
             
@@ -190,6 +203,9 @@ public class MusicUtils
     public static class SoundEffectListener implements ISoundEventListener
     {
         private BiMap<ISound, UUID> listeners = HashBiMap.create();
+        // We store songs that recently started playing, just because there were issues with multiple songs playing at once.
+        // We ensure that the song actually started playing.
+        private Map<UUID, MutableInt> timers = new HashMap<>();
         
         private SoundEffectListener()
         {
@@ -198,7 +214,16 @@ public class MusicUtils
         @Override
         public void soundPlay(ISound sound, SoundEventAccessor soundEventAccessor)
         {
-            listeners.remove(sound);
+            UUID removed = listeners.remove(sound);
+            timers.put(removed, new MutableInt(5));
+        }
+        
+        public void updateTimers()
+        {
+            timers = timers.entrySet()
+                  .stream()
+                  .filter(timer -> timer.getValue().decrementAndGet() > 0)
+                  .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         }
         
         public void addListener(UUID id, ISound sound)
@@ -208,7 +233,7 @@ public class MusicUtils
         
         public boolean startedPlaying(UUID id)
         {
-            return !listeners.inverse().containsKey(id);
+            return !listeners.inverse().containsKey(id) && !timers.containsKey(id);
         }
     }
 }

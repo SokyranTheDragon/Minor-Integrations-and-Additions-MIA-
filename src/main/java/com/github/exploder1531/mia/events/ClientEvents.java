@@ -86,6 +86,8 @@ public class ClientEvents
         if (player.ticksExisted % 20 == 0)
             return;
         
+        MusicUtils.listener.updateTimers();
+        
         Set<UUID> uuidList = Sets.newHashSet();
         
         if (ModIds.BAUBLES.isLoaded)
