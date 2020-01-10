@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.thermalfoundation;
 
 import cofh.thermalfoundation.init.TFEquipment;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.config.TfConfiguration;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
@@ -44,7 +45,7 @@ public class ThermalFoundation implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (TfConfiguration.tfAdditionsEnabled)
+        if (TfConfiguration.tfAdditionsEnabled && !MiaConfig.disableAllRecipes)
         {
             FurnaceRecipes furnaceRecipes = FurnaceRecipes.instance();
             

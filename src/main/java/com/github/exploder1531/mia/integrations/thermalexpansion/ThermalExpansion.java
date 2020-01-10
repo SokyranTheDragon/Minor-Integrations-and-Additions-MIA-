@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.integrations.thermalexpansion;
 
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.config.TeConfiguration;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
@@ -48,7 +49,7 @@ public class ThermalExpansion implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (teAdditionsEnabled)
+        if (teAdditionsEnabled && !MiaConfig.disableAllRecipes)
         {
             int energy = 6_000;
             ItemStack ingot = new ItemStack(Items.IRON_INGOT);
@@ -58,7 +59,7 @@ public class ThermalExpansion implements IBaseMod
             SmelterManager.addRecycleRecipe(energy, new ItemStack(Items.CHAINMAIL_BOOTS), ingot, 2);
         }
         
-        if (!modIntegrations.isEmpty())
+        if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion addRecipes", modIntegrations.size());
             for (IThermalExpansionIntegration integration : modIntegrations)
@@ -73,7 +74,7 @@ public class ThermalExpansion implements IBaseMod
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        if (!modIntegrations.isEmpty())
+        if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion addPostInitRecipes", modIntegrations.size());
             for (IThermalExpansionIntegration integration : modIntegrations)

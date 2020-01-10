@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.harvestcraft;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
@@ -50,28 +51,29 @@ public class Harvestcraft implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (!harvestcraftAdditionsEnabled)
-            return;
-        
-        if (HarvestCraft.config.enableTofuAsMeatInRecipes)
-            OreDictionary.registerOre("egg", ItemRegistry.rawtofeegItem);
-        
-        OreDictionary.registerOre("honeycomb", ItemRegistry.honeycombItem);
-        
-        OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.SPIDERWEB));
-        OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.AVOCADO));
-        OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.WALNUT));
-        
-        if (!modIntegrations.isEmpty())
+        if (harvestcraftAdditionsEnabled && !MiaConfig.disableOreDict)
+        {
+            if (HarvestCraft.config.enableTofuAsMeatInRecipes)
+                OreDictionary.registerOre("egg", ItemRegistry.rawtofeegItem);
+    
+            OreDictionary.registerOre("honeycomb", ItemRegistry.honeycombItem);
+    
+            OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.SPIDERWEB));
+            OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.AVOCADO));
+            OreDictionary.registerOre("treeSapling", FruitRegistry.getSapling(FruitRegistry.WALNUT));
+    
+        }
+    
+        if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("Harvestcraft addRecipes", modIntegrations.size());
-            
+
             for (IHarvestcraftIntegration integration : modIntegrations)
             {
                 progressBar.step(integration.getModId().modId);
                 integration.addRecipes();
             }
-            
+
             ProgressManager.pop(progressBar);
         }
     }

@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.integrations.xu2;
 
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
@@ -68,7 +69,7 @@ public class ExtraUtilities2 implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (xu2AdditionsEnabled)
+        if (xu2AdditionsEnabled && !MiaConfig.disableAllRecipes)
         {
             // Death generator
             XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(new ItemStack(Items.SKULL, 1, 0)), 30000, 40));
@@ -85,7 +86,7 @@ public class ExtraUtilities2 implements IBaseMod
                 XUMachineCrusher.addRecipe(new ItemStack(Blocks.NETHERRACK), new ItemStack(Blocks.GRAVEL));
         }
         
-        if (!modIntegrations.isEmpty())
+        if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("ExtraUtilities2 addRecipes", modIntegrations.size() + 1);
             progressBar.step("setting up");

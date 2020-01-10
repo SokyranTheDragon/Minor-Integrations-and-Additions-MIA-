@@ -3,6 +3,7 @@ package com.github.exploder1531.mia.integrations.base;
 import com.gendeathrow.morechickens.core.ChickensMore;
 import com.gendeathrow.morechickens.core.ModItems;
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.ThaumcraftConfiguration;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.LootTableIntegrator.LootTableListener;
 import com.github.exploder1531.mia.integrations.botania.Botania;
@@ -252,6 +253,8 @@ public class ModIntegrator
             Mia.LOGGER.warn("ModIntegrator.registerAspects() was called more than once, this is not something that should happen.");
             return;
         }
+        if (!ThaumcraftConfiguration.registerAspects)
+            return;
         registeredAspects = true;
         
         for (IBaseMod mod : modIntegrations.values())

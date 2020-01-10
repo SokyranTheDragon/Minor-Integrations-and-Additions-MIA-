@@ -7,51 +7,59 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static net.minecraftforge.common.config.Config.*;
+
 @Config(modid = Mia.MODID, name = "mia/thaumcraft")
-@Config.LangKey("mia.config.thaumcraft.title")
+@LangKey("mia.config.thaumcraft.title")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class ThaumcraftConfiguration
 {
-    @Config.Name("Enable Thaumcraft additions")
-    @Config.Comment("Set to false to completely disable new Thaumcraft additions")
-    @Config.LangKey("mia.config.thaumcraft.additions_enabled")
-    @Config.RequiresMcRestart
+    @Name("Enable Thaumcraft additions")
+    @Comment("Set to false to completely disable new Thaumcraft additions")
+    @LangKey("mia.config.thaumcraft.additions_enabled")
+    @RequiresMcRestart
     public static boolean thaumcraftAdditionsEnabled = true;
     
-    @Config.Name("Enable JER integration")
-    @Config.Comment("Set to false to completely disable integration with TConstruct")
-    @Config.LangKey("mia.config.shared.enable_jer_integration")
-    @Config.RequiresMcRestart
+    @Name("Register aspects for other mods")
+    @Comment("Set to false to not register any aspects for other mods")
+    @LangKey("mia.config.thaumcraft.register_aspects")
+    @RequiresMcRestart
+    public static boolean registerAspects = true;
+    
+    @Name("Enable JER integration")
+    @Comment("Set to false to completely disable integration with TConstruct")
+    @LangKey("mia.config.shared.enable_jer_integration")
+    @RequiresMcRestart
     public static boolean enableJerIntegration = true;
     
-    @Config.Name("Enable Thermal Expansion integration")
-    @Config.Comment("Set to false to completely disable integration with Thermal Expansion")
-    @Config.LangKey("mia.config.shared.enable_thermal_expansion_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Thermal Expansion integration")
+    @Comment("Set to false to completely disable integration with Thermal Expansion")
+    @LangKey("mia.config.shared.enable_thermal_expansion_integration")
+    @RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
-    @Config.Name("Enable XU2 integration")
-    @Config.Comment("Set to false to completely disable integration with XU2")
-    @Config.LangKey("mia.config.shared.enable_extra_utils_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable XU2 integration")
+    @Comment("Set to false to completely disable integration with XU2")
+    @LangKey("mia.config.shared.enable_extra_utils_integration")
+    @RequiresMcRestart
     public static boolean enableXu2Integration = true;
     
-    @Config.Name("Enable Hatchery integration")
-    @Config.Comment("Set to false to completely disable integration with Hatchery")
-    @Config.LangKey("mia.config.shared.enable_hatchery_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Hatchery integration")
+    @Comment("Set to false to completely disable integration with Hatchery")
+    @LangKey("mia.config.shared.enable_hatchery_integration")
+    @RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
     
-    @Config.Name("Enable Hatchery integration")
-    @Config.Comment("Set to false to completely disable integration with Dungeon Tactics")
-    @Config.LangKey("mia.config.shared.enable_dungeon_tactics_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Hatchery integration")
+    @Comment("Set to false to completely disable integration with Dungeon Tactics")
+    @LangKey("mia.config.shared.enable_dungeon_tactics_integration")
+    @RequiresMcRestart
     public static boolean enableDungeonTacticsIntegration = true;
     
-    @Config.Name("Enable FutureMC integration")
-    @Config.Comment("Set to false to completely disable integration with FutureMC")
-    @Config.LangKey("mia.config.shared.enable_future_mc_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable FutureMC integration")
+    @Comment("Set to false to completely disable integration with FutureMC")
+    @LangKey("mia.config.shared.enable_future_mc_integration")
+    @RequiresMcRestart
     public static boolean enableFutureMcIntegration = true;
     
     
@@ -65,7 +73,7 @@ public class ThaumcraftConfiguration
     {
         if (event.getModID().equals(Mia.MODID))
         {
-            ConfigManager.sync(Mia.MODID, Config.Type.INSTANCE);
+            ConfigManager.sync(Mia.MODID, Type.INSTANCE);
         }
     }
 }

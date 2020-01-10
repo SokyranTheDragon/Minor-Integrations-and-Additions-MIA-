@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.quark;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
@@ -150,25 +151,28 @@ public class Quark implements IBaseMod
         
         if (quarkAdditionsEnabled)
         {
-            if (isFeatureEnabled(Trowel.class))
+            if (isFeatureEnabled(Trowel.class) && !MiaConfig.disableAllRecipes)
                 FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(Trowel.trowel), new ItemStack(Items.IRON_NUGGET), 0.1f);
             
-            if (isFeatureEnabled(Frogs.class))
+            if (!MiaConfig.disableOreDict)
             {
-                OreDictionary.registerOre("foodFrograw", Frogs.frogLeg);
-                OreDictionary.registerOre("foodFrogcooked", Frogs.cookedFrogLeg);
+                if (isFeatureEnabled(Frogs.class))
+                {
+                    OreDictionary.registerOre("foodFrograw", Frogs.frogLeg);
+                    OreDictionary.registerOre("foodFrogcooked", Frogs.cookedFrogLeg);
+                }
+                
+                if (isFeatureEnabled(Crabs.class))
+                {
+                    OreDictionary.registerOre("foodCrabraw", Crabs.crabLeg);
+                    OreDictionary.registerOre("foodCrabcooked", Crabs.cookedCrabLeg);
+                }
+                
+                if (isFeatureEnabled(Biotite.class))
+                    OreDictionary.registerOre("oreEnderBiotite", Biotite.biotite_ore);
+                if (isFeatureEnabled(UndergroundBiomes.class))
+                    OreDictionary.registerOre("listAllmushroom", UndergroundBiomes.glowshroom);
             }
-            
-            if (isFeatureEnabled(Crabs.class))
-            {
-                OreDictionary.registerOre("foodCrabraw", Crabs.crabLeg);
-                OreDictionary.registerOre("foodCrabcooked", Crabs.cookedCrabLeg);
-            }
-            
-            if (isFeatureEnabled(Biotite.class))
-                OreDictionary.registerOre("oreEnderBiotite", Biotite.biotite_ore);
-            if (isFeatureEnabled(UndergroundBiomes.class))
-                OreDictionary.registerOre("listAllmushroom", UndergroundBiomes.glowshroom);
         }
     }
 }

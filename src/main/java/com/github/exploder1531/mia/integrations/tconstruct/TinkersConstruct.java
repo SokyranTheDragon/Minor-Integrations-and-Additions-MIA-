@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.tconstruct;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
@@ -60,7 +61,7 @@ public class TinkersConstruct implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (tconstructAdditionsEnabled)
+        if (tconstructAdditionsEnabled && !MiaConfig.disableAllRecipes)
         {
             Fluid fluid = FluidRegistry.getFluid("iron");
             

@@ -2,6 +2,7 @@ package com.github.exploder1531.mia.proxy;
 
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.capabilities.MusicPlayerCapabilityProvider;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.core.MiaItems;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.LootTableIntegrator;
@@ -51,12 +52,15 @@ public class CommonProxy
         Mia.network = NetworkRegistry.INSTANCE.newSimpleChannel(Mia.MODID + "_NETWORK");
         Mia.network.registerMessage(MessageSyncMusicPlayer.Handler.class, MessageSyncMusicPlayer.class, 0, Side.SERVER);
         
-        OreDictionary.registerOre("buttonWood", Blocks.WOODEN_BUTTON);
-        OreDictionary.registerOre("trapdoorWood", Blocks.TRAPDOOR);
-        OreDictionary.registerOre("listAllsugar", Items.SUGAR);
-        OreDictionary.registerOre("listAllmilk", Items.MILK_BUCKET);
-//        OreDictionary.registerOre("listAllmushroom", Blocks.BROWN_MUSHROOM);
-//        OreDictionary.registerOre("listAllmushroom", Blocks.RED_MUSHROOM);
+        if (!MiaConfig.disableOreDict)
+        {
+            OreDictionary.registerOre("buttonWood", Blocks.WOODEN_BUTTON);
+            OreDictionary.registerOre("trapdoorWood", Blocks.TRAPDOOR);
+            OreDictionary.registerOre("listAllsugar", Items.SUGAR);
+            OreDictionary.registerOre("listAllmilk", Items.MILK_BUCKET);
+    //        OreDictionary.registerOre("listAllmushroom", Blocks.BROWN_MUSHROOM);
+    //        OreDictionary.registerOre("listAllmushroom", Blocks.RED_MUSHROOM);
+        }
         
         modIntegrator.init(event);
         

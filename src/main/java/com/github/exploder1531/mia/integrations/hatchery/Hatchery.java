@@ -5,6 +5,7 @@ import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.gendeathrow.hatchery.core.init.ModItems;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.block.BlockEggSorter;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.core.MiaBlocks;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
@@ -45,12 +46,9 @@ public class Hatchery implements IBaseMod
     {
         // We don't disable external integrations as usual, as we need to get ModId data from other mods.
         if (integration instanceof IHatcheryIntegration)
-        {
             modIntegrations.add((IHatcheryIntegration) integration);
-            return;
-        }
-        
-        Mia.LOGGER.warn("Incorrect Hatchery integration with id of " + integration.getModId() + ": " + integration.toString());
+        else
+            Mia.LOGGER.warn("Incorrect Hatchery integration with id of " + integration.getModId() + ": " + integration.toString());
     }
     
     @Override
@@ -68,7 +66,8 @@ public class Hatchery implements IBaseMod
                 if (integration.isModEnabled())
                 {
                     loader.tryCreateNewLootFile(integration.getModId(), integration.getCurrentLootVersion(), integration.getDefaultEggDrops());
-                    integration.registerShredder();
+                    if (!MiaConfig.disableAllRecipes)
+                        integration.registerShredder();
                 }
                 else
                     loader.loadedFiles.add(integration.getModId().modId);

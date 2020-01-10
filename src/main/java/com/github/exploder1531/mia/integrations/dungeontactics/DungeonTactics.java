@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.dungeontactics;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
@@ -94,21 +95,24 @@ public class DungeonTactics implements IBaseMod
         if (!dungeonTacticsAdditionsEnabled)
             return;
         
-        OreDictionary.registerOre("blockGlass", DTBlocks.DUNGEON_GLASS);
-        
-        OreDictionary.registerOre("listAllberry", DTItems.CHERRYBOMB);
-        OreDictionary.registerOre("listAllfruit", DTItems.CHERRYBOMB);
-        OreDictionary.registerOre("listAllberry", DTItems.INCINDIBERRY);
-        OreDictionary.registerOre("listAllfruit", DTItems.INCINDIBERRY);
-        OreDictionary.registerOre("listAllberry", DTItems.GLOWCURRENT);
-        OreDictionary.registerOre("listAllfruit", DTItems.GLOWCURRENT);
-        
-        OreDictionary.registerOre("foodToast", DTItems.TOAST);
-        OreDictionary.registerOre("foodToastslice", DTItems.TOASTSLICE);
-        OreDictionary.registerOre("foodJamtoast", DTItems.JAMSLICE);
-        OreDictionary.registerOre("foodBreadslice", DTItems.BREADSLICE);
-        
-        OreDictionary.registerOre("flourEqualswheat", DTItems.FLOUR);
+        if (!MiaConfig.disableOreDict)
+        {
+            OreDictionary.registerOre("blockGlass", DTBlocks.DUNGEON_GLASS);
+            
+            OreDictionary.registerOre("listAllberry", DTItems.CHERRYBOMB);
+            OreDictionary.registerOre("listAllfruit", DTItems.CHERRYBOMB);
+            OreDictionary.registerOre("listAllberry", DTItems.INCINDIBERRY);
+            OreDictionary.registerOre("listAllfruit", DTItems.INCINDIBERRY);
+            OreDictionary.registerOre("listAllberry", DTItems.GLOWCURRENT);
+            OreDictionary.registerOre("listAllfruit", DTItems.GLOWCURRENT);
+            
+            OreDictionary.registerOre("foodToast", DTItems.TOAST);
+            OreDictionary.registerOre("foodToastslice", DTItems.TOASTSLICE);
+            OreDictionary.registerOre("foodJamtoast", DTItems.JAMSLICE);
+            OreDictionary.registerOre("foodBreadslice", DTItems.BREADSLICE);
+            
+            OreDictionary.registerOre("flourEqualswheat", DTItems.FLOUR);
+        }
     }
     
     @FunctionalInterface

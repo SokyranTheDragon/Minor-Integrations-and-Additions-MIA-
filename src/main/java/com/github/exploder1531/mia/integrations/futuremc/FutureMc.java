@@ -1,6 +1,7 @@
 package com.github.exploder1531.mia.integrations.futuremc;
 
 import com.github.exploder1531.mia.Mia;
+import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
@@ -56,7 +57,7 @@ public class FutureMc implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (futureMcAdditionsEnabled)
+        if (futureMcAdditionsEnabled && !MiaConfig.disableOreDict)
         {
             OreDictionary.registerOre("blockHoney", Init.HONEY_BLOCK);
             OreDictionary.registerOre("honeycomb", Init.HONEY_COMB);
@@ -65,7 +66,7 @@ public class FutureMc implements IBaseMod
             OreDictionary.registerOre("foodHoneydrop", Init.HONEY_BOTTLE);
         }
         
-        if (!modIntegrations.isEmpty())
+        if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("FutureMc addRecipes", modIntegrations.size());
             for (IFutureMcIntegration integration : modIntegrations)

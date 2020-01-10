@@ -84,6 +84,8 @@ mia.config.quark.additions_enabled=Enable Quark additions
 
 mia.config.base.add_cooked_drops=Add cooked mob drops
 mia.config.base.music_player_volume=Music player volume
+mia.config.base.disable_recipes=Disable any new recipes added by mods
+mia.config.base.disable_ore_dict=Disable any new ore dictionary entries
 
 ## Mod specific
 
@@ -95,6 +97,7 @@ mia.config.harvestcraft.squid_drops_calamari=Squid drops calamari
 mia.config.quark.add_ancient_tomes=Add all supported enchantments as ancient tomes
 mia.config.quark.add_item_tooltip=Add supported items to enchanted book tooltips
 mia.config.quark.ancient_tomes_crafting=Add ancient tome crafting
+mia.config.thaumcraft.register_aspects=Register aspects for other mods
 
 
 

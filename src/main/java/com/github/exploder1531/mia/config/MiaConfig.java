@@ -36,6 +36,17 @@ public class MiaConfig
     @LangKey("mia.config.base.add_cooked_drops")
     public static boolean addCookedDrops = true;
     
+    @Name("Disable all recipes")
+    @Comment("Completely disables any new recipes added by this mod")
+    @LangKey("mia.config.base.disable_recipes")
+    @RequiresMcRestart
+    public static boolean disableAllRecipes = false;
+    
+    @Name("Disable ore dictionary registration")
+    @Comment("Completely removes any ore dictionary entries added for other modded items")
+    @LangKey("mia.config.base.disable_ore_dict")
+    public static boolean disableOreDict = false;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.
