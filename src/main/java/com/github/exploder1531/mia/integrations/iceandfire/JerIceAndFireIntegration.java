@@ -10,7 +10,6 @@ import com.github.alexthe666.iceandfire.structures.WorldGenIceDragonCave;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexDecoration;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
-import com.google.common.collect.Sets;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
@@ -32,6 +31,7 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -124,7 +124,7 @@ class JerIceAndFireIntegration implements IJerIntegration
     public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
     {
         LightLevel lightLevel = LightLevel.any;
-        Set<Biome> validBiomes = Sets.newHashSet();
+        Set<Biome> validBiomes = new HashSet<>();
         List<LootDrop> loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
         int experienceMin = 0;
         int experienceMax = 0;

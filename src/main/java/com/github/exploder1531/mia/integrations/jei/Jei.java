@@ -3,15 +3,15 @@ package com.github.exploder1531.mia.integrations.jei;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
-import com.google.common.collect.Lists;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Jei implements IBaseMod
 {
-    final List<IJeiIntegration> modIntegrations = Lists.newLinkedList();
+    final List<IJeiIntegration> modIntegrations = new LinkedList<>();
     
     public Jei()
     {

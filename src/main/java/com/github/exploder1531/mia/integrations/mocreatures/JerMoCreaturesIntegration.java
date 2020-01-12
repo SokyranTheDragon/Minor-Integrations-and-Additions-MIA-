@@ -4,7 +4,6 @@ import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.ExtraConditional;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
-import com.google.common.collect.Sets;
 import com.pam.harvestcraft.item.ItemRegistry;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
@@ -39,6 +38,7 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -231,7 +231,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
     public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
     {
         LootTable loot = manager.getLootTableFromLocation(resource);
-        Set<Biome> validBiomes = Sets.newHashSet();
+        Set<Biome> validBiomes = new HashSet<>();
         List<LootDrop> drops = LootTableHelper.toDrops(loot);
         
         LightLevel lightLevel = LightLevel.any;

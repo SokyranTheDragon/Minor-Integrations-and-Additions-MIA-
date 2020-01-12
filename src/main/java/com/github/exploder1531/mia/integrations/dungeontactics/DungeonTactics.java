@@ -6,7 +6,6 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.github.exploder1531.mia.integrations.base.LootTableIntegrator.LootTableListener;
-import com.google.common.collect.Lists;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -18,6 +17,7 @@ import pegbeard.dungeontactics.handlers.DTLoots;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -26,7 +26,7 @@ import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class DungeonTactics implements IBaseMod
 {
-    private final List<IDungeonTacticsIntegration> modIntegrations = Lists.newLinkedList();
+    private final List<IDungeonTacticsIntegration> modIntegrations = new LinkedList<>();
     
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)

@@ -12,7 +12,6 @@ import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
 import com.github.exploder1531.mia.tile.TileEggSorter;
 import com.github.exploder1531.mia.utilities.RegisterUtils;
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.Item;
@@ -32,13 +31,14 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static com.github.exploder1531.mia.config.HatcheryConfiguration.*;
 
 public class Hatchery implements IBaseMod
 {
-    private final List<IHatcheryIntegration> modIntegrations = Lists.newLinkedList();
+    private final List<IHatcheryIntegration> modIntegrations = new LinkedList<>();
     private final LuckyEggLoader loader = new LuckyEggLoader();
     
     @Override

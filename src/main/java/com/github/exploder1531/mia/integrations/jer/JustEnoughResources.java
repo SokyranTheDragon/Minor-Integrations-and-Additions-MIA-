@@ -4,8 +4,6 @@ import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
@@ -33,17 +31,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 
 import java.lang.reflect.Field;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 import static com.github.exploder1531.mia.config.JerConfiguration.externalIntegrationsEnabled;
 
 public class JustEnoughResources implements IBaseMod
 {
-    private final Map<ModIds, IJerIntegration> modIntegrations = Maps.newHashMap();
-    private final Set<Class<? extends EntityLivingBase>> ignoreMobOverrides = Sets.newHashSet();
+    private final Map<ModIds, IJerIntegration> modIntegrations = new HashMap<>();
+    private final Set<Class<? extends EntityLivingBase>> ignoreMobOverrides = new HashSet<>();
     private CustomLinkedHashSet<MobEntry> set;
     
     public JustEnoughResources()
@@ -129,7 +125,7 @@ public class JustEnoughResources implements IBaseMod
         IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
         mobTableBuilder = new MobTableBuilder(world);
         
-        Map<Object, ModIds> allMobs = Maps.newHashMap();
+        Map<Object, ModIds> allMobs = new HashMap<>();
         for (IJerIntegration mod : modIntegrations.values())
         {
             progressBar.step(mod.getModId().modId);

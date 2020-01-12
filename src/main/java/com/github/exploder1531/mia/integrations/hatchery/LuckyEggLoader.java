@@ -3,21 +3,21 @@ package com.github.exploder1531.mia.integrations.hatchery;
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.github.exploder1531.mia.Mia;
 import com.github.exploder1531.mia.integrations.ModIds;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javax.annotation.Nonnull;
 import java.io.*;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 class LuckyEggLoader
 {
-    public final List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
-    final Set<String> loadedFiles = Sets.newHashSet();
+    public final List<ConfigLootHandler.ItemDrop> drops = new LinkedList<>();
+    final Set<String> loadedFiles = new HashSet<>();
     
     void tryCreateNewLootFile(ModIds modId, int configVersion, @Nonnull List<ConfigLootHandler.ItemDrop> loot)
     {

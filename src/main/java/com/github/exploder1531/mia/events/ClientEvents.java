@@ -11,7 +11,6 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import com.github.exploder1531.mia.utilities.InventoryUtils;
 import com.github.exploder1531.mia.utilities.MusicUtils;
-import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -24,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -88,7 +88,7 @@ public class ClientEvents
         
         MusicUtils.listener.updateTimers();
         
-        Set<UUID> uuidList = Sets.newHashSet();
+        Set<UUID> uuidList = new HashSet<>();
         
         if (ModIds.BAUBLES.isLoaded)
         {

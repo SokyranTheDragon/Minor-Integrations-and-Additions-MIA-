@@ -5,12 +5,12 @@ import com.gendeathrow.hatchery.block.shredder.ShredderTileEntity;
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.hatchery.IHatcheryIntegration;
-import com.google.common.collect.Lists;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.item.ItemStack;
 import thedarkcolour.futuremc.init.Init;
 
 import javax.annotation.Nonnull;
+import java.util.LinkedList;
 import java.util.List;
 
 import static com.github.exploder1531.mia.integrations.hatchery.Hatchery.getDrop;
@@ -49,7 +49,7 @@ class HatcheryFutureMcIntegration implements IHatcheryIntegration
     @Override
     public List<ConfigLootHandler.ItemDrop> getDefaultEggDrops()
     {
-        List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
+        List<ConfigLootHandler.ItemDrop> drops = new LinkedList<>();
         
         drops.add(getDrop(Init.TRIDENT, 1));
         drops.add(getDrop(Init.BLUE_ICE, 1));

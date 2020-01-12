@@ -7,13 +7,13 @@ import com.github.exploder1531.mia.config.TeConfiguration;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
-import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -22,7 +22,7 @@ import static com.github.exploder1531.mia.config.TeConfiguration.teAdditionsEnab
 
 public class ThermalExpansion implements IBaseMod
 {
-    private List<IThermalExpansionIntegration> modIntegrations = Lists.newLinkedList();
+    private List<IThermalExpansionIntegration> modIntegrations = new LinkedList<>();
     
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)

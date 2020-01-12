@@ -10,7 +10,6 @@ import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.network.MessageSyncMusicPlayer;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,7 +33,7 @@ import java.util.stream.Collectors;
 public class MusicUtils
 {
     public static SoundEffectListener listener = new SoundEffectListener();
-    public static Map<UUID, PositionedSoundRecord> currentlyPlayedSongs = Maps.newHashMap();
+    public static Map<UUID, PositionedSoundRecord> currentlyPlayedSongs = new HashMap<>();
     
     static
     {

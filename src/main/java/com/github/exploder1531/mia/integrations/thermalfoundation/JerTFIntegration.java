@@ -9,7 +9,6 @@ import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
 import com.github.exploder1531.mia.integrations.jer.JerLightHelper;
-import com.google.common.collect.Sets;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
@@ -28,6 +27,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -54,7 +54,7 @@ class JerTFIntegration implements IJerIntegration
         Configuration config = ThermalFoundation.CONFIG.getConfiguration();
         LightLevel lightLevel;
         ConfigCategory category;
-        Set<Biome> validBiomes = Sets.newHashSet();
+        Set<Biome> validBiomes = new HashSet<>();
     
         if (entity instanceof EntityBasalz)
         {

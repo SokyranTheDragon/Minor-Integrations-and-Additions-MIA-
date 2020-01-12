@@ -6,7 +6,6 @@ import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
-import com.google.common.collect.Lists;
 import com.rwtema.extrautils2.api.machine.MachineSlotItem;
 import com.rwtema.extrautils2.api.machine.RecipeBuilder;
 import com.rwtema.extrautils2.api.machine.XUMachineCrusher;
@@ -25,6 +24,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.aspects.*;
 
 import java.lang.reflect.Field;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -34,7 +34,7 @@ import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class ExtraUtilities2 implements IBaseMod
 {
-    private final List<IExtraUtilsIntegration> modIntegrations = Lists.newLinkedList();
+    private final List<IExtraUtilsIntegration> modIntegrations = new LinkedList<>();
     
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)

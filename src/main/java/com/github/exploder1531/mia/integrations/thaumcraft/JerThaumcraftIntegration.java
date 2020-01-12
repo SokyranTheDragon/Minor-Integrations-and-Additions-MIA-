@@ -3,7 +3,6 @@ package com.github.exploder1531.mia.integrations.thaumcraft;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.jer.ExtraConditional;
 import com.github.exploder1531.mia.integrations.jer.IJerIntegration;
-import com.google.common.collect.Sets;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.Conditional;
 import jeresources.api.conditionals.LightLevel;
@@ -33,6 +32,7 @@ import thaumcraft.common.entities.monster.tainted.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -94,7 +94,7 @@ class JerThaumcraftIntegration implements IJerIntegration
     public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
     {
         LightLevel lightLevel = LightLevel.hostile;
-        Set<Biome> validBiomes = Sets.newHashSet();
+        Set<Biome> validBiomes = new HashSet<>();
         List<LootDrop> loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
         int minExp = 0;
         int maxExp = 0;

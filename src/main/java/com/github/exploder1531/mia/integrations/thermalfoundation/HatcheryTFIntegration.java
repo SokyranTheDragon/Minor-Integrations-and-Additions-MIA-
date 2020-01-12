@@ -5,9 +5,9 @@ import cofh.thermalfoundation.item.ItemMaterial;
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.hatchery.IHatcheryIntegration;
-import com.google.common.collect.Lists;
 
 import javax.annotation.Nonnull;
+import java.util.LinkedList;
 import java.util.List;
 
 class HatcheryTFIntegration implements IHatcheryIntegration
@@ -35,7 +35,7 @@ class HatcheryTFIntegration implements IHatcheryIntegration
     @Override
     public List<ConfigLootHandler.ItemDrop> getDefaultEggDrops()
     {
-        List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
+        List<ConfigLootHandler.ItemDrop> drops = new LinkedList<>();
         
         // Ingots
         drops.add(new ConfigLootHandler.ItemDrop(ItemMaterial.ingotCopper, 4, 1, 1));

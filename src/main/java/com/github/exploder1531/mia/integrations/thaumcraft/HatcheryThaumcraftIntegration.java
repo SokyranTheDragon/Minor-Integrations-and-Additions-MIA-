@@ -3,7 +3,6 @@ package com.github.exploder1531.mia.integrations.thaumcraft;
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.hatchery.IHatcheryIntegration;
-import com.google.common.collect.Lists;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApiHelper;
@@ -13,6 +12,7 @@ import thaumcraft.api.items.ItemsTC;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 class HatcheryThaumcraftIntegration implements IHatcheryIntegration
@@ -40,7 +40,7 @@ class HatcheryThaumcraftIntegration implements IHatcheryIntegration
     @Override
     public List<ConfigLootHandler.ItemDrop> getDefaultEggDrops()
     {
-        List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
+        List<ConfigLootHandler.ItemDrop> drops = new LinkedList<>();
         
         
         final ArrayList<Aspect> primalAspects = Aspect.getPrimalAspects();

@@ -7,11 +7,11 @@ import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.hatchery.IHatcheryIntegration;
-import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.LinkedList;
 import java.util.List;
 
 class HatcheryIceAndFireIntegration implements IHatcheryIntegration
@@ -47,7 +47,7 @@ class HatcheryIceAndFireIntegration implements IHatcheryIntegration
     @Override
     public List<ConfigLootHandler.ItemDrop> getDefaultEggDrops()
     {
-        List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
+        List<ConfigLootHandler.ItemDrop> drops = new LinkedList<>();
     
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.silverIngot), 4, 1, 1));
         drops.add(new ConfigLootHandler.ItemDrop(new ItemStack(ModItems.dragonsteel_fire_ingot), 1, 1, 1));

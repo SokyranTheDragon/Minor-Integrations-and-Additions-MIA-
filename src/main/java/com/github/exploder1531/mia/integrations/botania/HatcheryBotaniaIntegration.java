@@ -5,13 +5,13 @@ import com.gendeathrow.hatchery.block.shredder.ShredderTileEntity;
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.hatchery.IHatcheryIntegration;
-import com.google.common.collect.Lists;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import java.util.LinkedList;
 import java.util.List;
 
 import static com.github.exploder1531.mia.integrations.hatchery.Hatchery.getDrop;
@@ -52,7 +52,7 @@ class HatcheryBotaniaIntegration implements IHatcheryIntegration
     @Override
     public List<ConfigLootHandler.ItemDrop> getDefaultEggDrops()
     {
-        List<ConfigLootHandler.ItemDrop> drops = Lists.newLinkedList();
+        List<ConfigLootHandler.ItemDrop> drops = new LinkedList<>();
         
         // Several loops just to keep the order in JEI tabs, hopefully
         for (int meta = 0; meta <= 15; meta++)

@@ -5,7 +5,6 @@ import com.github.exploder1531.mia.config.MiaConfig;
 import com.github.exploder1531.mia.integrations.ModIds;
 import com.github.exploder1531.mia.integrations.base.IBaseMod;
 import com.github.exploder1531.mia.integrations.base.IModIntegration;
-import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -16,6 +15,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -24,7 +24,7 @@ import static com.github.exploder1531.mia.integrations.ModIds.*;
 
 public class TinkersConstruct implements IBaseMod
 {
-    private List<ITConstructIntegration> modIntegrations = Lists.newArrayList();
+    private List<ITConstructIntegration> modIntegrations = new LinkedList<>();
     
     @Override
     public void addIntegration(IModIntegration integration)
