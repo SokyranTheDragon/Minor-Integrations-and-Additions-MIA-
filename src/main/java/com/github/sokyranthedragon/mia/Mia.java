@@ -44,12 +44,12 @@ public class Mia
 {
     public static final String MODID = "mia";
     public static final String NAME = "Minor Integrations & Additions";
-    public static final String VERSION = "1.12.2-0.1.0a";
+    public static final String VERSION = "1.12.2-0.1.0b";
     
     @Mod.Instance
     public static Mia instance;
     
-    @SidedProxy(clientSide = "ClientProxy", serverSide = "CommonProxy")
+    @SidedProxy(clientSide = "com.github.sokyranthedragon.mia.proxy.ClientProxy", serverSide = "com.github.sokyranthedragon.mia.proxy.CommonProxy")
     public static CommonProxy proxy;
     
     public static final Logger LOGGER = LogManager.getLogger(MODID);

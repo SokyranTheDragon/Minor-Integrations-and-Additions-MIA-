@@ -33,8 +33,8 @@ def parseConfig(File config) {
 }
 
 
-version = "1.12.2-0.1.0a"
-group = "com.github.exploder1531.mia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "1.12.2-0.1.0b"
+group = "com.github.sokyranthedragon.mia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mia"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
