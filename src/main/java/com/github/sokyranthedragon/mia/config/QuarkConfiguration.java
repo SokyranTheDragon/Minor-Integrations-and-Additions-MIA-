@@ -14,7 +14,7 @@ import static net.minecraftforge.common.config.Config.*;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class QuarkConfiguration
 {
-    @Name("Enable Ice and Fire additions")
+    @Name("Enable Quark additions")
     @Comment("Set to false to completely disable new Quark additions")
     @LangKey("mia.config.quark.additions_enabled")
     @RequiresMcRestart
@@ -79,9 +79,9 @@ public class QuarkConfiguration
      * @param event The event
      */
     @SubscribeEvent
-    public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(Mia.MODID)) {
+    public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
+    {
+        if (event.getModID().equals(Mia.MODID))
             ConfigManager.sync(Mia.MODID, Type.INSTANCE);
-        }
     }
 }
