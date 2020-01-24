@@ -39,12 +39,14 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ConstantIds.CRAFT_TWEAKER +
                 ";after:" + ModIds.ConstantIds.FUTURE_MC +
                 ";after:" + ModIds.ConstantIds.THE_ONE_PROBE +
+                ";after:" + ModIds.ConstantIds.NATURA +
+                ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +
                 ";")
 public class Mia
 {
     public static final String MODID = "mia";
     public static final String NAME = "Minor Integrations & Additions";
-    public static final String VERSION = "1.12.2-0.1.0b";
+    public static final String VERSION = "1.12.2-0.1.1a";
     
     @Mod.Instance
     public static Mia instance;

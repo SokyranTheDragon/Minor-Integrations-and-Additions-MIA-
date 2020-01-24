@@ -1,13 +1,16 @@
 package com.github.sokyranthedragon.mia.integrations;
 
 import baubles.common.Baubles;
+import biomesoplenty.core.BiomesOPlenty;
 import cofh.CoFHCore;
 import cofh.thermalexpansion.ThermalExpansion;
 import cofh.thermalfoundation.ThermalFoundation;
 import com.gendeathrow.hatchery.Hatchery;
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
 import com.meteor.extrabotany.ExtraBotany;
+import com.progwml6.natura.Natura;
 import com.rwtema.extrautils2.ExtraUtils2;
 import crafttweaker.mc1120.CraftTweaker;
 import drzhark.mocreatures.MoCConstants;
@@ -22,7 +25,7 @@ import thedarkcolour.futuremc.FutureMC;
 
 public enum ModIds
 {
-    MIA("MIA"),
+    MIA(Mia.MODID),
     EXTRA_UTILITIES(ConstantIds.EXTRA_UTILITIES),
     COFH_CORE(ConstantIds.COFH_CORE),
     THERMAL_FOUNDATION(ConstantIds.THERMAL_FOUNDATION),
@@ -42,7 +45,9 @@ public enum ModIds
     EXTRABOTANY(ConstantIds.EXTRABOTANY),
     QUARK(ConstantIds.QUARK),
     CRAFT_TWEAKER(ConstantIds.CRAFT_TWEAKER),
-    FUTURE_MC(ConstantIds.FUTURE_MC);
+    FUTURE_MC(ConstantIds.FUTURE_MC),
+    NATURA(ConstantIds.NATURA),
+    BIOMES_O_PLENTY(ConstantIds.BIOMES_O_PLENTY);
     
     public final String modId;
     public final boolean isLoaded;
@@ -76,10 +81,6 @@ public enum ModIds
     
     public static class ConstantIds
     {
-        private ConstantIds()
-        {
-        }
-        
         public static final String EXTRA_UTILITIES = ExtraUtils2.MODID;
         public static final String COFH_CORE = CoFHCore.MOD_ID;
         public static final String THERMAL_FOUNDATION = ThermalFoundation.MOD_ID;
@@ -100,5 +101,10 @@ public enum ModIds
         public static final String QUARK = vazkii.quark.base.lib.LibMisc.MOD_ID;
         public static final String CRAFT_TWEAKER = CraftTweaker.MODID;
         public static final String FUTURE_MC = FutureMC.ID;
+        public static final String NATURA = Natura.modID;
+        public static final String BIOMES_O_PLENTY = BiomesOPlenty.MOD_ID;
+        private ConstantIds()
+        {
+        }
     }
 }
