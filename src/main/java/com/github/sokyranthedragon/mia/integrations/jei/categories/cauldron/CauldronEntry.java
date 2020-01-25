@@ -59,9 +59,9 @@ public abstract class CauldronEntry
     public FluidStack getFluid()
     {
         if (fluid == PossibleFluids.Water)
-            return FluidRegistry.getFluidStack("water", 1000);
+            return new FluidStack(FluidRegistry.WATER, 1000);
         else if (fluid == PossibleFluids.Lava)
-            return FluidRegistry.getFluidStack("lava", 1000);
+            return new FluidStack(FluidRegistry.LAVA, 1000);
         else
             return null;
     }
@@ -105,19 +105,19 @@ public abstract class CauldronEntry
             this.output = output;
             this.byproduct = byproduct;
         }
-    
+        
         @Override
         public ItemStack getOutput()
         {
             return output;
         }
-    
+        
         @Override
         public ItemStack getByproduct()
         {
             return byproduct;
         }
-    
+        
         @Override
         public boolean isRecipeValid()
         {
@@ -161,9 +161,7 @@ public abstract class CauldronEntry
     {
         public CauldronObsidianEntry(boolean lavaInCauldron)
         {
-            //noinspection ConstantConditions
-            super(
-                    FluidUtil.getFilledBucket(FluidRegistry.getFluidStack(lavaInCauldron ? "water" : "lava", 1000)),
+            super(FluidUtil.getFilledBucket(new FluidStack(lavaInCauldron ? FluidRegistry.WATER : FluidRegistry.LAVA, 1000)),
                     lavaInCauldron ? PossibleFluids.Lava : PossibleFluids.Water);
         }
         
