@@ -21,6 +21,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -103,17 +104,21 @@ public class MoCreatures implements IBaseMod
         }
     }
     
-    @SuppressWarnings("deprecation")
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
         if (ModIds.JER.isLoaded && enableJerIntegration && event.getSide() == Side.CLIENT)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityTurtle.class, new MoCRenderTurtleJer());
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntitySnake.class, new MoCRenderSnakeJer());
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityBass.class, new MoCRenderMediumFishJer<MoCEntityBass>());
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityCod.class, new MoCRenderMediumFishJer<MoCEntityCod>());
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntitySalmon.class, new MoCRenderMediumFishJer<MoCEntitySalmon>());
-        }
+            registerRenderingOverride();
+    }
+    
+    @SuppressWarnings("deprecation")
+    @SideOnly(Side.CLIENT)
+    private void registerRenderingOverride()
+    {
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityTurtle.class, new MoCRenderTurtleJer());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntitySnake.class, new MoCRenderSnakeJer());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityBass.class, new MoCRenderMediumFishJer<MoCEntityBass>());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityCod.class, new MoCRenderMediumFishJer<MoCEntityCod>());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntitySalmon.class, new MoCRenderMediumFishJer<MoCEntitySalmon>());
     }
 }

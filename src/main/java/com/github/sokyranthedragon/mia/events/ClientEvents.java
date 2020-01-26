@@ -31,8 +31,8 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class ClientEvents
 {
-    @SideOnly(Side.CLIENT)
     @SubscribeEvent(priority = EventPriority.LOWEST)
+    @SideOnly(Side.CLIENT)
     public static void keyInput(TickEvent.ClientTickEvent event)
     {
         EntityPlayerSP player = Minecraft.getMinecraft().player;
@@ -112,6 +112,7 @@ public class ClientEvents
             handleMusicPlayerVerification(player.getHeldItemOffhand(), uuidList, 1, 0);
     }
     
+    @SideOnly(Side.CLIENT)
     private static void handleMusicPlayerVerification(ItemStack item, Set<UUID> uuidList, int type, int slot)
     {
         MusicPlayerStackHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);

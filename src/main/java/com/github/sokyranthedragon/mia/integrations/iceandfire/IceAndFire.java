@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -78,12 +79,18 @@ public class IceAndFire implements IBaseMod
         }
     }
     
-    @SuppressWarnings("deprecation")
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
         if (ModIds.JER.isLoaded && enableJerIntegration && event.getSide() == Side.CLIENT)
-            RenderingRegistry.registerEntityRenderingHandler(EntityHippocampus.class, new RenderHippocampusJer(Minecraft.getMinecraft().getRenderManager()));
+            registerRenderingOverride();
+    }
+    
+    @SuppressWarnings("deprecation")
+    @SideOnly(Side.CLIENT)
+    private void registerRenderingOverride()
+    {
+        RenderingRegistry.registerEntityRenderingHandler(EntityHippocampus.class, new RenderHippocampusJer(Minecraft.getMinecraft().getRenderManager()));
     }
     
     @Override
@@ -114,6 +121,7 @@ public class IceAndFire implements IBaseMod
     }
     
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerRenders(ModelRegistryEvent event)
     {
         if (!iceandfireAdditionsEnabled)

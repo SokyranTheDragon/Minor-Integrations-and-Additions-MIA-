@@ -18,6 +18,8 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
@@ -105,6 +107,7 @@ public class Thaumcraft implements IBaseMod
     }
     
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerRenders(ModelRegistryEvent event)
     {
         if (!thaumcraftAdditionsEnabled)

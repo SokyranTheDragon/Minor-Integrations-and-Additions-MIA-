@@ -59,7 +59,6 @@ public class ModIntegrator
     
     private boolean registeredBlocks = false;
     private boolean registeredItems = false;
-    @SideOnly(Side.CLIENT)
     private boolean registeredRenders = false;
     private boolean registeredLootTableListeners = false;
     

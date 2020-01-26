@@ -6,8 +6,6 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static net.minecraftforge.common.config.Config.*;
 
@@ -27,12 +25,11 @@ public class MiaConfig
     @LangKey("mia.config.base.music_player_volume")
     @RangeInt(min = 0, max = 100)
     @SlidingOption
-    @SideOnly(Side.CLIENT)
     public static int musicPlayerVolume = 30;
     
     @Name("Replaces all raw meat drops with cooked ones")
     @Comment({ "Replaces raw meat dropped by mobs on fire with their cooked version (if possible)",
-            "This is done to match modded mobs with vanilla behavior, as not all modded mobs do this" })
+               "This is done to match modded mobs with vanilla behavior, as not all modded mobs do this" })
     @LangKey("mia.config.base.add_cooked_drops")
     public static boolean addCookedDrops = true;
     
