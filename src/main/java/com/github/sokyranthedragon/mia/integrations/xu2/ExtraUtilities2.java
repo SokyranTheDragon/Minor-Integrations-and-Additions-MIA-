@@ -85,6 +85,15 @@ public class ExtraUtilities2 implements IBaseMod
                 XUMachineCrusher.addRecipe(new ItemStack(Blocks.NETHERRACK), new ItemStack(Blocks.GRAVEL));
         }
         
+        if (xu2AdditionsEnabled && !MiaConfig.disableOreDict)
+        {
+            for (int meta = 0; meta <= 5; meta++)
+                OreDictionary.registerOre("blockGlass", XU2Entries.decorativeGlass.newStackMeta(meta));
+            OreDictionary.registerOre("blockGlassBlack", XU2Entries.decorativeSolid.newStackMeta(3));
+            OreDictionary.registerOre("blockGlassYellow", XU2Entries.decorativeSolid.newStackMeta(4));
+            OreDictionary.registerOre("blockGlassRed", XU2Entries.decorativeSolid.newStackMeta(5));
+        }
+        
         if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("ExtraUtilities2 addRecipes", modIntegrations.size() + 1);
