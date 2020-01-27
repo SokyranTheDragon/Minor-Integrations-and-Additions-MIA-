@@ -23,7 +23,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         // Induction smelter
         int energy = 6_000;
         // Iron
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_HAMMER), new ItemStack(Items.IRON_INGOT), 2);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_HAMMER), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_BATTLEAXE), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_GLAIVE), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_CUTLASS), new ItemStack(Items.IRON_INGOT), 1);
@@ -35,7 +35,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRONPLATE_LEGS), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRONPLATE_FEET), new ItemStack(Items.IRON_INGOT), 1);
         // Gold
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_HAMMER), new ItemStack(Items.GOLD_INGOT), 2);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_HAMMER), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_BATTLEAXE), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_GLAIVE), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_CUTLASS), new ItemStack(Items.GOLD_INGOT), 1);
@@ -47,7 +47,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDPLATE_LEGS), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDPLATE_FEET), new ItemStack(Items.GOLD_INGOT), 1);
         // Steel
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_HAMMER), new ItemStack(DTItems.INGOT_STEEL), 2);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_HAMMER), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_BATTLEAXE), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_GLAIVE), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_CUTLASS), new ItemStack(DTItems.INGOT_STEEL), 1);
@@ -68,7 +68,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_AXE), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_HOE), new ItemStack(DTItems.INGOT_STEEL), 1);
         // Silver
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_HAMMER), new ItemStack(DTItems.INGOT_SILVER), 2);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_HAMMER), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_BATTLEAXE), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_GLAIVE), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_CUTLASS), new ItemStack(DTItems.INGOT_SILVER), 1);
@@ -89,7 +89,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_AXE), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_HOE), new ItemStack(DTItems.INGOT_SILVER), 1);
         // Mithril
-        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_HAMMER), new ItemStack(DTItems.INGOT_MITHRIL), 2);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_HAMMER), new ItemStack(DTItems.INGOT_MITHRIL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_BATTLEAXE), new ItemStack(DTItems.INGOT_MITHRIL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_GLAIVE), new ItemStack(DTItems.INGOT_MITHRIL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_CUTLASS), new ItemStack(DTItems.INGOT_MITHRIL), 1);
