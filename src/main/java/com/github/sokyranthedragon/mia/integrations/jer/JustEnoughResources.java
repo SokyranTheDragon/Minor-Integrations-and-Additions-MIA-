@@ -11,6 +11,7 @@ import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.PlantDrop;
 import jeresources.compatibility.JERAPI;
 import jeresources.entry.MobEntry;
+import jeresources.entry.PlantEntry;
 import jeresources.registry.MobRegistry;
 import jeresources.util.FakeClientWorld;
 import jeresources.util.LootTableHelper;
@@ -98,9 +99,21 @@ public class JustEnoughResources implements IBaseMod
             world = new FakeClientWorld();
         
         IPlantRegistry plantRegistry = JERAPI.getInstance().getPlantRegistry();
+        Collection<PlantEntry> registers = null;
         MobTableBuilder mobTableBuilder = new MobTableBuilder(world);
         IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
         
+        try
+        {
+            Field registersField = plantRegistry.getClass().getDeclaredField("registers");
+            registersField.setAccessible(true);
+            //noinspection unchecked
+            registers = (Collection<PlantEntry>) registersField.get(plantRegistry);
+        } catch (IllegalAccessException | NoSuchFieldException e)
+        {
+            Mia.LOGGER.error("Could not access IPlantRegistry.registers, some plants might not have growing display in JER.");
+        }
+    
         mobTableBuilder.add(loadResource("minecraft/wither"), EntityWither.class);
         Optional<Map.Entry<ResourceLocation, EntityLivingBase>> wither = mobTableBuilder.getMobTables().entrySet().stream().findAny();
         wither.ifPresent(entry -> mobRegistry.register(entry.getValue(), LightLevel.any, 50, entry.getKey()));
@@ -136,7 +149,7 @@ public class JustEnoughResources implements IBaseMod
             mod.addMobRenderHooks(mobRegistry);
             
             mod.addDungeonLoot(dungeonRegistry);
-            mod.addPlantDrops(plantRegistry);
+            mod.addPlantDrops(plantRegistry, registers);
         }
 
         ProgressManager.pop(progressBar);

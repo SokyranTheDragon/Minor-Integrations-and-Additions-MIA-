@@ -9,6 +9,7 @@ import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
 import jeresources.api.drop.PlantDrop;
 import jeresources.entry.MobEntry;
+import jeresources.entry.PlantEntry;
 import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,7 +29,9 @@ import pegbeard.dungeontactics.handlers.DTItems;
 import pegbeard.dungeontactics.handlers.DTLoots;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
@@ -136,7 +139,7 @@ class JerDungeonTacticsIntegration implements IJerIntegration
     }
     
     @Override
-    public void addPlantDrops(IPlantRegistry plantRegistry)
+    public void addPlantDrops(IPlantRegistry plantRegistry, @Nullable Collection<PlantEntry> registers)
     {
         plantRegistry.registerWithSoil(
                 new ItemStack(DTBlocks.CHERRYBOMB_BUSH),

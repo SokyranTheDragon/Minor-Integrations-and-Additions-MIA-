@@ -1,6 +1,5 @@
 package com.github.sokyranthedragon.mia.integrations.futuremc;
 
-import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomPlantEntry;
@@ -12,33 +11,27 @@ import net.minecraft.item.ItemStack;
 import thedarkcolour.futuremc.init.Init;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.lang.reflect.Field;
 import java.util.Collection;
 
 @ParametersAreNonnullByDefault
 class JerFutureMcIntegration implements IJerIntegration
 {
     @Override
-    public void addPlantDrops(IPlantRegistry plantRegistry)
+    public void addPlantDrops(IPlantRegistry plantRegistry, @Nullable Collection<PlantEntry> registers)
     {
-        try
+        if (registers != null)
         {
-            Field registersField = plantRegistry.getClass().getDeclaredField("registers");
-            registersField.setAccessible(true);
-            //noinspection unchecked
-            Collection<PlantEntry> registers = (Collection<PlantEntry>) registersField.get(plantRegistry);
-            
             CustomPlantEntry sweetBerry = new CustomPlantEntry(
                     new ItemStack(Init.SWEET_BERRY),
                     Init.SWEET_BERRY_BUSH.getDefaultState(),
                     new PlantDrop(new ItemStack(Init.SWEET_BERRY), 1, 3));
             sweetBerry.setSoil(Blocks.GRASS.getDefaultState());
             registers.add(sweetBerry);
-        } catch (NoSuchFieldException | IllegalAccessException e)
+        }
+        else
         {
-            Mia.LOGGER.error("Could not access IPlantRegistry.registers, plant registration for FutureMC will use fallback code.");
-            
             plantRegistry.registerWithSoil(
                     new ItemStack(Init.SWEET_BERRY),
                     Blocks.GRASS.getDefaultState(),

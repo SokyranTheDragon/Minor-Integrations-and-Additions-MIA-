@@ -1,6 +1,5 @@
 package com.github.sokyranthedragon.mia.integrations.harvestcraft;
 
-import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.HarvestcraftConfiguration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
@@ -23,8 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IPlantable;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.lang.reflect.Field;
 import java.util.Collection;
 
 @ParametersAreNonnullByDefault
@@ -42,7 +41,7 @@ class JerHarvestcraftIntegration implements IJerIntegration
     }
     
     @Override
-    public void addPlantDrops(IPlantRegistry plantRegistry)
+    public void addPlantDrops(IPlantRegistry plantRegistry, @Nullable Collection<PlantEntry> registers)
     {
         if (!HarvestcraftConfiguration.enableJerIntegration)
             return;
@@ -66,13 +65,8 @@ class JerHarvestcraftIntegration implements IJerIntegration
                 plantRegistry.register(new ItemStack(seeds), entries);
         }
         
-        try
+        if (registers != null)
         {
-            Field registersField = plantRegistry.getClass().getDeclaredField("registers");
-            registersField.setAccessible(true);
-            //noinspection unchecked
-            Collection<PlantEntry> registers = (Collection<PlantEntry>) registersField.get(plantRegistry);
-            
             for (BlockPamFruit fruit : FruitRegistry.fruits)
             {
                 CustomPlantEntry entry = new CustomPlantEntry(
@@ -92,10 +86,9 @@ class JerHarvestcraftIntegration implements IJerIntegration
                 entry.setSoil(log.getDefaultState());
                 registers.add(entry);
             }
-        } catch (NoSuchFieldException | IllegalAccessException e)
+        }
+        else
         {
-            Mia.LOGGER.error("Could not access IPlantRegistry.registers, plant registration for Harvestcraft will use fallback code.");
-            
             for (BlockPamFruit fruit : FruitRegistry.fruits)
             {
                 Item sapling = Item.getItemFromBlock(fruit.getSapling());

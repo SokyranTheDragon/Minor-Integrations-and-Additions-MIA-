@@ -1,6 +1,5 @@
 package com.github.sokyranthedragon.mia.integrations.xu2;
 
-import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomPlantEntry;
@@ -15,23 +14,18 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.lang.reflect.Field;
 import java.util.Collection;
 
 @ParametersAreNonnullByDefault
 class JerExtraUtilsIntegration implements IJerIntegration
 {
     @Override
-    public void addPlantDrops(IPlantRegistry plantRegistry)
+    public void addPlantDrops(IPlantRegistry plantRegistry, @Nullable Collection<PlantEntry> registers)
     {
-        try
+        if (registers != null)
         {
-            Field registersField = plantRegistry.getClass().getDeclaredField("registers");
-            registersField.setAccessible(true);
-            //noinspection unchecked
-            Collection<PlantEntry> registers = (Collection<PlantEntry>) registersField.get(plantRegistry);
-    
             CustomPlantEntry redOrchid = new CustomPlantEntry(
                     XU2Entries.blockRedOrchid.newStack(),
                     XU2Entries.blockRedOrchid.value,
@@ -51,9 +45,6 @@ class JerExtraUtilsIntegration implements IJerIntegration
     
             enderLilly.setSoil(Blocks.END_STONE.getDefaultState());
             registers.add(enderLilly);
-        } catch (NoSuchFieldException | IllegalAccessException e)
-        {
-            Mia.LOGGER.error("Could not access IPlantRegistry.registers, plant registration for XU2 won't work.");
         }
     }
     
