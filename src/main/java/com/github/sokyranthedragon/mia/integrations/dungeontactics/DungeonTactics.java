@@ -83,9 +83,9 @@ public class DungeonTactics implements IBaseMod
         ProgressManager.pop(progressBar);
         
         if (anyListener)
-            return null;
-        else
             return lootBag::insertBagLoot;
+        else
+            return null;
     }
     
     @Override
