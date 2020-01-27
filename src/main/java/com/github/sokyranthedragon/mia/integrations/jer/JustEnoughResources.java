@@ -27,8 +27,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.ProgressManager;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -87,7 +87,7 @@ public class JustEnoughResources implements IBaseMod
     }
     
     @Override
-    public void init(FMLInitializationEvent event)
+    public void postInit(FMLPostInitializationEvent event)
     {
         ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughResources entry registration", modIntegrations.size() + 1);
         progressBar.step("setting up");
@@ -138,9 +138,9 @@ public class JustEnoughResources implements IBaseMod
             mod.addDungeonLoot(dungeonRegistry);
             mod.addPlantDrops(plantRegistry);
         }
-
+        
         ProgressManager.pop(progressBar);
-
+        
         Set<Map.Entry<ResourceLocation, EntityLivingBase>> entries = mobTableBuilder.getMobTables().entrySet();
         
         if (!entries.isEmpty())
