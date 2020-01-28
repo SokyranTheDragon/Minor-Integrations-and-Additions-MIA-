@@ -23,7 +23,6 @@ class DungeonTacticsNaturaIntegration implements IDungeonTacticsIntegration
     @Override
     public DungeonTactics.ILootBagListener registerLootBagListener()
     {
-        // TODO: Add unique names
         return (type, loot) ->
         {
             switch (type)
