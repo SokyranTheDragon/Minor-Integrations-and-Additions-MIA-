@@ -16,6 +16,7 @@ import com.github.sokyranthedragon.mia.integrations.iceandfire.IceAndFire;
 import com.github.sokyranthedragon.mia.integrations.jei.Jei;
 import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.github.sokyranthedragon.mia.integrations.mocreatures.MoCreatures;
+import com.github.sokyranthedragon.mia.integrations.natura.Natura;
 import com.github.sokyranthedragon.mia.integrations.quark.Quark;
 import com.github.sokyranthedragon.mia.integrations.tconstruct.TinkersConstruct;
 import com.github.sokyranthedragon.mia.integrations.thaumcraft.Thaumcraft;
@@ -43,13 +44,13 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ModIntegrator
 {
-    private Map<ModIds, IBaseMod> modIntegrations = new HashMap<>();
+    private Map<ModIds, IBaseMod> modIntegrations = new LinkedHashMap<>();
     
     private boolean modsRegistered = false;
     private boolean modsPreInitialized = false;
@@ -110,6 +111,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.QUARK, new Quark());
         if (ModIds.FUTURE_MC.isLoaded)
             modIntegrations.put(ModIds.FUTURE_MC, new FutureMc());
+        if (ModIds.NATURA.isLoaded)
+            modIntegrations.put(ModIds.NATURA, new Natura());
         
         if (!modIntegrations.isEmpty())
         {
