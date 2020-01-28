@@ -24,10 +24,6 @@ public class TfConfiguration
     @Config.RequiresMcRestart
     public static boolean enableJerIntegration = true;
     
-//    @Config.Name("Enable TConstruct integration")
-//    @Config.Comment("Set to false to completely disable integration with TConstruct")
-//    public static boolean enableTConstructIntegration = true;
-    
     @Config.Name("Enable XU2 integration")
     @Config.Comment("Set to false to completely disable integration with XU2")
     @Config.LangKey("mia.config.shared.enable_extra_utils_integration")

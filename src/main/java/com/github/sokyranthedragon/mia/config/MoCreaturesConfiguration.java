@@ -30,12 +30,6 @@ public class MoCreaturesConfiguration
     @Config.RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
-//    @Config.Name("Enable Hatchery integration")
-//    @Config.Comment("Set to false to completely disable integration with Hatchery")
-//    @Config.LangKey("mia.config.shared.enable_hatchery_integration")
-//    @Config.RequiresMcRestart
-//    public static boolean enableHatcheryIntegration = true;
-    
     @Config.Name("Enable Hatchery integration")
     @Config.Comment("Set to false to completely disable integration with Dungeon Tactics")
     @Config.LangKey("mia.config.shared.enable_dungeon_tactics_integration")
