@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "harvestcraft:cactussoupitem"
+  },
+
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "toolPot"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "blockCactus"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "foodStock"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

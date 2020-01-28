@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "harvestcraft:nopalessaladitem"
+  },
+
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "toolCuttingboard"
+    },
+{
+      "type": "forge:ore_dict",
+      "ore": "cropOnion"
+    },
+{
+      "type": "forge:ore_dict",
+      "ore": "cropChilipepper"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "blockCactus"
+    },
+{
+      "type": "forge:ore_dict",
+      "ore": "cropTomato"
+    },
+{
+      "type": "forge:ore_dict",
+      "ore": "cropAvocado"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

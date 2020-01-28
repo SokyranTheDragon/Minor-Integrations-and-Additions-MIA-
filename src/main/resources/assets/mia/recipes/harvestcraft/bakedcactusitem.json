@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "harvestcraft:bakedcactusitem"
+  },
+
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "toolBakeware"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "blockCactus"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

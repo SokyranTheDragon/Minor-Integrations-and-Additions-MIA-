@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "natura:is_pulse_loaded",
+      "pulse_name": "NaturaNether"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "group": "natura:nether_mushroom_stews",
+  "ingredients": [
+    {
+      "item": "natura:empty_bowls",
+      "data": 1
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "listAllmushroom"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "listAllmushroom"
+    }
+  ],
+  "result": {
+    "item": "natura:soups",
+    "data": 1
+  }
+}
