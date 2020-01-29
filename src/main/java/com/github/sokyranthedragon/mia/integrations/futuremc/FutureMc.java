@@ -88,28 +88,32 @@ public class FutureMc implements IBaseMod
         addFoodRecipe(input, output, 600);
     }
     
-    public static void oreDictBlastFurnaceRecipe(ItemStack input, String output, int count)
+    public static void oreDictBlastFurnaceRecipe(ItemStack input, int count, String... outputs)
     {
-        NonNullList<ItemStack> ores = OreDictionary.getOres(output);
-        if (!ores.isEmpty())
+        for (String output : outputs)
         {
-            ItemStack ore = ores.get(0);
-            blastFurnaceRecipe(input, new ItemStack(ore.getItem(), count, ore.getMetadata()));
+            NonNullList<ItemStack> ores = OreDictionary.getOres(output);
+            if (!ores.isEmpty())
+            {
+                ItemStack ore = ores.get(0);
+                blastFurnaceRecipe(input, new ItemStack(ore.getItem(), count, ore.getMetadata()));
+                return;
+            }
         }
     }
     
-    public static void oreDictBlastFurnaceRecipe(ItemStack input, String output)
+    public static void oreDictBlastFurnaceRecipe(ItemStack input, String... outputs)
     {
-        oreDictBlastFurnaceRecipe(input, output, 1);
+        oreDictBlastFurnaceRecipe(input, 1, outputs);
     }
     
-    public static void oreDictBlastFurnaceRecipe(Item input, int meta, String output, int count)
+    public static void oreDictBlastFurnaceRecipe(Item input, int meta, int count, String... outputs)
     {
-        oreDictBlastFurnaceRecipe(new ItemStack(input, 1, meta), output, count);
+        oreDictBlastFurnaceRecipe(new ItemStack(input, 1, meta), count, outputs);
     }
     
-    public static void oreDictBlastFurnaceRecipe(Item input, String output)
+    public static void oreDictBlastFurnaceRecipe(Item input, String... outputs)
     {
-        oreDictBlastFurnaceRecipe(new ItemStack(input), output);
+        oreDictBlastFurnaceRecipe(new ItemStack(input), outputs);
     }
 }

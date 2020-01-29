@@ -33,7 +33,7 @@ class FutureMcDungeonTacticsIntegration implements IFutureMcIntegration
         blastFurnaceRecipe(new ItemStack(DTItems.CLUSTER_MITHRIL), new ItemStack(DTItems.INGOT_MITHRIL));
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_TIN, "ingotTin");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_COPPER, "ingotCopper");
-        oreDictBlastFurnaceRecipe(DTItems.CLUSTER_ALUMINIUM, "ingotAluminium");
+        oreDictBlastFurnaceRecipe(DTItems.CLUSTER_ALUMINIUM, "ingotAluminium", "ingotAluminum");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_NICKEL, "ingotNickel");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_LEAD, "ingotLead");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_PLATINUM, "ingotPlatinum");

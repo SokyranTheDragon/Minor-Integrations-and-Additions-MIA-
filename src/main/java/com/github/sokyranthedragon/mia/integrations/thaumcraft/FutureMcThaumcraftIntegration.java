@@ -24,12 +24,12 @@ class FutureMcThaumcraftIntegration implements IFutureMcIntegration
         
         blastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1, 0), new ItemStack(Items.IRON_INGOT, 2));
         blastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1, 1), new ItemStack(Items.GOLD_INGOT, 2));
-        FutureMc.oreDictBlastFurnaceRecipe(ItemsTC.clusters,2, "ingotCopper", 2);
-        FutureMc.oreDictBlastFurnaceRecipe(ItemsTC.clusters,3, "ingotTin", 2);
-        FutureMc.oreDictBlastFurnaceRecipe(ItemsTC.clusters,4, "ingotSilver", 2);
-        FutureMc.oreDictBlastFurnaceRecipe(ItemsTC.clusters,5, "ingotLead", 2);
+        FutureMc.oreDictBlastFurnaceRecipe(ItemsTC.clusters, 2, 2, "ingotCopper");
+        FutureMc.oreDictBlastFurnaceRecipe(ItemsTC.clusters, 3, 2, "ingotTin");
+        FutureMc.oreDictBlastFurnaceRecipe(ItemsTC.clusters, 4, 2, "ingotSilver");
+        FutureMc.oreDictBlastFurnaceRecipe(ItemsTC.clusters, 5, 2, "ingotLead");
         blastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1, 6), new ItemStack(ItemsTC.quicksilver, 2));
-        blastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1, 7), new ItemStack(Items.QUARTZ, 2));
+        blastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1,  7), new ItemStack(Items.QUARTZ, 2));
         
         addOrCreateRecipe(new ItemStack(BlocksTC.stoneArcane),
                 new ItemStack(BlocksTC.stoneArcaneBrick),
