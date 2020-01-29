@@ -23,6 +23,8 @@ mia.config.cofh_core.title=CoFH Core
 mia.config.dungeon_tactics.title=Dungeon Tactics
 mia.config.harvestcraft.title=Harvestcraft
 mia.config.jei.title=Just Enough Items
+mia.config.natura.title=Natura
+mia.config.biomes_o_plenty.title=Biomes O' Plenty
 
 ## Tooltips
 
@@ -44,6 +46,8 @@ mia.config.cofh_core.title.tooltip=Browse and manage CoFH Core settings
 mia.config.dungeon_tactics.title.tooltip=Browse and manage Dungeon Tactics settings
 mia.config.harvestcraft.title.tooltip=Browse and manage Harvestcraft settings
 mia.config.jei.title.tooltip=Browse and manage Just Enough Items settings
+mia.config.natura.title.tooltip=Browse and manage Natura settings
+mia.config.biomes_o_plenty.title.tooltip=Browse and manage Biomes O' Plenty settings
 
 ###
 ### To anyone who might be translating anything below (until TOP integrations section):
@@ -66,6 +70,7 @@ mia.config.shared.enable_dungeon_tactics_integration=Enable Dungeon Tactics inte
 mia.config.shared.enable_quark_integration=Enable Quark integration
 mia.config.shared.enable_future_mc_integration=Enable FutureMC integration
 mia.config.shared.enable_harvestcraft_integration=Enable Harvestcraft integration
+mia.config.shared.enable_botania_integration=Enable Botania integration
 
 ## Additions text
 
@@ -79,6 +84,8 @@ mia.config.thaumcraft.additions_enabled=Enable Thaumcraft additions
 mia.config.mocreatures.additions_enabled=Enable Mo' Creatures additions
 mia.config.dungeon_tactics.additions_enabled=Enable Dungeon Tactics additions
 mia.config.quark.additions_enabled=Enable Quark additions
+mia.config.natura.additions_enabled=Enable Natura additions
+mia.config.biomes_o_plenty.additions_enabled=Enable Biomes O' Plenty additions
 
 ## Mia specific
 
