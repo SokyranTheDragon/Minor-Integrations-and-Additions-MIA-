@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "terrarium",
+  "ingredients": [
+    {
+      "item": "minecraft:dirt",
+      "data": 2
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "cropBamboo"
+    },
+    {
+      "item": "biomesoplenty:jar_empty"
+    }
+  ],
+  "result": {
+    "item": "biomesoplenty:terrarium",
+    "data": 6
+  }
+}

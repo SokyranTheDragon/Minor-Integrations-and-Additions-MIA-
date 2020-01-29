@@ -5,6 +5,7 @@ import com.gendeathrow.morechickens.core.ModItems;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.integrations.biomesoplenty.BiomesOPlenty;
 import com.github.sokyranthedragon.mia.integrations.botania.Botania;
 import com.github.sokyranthedragon.mia.integrations.cofhcore.CofhCore;
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.DungeonTactics;
@@ -113,6 +114,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.FUTURE_MC, new FutureMc());
         if (ModIds.NATURA.isLoaded)
             modIntegrations.put(ModIds.NATURA, new Natura());
+        if (ModIds.BIOMES_O_PLENTY.isLoaded)
+            modIntegrations.put(ModIds.BIOMES_O_PLENTY, new BiomesOPlenty());
         
         if (!modIntegrations.isEmpty())
         {
