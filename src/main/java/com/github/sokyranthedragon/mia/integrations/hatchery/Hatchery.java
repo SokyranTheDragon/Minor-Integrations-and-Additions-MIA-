@@ -1,6 +1,8 @@
 package com.github.sokyranthedragon.mia.integrations.hatchery;
 
+import com.gendeathrow.hatchery.api.crafting.ShredderRecipe;
 import com.gendeathrow.hatchery.block.nestpen.NestPenTileEntity;
+import com.gendeathrow.hatchery.block.shredder.ShredderTileEntity;
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.gendeathrow.hatchery.core.init.ModItems;
 import com.github.sokyranthedragon.mia.Mia;
@@ -178,5 +180,25 @@ public class Hatchery implements IBaseMod
     public static ConfigLootHandler.ItemDrop getDrop(Block item, int weight)
     {
         return getDrop(new ItemStack(item), weight, 1, 1);
+    }
+    
+    public static void registerShredder(ItemStack input, ItemStack output)
+    {
+        registerShredder(input, output, ItemStack.EMPTY);
+    }
+    
+    public static void registerShredder(ItemStack input, ItemStack output, ItemStack extra)
+    {
+        registerShredder(input, output, extra, 3);
+    }
+    
+    public static void registerShredder(ItemStack input, ItemStack output, ItemStack extra, int chance)
+    {
+        registerShredder(input, output, extra, chance, 100);
+    }
+    
+    public static void registerShredder(ItemStack input, ItemStack output, ItemStack extra, int chance, int time)
+    {
+        ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(input, output, extra, chance, time));
     }
 }
