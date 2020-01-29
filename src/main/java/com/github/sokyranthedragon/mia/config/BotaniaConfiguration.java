@@ -20,6 +20,12 @@ public class BotaniaConfiguration
     @RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
+    @Config.Name("Enable external integrations")
+    @Config.Comment("Set to false to prevent other mods from integrating with Botania")
+    @Config.LangKey("mia.config.shared.enable_external_integrations")
+    @Config.RequiresMcRestart
+    public static boolean externalIntegrationsEnabled = true;
+    
     @Name("Enable Hatchery integration")
     @Comment("Set to false to completely disable integration with Dungeon Tactics")
     @LangKey("mia.config.shared.enable_dungeon_tactics_integration")
