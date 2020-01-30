@@ -32,19 +32,33 @@ class JerExtraUtilsIntegration implements IJerIntegration
                     BlockRedOrchid.GROWTH_STATE,
                     new PlantDrop(XU2Entries.blockRedOrchid.newStack(), 1, 1),
                     new PlantDrop(new ItemStack(Items.REDSTONE), 1, 3));
-    
+            
             redOrchid.setSoil(Blocks.REDSTONE_ORE.getDefaultState());
             registers.add(redOrchid);
-    
+            
             CustomPlantEntry enderLilly = new CustomPlantEntry(
                     XU2Entries.blockEnderLilly.newStack(),
                     XU2Entries.blockEnderLilly.value,
                     BlockEnderLilly.GROWTH_STATE,
                     new PlantDrop(XU2Entries.blockEnderLilly.newStack(), 1, 1),
                     new PlantDrop(new ItemStack(Items.ENDER_PEARL), 1, 2));
-    
+            
             enderLilly.setSoil(Blocks.END_STONE.getDefaultState());
             registers.add(enderLilly);
+        }
+        else
+        {
+            plantRegistry.registerWithSoil(
+                    XU2Entries.blockEnderLilly.newStack(),
+                    Blocks.END_STONE.getDefaultState(),
+                    new PlantDrop(XU2Entries.blockEnderLilly.newStack(), 1, 1),
+                    new PlantDrop(new ItemStack(Items.ENDER_PEARL), 1, 2));
+            
+            plantRegistry.registerWithSoil(
+                    XU2Entries.blockRedOrchid.newStack(),
+                    Blocks.REDSTONE_ORE.getDefaultState(),
+                    new PlantDrop(XU2Entries.blockRedOrchid.newStack(), 1, 1),
+                    new PlantDrop(new ItemStack(Items.REDSTONE), 1, 3));
         }
     }
     

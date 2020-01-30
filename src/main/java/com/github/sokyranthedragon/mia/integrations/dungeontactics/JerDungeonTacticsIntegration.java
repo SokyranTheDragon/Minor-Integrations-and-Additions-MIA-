@@ -143,15 +143,15 @@ class JerDungeonTacticsIntegration implements IJerIntegration
     {
         plantRegistry.registerWithSoil(
                 new ItemStack(DTBlocks.CHERRYBOMB_BUSH),
-                Blocks.DIRT.getDefaultState(),
+                Blocks.GRASS.getDefaultState(),
                 new PlantDrop(new ItemStack(DTItems.CHERRYBOMB), 1, 3));
         plantRegistry.registerWithSoil(
                 new ItemStack(DTBlocks.INCINDIBERRY_BUSH),
-                Blocks.DIRT.getDefaultState(),
+                Blocks.GRASS.getDefaultState(),
                 new PlantDrop(new ItemStack(DTItems.INCINDIBERRY), 1, 3));
         plantRegistry.registerWithSoil(
                 new ItemStack(DTBlocks.GLOWCURRENT_BUSH),
-                Blocks.DIRT.getDefaultState(),
+                Blocks.GRASS.getDefaultState(),
                 new PlantDrop(new ItemStack(DTItems.GLOWCURRENT), 1, 3));
     }
     

@@ -31,6 +31,8 @@ import java.util.Optional;
 @ParametersAreNonnullByDefault
 class JeiJerIntegration implements IJeiIntegration
 {
+    boolean registered = false;
+    
     @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
     @Override
     public void register(IModRegistry registry, Collection<String> registeredCategories)
@@ -88,6 +90,8 @@ class JeiJerIntegration implements IJeiIntegration
         {
             Mia.LOGGER.error("Could not access ModRegistry, custom plan drops won't work properly.");
         }
+        
+        registered = true;
     }
     
     @Override
