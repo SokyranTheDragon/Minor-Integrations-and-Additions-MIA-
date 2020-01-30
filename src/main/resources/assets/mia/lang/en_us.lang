@@ -1,3 +1,8 @@
+### Creative tab
+
+itemGroup.mia=Minor Integrations and Additions
+
+
 #####################
 ### Configuration ###
 #####################
@@ -86,6 +91,7 @@ mia.config.dungeon_tactics.additions_enabled=Enable Dungeon Tactics additions
 mia.config.quark.additions_enabled=Enable Quark additions
 mia.config.natura.additions_enabled=Enable Natura additions
 mia.config.biomes_o_plenty.additions_enabled=Enable Biomes O' Plenty additions
+mia.config.botania.additions_enabled=Enable Botania additions
 
 ## Mia specific
 
@@ -105,6 +111,12 @@ mia.config.quark.add_ancient_tomes=Add all supported enchantments as ancient tom
 mia.config.quark.add_item_tooltip=Add supported items to enchanted book tooltips
 mia.config.quark.ancient_tomes_crafting=Add ancient tome crafting
 mia.config.thaumcraft.register_aspects=Register aspects for other mods
+
+## JEI
+
+mia.config.jei.loot_bag=Enable loot bag category
+mia.config.jei.alchemical_cauldron=Enable alchemical cauldron category
+mia.config.jei.orechid_vacuam=Enable orechid vacuam category (test 12345)
 
 
 
@@ -159,6 +171,9 @@ mia.jei.dt.info.lantern_magic=Can be lit with flint and steel and can be extingu
 mia.jei.dt.info.engineer_pants=Protect the user from the effect of traps.
 mia.jei.dt.info.peg_hammer=Can be obtained if a player named 'PegBeard' uses a name tag to name a parrot 'Pigeon', a pig 'Battle Pig', or a chicken 'Sebastian'. The animal must be an adult.
 
+### Botania
+
+mia.jei.botania.orechid_vacuam=Orechid Vacuam
 
 
 #######################
@@ -244,6 +259,23 @@ tile.void_creator.name=Void Creator
 research.void_creator.title=Void creator
 research.void_creator.stage.1=I have a strange feeling that I'm missing something, or rather, the world I'm in is. It feels like it's too safe to access more... "advanced" research. I should try to to look deeper into that.
 research.void_creator.stage.2=That's it! Based on what I've gathered from the Crimson Cultists I managed to create a device that's going to create a rare and powerful material - Void Seeds - from the flux in the area it's placed in. It requires more Flux than Vis to be present, as well as enough of it to start the process.
+
+
+
+#########################
+### Botania additions ###
+#########################
+
+# - FUNCTIONAL
+tile.botania:flower.orechidVacuam.name=Orechid Vacuam
+tile.botania:flower.orechidVacuam.reference=Empty on the inside
+
+# - FUNCTIONAL FLOWERS
+# -- ORECHID VACUAM
+botania.entry.orechidVacuam=Orechid Vacuam
+botania.tagline.orechidVacuam=Creates end ores from end stone
+botania.page.orechidVacuam0=The &1Orechid&0 is a great flower. The ability to create raw ores with &4Mana&0 can be a great boon to any sedentary botanist's life. It, however, can't create ores from the &4End&0. Getting that sorted out is easy, by switching the petals a bit, it'll create &4End&0 ores in &1End Stone&0 instead. The flower must be in the &4End&0 to work.
+botania.page.orechidVacuam1=&oWhy is there so much emptiness?&r.
 
 
 

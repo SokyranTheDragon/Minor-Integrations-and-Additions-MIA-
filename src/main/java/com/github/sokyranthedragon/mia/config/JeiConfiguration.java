@@ -23,6 +23,11 @@ public class JeiConfiguration
     @Config.LangKey("mia.config.jei.alchemical_cauldron")
     public static boolean enableAlchemicalCauldronCategory = true;
     
+    @Config.Name("Enable orechid vacuam category")
+    @Config.Comment("If enabled, all possible orechid vacuam recipes will be added to JEI (Botania required)")
+    @Config.LangKey("mia.config.jei.orechid_vacuam")
+    public static boolean enableOrechidVacuamCategory = true;
+    
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.
      *
@@ -44,6 +49,11 @@ public class JeiConfiguration
                 MiaJeiPlugin.unhideCategories(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON);
             else
                 MiaJeiPlugin.hideCategories(MiaJeiPlugin.Categories.DUNGEON_TACTICS_CAULDRON);
+            
+            if (enableOrechidVacuamCategory)
+                MiaJeiPlugin.unhideCategories(MiaJeiPlugin.Categories.ORECHID_VACUAM);
+            else
+                MiaJeiPlugin.hideCategories(MiaJeiPlugin.Categories.ORECHID_VACUAM);
         }
     }
 }

@@ -14,6 +14,12 @@ import static net.minecraftforge.common.config.Config.*;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class BotaniaConfiguration
 {
+    @Config.Name("Enable Botania additions")
+    @Config.Comment("Set to false to completely disable new Botania additions")
+    @Config.LangKey("mia.config.botania.additions_enabled")
+    @Config.RequiresMcRestart
+    public static boolean botaniaAdditionsEnabled = true;
+    
     @Name("Enable Thermal Expansion integration")
     @Comment("Set to false to completely disable integration with Thermal Expansion")
     @LangKey("mia.config.shared.enable_thermal_expansion_integration")
