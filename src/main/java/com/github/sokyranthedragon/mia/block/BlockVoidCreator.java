@@ -34,10 +34,9 @@ public class BlockVoidCreator extends BlockBase implements ITileEntityProvider
     
     public BlockVoidCreator()
     {
-        super(Material.IRON, "void_creator");
+        super(Material.IRON, "void_creator", ConfigItems.TABTC);
         setHardness(2.5f);
         setHarvestLevel("pickaxe", 0);
-        setCreativeTab(ConfigItems.TABTC);
     }
     
     @Nullable

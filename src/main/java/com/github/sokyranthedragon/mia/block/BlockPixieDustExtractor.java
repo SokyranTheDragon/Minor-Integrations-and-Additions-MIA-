@@ -30,11 +30,10 @@ public class BlockPixieDustExtractor extends BlockBase implements ITileEntityPro
     // It's here just in case there's ever need to override this block
     public BlockPixieDustExtractor(Material material)
     {
-        super(material, "pixie_dust_extractor");
+        super(material, "pixie_dust_extractor", IceAndFire.TAB_BLOCKS);
         
         setHardness(2.5f);
         setHarvestLevel("pickaxe", 0);
-        setCreativeTab(IceAndFire.TAB_BLOCKS);
     }
     
     @Nullable

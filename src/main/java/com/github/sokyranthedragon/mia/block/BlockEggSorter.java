@@ -31,11 +31,10 @@ public class BlockEggSorter extends BlockBase implements ITileEntityProvider
     // It's here just in case there's ever need to override this block
     public BlockEggSorter(Material material)
     {
-        super(material, "egg_sorter");
+        super(material, "egg_sorter", Hatchery.hatcheryTabs);
         
         setHardness(1.5f);
         setHarvestLevel("axe", 0);
-        setCreativeTab(Hatchery.hatcheryTabs);
     }
     
     @Nullable

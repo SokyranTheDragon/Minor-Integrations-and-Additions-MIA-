@@ -70,9 +70,7 @@ public class Thaumcraft implements IBaseMod
         
         final IForgeRegistry<Block> registry = event.getRegistry();
         
-        MiaBlocks.void_creator = new BlockVoidCreator();
-        
-        registry.register(MiaBlocks.void_creator);
+        MiaBlocks.voidCreator = MiaBlocks.registerBlock(new BlockVoidCreator(), registry);
         
         GameRegistry.registerTileEntity(TileVoidCreator.class, new ResourceLocation("mia", "void_creator"));
     }
@@ -86,12 +84,12 @@ public class Thaumcraft implements IBaseMod
         
         final IForgeRegistry<Item> registry = event.getRegistry();
         
-        registry.register(new ItemBlock(MiaBlocks.void_creator).setRegistryName(MiaBlocks.void_creator.getRegistryName()));
+        registry.register(new ItemBlock(MiaBlocks.voidCreator).setRegistryName(MiaBlocks.voidCreator.getRegistryName()));
         
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(Mia.MODID, "void_creator"),
                 new InfusionRecipe(
                         "MIA.VOID_CREATOR",
-                        new ItemStack(MiaBlocks.void_creator),
+                        new ItemStack(MiaBlocks.voidCreator),
                         9,
                         new AspectList().add(Aspect.ELDRITCH, 50).add(Aspect.CRAFT, 50).add(Aspect.ENTROPY, 50).add(Aspect.VOID, 100),
                         new ItemStack(Items.GHAST_TEAR),
@@ -113,6 +111,6 @@ public class Thaumcraft implements IBaseMod
         if (!thaumcraftAdditionsEnabled)
             return;
         
-        RegisterUtils.registerItemblockRenderer(MiaBlocks.void_creator);
+        RegisterUtils.registerItemblockRenderer(MiaBlocks.voidCreator);
     }
 }

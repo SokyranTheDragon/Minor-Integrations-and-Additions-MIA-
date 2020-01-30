@@ -101,9 +101,7 @@ public class IceAndFire implements IBaseMod
         
         final IForgeRegistry<Block> registry = event.getRegistry();
         
-        MiaBlocks.pixie_dust_extractor = new BlockPixieDustExtractor();
-        
-        registry.register(MiaBlocks.pixie_dust_extractor);
+        MiaBlocks.pixieDustExtractor = MiaBlocks.registerBlock(new BlockPixieDustExtractor(), registry);
         
         GameRegistry.registerTileEntity(TilePixieDustExtractor.class, new ResourceLocation("mia", "pixie_dust_extractor"));
     }
@@ -117,7 +115,7 @@ public class IceAndFire implements IBaseMod
         
         final IForgeRegistry<Item> registry = event.getRegistry();
         
-        registry.register(new ItemBlock(MiaBlocks.pixie_dust_extractor).setRegistryName(MiaBlocks.pixie_dust_extractor.getRegistryName()));
+        registry.register(new ItemBlock(MiaBlocks.pixieDustExtractor).setRegistryName(MiaBlocks.pixieDustExtractor.getRegistryName()));
     }
     
     @Override
@@ -127,7 +125,7 @@ public class IceAndFire implements IBaseMod
         if (!iceandfireAdditionsEnabled)
             return;
         
-        RegisterUtils.registerItemblockRenderer(MiaBlocks.pixie_dust_extractor);
+        RegisterUtils.registerItemblockRenderer(MiaBlocks.pixieDustExtractor);
     }
     
     @Override

@@ -22,7 +22,7 @@ public class MiaJeiPlugin implements IModPlugin
     @Override
     public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry)
     {
-        subtypeRegistry.registerSubtypeInterpreter(MiaItems.music_player, new ISubtypeRegistry.ISubtypeInterpreter()
+        subtypeRegistry.registerSubtypeInterpreter(MiaItems.musicPlayer, new ISubtypeRegistry.ISubtypeInterpreter()
         {
             @Nonnull
             @Override
@@ -42,11 +42,11 @@ public class MiaJeiPlugin implements IModPlugin
             integration.register(registry, registeredCategories);
         
         if (ModIds.HATCHERY.isLoaded)
-            registry.addIngredientInfo(new ItemStack(MiaBlocks.egg_sorter), VanillaTypes.ITEM, "mia.jei.info.egg_sorter");
+            registry.addIngredientInfo(new ItemStack(MiaBlocks.eggSorter), VanillaTypes.ITEM, "mia.jei.info.egg_sorter");
         if (ModIds.ICE_AND_FIRE.isLoaded)
-            registry.addIngredientInfo(new ItemStack(MiaBlocks.pixie_dust_extractor), VanillaTypes.ITEM, "mia.jei.info.pixie_dust_extractor");
+            registry.addIngredientInfo(new ItemStack(MiaBlocks.pixieDustExtractor), VanillaTypes.ITEM, "mia.jei.info.pixie_dust_extractor");
         if (ModIds.THAUMCRAFT.isLoaded)
-            registry.addIngredientInfo(new ItemStack(MiaBlocks.void_creator), VanillaTypes.ITEM, "mia.jei.info.void_creator");
+            registry.addIngredientInfo(new ItemStack(MiaBlocks.voidCreator), VanillaTypes.ITEM, "mia.jei.info.void_creator");
     }
     
     @Override
@@ -58,6 +58,8 @@ public class MiaJeiPlugin implements IModPlugin
             hideCategories(Categories.LOOT_BAG);
         if (!JeiConfiguration.enableAlchemicalCauldronCategory)
             hideCategories(Categories.DUNGEON_TACTICS_CAULDRON);
+        if (!JeiConfiguration.enableOrechidVacuamCategory)
+            hideCategories(Categories.ORECHID_VACUAM);
     }
     
     @Override
@@ -95,5 +97,6 @@ public class MiaJeiPlugin implements IModPlugin
         
         public static final String DUNGEON_TACTICS_CAULDRON = "mia.alchemical_cauldron";
         public static final String LOOT_BAG = "mia.loot_bag";
+        public static final String ORECHID_VACUAM = "mia.orechid_vacuam";
     }
 }

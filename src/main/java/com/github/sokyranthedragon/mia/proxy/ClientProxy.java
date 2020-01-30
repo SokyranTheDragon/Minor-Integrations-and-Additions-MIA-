@@ -18,7 +18,7 @@ public class ClientProxy extends CommonProxy
     @SubscribeEvent
     public static void registerRenders(ModelRegistryEvent event)
     {
-        RegisterUtils.registerItemRenderer(MiaItems.music_player);
+        RegisterUtils.registerItemRenderer(MiaItems.musicPlayer);
         modIntegrator.registerRenders(event);
     }
     

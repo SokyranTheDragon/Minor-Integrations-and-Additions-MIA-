@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ConstantIds.THERMAL_EXPANSION +
                 ";after:" + ModIds.ConstantIds.TINKERS_CONSTRUCT +
                 ";after:" + ModIds.ConstantIds.JEI +
-                ";after:" + ModIds.ConstantIds.JER +
+                ";after:" + ModIds.ConstantIds.JER + "@[0.9.1.56,]" +
                 ";after:" + ModIds.ConstantIds.ICE_AND_FIRE +
                 ";after:" + ModIds.ConstantIds.HATCHERY +
                 ";after:" + ModIds.ConstantIds.THAUMCRAFT +

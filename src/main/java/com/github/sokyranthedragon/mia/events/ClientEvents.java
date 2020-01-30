@@ -55,7 +55,7 @@ public class ClientEvents
         
         if (openGuiPressed || musicTogglePressed || nextSongPressed || previousSongPressed)
         {
-            ImmutableTriple<ItemStack, Integer, Integer> itemInInventory = InventoryUtils.findItemInInventory(player, MiaItems.music_player);
+            ImmutableTriple<ItemStack, Integer, Integer> itemInInventory = InventoryUtils.findItemInInventory(player, MiaItems.musicPlayer);
             MusicPlayerStackHandler capability = itemInInventory.left.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
             
             if (!itemInInventory.left.isEmpty() && capability != null)
@@ -96,7 +96,7 @@ public class ClientEvents
             for (int i = 0; i < baubles.getSlots(); i++)
             {
                 ItemStack stack = baubles.getStackInSlot(i);
-                if (stack.getItem() == MiaItems.music_player)
+                if (stack.getItem() == MiaItems.musicPlayer)
                     handleMusicPlayerVerification(stack, uuidList, 3, i);
             }
         }
@@ -104,11 +104,11 @@ public class ClientEvents
         for (int i = 0; i < player.inventory.mainInventory.size(); i++)
         {
             ItemStack stack = player.inventory.mainInventory.get(i);
-            if (stack.getItem() == MiaItems.music_player)
+            if (stack.getItem() == MiaItems.musicPlayer)
                 handleMusicPlayerVerification(stack, uuidList, 2, i);
         }
         
-        if (player.getHeldItemOffhand().getItem() == MiaItems.music_player)
+        if (player.getHeldItemOffhand().getItem() == MiaItems.musicPlayer)
             handleMusicPlayerVerification(player.getHeldItemOffhand(), uuidList, 1, 0);
     }
     

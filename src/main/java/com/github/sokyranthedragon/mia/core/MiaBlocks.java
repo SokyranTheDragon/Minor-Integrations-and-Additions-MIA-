@@ -1,6 +1,10 @@
 package com.github.sokyranthedragon.mia.core;
 
 import net.minecraft.block.Block;
+import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class MiaBlocks
 {
@@ -8,12 +12,21 @@ public class MiaBlocks
     {
     }
     
+    public static final List<Block> blocks = new LinkedList<>();
+    
     // Hatchery
-    public static Block egg_sorter = null;
+    public static Block eggSorter = null;
     
     // Ice and Fire
-    public static Block pixie_dust_extractor = null;
+    public static Block pixieDustExtractor = null;
     
     // Thaumcraft
-    public static Block void_creator = null;
+    public static Block voidCreator = null;
+    
+    public static <T extends Block> T registerBlock(T block, IForgeRegistry<Block> registry)
+    {
+        registry.register(block);
+        blocks.add(block);
+        return block;
+    }
 }

@@ -3,7 +3,9 @@ package com.github.sokyranthedragon.mia.items;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import com.github.sokyranthedragon.mia.Mia;
+import com.github.sokyranthedragon.mia.MiaCreativeTab;
 import com.github.sokyranthedragon.mia.capabilities.MusicPlayerCapabilityProvider;
+import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.gui.GuiHandler;
 import com.github.sokyranthedragon.mia.handlers.MusicPlayerStackHandler;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
@@ -31,9 +33,12 @@ public class ItemMusicPlayer extends Item implements IBauble
     public ItemMusicPlayer()
     {
         setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.TOOLS);
         setRegistryName(Mia.MODID, "music_player");
         setTranslationKey("music_player");
+        if (MiaConfig.miaCreativeTab)
+            setCreativeTab(MiaCreativeTab.INSTANCE);
+        else
+            setCreativeTab(CreativeTabs.TOOLS);
     }
     
     @Nullable

@@ -44,6 +44,11 @@ public class MiaConfig
     @LangKey("mia.config.base.disable_ore_dict")
     public static boolean disableOreDict = false;
     
+    @Name("Enable creative tab")
+    @Comment("If this option is disabled then any MIA items and blocks will be added to creative tabs of related mods")
+    @LangKey("mia.config.base.mia_creative_tab")
+    public static boolean miaCreativeTab = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

@@ -96,9 +96,7 @@ public class Hatchery implements IBaseMod
         
         final IForgeRegistry<Block> registry = event.getRegistry();
         
-        MiaBlocks.egg_sorter = new BlockEggSorter();
-        
-        registry.register(MiaBlocks.egg_sorter);
+        MiaBlocks.eggSorter = MiaBlocks.registerBlock(new BlockEggSorter(), registry);
         
         GameRegistry.registerTileEntity(TileEggSorter.class, new ResourceLocation("mia", "egg_sorter"));
     }
@@ -112,7 +110,7 @@ public class Hatchery implements IBaseMod
         
         final IForgeRegistry<Item> registry = event.getRegistry();
         
-        registry.register(new ItemBlock(MiaBlocks.egg_sorter).setRegistryName(MiaBlocks.egg_sorter.getRegistryName()));
+        registry.register(new ItemBlock(MiaBlocks.eggSorter).setRegistryName(MiaBlocks.eggSorter.getRegistryName()));
     }
     
     @Override
@@ -122,7 +120,7 @@ public class Hatchery implements IBaseMod
         if (!hatcheryAdditionsEnabled)
             return;
         
-        RegisterUtils.registerItemblockRenderer(MiaBlocks.egg_sorter);
+        RegisterUtils.registerItemblockRenderer(MiaBlocks.eggSorter);
 //        Item eggSorterItem = Item.getItemFromBlock(MiaBlocks.egg_sorter);
 //        ModelLoader.setCustomModelResourceLocation(eggSorterItem, 0, new ModelResourceLocation("mia:" + eggSorterItem.getRegistryName().getPath(), "inventory"));
     }
