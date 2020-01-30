@@ -28,7 +28,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.ProgressManager;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
@@ -84,19 +83,23 @@ public class JustEnoughResources implements IBaseMod
             return;
         
         if (integration instanceof IJerIntegration)
-        {
             modIntegrations.put(integration.getModId(), (IJerIntegration) integration);
-            return;
-        }
-        
-        Mia.LOGGER.warn("Incorrect JER integration with id of " + integration.getModId() + ": " + integration.toString());
+        else
+            Mia.LOGGER.warn("Incorrect JER integration with id of " + integration.getModId() + ": " + integration.toString());
     }
     
     @Override
-    public void init(FMLInitializationEvent event)
+    public void postInit(FMLPostInitializationEvent event)
     {
-        ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughResources plant entry registration", modIntegrations.size() + 1);
+        ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughResources entry registration", modIntegrations.size() + 1);
         progressBar.step("setting up");
+        
+        World world = Minecraft.getMinecraft().world;
+        
+        if (world == null)
+            world = new FakeClientWorld();
+        MobTableBuilder mobTableBuilder = new MobTableBuilder(world);
+        IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
         
         IPlantRegistry plantRegistry = JERAPI.getInstance().getPlantRegistry();
         Collection<PlantEntry> registers = null;
@@ -131,28 +134,6 @@ public class JustEnoughResources implements IBaseMod
                     new PlantDrop(new ItemStack(Items.NETHER_WART), 2, 4));
         }
         
-        for (IJerIntegration mod : modIntegrations.values())
-        {
-            progressBar.step(mod.getModId().modId);
-            mod.addPlantDrops(plantRegistry, registers);
-        }
-        
-        ProgressManager.pop(progressBar);
-    }
-    
-    @Override
-    public void postInit(FMLPostInitializationEvent event)
-    {
-        ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughResources entry registration", modIntegrations.size() + 1);
-        progressBar.step("setting up");
-        
-        World world = Minecraft.getMinecraft().world;
-        
-        if (world == null)
-            world = new FakeClientWorld();
-        MobTableBuilder mobTableBuilder = new MobTableBuilder(world);
-        IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
-        
         mobTableBuilder.add(loadResource("minecraft/wither"), EntityWither.class);
         Optional<Map.Entry<ResourceLocation, EntityLivingBase>> wither = mobTableBuilder.getMobTables().entrySet().stream().findAny();
         wither.ifPresent(entry -> mobRegistry.register(entry.getValue(), LightLevel.any, 50, entry.getKey()));
@@ -171,6 +152,7 @@ public class JustEnoughResources implements IBaseMod
                 allMobs.put(modMob, mod.getModId());
             mod.addMobRenderHooks(mobRegistry);
             
+            mod.addPlantDrops(plantRegistry, registers);
             mod.addDungeonLoot(dungeonRegistry);
         }
         
