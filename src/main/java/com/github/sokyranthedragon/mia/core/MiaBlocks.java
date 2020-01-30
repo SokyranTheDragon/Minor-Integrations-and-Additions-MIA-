@@ -23,6 +23,9 @@ public class MiaBlocks
     // Thaumcraft
     public static Block voidCreator = null;
     
+    // Botania
+    public static Block blockBotaniaSpecialFlower = null;
+    
     public static <T extends Block> T registerBlock(T block, IForgeRegistry<Block> registry)
     {
         registry.register(block);
