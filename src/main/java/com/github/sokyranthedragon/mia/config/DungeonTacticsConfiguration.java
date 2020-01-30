@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class DungeonTacticsConfiguration
 {
-    @Config.Name("Enable Ice and Fire additions")
+    @Config.Name("Enable Dungeon Tactics additions")
     @Config.Comment("Set to false to completely disable new Dungeon Tactics additions")
     @Config.LangKey("mia.config.dungeon_tactics.additions_enabled")
     @Config.RequiresMcRestart
