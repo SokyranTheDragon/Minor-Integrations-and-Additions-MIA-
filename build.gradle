@@ -237,7 +237,7 @@ dependencies {
 }
 
 curseforge {
-    apiKey = "fcbf7fe9-b990-43d3-8257-d4f6ecfb3e95"
+    apiKey = project.api_key
     project {
         id = "358821"
         changelog = file("upload_changelog.txt")
@@ -269,6 +269,9 @@ curseforge {
                 optionalDependency "thermal-foundation"
                 optionalDependency "tinkers-construct"
             }
+        }
+        options {
+            debug = true
         }
     }
 }
