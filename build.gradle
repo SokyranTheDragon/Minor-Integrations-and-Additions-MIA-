@@ -7,11 +7,13 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath "com.wynprice.cursemaven:CurseMaven:2.1.1"
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: "com.wynprice.cursemaven"
+apply plugin: "com.matthewprenger.cursegradle"
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 parseConfig(file('private.properties'))
@@ -232,6 +234,43 @@ dependencies {
         deobfProvided "curse.maven:Biomes_O_Plenty_7.0.1.2441:2715506"
     else
         compileOnly "curse.maven:Biomes_O_Plenty_7.0.1.2441:2715506"
+}
+
+curseforge {
+    apiKey = "fcbf7fe9-b990-43d3-8257-d4f6ecfb3e95"
+    project {
+        id = "358821"
+        changelog = file("upload_changelog.txt")
+        releaseType = "beta"
+
+        mainArtifact(jar) {
+            displayName = "MIA $project.version"
+            relations {
+                optionalDependency "biomes-o-plenty"
+                optionalDependency "baubles"
+                optionalDependency "botania"
+                optionalDependency "chickens"
+                optionalDependency "cofh-core"
+                optionalDependency "dungeon-tactics"
+                optionalDependency "extra-utilities"
+                optionalDependency "extrabotany"
+                optionalDependency "future-mc"
+                optionalDependency "hatchery"
+                optionalDependency "ice-and-fire-dragons"
+                optionalDependency "jei"
+                optionalDependency "just-enough-resources-jer"
+                optionalDependency "mo-creatures"
+                optionalDependency "natura"
+                optionalDependency "pams-harvestcraft"
+                optionalDependency "quark"
+                optionalDependency "thaumcraft"
+                optionalDependency "the-one-probe"
+                optionalDependency "thermal-expansion"
+                optionalDependency "thermal-foundation"
+                optionalDependency "tinkers-construct"
+            }
+        }
+    }
 }
 
 processResources {
