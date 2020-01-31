@@ -58,7 +58,7 @@ public class MessageSyncMusicPlayer implements IMessage
     public void fromBytes(ByteBuf byteBuf)
     {
         slotType = ByteBufUtils.readVarInt(byteBuf, 1);
-        if (slotType > 1)
+        if (slotType > 1 && slotType != 4)
             slotInventory = ByteBufUtils.readVarInt(byteBuf, 1);
         slotMusicPlayer = ByteBufUtils.readVarInt(byteBuf, 5);
         
@@ -78,7 +78,7 @@ public class MessageSyncMusicPlayer implements IMessage
     public void toBytes(ByteBuf byteBuf)
     {
         ByteBufUtils.writeVarInt(byteBuf, slotType, 1);
-        if (slotType > 1)
+        if (slotType > 1 && slotType != 4)
             ByteBufUtils.writeVarInt(byteBuf, slotInventory, 1);
         ByteBufUtils.writeVarInt(byteBuf, slotMusicPlayer, 5);
         

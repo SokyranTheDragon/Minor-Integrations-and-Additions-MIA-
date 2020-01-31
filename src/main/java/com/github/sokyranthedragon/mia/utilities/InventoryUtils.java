@@ -152,6 +152,10 @@ public class InventoryUtils
                 if (ModIds.BAUBLES.isLoaded)
                     itemStack = BaublesApi.getBaublesHandler(player).getStackInSlot(slot);
                 break;
+            // Item held in GUI
+            case 4:
+                itemStack = player.inventory.getItemStack();
+                break;
         }
         
         return itemStack;

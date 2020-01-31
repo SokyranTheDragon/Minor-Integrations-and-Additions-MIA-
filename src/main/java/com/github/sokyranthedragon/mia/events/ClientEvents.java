@@ -25,8 +25,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class ClientEvents
@@ -92,64 +94,70 @@ public class ClientEvents
         if (ModIds.BAUBLES.isLoaded)
         {
             IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
-            
             for (int i = 0; i < baubles.getSlots(); i++)
-            {
-                ItemStack stack = baubles.getStackInSlot(i);
-                if (stack.getItem() == MiaItems.musicPlayer)
-                    handleMusicPlayerVerification(stack, uuidList, 3, i);
-            }
+                handleMusicPlayerVerification(baubles.getStackInSlot(i), uuidList, 3, i);
         }
         
         for (int i = 0; i < player.inventory.mainInventory.size(); i++)
-        {
-            ItemStack stack = player.inventory.mainInventory.get(i);
-            if (stack.getItem() == MiaItems.musicPlayer)
-                handleMusicPlayerVerification(stack, uuidList, 2, i);
-        }
+            handleMusicPlayerVerification(player.inventory.mainInventory.get(i), uuidList, 2, i);
         
-        if (player.getHeldItemOffhand().getItem() == MiaItems.musicPlayer)
-            handleMusicPlayerVerification(player.getHeldItemOffhand(), uuidList, 1, 0);
+        handleMusicPlayerVerification(player.getHeldItemOffhand(), uuidList, 1, 0);
+        handleMusicPlayerVerification(player.inventory.getItemStack(), uuidList, 4, 0);
+        
+        MusicUtils.currentlyPlayedSongs = MusicUtils.currentlyPlayedSongs
+                .entrySet().stream().filter(e ->
+                {
+                    if (!uuidList.contains(e.getKey()))
+                    {
+                        Minecraft.getMinecraft().getSoundHandler().stopSound(e.getValue());
+                        return false;
+                    }
+                    else
+                        return true;
+                }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
     
     @SideOnly(Side.CLIENT)
     private static void handleMusicPlayerVerification(ItemStack item, Set<UUID> uuidList, int type, int slot)
     {
-        MusicPlayerStackHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+        if (item == null || item.isEmpty())
+            return;
         
-        if (capability != null)
+        MusicPlayerStackHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
+    
+        if (capability == null)
+            return;
+        
+        if (uuidList.contains(capability.itemUuid))
         {
-            if (uuidList.contains(capability.itemUuid))
-            {
-                // I can't really think of any other place where I used do...while loops instead of while/for...
-                do
-                    capability.itemUuid = UUID.randomUUID();
-                while (uuidList.contains(capability.itemUuid));
-                Mia.network.sendToServer(new MessageSyncMusicPlayer(type, slot, capability, true));
-            }
-            else if (MusicUtils.listener.startedPlaying(capability.itemUuid))
-            {
-                PositionedSoundRecord currentSong = MusicUtils.currentlyPlayedSongs.get(capability.itemUuid);
-                
-                if (currentSong != null && !Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(currentSong))
-                {
-                    if (capability.autoplay)
-                    {
-                        if (capability.repeat)
-                            MusicUtils.toggleSong(capability);
-                        else if (capability.shuffle)
-                            MusicUtils.randomNext(capability);
-                        else
-                            MusicUtils.playNext(capability);
-                        
-                        Mia.network.sendToServer(new MessageSyncMusicPlayer(type, slot, capability, false));
-                    }
-                    else
-                        MusicUtils.stopSong(capability);
-                }
-            }
-            
-            uuidList.add(capability.itemUuid);
+            // I can't really think of any other place where I used do...while loops instead of while/for...
+            do
+                capability.itemUuid = UUID.randomUUID();
+            while (uuidList.contains(capability.itemUuid));
+            Mia.network.sendToServer(new MessageSyncMusicPlayer(type, slot, capability, true));
         }
+        else if (MusicUtils.listener.startedPlaying(capability.itemUuid))
+        {
+            PositionedSoundRecord currentSong = MusicUtils.currentlyPlayedSongs.get(capability.itemUuid);
+            
+            if (currentSong != null && !Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(currentSong))
+            {
+                if (capability.autoplay)
+                {
+                    if (capability.repeat)
+                        MusicUtils.toggleSong(capability);
+                    else if (capability.shuffle)
+                        MusicUtils.randomNext(capability);
+                    else
+                        MusicUtils.playNext(capability);
+                    
+                    Mia.network.sendToServer(new MessageSyncMusicPlayer(type, slot, capability, false));
+                }
+                else
+                    MusicUtils.stopSong(capability);
+            }
+        }
+    
+        uuidList.add(capability.itemUuid);
     }
 }
