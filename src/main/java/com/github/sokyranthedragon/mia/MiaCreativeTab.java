@@ -8,6 +8,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -24,6 +26,7 @@ public class MiaCreativeTab extends CreativeTabs
     
     @Override
     @Nonnull
+    @SideOnly(Side.CLIENT)
     public ItemStack createIcon()
     {
         if (!MiaBlocks.blocks.isEmpty())
@@ -49,6 +52,7 @@ public class MiaCreativeTab extends CreativeTabs
     }
     
     @Override
+    @SideOnly(Side.CLIENT)
     public void displayAllRelevantItems(NonNullList<ItemStack> list)
     {
         for (Block block : MiaBlocks.blocks)
@@ -57,11 +61,13 @@ public class MiaCreativeTab extends CreativeTabs
             addItem(item, list);
     }
     
+    @SideOnly(Side.CLIENT)
     private void addItem(Item item, NonNullList<ItemStack> list)
     {
         item.getSubItems(this, list);
     }
     
+    @SideOnly(Side.CLIENT)
     private void addBlock(Block block, NonNullList<ItemStack> list)
     {
         new ItemStack(block);
