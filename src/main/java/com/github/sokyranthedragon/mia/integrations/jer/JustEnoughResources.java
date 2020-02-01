@@ -44,6 +44,7 @@ public class JustEnoughResources implements IBaseMod
     private final Set<Class<? extends EntityLivingBase>> ignoreMobOverrides = new HashSet<>();
     private CustomLinkedHashSet<MobEntry> set;
     private JeiJerIntegration jeiIntegration;
+    private boolean insertedEarly;
     
     public JustEnoughResources()
     {
@@ -92,13 +93,13 @@ public class JustEnoughResources implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        jeiIntegration.initializePlugins(this);
+        insertedEarly = jeiIntegration.initializePlugins(this);
     }
     
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        if (!jeiIntegration.insertedEarly)
+        if (!insertedEarly)
         {
             try
             {

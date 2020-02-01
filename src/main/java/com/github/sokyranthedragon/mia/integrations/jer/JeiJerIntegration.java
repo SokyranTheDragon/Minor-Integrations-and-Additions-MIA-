@@ -35,11 +35,10 @@ import java.util.Optional;
 @ParametersAreNonnullByDefault
 class JeiJerIntegration implements IJeiIntegration
 {
-    boolean insertedEarly = false;
     boolean registered = false;
     
     @SuppressWarnings("unchecked")
-    public void initializePlugins(JustEnoughResources jer)
+    public boolean initializePlugins(JustEnoughResources jer)
     {
         try
         {
@@ -78,11 +77,13 @@ class JeiJerIntegration implements IJeiIntegration
                 });
             }
             
-            insertedEarly = true;
+            return true;
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
             Mia.LOGGER.error("Could not access JEI plugin list, there might be some issues with mob drops not working ");
         }
+        
+        return false;
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
