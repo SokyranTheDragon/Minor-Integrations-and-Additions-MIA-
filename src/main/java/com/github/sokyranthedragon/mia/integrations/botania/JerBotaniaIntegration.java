@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableManager;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collections;
 import java.util.Set;
@@ -30,7 +31,7 @@ class JerBotaniaIntegration implements IJerIntegration
     }
     
     @Override
-    public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
+    public void configureMob(ResourceLocation resource, EntityLivingBase entity, @Nullable LootTableManager manager, IMobRegistry mobRegistry)
     {
         // We're using the same entity for ExtraBotany's Guardian of Gaia III, so here we're checking if it's the one
         int experience = entity.getCustomNameTag().endsWith(" III") ? 1225 : 825;

@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.ProgressManager;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
@@ -89,7 +90,28 @@ public class JustEnoughResources implements IBaseMod
     }
     
     @Override
+    public void init(FMLInitializationEvent event)
+    {
+        jeiIntegration.initializePlugins(this);
+    }
+    
+    @Override
     public void postInit(FMLPostInitializationEvent event)
+    {
+        if (!jeiIntegration.insertedEarly)
+        {
+            try
+            {
+                initJerIntegration();
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("Encountered an issue registering JER entries! (Post-init registration)");
+                Mia.LOGGER.error(e);
+            }
+        }
+    }
+    
+    void initJerIntegration()
     {
         ProgressManager.ProgressBar progressBar = ProgressManager.push("JustEnoughResources entry registration", modIntegrations.size() + 1);
         progressBar.step("setting up");
@@ -138,7 +160,16 @@ public class JustEnoughResources implements IBaseMod
         Optional<Map.Entry<ResourceLocation, EntityLivingBase>> wither = mobTableBuilder.getMobTables().entrySet().stream().findAny();
         wither.ifPresent(entry -> mobRegistry.register(entry.getValue(), LightLevel.any, 50, entry.getKey()));
         
-        LootTableManager manager = LootTableHelper.getManager(world);
+        LootTableManager manager = null;
+        try
+        {
+            // It caused a bunch of issues in the past.
+            manager = LootTableHelper.getManager(world);
+        } catch (Exception e)
+        {
+            Mia.LOGGER.error("Encountered an issue registering JER loot table helper! A lot of mob drops might be broken!");
+            Mia.LOGGER.error(e);
+        }
         IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
         mobTableBuilder = new MobTableBuilder(world);
         

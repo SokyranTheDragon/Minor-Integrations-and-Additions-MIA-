@@ -9,11 +9,15 @@ import jeresources.jei.JEIConfig;
 import jeresources.jei.plant.PlantWrapper;
 import jeresources.util.RenderHelper;
 import mcp.MethodsReturnNonnullByDefault;
+import mezz.jei.JustEnoughItems;
+import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.collect.ListMultiMap;
 import mezz.jei.collect.SetMultiMap;
+import mezz.jei.plugins.vanilla.VanillaPlugin;
+import mezz.jei.startup.ProxyCommon;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -31,7 +35,55 @@ import java.util.Optional;
 @ParametersAreNonnullByDefault
 class JeiJerIntegration implements IJeiIntegration
 {
+    boolean insertedEarly = false;
     boolean registered = false;
+    
+    @SuppressWarnings("unchecked")
+    public void initializePlugins(JustEnoughResources jer)
+    {
+        try
+        {
+            ProxyCommon proxy = JustEnoughItems.getProxy();
+            
+            Field pluginsField = proxy.getClass().getDeclaredField("plugins");
+            pluginsField.setAccessible(true);
+            Object o = pluginsField.get(proxy);
+            if (o instanceof List)
+            {
+                List<IModPlugin> plugins = (List<IModPlugin>) o;
+                int safeIndex = 0;
+                
+                for (IModPlugin plugin : plugins)
+                {
+                    safeIndex++;
+                    if (!(plugin instanceof VanillaPlugin))
+                        break;
+                }
+                
+                plugins.add(safeIndex, new IModPlugin()
+                {
+                    @Override
+                    public void register(@Nonnull IModRegistry registry)
+                    {
+                        try
+                        {
+                            jer.initJerIntegration();
+                        }
+                        catch (Exception e)
+                        {
+                            Mia.LOGGER.error("Encountered an issue registering JER entries! (Early-insertion registration)");
+                            Mia.LOGGER.error(e);
+                        }
+                    }
+                });
+            }
+            
+            insertedEarly = true;
+        } catch (NoSuchFieldException | IllegalAccessException e)
+        {
+            Mia.LOGGER.error("Could not access JEI plugin list, there might be some issues with mob drops not working ");
+        }
+    }
     
     @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
     @Override
@@ -86,12 +138,12 @@ class JeiJerIntegration implements IJeiIntegration
                 //noinspection ConstantConditions
                 plantHandlers.removeIf(handler -> handler.getRecipeWrapper(null) instanceof PlantWrapper);
             plantHandlers.add(recipeHandler);
+            
+            registered = true;
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
-            Mia.LOGGER.error("Could not access ModRegistry, custom plan drops won't work properly.");
+            Mia.LOGGER.error("Could not access ModRegistry, custom plant drops won't work properly.");
         }
-        
-        registered = true;
     }
     
     @Override

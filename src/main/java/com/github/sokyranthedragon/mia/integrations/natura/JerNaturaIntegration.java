@@ -15,10 +15,8 @@ import com.progwml6.natura.shared.NaturaCommons;
 import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
 import jeresources.api.conditionals.LightLevel;
-import jeresources.api.drop.LootDrop;
 import jeresources.api.drop.PlantDrop;
 import jeresources.entry.PlantEntry;
-import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
@@ -63,10 +61,9 @@ class JerNaturaIntegration implements IJerIntegration
     }
     
     @Override
-    public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
+    public void configureMob(ResourceLocation resource, EntityLivingBase entity, @Nullable LootTableManager manager, IMobRegistry mobRegistry)
     {
         Set<Biome> validBiomes = new HashSet<>(BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER));
-        List<LootDrop> loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
         int experienceMin = 5;
         int experienceMax = 5;
         
@@ -81,8 +78,7 @@ class JerNaturaIntegration implements IJerIntegration
 //            entity.getDropItem();
 //        }
         
-        LootDrop[] drops = loot.toArray(new LootDrop[0]);
-        mobRegistry.register(entity, LightLevel.any, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), drops);
+        mobRegistry.register(entity, LightLevel.any, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), resource);
     }
     
     @Override

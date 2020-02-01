@@ -30,6 +30,7 @@ import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
 import java.util.List;
@@ -118,11 +119,13 @@ class JerIceAndFireIntegration implements IJerIntegration
     }
     
     @Override
-    public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
+    public void configureMob(ResourceLocation resource, EntityLivingBase entity, @Nullable LootTableManager manager, IMobRegistry mobRegistry)
     {
         LightLevel lightLevel = LightLevel.any;
         Set<Biome> validBiomes = new HashSet<>();
-        List<LootDrop> loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
+        List<LootDrop> loot = null;
+        if (manager != null)
+            loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
         int experienceMin = 0;
         int experienceMax = 0;
         
@@ -250,7 +253,7 @@ class JerIceAndFireIntegration implements IJerIntegration
             
             if (dragon.isModelDead())
             {
-                if (IceAndFire.CONFIG.dragonDropSkull)
+                if (loot != null && IceAndFire.CONFIG.dragonDropSkull)
                     loot.add(new LootDrop(new ItemStack(ModItems.dragon_skull, 1, dragon.isFire ? 0 : 1)));
             }
             else
@@ -258,10 +261,13 @@ class JerIceAndFireIntegration implements IJerIntegration
                 experienceMin = 15;
                 experienceMax = 190;
                 
-                if (IceAndFire.CONFIG.dragonDropHeart)
-                    loot.add(new LootDrop(new ItemStack(dragon.isFire ? ModItems.fire_dragon_heart : ModItems.ice_dragon_heart)));
-                if (IceAndFire.CONFIG.dragonDropBlood)
-                    loot.add(new LootDrop(new ItemStack(dragon.isFire ? ModItems.fire_dragon_blood : ModItems.ice_dragon_blood)));
+                if (loot != null)
+                {
+                    if (IceAndFire.CONFIG.dragonDropHeart)
+                        loot.add(new LootDrop(new ItemStack(dragon.isFire ? ModItems.fire_dragon_heart : ModItems.ice_dragon_heart)));
+                    if (IceAndFire.CONFIG.dragonDropBlood)
+                        loot.add(new LootDrop(new ItemStack(dragon.isFire ? ModItems.fire_dragon_blood : ModItems.ice_dragon_blood)));
+                }
             }
         }
         else if (entity instanceof EntityTroll)
@@ -272,34 +278,47 @@ class JerIceAndFireIntegration implements IJerIntegration
             experienceMin = 15;
             experienceMax = 24;
             
-            if (troll == EnumTroll.FOREST)
+            if (loot != null)
             {
-                loot.add(new LootDrop(EnumTroll.Weapon.COLUMN_FOREST.item, 0, 1, 0.25f));
-                loot.add(new LootDrop(EnumTroll.Weapon.TRUNK.item, 0, 1, 0.25f));
-                loot.add(new LootDrop(EnumTroll.Weapon.AXE.item, 0, 1, 0.25f));
-                loot.add(new LootDrop(EnumTroll.Weapon.HAMMER.item, 0, 1, 0.25f));
-            }
-            else if (troll == EnumTroll.FROST)
-            {
-                loot.add(new LootDrop(EnumTroll.Weapon.COLUMN_FROST.item, 0, 1, 0.25f));
-                loot.add(new LootDrop(EnumTroll.Weapon.TRUNK_FROST.item, 0, 1, 0.25f));
-                loot.add(new LootDrop(EnumTroll.Weapon.AXE.item, 0, 1, 0.25f));
-                loot.add(new LootDrop(EnumTroll.Weapon.HAMMER.item, 0, 1, 0.25f));
-            }
-            else
-            {
-                loot.add(new LootDrop(EnumTroll.Weapon.TRUNK.item, 0, 1, 0.33f));
-                loot.add(new LootDrop(EnumTroll.Weapon.AXE.item, 0, 1, 0.33f));
-                loot.add(new LootDrop(EnumTroll.Weapon.HAMMER.item, 0, 1, 0.33f));
+                if (troll == EnumTroll.FOREST)
+                {
+                    loot.add(new LootDrop(EnumTroll.Weapon.COLUMN_FOREST.item, 0, 1, 0.25f));
+                    loot.add(new LootDrop(EnumTroll.Weapon.TRUNK.item, 0, 1, 0.25f));
+                    loot.add(new LootDrop(EnumTroll.Weapon.AXE.item, 0, 1, 0.25f));
+                    loot.add(new LootDrop(EnumTroll.Weapon.HAMMER.item, 0, 1, 0.25f));
+                }
+                else if (troll == EnumTroll.FROST)
+                {
+                    loot.add(new LootDrop(EnumTroll.Weapon.COLUMN_FROST.item, 0, 1, 0.25f));
+                    loot.add(new LootDrop(EnumTroll.Weapon.TRUNK_FROST.item, 0, 1, 0.25f));
+                    loot.add(new LootDrop(EnumTroll.Weapon.AXE.item, 0, 1, 0.25f));
+                    loot.add(new LootDrop(EnumTroll.Weapon.HAMMER.item, 0, 1, 0.25f));
+                }
+                else
+                {
+                    loot.add(new LootDrop(EnumTroll.Weapon.TRUNK.item, 0, 1, 0.33f));
+                    loot.add(new LootDrop(EnumTroll.Weapon.AXE.item, 0, 1, 0.33f));
+                    loot.add(new LootDrop(EnumTroll.Weapon.HAMMER.item, 0, 1, 0.33f));
+                }
             }
         }
         
-        LootDrop[] drops = loot.toArray(new LootDrop[0]);
-        
-        if (validBiomes.isEmpty())
-            mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, drops);
+        if (loot == null)
+        {
+            if (validBiomes.isEmpty())
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, resource);
+            else
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), resource);
+        }
         else
-            mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), drops);
+        {
+            LootDrop[] drops = loot.toArray(new LootDrop[0]);
+            
+            if (validBiomes.isEmpty())
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, drops);
+            else
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), drops);
+        }
     }
     
     @Override

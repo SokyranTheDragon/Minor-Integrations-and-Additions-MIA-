@@ -41,6 +41,8 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ConstantIds.THE_ONE_PROBE +
                 ";after:" + ModIds.ConstantIds.NATURA +
                 ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +
+                // Unrelated to the project, but causing some issues
+                ";after:mystcraft" +
                 ";")
 public class Mia
 {

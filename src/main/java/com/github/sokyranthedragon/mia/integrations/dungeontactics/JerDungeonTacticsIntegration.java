@@ -10,7 +10,6 @@ import jeresources.api.drop.LootDrop;
 import jeresources.api.drop.PlantDrop;
 import jeresources.entry.MobEntry;
 import jeresources.entry.PlantEntry;
-import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
@@ -19,7 +18,6 @@ import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.LootTableManager;
 import pegbeard.dungeontactics.entities.DTEntityTowerGuardian;
@@ -50,12 +48,10 @@ class JerDungeonTacticsIntegration implements IJerIntegration
     }
     
     @Override
-    public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
+    public void configureMob(ResourceLocation resource, EntityLivingBase entity, @Nullable LootTableManager manager, IMobRegistry mobRegistry)
     {
-        LootTable loot = manager.getLootTableFromLocation(resource);
-        LootDrop[] drops = LootTableHelper.toDrops(loot).toArray(new LootDrop[0]);
         if (entity instanceof DTEntityTowerGuardian)
-            mobRegistry.register(entity, LightLevel.any, drops);
+            mobRegistry.register(entity, LightLevel.any, resource);
     }
     
     @Override

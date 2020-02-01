@@ -27,7 +27,7 @@ public interface IJerIntegration extends IModIntegration
         return new HashSet<>();
     }
     
-    default void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
+    default void configureMob(ResourceLocation resource, EntityLivingBase entity, @Nullable LootTableManager manager, IMobRegistry mobRegistry)
     {
     }
     

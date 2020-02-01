@@ -32,11 +32,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
 import java.util.List;
@@ -227,11 +227,12 @@ class JerMoCreaturesIntegration implements IJerIntegration
     }
     
     @Override
-    public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
+    public void configureMob(ResourceLocation resource, EntityLivingBase entity, @Nullable LootTableManager manager, IMobRegistry mobRegistry)
     {
-        LootTable loot = manager.getLootTableFromLocation(resource);
         Set<Biome> validBiomes = new HashSet<>();
-        List<LootDrop> drops = LootTableHelper.toDrops(loot);
+        List<LootDrop> drops = null;
+        if (manager != null)
+            drops = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
         
         LightLevel lightLevel = LightLevel.any;
         int experienceMin = 5;
@@ -243,94 +244,97 @@ class JerMoCreaturesIntegration implements IJerIntegration
             experienceMax = 3;
         }
         
-        drops.forEach(lootDrop ->
+        if (drops != null)
         {
-            Item item = lootDrop.item.getItem();
-            Block block = Block.getBlockFromItem(item);
-            
-            if (item == Items.FISH)
+            drops.forEach(lootDrop ->
             {
-                if (replaceFishDrops && entity instanceof MoCEntityCod)
-                {
-                    lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 1);
-                    if (MiaConfig.addCookedDrops)
-                        lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH, lootDrop.item.getCount(), 1);
-                }
-                else if (replaceFishDrops && entity instanceof MoCEntityClownFish)
-                    lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 2);
-                else if (ModIds.HARVESTCRAFT.isLoaded && entity instanceof MoCEntityAnchovy)
-                    lootDrop.item = new ItemStack(ItemRegistry.anchovyrawItem);
-                else if (ModIds.HARVESTCRAFT.isLoaded && entity instanceof MoCEntityBass)
-                    lootDrop.item = new ItemStack(ItemRegistry.bassrawItem);
-                else
-                    lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH);
+                Item item = lootDrop.item.getItem();
+                Block block = Block.getBlockFromItem(item);
                 
-            }
-            else if (item == MoCItems.rawTurkey && MiaConfig.addCookedDrops)
-                lootDrop.smeltedItem = new ItemStack(MoCItems.cookedTurkey);
-            else if (item == MoCItems.ratRaw && MiaConfig.addCookedDrops)
-                lootDrop.smeltedItem = new ItemStack(MoCItems.ratCooked);
-            else if (item == MoCItems.ostrichraw && MiaConfig.addCookedDrops)
-                lootDrop.smeltedItem = new ItemStack(MoCItems.ostrichcooked);
-            else if (item == MoCItems.crabraw && MiaConfig.addCookedDrops)
-                lootDrop.smeltedItem = new ItemStack(MoCItems.crabcooked);
-            else if (item == Items.PORKCHOP && MiaConfig.addCookedDrops)
-                lootDrop.smeltedItem = new ItemStack(Items.COOKED_PORKCHOP);
-            else if (item == MoCItems.turtleraw && MiaConfig.addCookedDrops && ModIds.HARVESTCRAFT.isLoaded)
-                lootDrop.smeltedItem = new ItemStack(ItemRegistry.turtlecookedItem);
-            else if (item == MoCItems.bo && entity instanceof MoCEntityTurtle)
-                lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Donatello', 'donatello'"));
-            else if (item == MoCItems.katana && entity instanceof MoCEntityTurtle)
-                lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Leonardo', 'leonardo'"));
-            else if (item == MoCItems.sai && entity instanceof MoCEntityTurtle)
-                lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Rafael', 'rafael', 'Raphael', 'raphael'"));
-            else if (item == MoCItems.nunchaku && entity instanceof MoCEntityTurtle)
-                lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Michelangelo', 'michelangelo', 'Michaelangelo', 'michaelangelo'"));
-            else if (item == Items.STRING && (entity instanceof MoCEntityScorpion || entity instanceof MoCEntityPetScorpion))
-                lootDrop.addConditional(ExtraConditional.isNotAdult);
-            else if (item == MoCItems.mocegg)
-            {
-                if (entity instanceof MoCEntityWyvern)
+                if (item == Items.FISH)
                 {
-                    // Mother Wyvern
-                    if (lootDrop.item.getMetadata() == 54)
-                        lootDrop.chance = MoCreatures.proxy.motherWyvernEggDropChance;
+                    if (replaceFishDrops && entity instanceof MoCEntityCod)
+                    {
+                        lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 1);
+                        if (MiaConfig.addCookedDrops)
+                            lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH, lootDrop.item.getCount(), 1);
+                    }
+                    else if (replaceFishDrops && entity instanceof MoCEntityClownFish)
+                        lootDrop.item = new ItemStack(Items.FISH, lootDrop.item.getCount(), 2);
+                    else if (ModIds.HARVESTCRAFT.isLoaded && entity instanceof MoCEntityAnchovy)
+                        lootDrop.item = new ItemStack(ItemRegistry.anchovyrawItem);
+                    else if (ModIds.HARVESTCRAFT.isLoaded && entity instanceof MoCEntityBass)
+                        lootDrop.item = new ItemStack(ItemRegistry.bassrawItem);
                     else
-                        lootDrop.chance = MoCreatures.proxy.wyvernEggDropChance;
+                        lootDrop.smeltedItem = new ItemStack(Items.COOKED_FISH);
+                    
                 }
-                
-                lootDrop.chance = MoCreatures.proxy.rareItemDropChance / 100f;
-                lootDrop.addConditional(ExtraConditional.isAdult);
-            }
-            else if (item == MoCItems.heartdarkness ||
-                    item == MoCItems.heartfire ||
-                    item == MoCItems.heartundead ||
-                    item == MoCItems.scorpStingNether ||
-                    item == MoCItems.scorpStingCave ||
-                    item == MoCItems.scorpStingFrost ||
-                    item == MoCItems.scorpStingDirt ||
-                    block == Blocks.FIRE)
-                lootDrop.chance = MoCreatures.proxy.rareItemDropChance / 100f;
-        });
-        
-        if (ModIds.HARVESTCRAFT.isLoaded)
-        {
-            if (entity instanceof MoCEntityDeer)
+                else if (item == MoCItems.rawTurkey && MiaConfig.addCookedDrops)
+                    lootDrop.smeltedItem = new ItemStack(MoCItems.cookedTurkey);
+                else if (item == MoCItems.ratRaw && MiaConfig.addCookedDrops)
+                    lootDrop.smeltedItem = new ItemStack(MoCItems.ratCooked);
+                else if (item == MoCItems.ostrichraw && MiaConfig.addCookedDrops)
+                    lootDrop.smeltedItem = new ItemStack(MoCItems.ostrichcooked);
+                else if (item == MoCItems.crabraw && MiaConfig.addCookedDrops)
+                    lootDrop.smeltedItem = new ItemStack(MoCItems.crabcooked);
+                else if (item == Items.PORKCHOP && MiaConfig.addCookedDrops)
+                    lootDrop.smeltedItem = new ItemStack(Items.COOKED_PORKCHOP);
+                else if (item == MoCItems.turtleraw && MiaConfig.addCookedDrops && ModIds.HARVESTCRAFT.isLoaded)
+                    lootDrop.smeltedItem = new ItemStack(ItemRegistry.turtlecookedItem);
+                else if (item == MoCItems.bo && entity instanceof MoCEntityTurtle)
+                    lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Donatello', 'donatello'"));
+                else if (item == MoCItems.katana && entity instanceof MoCEntityTurtle)
+                    lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Leonardo', 'leonardo'"));
+                else if (item == MoCItems.sai && entity instanceof MoCEntityTurtle)
+                    lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Rafael', 'rafael', 'Raphael', 'raphael'"));
+                else if (item == MoCItems.nunchaku && entity instanceof MoCEntityTurtle)
+                    lootDrop.addConditional(new ExtendedConditional(ExtraConditional.named, "'Michelangelo', 'michelangelo', 'Michaelangelo', 'michaelangelo'"));
+                else if (item == Items.STRING && (entity instanceof MoCEntityScorpion || entity instanceof MoCEntityPetScorpion))
+                    lootDrop.addConditional(ExtraConditional.isNotAdult);
+                else if (item == MoCItems.mocegg)
+                {
+                    if (entity instanceof MoCEntityWyvern)
+                    {
+                        // Mother Wyvern
+                        if (lootDrop.item.getMetadata() == 54)
+                            lootDrop.chance = MoCreatures.proxy.motherWyvernEggDropChance;
+                        else
+                            lootDrop.chance = MoCreatures.proxy.wyvernEggDropChance;
+                    }
+                    
+                    lootDrop.chance = MoCreatures.proxy.rareItemDropChance / 100f;
+                    lootDrop.addConditional(ExtraConditional.isAdult);
+                }
+                else if (item == MoCItems.heartdarkness ||
+                        item == MoCItems.heartfire ||
+                        item == MoCItems.heartundead ||
+                        item == MoCItems.scorpStingNether ||
+                        item == MoCItems.scorpStingCave ||
+                        item == MoCItems.scorpStingFrost ||
+                        item == MoCItems.scorpStingDirt ||
+                        block == Blocks.FIRE)
+                    lootDrop.chance = MoCreatures.proxy.rareItemDropChance / 100f;
+            });
+            
+            if (ModIds.HARVESTCRAFT.isLoaded)
             {
-                LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.venisonrawItem), 0, 2, Conditional.affectedByLooting);
-                if (MiaConfig.addCookedDrops)
-                    drop.smeltedItem = new ItemStack(ItemRegistry.venisoncookedItem);
-                drops.add(drop);
+                if (entity instanceof MoCEntityDeer)
+                {
+                    LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.venisonrawItem), 0, 2, Conditional.affectedByLooting);
+                    if (MiaConfig.addCookedDrops)
+                        drop.smeltedItem = new ItemStack(ItemRegistry.venisoncookedItem);
+                    drops.add(drop);
+                }
+                else if (entity instanceof MoCEntityDuck)
+                {
+                    LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.duckrawItem), 0, 2, Conditional.affectedByLooting);
+                    if (MiaConfig.addCookedDrops)
+                        drop.smeltedItem = new ItemStack(ItemRegistry.duckcookedItem);
+                    drops.add(drop);
+                }
+                else if (entity instanceof MoCEntityJellyFish)
+                    drops.add(new LootDrop(new ItemStack(ItemRegistry.jellyfishrawItem), 0, 2, Conditional.affectedByLooting));
             }
-            else if (entity instanceof MoCEntityDuck)
-            {
-                LootDrop drop = new LootDrop(new ItemStack(ItemRegistry.duckrawItem), 0, 2, Conditional.affectedByLooting);
-                if (MiaConfig.addCookedDrops)
-                    drop.smeltedItem = new ItemStack(ItemRegistry.duckcookedItem);
-                drops.add(drop);
-            }
-            else if (entity instanceof MoCEntityJellyFish)
-                drops.add(new LootDrop(new ItemStack(ItemRegistry.jellyfishrawItem), 0, 2, Conditional.affectedByLooting));
         }
         
         if (entity instanceof MoCEntityMob)
@@ -444,12 +448,22 @@ class JerMoCreaturesIntegration implements IJerIntegration
             }
         }
         
-        LootDrop[] dropsArray = drops.toArray(new LootDrop[0]);
-        
-        if (validBiomes.isEmpty())
-            mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, dropsArray);
+        if (drops == null)
+        {
+            if (validBiomes.isEmpty())
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, resource);
+            else
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), resource);
+        }
         else
-            mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), dropsArray);
+        {
+            LootDrop[] dropsArray = drops.toArray(new LootDrop[0]);
+            
+            if (validBiomes.isEmpty())
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, dropsArray);
+            else
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), dropsArray);
+        }
     }
     
     @Override

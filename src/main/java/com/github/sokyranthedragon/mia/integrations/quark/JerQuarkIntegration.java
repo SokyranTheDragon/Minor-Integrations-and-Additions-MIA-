@@ -25,6 +25,7 @@ import vazkii.quark.world.entity.*;
 import vazkii.quark.world.feature.*;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collections;
 import java.util.HashSet;
@@ -88,11 +89,13 @@ class JerQuarkIntegration implements IJerIntegration
     }
     
     @Override
-    public void configureMob(ResourceLocation resource, EntityLivingBase entity, LootTableManager manager, IMobRegistry mobRegistry)
+    public void configureMob(ResourceLocation resource, EntityLivingBase entity, @Nullable LootTableManager manager, IMobRegistry mobRegistry)
     {
         LightLevel lightLevel = LightLevel.any;
         Set<Biome> validBiomes = new HashSet<>();
-        List<LootDrop> loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
+        List<LootDrop> loot = null;
+        if (manager != null)
+            loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
         int experienceMin = 1;
         int experienceMax = 3;
         
@@ -105,7 +108,8 @@ class JerQuarkIntegration implements IJerIntegration
             validBiomes.add(Biomes.OCEAN);
             validBiomes.add(Biomes.DEEP_OCEAN);
             
-            loot.add(new LootDrop(PirateShips.pirate_hat, 0.085f));
+            if (loot != null)
+                loot.add(new LootDrop(PirateShips.pirate_hat, 0.085f));
         }
         else if (entity instanceof EntityCrab)
             validBiomes.add(Biomes.BEACH);
@@ -117,21 +121,34 @@ class JerQuarkIntegration implements IJerIntegration
         {
             Collections.addAll(validBiomes, DepthMobs.getBiomesWithMob(EntityZombie.class));
             
-            List<LootDrop> carryDrops = LootTableHelper.toDrops(manager.getLootTableFromLocation(EntityStoneling.CARRY_LOOT_TABLE));
-            for (LootDrop drop : carryDrops)
-                drop.addConditional(ExtraConditional.carryingItem);
-            
-            loot.addAll(carryDrops);
+            if (loot != null)
+            {
+                List<LootDrop> carryDrops = LootTableHelper.toDrops(manager.getLootTableFromLocation(EntityStoneling.CARRY_LOOT_TABLE));
+                for (LootDrop drop : carryDrops)
+                    drop.addConditional(ExtraConditional.carryingItem);
+                
+                loot.addAll(carryDrops);
+            }
         }
         
         if (entity instanceof EntityMob)
             experienceMin = experienceMax = 5;
         
-        LootDrop[] drops = loot.toArray(new LootDrop[0]);
-        if (validBiomes.isEmpty())
-            mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, drops);
+        if (loot == null)
+        {
+            if (validBiomes.isEmpty())
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, resource);
+            else
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), resource);
+        }
         else
-            mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), drops);
+        {
+            LootDrop[] drops = loot.toArray(new LootDrop[0]);
+            if (validBiomes.isEmpty())
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, drops);
+            else
+                mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, validBiomes.stream().map(Biome::getBiomeName).toArray(String[]::new), drops);
+        }
     }
     
     @Override
