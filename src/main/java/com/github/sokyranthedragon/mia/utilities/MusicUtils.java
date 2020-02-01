@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -96,7 +95,8 @@ public class MusicUtils
             currentlyPlayedSongs.put(musicPlayer.itemUuid, currentSong);
             soundHandler.playSound(currentSong);
             
-            Minecraft.getMinecraft().player.sendStatusMessage(new TextComponentString(record.getRecordNameLocal()), true);
+            Minecraft.getMinecraft().ingameGUI.setRecordPlayingMessage(record.getRecordNameLocal());
+//            Minecraft.getMinecraft().player.sendStatusMessage(new TextComponentString(record.getRecordNameLocal()), true);
         }
     }
     
@@ -220,9 +220,9 @@ public class MusicUtils
         public void updateTimers()
         {
             timers = timers.entrySet()
-                  .stream()
-                  .filter(timer -> timer.getValue().decrementAndGet() > 0)
-                  .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                           .stream()
+                           .filter(timer -> timer.getValue().decrementAndGet() > 0)
+                           .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         }
         
         public void addListener(UUID id, ISound sound)
