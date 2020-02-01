@@ -66,18 +66,19 @@ class JeiJerIntegration implements IJeiIntegration
                     {
                         try
                         {
+                            if (!registered)
+                                registered = registerCustomPlants(registry);
                             jer.initJerIntegration();
-                        }
-                        catch (Exception e)
+                        } catch (Exception e)
                         {
                             Mia.LOGGER.error("Encountered an issue registering JER entries! (Early-insertion registration)");
                             Mia.LOGGER.error(e);
                         }
                     }
                 });
+                
+                return true;
             }
-            
-            return true;
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
             Mia.LOGGER.error("Could not access JEI plugin list, there might be some issues with mob drops not working ");
@@ -86,9 +87,15 @@ class JeiJerIntegration implements IJeiIntegration
         return false;
     }
     
-    @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
     @Override
     public void register(IModRegistry registry, Collection<String> registeredCategories)
+    {
+        if (!registered)
+            registered = registerCustomPlants(registry);
+    }
+    
+    @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
+    public static boolean registerCustomPlants(IModRegistry registry)
     {
         try
         {
@@ -140,11 +147,13 @@ class JeiJerIntegration implements IJeiIntegration
                 plantHandlers.removeIf(handler -> handler.getRecipeWrapper(null) instanceof PlantWrapper);
             plantHandlers.add(recipeHandler);
             
-            registered = true;
+            return true;
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
             Mia.LOGGER.error("Could not access ModRegistry, custom plant drops won't work properly.");
         }
+        
+        return false;
     }
     
     @Override

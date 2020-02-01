@@ -132,9 +132,11 @@ class JerNaturaIntegration implements IJerIntegration
             if (pulseManager.isPulseLoaded(NaturaOverworld.PulseId))
             {
                 plantRegistry.register(NaturaOverworld.barley_seeds,
+                        NaturaOverworld.barleyCrop,
                         new PlantDrop(NaturaCommons.barley, 1, 1),
                         new PlantDrop(NaturaOverworld.barley_seeds, 0, 3));
                 plantRegistry.register(NaturaOverworld.cotton_seeds,
+                        NaturaOverworld.cottonCrop,
                         new PlantDrop(NaturaCommons.cotton, 1, 1),
                         new PlantDrop(NaturaOverworld.cotton_seeds, 0, 3));
                 
