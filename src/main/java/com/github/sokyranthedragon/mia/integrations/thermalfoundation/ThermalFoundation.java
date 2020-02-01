@@ -9,14 +9,8 @@ import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
 import java.util.function.BiConsumer;
 
@@ -39,6 +33,8 @@ public class ThermalFoundation implements IBaseMod
             modIntegration.accept(ModIds.FUTURE_MC, new FutureMcTFIntegration());
         if (enableQuarkIntegration && ModIds.QUARK.isLoaded)
             modIntegration.accept(ModIds.QUARK, new QuarkTFIntegration());
+        if (false && ModIds.TINKERS_CONSTRUCT.isLoaded)
+            modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructTFIntegration());
     }
     
     @Override
@@ -55,11 +51,7 @@ public class ThermalFoundation implements IBaseMod
                     continue;
                 
                 String suffix = armor.ingot.substring(5);
-                Fluid fluid = FluidRegistry.getFluid(suffix.toLowerCase());
                 NonNullList<ItemStack> items = OreDictionary.getOres("nugget" + suffix);
-                
-                if (fluid != null)
-                    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(armor.armor, Material.VALUE_Ingot * 4), fluid));
                 
                 if (items.size() > 0)
                     furnaceRecipes.addSmeltingRecipe(armor.armor, items.get(0), 0.1f);

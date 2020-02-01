@@ -271,7 +271,7 @@ curseforge {
             }
         }
         options {
-            debug = true
+            debug = true // Leave as true unless publishing, prevents accidental uploads
         }
     }
 }
