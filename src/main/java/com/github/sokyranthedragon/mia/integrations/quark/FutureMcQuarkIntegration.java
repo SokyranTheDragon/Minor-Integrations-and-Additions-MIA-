@@ -65,10 +65,10 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
             {
                 registerStairsAndSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 1), "sandstone_bricks");
                 registerStairsAndSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 3), "red_sandstone_bricks");
-                registerSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 0), "sandstone_smooth_slab");
-                registerSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 1), "sandstone_smooth_slab");
-                registerSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 2), "red_sandstone_smooth_slab");
-                registerSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 3), "red_sandstone_smooth_slab");
+                registerSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 0), "sandstone_smooth");
+                registerSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 1), "sandstone_smooth");
+                registerSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 2), "red_sandstone_smooth");
+                registerSlabs(new ItemStack(MoreSandstone.sandstone_new, 1, 3), "red_sandstone_smooth");
                 
                 if (soulSandstoneEnabled)
                 {
@@ -380,20 +380,32 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
                             }
                             break;
                         case STONE_MARBLE_BRICKS:
-                            input = new ItemStack(RevampStoneGen.marble);
-                            inputSecond = new ItemStack(RevampStoneGen.marble, 1, 2);
+                            if (RevampStoneGen.enableMarble)
+                            {
+                                input = new ItemStack(RevampStoneGen.marble);
+                                inputSecond = new ItemStack(RevampStoneGen.marble, 1, 1);
+                            }
                             break;
                         case STONE_LIMESTONE_BRICKS:
-                            input = new ItemStack(RevampStoneGen.limestone);
-                            inputSecond = new ItemStack(RevampStoneGen.limestone, 1, 2);
+                            if (RevampStoneGen.enableLimestone)
+                            {
+                                input = new ItemStack(RevampStoneGen.limestone);
+                                inputSecond = new ItemStack(RevampStoneGen.limestone, 1, 1);
+                            }
                             break;
                         case STONE_JASPER_BRICKS:
-                            input = new ItemStack(RevampStoneGen.jasper);
-                            inputSecond = new ItemStack(RevampStoneGen.jasper, 1, 2);
+                            if (RevampStoneGen.enableJasper)
+                            {
+                                input = new ItemStack(RevampStoneGen.jasper);
+                                inputSecond = new ItemStack(RevampStoneGen.jasper, 1, 1);
+                            }
                             break;
                         case STONE_SLATE_BRICKS:
-                            input = new ItemStack(RevampStoneGen.slate);
-                            inputSecond = new ItemStack(RevampStoneGen.slate, 1, 2);
+                            if (RevampStoneGen.enableSlate)
+                            {
+                                input = new ItemStack(RevampStoneGen.slate);
+                                inputSecond = new ItemStack(RevampStoneGen.slate, 1, 1);
+                            }
                             break;
                     }
                     
