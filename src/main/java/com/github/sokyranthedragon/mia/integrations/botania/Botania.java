@@ -9,6 +9,7 @@ import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import com.github.sokyranthedragon.mia.integrations.botania.crafting.MiaPetalRecipes;
 import com.github.sokyranthedragon.mia.integrations.botania.lexicon.MiaLexiconData;
 import com.github.sokyranthedragon.mia.integrations.botania.subtile.SubTileOrechidVacuam;
+import com.github.sokyranthedragon.mia.integrations.botania.wiki.PartialSimpleWikiProvider;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -19,7 +20,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.wiki.SimpleWikiProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,7 +63,7 @@ public class Botania implements IBaseMod
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        BotaniaAPI.registerModWiki(ModIds.MIA.modId, new SimpleWikiProvider("MIA Wiki", "https://github.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-/wiki/%s", "-"));
+        BotaniaAPI.registerModWiki(ModIds.MIA.modId, new PartialSimpleWikiProvider());
     }
     
     @Override
