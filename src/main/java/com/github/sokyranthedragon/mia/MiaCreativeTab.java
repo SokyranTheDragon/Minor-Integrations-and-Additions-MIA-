@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia;
 import com.github.sokyranthedragon.mia.block.BlockBotaniaSpecialFlower;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.core.MiaItems;
+import com.github.sokyranthedragon.mia.integrations.ModIds;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -32,7 +33,7 @@ public class MiaCreativeTab extends CreativeTabs
         if (!MiaBlocks.blocks.isEmpty())
         {
             Block block = MiaBlocks.blocks.get(0);
-            if (block instanceof BlockBotaniaSpecialFlower)
+            if (ModIds.BOTANIA.isLoaded && block instanceof BlockBotaniaSpecialFlower)
             {
                 NonNullList<ItemStack> stacks = NonNullList.create();
                 block.getSubBlocks(this, stacks);
