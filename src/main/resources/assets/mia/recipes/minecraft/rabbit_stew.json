@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "ore_dicted": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " r ",

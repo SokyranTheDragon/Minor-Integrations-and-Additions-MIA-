@@ -1,4 +1,14 @@
 {
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "hatchery"
+    },
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "egg_sorter"
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "ppp",

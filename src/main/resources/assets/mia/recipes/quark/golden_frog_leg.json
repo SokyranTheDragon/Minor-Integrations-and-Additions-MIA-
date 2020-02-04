@@ -1,4 +1,14 @@
 {
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "mia:are_recipes_enabled",
+      "ore_dicted": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "ggg",

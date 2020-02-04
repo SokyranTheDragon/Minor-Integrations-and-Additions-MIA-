@@ -1,4 +1,14 @@
 {
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "iceandfire"
+    },
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "pixie_dust_collector"
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "igi",

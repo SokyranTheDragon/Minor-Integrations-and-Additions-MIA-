@@ -1,4 +1,14 @@
 {
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "mocreatures"
+    },
+    {
+      "type": "mia:are_recipes_enabled",
+      "ore_dicted": true
+    }
+  ],
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {

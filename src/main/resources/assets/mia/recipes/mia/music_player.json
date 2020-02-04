@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "music_player"
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " t ",
