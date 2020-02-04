@@ -41,14 +41,14 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ConstantIds.THE_ONE_PROBE +
                 ";after:" + ModIds.ConstantIds.NATURA +
                 ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +
-                // Unrelated to the project, but causing some issues
+                // Unrelated to the project, but seemed to be causing some issues
                 ";after:mystcraft" +
                 ";")
 public class Mia
 {
     public static final String MODID = "mia";
     public static final String NAME = "Minor Integrations & Additions";
-    public static final String VERSION = "1.12.2-0.1.2c";
+    public static final String VERSION = "1.12.2-0.1.3a";
     
     @Mod.Instance
     public static Mia instance;
