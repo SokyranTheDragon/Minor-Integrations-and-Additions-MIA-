@@ -3,11 +3,10 @@ package com.github.sokyranthedragon.mia.integrations.jer;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jei.IJeiIntegration;
-import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomPlantEntry;
+import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomPlantWrapper;
 import jeresources.entry.PlantEntry;
 import jeresources.jei.JEIConfig;
 import jeresources.jei.plant.PlantWrapper;
-import jeresources.util.RenderHelper;
 import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.JustEnoughItems;
 import mezz.jei.api.IModPlugin;
@@ -18,18 +17,12 @@ import mezz.jei.collect.ListMultiMap;
 import mezz.jei.collect.SetMultiMap;
 import mezz.jei.plugins.vanilla.VanillaPlugin;
 import mezz.jei.startup.ProxyCommon;
-import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.init.Blocks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -160,73 +153,5 @@ class JeiJerIntegration implements IJeiIntegration
     public ModIds getModId()
     {
         return ModIds.JER;
-    }
-    
-    @ParametersAreNonnullByDefault
-    public static class CustomPlantWrapper extends PlantWrapper
-    {
-        private final PlantEntry plantEntry;
-        private IBlockState state;
-        private IProperty<?> ageProperty;
-        private long timer = -1L;
-        private static final int TICKS = 500;
-        
-        public CustomPlantWrapper(PlantEntry entry)
-        {
-            super(entry);
-            plantEntry = entry;
-        }
-        
-        @Override
-        public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY)
-        {
-            RenderHelper.renderBlock(getFarmland(), 26.0F, 50.0F, -10.0F, 20.0F, 0.4F);
-            RenderHelper.renderBlock(getBlockState(), 26.0F, 32.0F, 10.0F, 20.0F, 0.4F);
-        }
-        
-        private IBlockState getBlockState()
-        {
-            if (state == null)
-            {
-                if (plantEntry instanceof CustomPlantEntry)
-                {
-                    CustomPlantEntry plant = (CustomPlantEntry) plantEntry;
-                    if (plant.getBlockState() != null)
-                        state = plant.getBlockState();
-                    if (plant.getAgeProperty() != null)
-                        ageProperty = plant.getAgeProperty();
-                }
-                if (state == null)
-                {
-                    if (plantEntry.getPlant() != null)
-                        state = plantEntry.getPlant().getPlant(null, null);
-                    else
-                        state = Block.getBlockFromItem(plantEntry.getPlantItemStack().getItem()).getDefaultState();
-                }
-                if (ageProperty == null)
-                {
-                    Optional<IProperty<?>> ageProperty = state.getPropertyKeys().stream().filter(property -> property.getName().equals("age")).findAny();
-                    ageProperty.ifPresent(property -> this.ageProperty = property);
-                }
-            }
-            
-            if (ageProperty != null)
-            {
-                if (timer == -1L)
-                    timer = System.currentTimeMillis() + TICKS;
-                else if (System.currentTimeMillis() > timer)
-                {
-                    state = state.cycleProperty(ageProperty);
-                    timer = System.currentTimeMillis() + TICKS;
-                }
-            }
-            
-            return state;
-        }
-        
-        private IBlockState getFarmland()
-        {
-            return plantEntry.getSoil() != null ? plantEntry.getSoil() : Blocks.FARMLAND.getDefaultState();
-        }
     }
 }
