@@ -1,0 +1,32 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "half": {
+      "top": {
+        "model": "minecraft:upper_slab"
+      },
+      "bottom": {
+        "model": "minecraft:half_slab"
+      }
+    },
+    "variant": {
+      "smooth": {
+        "textures": {
+          "bottom": "biomesoplenty:blocks/white_sandstone_top",
+          "top": "biomesoplenty:blocks/white_sandstone_top",
+          "side": "biomesoplenty:blocks/white_sandstone_top"
+        }
+      },
+      "brick": {
+        "textures": {
+          "bottom": "mia:blocks/biomesoplenty/white_sandstone_bricks",
+          "top": "mia:blocks/biomesoplenty/white_sandstone_bricks",
+          "side": "mia:blocks/biomesoplenty/white_sandstone_bricks"
+        }
+      }
+    }
+  }
+}

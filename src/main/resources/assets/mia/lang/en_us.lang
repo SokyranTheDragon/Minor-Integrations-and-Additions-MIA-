@@ -11,6 +11,7 @@ itemGroup.mia=Minor Integrations and Additions
 
 # The first one is unused for now, but this might change in the future
 mia.config.base.title=Base settings
+mia.config.base_additions.title=Base additions settings
 mia.config.jer.title=Just Enough Resources
 mia.config.xu2.title=Extra Utilities 2
 mia.config.thermalexpansion.title=Thermal Expansion
@@ -34,6 +35,7 @@ mia.config.biomes_o_plenty.title=Biomes O' Plenty
 ## Tooltips
 
 mia.config.base.title.tooltip=Browse and manage base MIA settings
+mia.config.base_additions.title.tooltip=Browse and manage base MIA addition settings
 mia.config.jer.title.tooltip=Browse and manage Just Enough Resources settings
 mia.config.xu2.title.tooltip=Browse and manage Extra Utilities 2 settings
 mia.config.thermalexpansion.title.tooltip=Browse and manage Thermal Expansion settings
@@ -99,6 +101,19 @@ mia.config.base.add_cooked_drops=Add cooked mob drops
 mia.config.base.music_player_volume=Music player volume
 mia.config.base.disable_recipes=Disable any new recipes added by mods
 mia.config.base.disable_ore_dict=Disable any new ore dictionary entries
+
+## Base additions specific
+
+mia.config.base_additions.more_sandstone=Enable more sandstone
+mia.config.base_additions.more_sandstone_shared=More Sandstone Settings
+mia.config.base_additions.more_sandstone.quark=Enable more sandstone Quark blocks
+mia.config.base_additions.more_sandstone.futuremc=Enable more sandstone FutureMC walls
+mia.config.base_additions.more_sandstone.forced=Force more sandstone
+mia.config.base_additions.more_sandstone.forced_stairs_slabs=Force more sandstone stairs and slabs
+mia.config.base_additions.more_sandstone.forced_quark_walls=Force more sandstone Quark walls
+mia.config.base_additions.more_sandstone.forced_futuremc_walls=Force more sandstone FutureMC walls
+mia.config.base_additions.more_sandstone.bop_white_sandstone=Enable white sandstone
+mia.config.base_additions.more_sandstone.bop_white_sandstone_quark_walls=Enable white sandstone Quark walls
 
 ## Mod specific
 
@@ -276,6 +291,22 @@ botania.entry.orechidVacuam=Orechid Vacuam
 botania.tagline.orechidVacuam=Creates end ores from end stone
 botania.page.orechidVacuam0=The &1Orechid&0 is a great flower. The ability to create raw ores with &4Mana&0 can be a great boon to any sedentary botanist's life. It, however, can't create ores from the &4End&0. Getting that sorted out is easy, by switching the petals a bit, it'll create &4End&0 ores in &1End Stone&0 instead. The flower must be in the &4End&0 to work.
 botania.page.orechidVacuam1=&oWhy is there so much emptiness?&r.
+
+
+
+#################################
+### Biomes O' Plenty addition ###
+#################################
+
+tile.white_sandstone_new_smooth.name=Polished White Sandstone
+tile.white_sandstone_new_brick.name=White Sandstone Bricks
+tile.white_sandstone_new_slab_smooth.name=Polished White Sandstone Slab
+tile.white_sandstone_new_slab_double_smooth.name=Polished White Sandstone Slab
+tile.white_sandstone_new_slab_brick.name=White Sandstone Brick Slab
+tile.white_sandstone_new_slab_double_brick.name=White Sandstone Brick Slab
+tile.white_sandstone_stairs_brick.name=White Sandstone Brick Stairs
+tile.mia:white_sandstone_wall_quark.name=White Sandstone Wall
+tile.white_sandstone_futuremc_wall.name=White Sandstone Wall
 
 
 

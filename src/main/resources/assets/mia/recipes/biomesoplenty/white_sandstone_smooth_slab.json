@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "biomesoplenty"
+    },
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "slab",
+      "category": "sandstone"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss"
+  ],
+  "key": {
+    "s": {
+      "item": "mia:white_sandstone_new",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "mia:white_sandstone_new_slab",
+    "count": 6,
+    "data": 0
+  }
+}

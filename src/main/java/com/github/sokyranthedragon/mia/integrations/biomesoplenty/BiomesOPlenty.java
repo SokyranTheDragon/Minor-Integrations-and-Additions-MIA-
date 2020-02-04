@@ -2,12 +2,24 @@ package com.github.sokyranthedragon.mia.integrations.biomesoplenty;
 
 import biomesoplenty.api.block.BOPBlocks;
 import biomesoplenty.api.item.BOPItems;
+import com.github.sokyranthedragon.mia.block.decorative.SandstoneEntry;
+import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
+import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.function.BiConsumer;
 
@@ -36,16 +48,59 @@ public class BiomesOPlenty implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (bopAdditionsEnabled && !MiaConfig.disableOreDict)
+        if (bopAdditionsEnabled)
         {
-            registerOre("listAllberry", BOPItems.berries);
-            registerOre("listAllfruit", BOPItems.berries);
-            registerOre("cropRice", new ItemStack(BOPBlocks.plant_1, 1, 3));
-            registerOre("cropBamboo", new ItemStack(BOPBlocks.bamboo));
-            registerOre("honeycomb", new ItemStack(BOPItems.honeycomb));
-            registerOre("foodHoneydrop", new ItemStack(BOPItems.filled_honeycomb));
-            registerOre("dropHoney", new ItemStack(BOPItems.filled_honeycomb));
-            registerOre("listAllsugar", new ItemStack(BOPItems.filled_honeycomb));
+            SandstoneEntry.registerRecipes(MiaBlocks.whiteSandstone, BOPBlocks.white_sandstone);
+            
+            if (!MiaConfig.disableOreDict)
+            {
+                registerOre("listAllberry", BOPItems.berries);
+                registerOre("listAllfruit", BOPItems.berries);
+                registerOre("cropRice", new ItemStack(BOPBlocks.plant_1, 1, 3));
+                registerOre("cropBamboo", new ItemStack(BOPBlocks.bamboo));
+                registerOre("honeycomb", new ItemStack(BOPItems.honeycomb));
+                registerOre("foodHoneydrop", new ItemStack(BOPItems.filled_honeycomb));
+                registerOre("dropHoney", new ItemStack(BOPItems.filled_honeycomb));
+                registerOre("listAllsugar", new ItemStack(BOPItems.filled_honeycomb));
+            }
         }
+    }
+    
+    @Override
+    public void registerBlocks(RegistryEvent.Register<Block> event)
+    {
+        if (!bopAdditionsEnabled)
+            return;
+        
+        IForgeRegistry<Block> registry = event.getRegistry();
+        
+        if (GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneEnabled)
+            MiaBlocks.whiteSandstone = SandstoneEntry.init(BOPBlocks.white_sandstone,
+                    "white",
+                    CreativeTabs.BUILDING_BLOCKS,
+                    MapColor.WHITE_STAINED_HARDENED_CLAY,
+                    registry,
+                    GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneQuarkWallsEnabled);
+    }
+    
+    @Override
+    public void registerItems(RegistryEvent.Register<Item> event)
+    {
+        if (!bopAdditionsEnabled)
+            return;
+    
+        IForgeRegistry<Item> registry = event.getRegistry();
+        
+        SandstoneEntry.registerItemBlocks(MiaBlocks.whiteSandstone, registry);
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerRenders(ModelRegistryEvent event)
+    {
+        if (!bopAdditionsEnabled)
+            return;
+        
+        SandstoneEntry.registerRenders(MiaBlocks.whiteSandstone);
     }
 }

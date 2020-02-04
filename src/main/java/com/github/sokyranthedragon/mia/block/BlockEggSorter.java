@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.block;
 import com.gendeathrow.hatchery.Hatchery;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.gui.GuiHandler;
+import com.github.sokyranthedragon.mia.integrations.botania.wiki.IWikiProvider;
 import com.github.sokyranthedragon.mia.tile.TileEggSorter;
 import com.github.sokyranthedragon.mia.utilities.InventoryUtils;
 import net.minecraft.block.ITileEntityProvider;
@@ -21,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("WeakerAccess")
-public class BlockEggSorter extends BlockBase implements ITileEntityProvider
+public class BlockEggSorter extends BlockBase implements ITileEntityProvider, IWikiProvider
 {
     public BlockEggSorter()
     {

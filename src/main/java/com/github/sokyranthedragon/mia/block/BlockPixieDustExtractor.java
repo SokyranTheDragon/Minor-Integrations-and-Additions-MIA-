@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.block;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.gui.GuiHandler;
+import com.github.sokyranthedragon.mia.integrations.botania.wiki.IWikiProvider;
 import com.github.sokyranthedragon.mia.tile.TilePixieDustExtractor;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -20,7 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("WeakerAccess")
-public class BlockPixieDustExtractor extends BlockBase implements ITileEntityProvider
+public class BlockPixieDustExtractor extends BlockBase implements ITileEntityProvider, IWikiProvider
 {
     public BlockPixieDustExtractor()
     {

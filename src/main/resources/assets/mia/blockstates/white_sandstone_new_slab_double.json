@@ -1,0 +1,21 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "variant": {
+      "smooth": {
+        "textures": {
+          "all": "biomesoplenty:blocks/white_sandstone_top"
+        }
+      },
+      "brick": {
+        "textures": {
+          "all": "mia:blocks/biomesoplenty/white_sandstone_bricks"
+        }
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.block;
 
 import com.github.sokyranthedragon.mia.MiaCreativeTab;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
+import com.github.sokyranthedragon.mia.integrations.botania.wiki.IWikiProvider;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -13,7 +14,7 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.annotation.Nonnull;
 
-public class BlockBotaniaSpecialFlower extends BlockSpecialFlower
+public class BlockBotaniaSpecialFlower extends BlockSpecialFlower implements IWikiProvider
 {
     public BlockBotaniaSpecialFlower()
     {

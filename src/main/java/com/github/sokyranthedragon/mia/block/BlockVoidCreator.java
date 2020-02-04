@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.block;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.gui.GuiHandler;
+import com.github.sokyranthedragon.mia.integrations.botania.wiki.IWikiProvider;
 import com.github.sokyranthedragon.mia.tile.TileVoidCreator;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -25,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings({"deprecation", "WeakerAccess"})
-public class BlockVoidCreator extends BlockBase implements ITileEntityProvider
+public class BlockVoidCreator extends BlockBase implements ITileEntityProvider, IWikiProvider
 {
     protected static final AxisAlignedBB AABB_MAIN = new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 1.0D, 0.8125D);
     protected static final AxisAlignedBB AABB_BASE = new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.125D, 0.8125D);
