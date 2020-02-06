@@ -38,6 +38,7 @@ public class BlockMiaWallFutureMC extends BlockWall
     }
     
     @Override
+    @SuppressWarnings("deprecation")
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
         return super.getMapColor(state, worldIn, pos);
