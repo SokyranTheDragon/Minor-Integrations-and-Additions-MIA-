@@ -271,7 +271,8 @@ curseforge {
             }
         }
         options {
-            debug = false // Leave as true unless publishing, prevents accidental uploads
+            //noinspection GrDeprecatedAPIUsage
+            debug = true // Leave as true unless publishing, prevents accidental uploads
         }
     }
 }

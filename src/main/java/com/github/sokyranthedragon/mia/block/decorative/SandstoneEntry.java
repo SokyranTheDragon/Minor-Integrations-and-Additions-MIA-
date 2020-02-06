@@ -1,6 +1,7 @@
 package com.github.sokyranthedragon.mia.block.decorative;
 
 import com.github.sokyranthedragon.mia.block.BlockBaseStairs;
+import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;
 import mcp.MethodsReturnNonnullByDefault;
@@ -11,6 +12,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -35,12 +37,18 @@ import static com.github.sokyranthedragon.mia.utilities.QuarkUtils.isFeatureEnab
 public class SandstoneEntry implements IBlockEntry
 {
     public Block sandstone;
-    public BlockSlab slabs;
-    public BlockSlab slabsDouble;
+    public BlockSlab slab;
+    public BlockSlab slabDouble;
     public BlockStairs brickStairs;
     public Block wallQuark;
     
     public Block wallFutureMc;
+    
+    // For overriding with no default values created
+    @SuppressWarnings("unused")
+    protected SandstoneEntry()
+    {
+    }
     
     protected SandstoneEntry(Block sandstone, String sandName, CreativeTabs creativeTab, MapColor mapColor, IForgeRegistry<Block> registry, boolean enableQuarkWalls)
     {
@@ -52,26 +60,38 @@ public class SandstoneEntry implements IBlockEntry
             if ((QUARK.isLoaded && MoreSandstone.enableStairsAndSlabs) || moreSandstone.forceMoreSandstoneStairsAndSlabs)
             {
                 BlockNewSandstoneSlab slabs = registerBlock(new BlockNewSandstoneSlab(sandstoneName + "new_slab", creativeTab, mapColor), registry);
-                this.slabs = slabs;
-                slabsDouble = registerBlock(new BlockNewSandstoneSlabDouble(sandstoneName + "new_slab_double", creativeTab, slabs, mapColor), registry);
+                this.slab = slabs;
+                slabDouble = registerBlock(new BlockNewSandstoneSlabDouble(sandstoneName + "new_slab_double", creativeTab, slabs, mapColor), registry);
                 
                 brickStairs = registerBlock(new BlockBaseStairs(sandstone.getDefaultState(), sandstoneName + "stairs_brick", creativeTab), registry);
             }
             if (QUARK.isLoaded && enableQuarkWalls && (isFeatureEnabled(VanillaWalls.class) || moreSandstone.forceMoreSandstoneQuarkWalls))
             {
-                wallQuark = registerBlock(new BlockMiaWallQuark(sandstoneName + "wall_quark", sandstone.getDefaultState(), mapColor));
+                wallQuark = registerBlock(getQuarkWall(sandstone, sandstoneName, creativeTab, mapColor));
                 BlockQuarkWall.initWall(sandstone, 0, wallQuark);
             }
         }
         
         if (FUTURE_MC.isLoaded && moreSandstone.sandstoneWallsFutureMcEnabled && (FutureConfig.general.newWallVariants || moreSandstone.forceMoreSandstoneFutureMcWalls))
-            wallFutureMc = registerBlock(new BlockMiaWallFutureMC(sandstoneName + "futuremc"), registry);
+            wallFutureMc = registerBlock(getFutureMcWall(sandstoneName, creativeTab, mapColor), registry);
+    }
+    
+    @Method(modid = ModIds.ConstantIds.QUARK)
+    private static Block getQuarkWall(Block sandstone, String sandstoneName, CreativeTabs creativeTab, MapColor mapColor)
+    {
+        return new BlockMiaWallQuark(sandstoneName + "wall_quark", creativeTab, sandstone.getDefaultState(), mapColor);
+    }
+    
+    @Method(modid = ModIds.ConstantIds.FUTURE_MC)
+    private static Block getFutureMcWall(String sandstoneName, CreativeTabs creativeTab, MapColor mapColor)
+    {
+        return new BlockMiaWallFutureMC(sandstoneName + "futuremc", creativeTab, mapColor);
     }
     
     @Override
     public boolean isEmpty()
     {
-        return sandstone == null && slabs == null && slabsDouble != null && brickStairs == null && wallQuark == null && wallFutureMc == null;
+        return sandstone == null && slab == null && slabDouble != null && brickStairs == null && wallQuark == null && wallFutureMc == null;
     }
     
     @Nullable
@@ -88,7 +108,7 @@ public class SandstoneEntry implements IBlockEntry
         if (sandstone != null)
         {
             RegisterUtils.registerItemblock(sandstone.sandstone, registry);
-            RegisterUtils.registerItemblockSlab(sandstone.slabs, sandstone.slabsDouble, registry);
+            RegisterUtils.registerItemblockSlab(sandstone.slab, sandstone.slabDouble, registry);
             RegisterUtils.registerItemblock(sandstone.wallFutureMc, registry);
             RegisterUtils.registerItemblock(sandstone.brickStairs, registry);
         }
@@ -101,8 +121,8 @@ public class SandstoneEntry implements IBlockEntry
         {
             RegisterUtils.registerItemblockRenderer(sandstone.sandstone, 0);
             RegisterUtils.registerItemblockRenderer(sandstone.sandstone, 1);
-            RegisterUtils.registerItemblockRenderer(sandstone.slabs, 0);
-            RegisterUtils.registerItemblockRenderer(sandstone.slabs, 1);
+            RegisterUtils.registerItemblockRenderer(sandstone.slab, 0);
+            RegisterUtils.registerItemblockRenderer(sandstone.slab, 1);
             RegisterUtils.registerItemblockRenderer(sandstone.wallFutureMc);
             RegisterUtils.registerItemblockRenderer(sandstone.brickStairs);
         }
@@ -115,8 +135,8 @@ public class SandstoneEntry implements IBlockEntry
             List<ItemStack> toRegister = new ArrayList<>(7);
             addIfNotNull(toRegister, sandstone.sandstone, 0);
             addIfNotNull(toRegister, sandstone.sandstone, 1);
-            addIfNotNull(toRegister, sandstone.slabs, 0);
-            addIfNotNull(toRegister, sandstone.slabs, 1);
+            addIfNotNull(toRegister, sandstone.slab, 0);
+            addIfNotNull(toRegister, sandstone.slab, 1);
             addIfNotNull(toRegister, sandstone.brickStairs);
             addIfNotNull(toRegister, sandstone.wallQuark);
             addIfNotNull(toRegister, sandstone.wallFutureMc);

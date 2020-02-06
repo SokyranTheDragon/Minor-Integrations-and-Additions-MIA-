@@ -6,6 +6,7 @@ import com.github.sokyranthedragon.mia.config.MiaConfig;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import vazkii.quark.base.block.BlockQuarkWall;
@@ -19,11 +20,13 @@ public class BlockMiaWallQuark extends BlockQuarkWall
 {
     private MapColor mapColor;
     
-    public BlockMiaWallQuark(String name, IBlockState state, @Nullable MapColor mapColor)
+    public BlockMiaWallQuark(String name, @Nullable CreativeTabs creativeTab, IBlockState state, @Nullable MapColor mapColor)
     {
         super(name, state);
         if (MiaConfig.miaCreativeTab)
             setCreativeTab(MiaCreativeTab.INSTANCE);
+        else if (creativeTab != null)
+            setCreativeTab(creativeTab);
         this.mapColor = mapColor;
     }
     
