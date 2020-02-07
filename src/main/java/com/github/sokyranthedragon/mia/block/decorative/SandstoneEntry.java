@@ -24,6 +24,7 @@ import vazkii.quark.building.feature.VanillaWalls;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static com.github.sokyranthedragon.mia.config.GenericAdditionsConfig.moreSandstone;
@@ -130,7 +131,7 @@ public class SandstoneEntry implements IBlockEntry
     
     public static void registerRecipes(@Nullable SandstoneEntry sandstone, Block source)
     {
-        if (sandstone != null)
+        if (sandstone != null && FUTURE_MC.isLoaded)
         {
             List<ItemStack> toRegister = new ArrayList<>(7);
             addIfNotNull(toRegister, sandstone.sandstone, 0);
@@ -143,8 +144,14 @@ public class SandstoneEntry implements IBlockEntry
             
             
             if (toRegister.size() > 0)
-                StonecutterRecipes.addOrCreateRecipe(new ItemStack(source), toRegister.toArray(new ItemStack[0]));
+                registerStonecutter(source, toRegister);
         }
+    }
+    
+    @Method(modid = ModIds.ConstantIds.FUTURE_MC)
+    private static void registerStonecutter(Block source, Collection<ItemStack> toRegister)
+    {
+        StonecutterRecipes.addOrCreateRecipe(new ItemStack(source), toRegister.toArray(new ItemStack[0]));
     }
     
     private static void addIfNotNull(List<ItemStack> list, Block block)
