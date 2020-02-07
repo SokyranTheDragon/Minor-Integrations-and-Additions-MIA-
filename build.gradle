@@ -35,7 +35,7 @@ def parseConfig(File config) {
 }
 
 
-version = "1.12.2-0.1.3b"
+version = "1.12.2-0.1.3c"
 group = "com.github.sokyranthedragon.mia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mia"
 
@@ -272,7 +272,7 @@ curseforge {
         }
         options {
             //noinspection GrDeprecatedAPIUsage
-            debug = false // Leave as true unless publishing, prevents accidental uploads
+            debug = true // Leave as true unless publishing, prevents accidental uploads
         }
     }
 }
