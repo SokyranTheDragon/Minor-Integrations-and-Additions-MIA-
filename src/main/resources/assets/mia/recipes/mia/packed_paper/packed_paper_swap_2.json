@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "packed_paper"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mia:packed_paper",
+      "data": 1
+    }
+  ],
+  "result": {
+    "item": "mia:packed_paper",
+    "data": 2
+  }
+}

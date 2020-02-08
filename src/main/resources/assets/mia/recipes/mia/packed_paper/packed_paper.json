@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "packed_paper"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "ppp",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "item": "mia:packed_paper",
+    "data": 0
+  }
+}

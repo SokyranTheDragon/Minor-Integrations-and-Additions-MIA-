@@ -1,0 +1,39 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "mia:cube_cardinal_nw_se",
+    "textures": {
+      "down": "mia:blocks/mia/paper/paper_bottom_0",
+      "up": "mia:blocks/mia/paper/paper_top_0",
+      "south_east": "mia:blocks/mia/paper/paper_side1_0",
+      "north_west": "mia:blocks/mia/paper/paper_side2_0"
+    }
+  },
+  "variants": {
+    "normal": [{}], "inventory": [{}],
+    "variant": {
+      "0": {},
+      "1": {
+        "textures": {
+          "down": "mia:blocks/mia/paper/paper_bottom_1",
+          "up": "mia:blocks/mia/paper/paper_top_1",
+          "south_east": "mia:blocks/mia/paper/paper_side1_1",
+          "north_west": "mia:blocks/mia/paper/paper_side2_1"
+        }
+      },
+      "2": {
+        "textures": {
+          "down": "mia:blocks/mia/paper/paper_bottom_2"
+        }
+      },
+      "3": {
+        "textures": {
+          "down": "mia:blocks/mia/paper/paper_bottom_3",
+          "south_east": "mia:blocks/mia/paper/paper_side1_3",
+          "north_west": "mia:blocks/mia/paper/paper_side2_3"
+        }
+      }
+    }
+  }
+}

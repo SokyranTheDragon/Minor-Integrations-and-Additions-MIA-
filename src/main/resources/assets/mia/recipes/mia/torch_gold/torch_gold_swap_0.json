@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "torch_gold"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mia:torch_gold",
+      "data": 1
+    }
+  ],
+  "result": {
+    "item": "mia:torch_gold",
+    "data": 0
+  }
+}

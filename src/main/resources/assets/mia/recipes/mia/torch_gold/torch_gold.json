@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "torch_gold"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c",
+    "g"
+  ],
+  "key": {
+    "c": {
+      "item": "minecraft:coal",
+      "data": 32767
+    },
+    "g": {
+      "item": "minecraft:ingot_gold"
+    }
+  },
+  "result": {
+    "item": "mia:torch_gold",
+    "count": 4,
+    "data": 0
+  }
+}

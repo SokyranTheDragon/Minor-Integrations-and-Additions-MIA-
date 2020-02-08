@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "armored_glass"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ogo",
+    "ggg",
+    "ogo"
+  ],
+  "key": {
+    "o": {
+      "item": "minecraft:obsidian"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "mia:armored_glass",
+    "count": 8
+  }
+}
