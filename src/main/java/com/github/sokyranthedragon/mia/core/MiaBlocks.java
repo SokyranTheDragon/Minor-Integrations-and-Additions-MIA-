@@ -1,7 +1,8 @@
 package com.github.sokyranthedragon.mia.core;
 
-import com.github.sokyranthedragon.mia.block.BlockBaseGlass;
 import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
+import com.github.sokyranthedragon.mia.block.base.BlockBaseGlass;
+import com.github.sokyranthedragon.mia.block.decorative.BlockDeadFlower;
 import com.github.sokyranthedragon.mia.block.decorative.BlockGoldenTorch;
 import com.github.sokyranthedragon.mia.block.decorative.BlockPackedPaper;
 import com.github.sokyranthedragon.mia.block.decorative.SandstoneEntry;
@@ -34,6 +35,7 @@ public class MiaBlocks
     public static Block armoredGlass = null;
     public static Block packedPaper = null;
     public static Block torchGold = null;
+    public static Block flowerDead = null;
     
     // Hatchery
     public static Block eggSorter = null;
@@ -71,6 +73,7 @@ public class MiaBlocks
                         .setResistance(1750));
         packedPaper = registerBlock(new BlockPackedPaper());
         torchGold = registerBlock(new BlockGoldenTorch());
+        flowerDead = registerBlock(new BlockDeadFlower());
     }
     
     public static void registerMiaBlocks(RegistryEvent.Register<Block> event)

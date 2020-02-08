@@ -1,5 +1,7 @@
-package com.github.sokyranthedragon.mia.block;
+package com.github.sokyranthedragon.mia.block.base;
 
+import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
+import com.github.sokyranthedragon.mia.block.IMetaBlock;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

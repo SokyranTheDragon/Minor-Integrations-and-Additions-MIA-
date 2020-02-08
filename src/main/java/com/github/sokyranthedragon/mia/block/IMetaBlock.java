@@ -1,5 +1,6 @@
 package com.github.sokyranthedragon.mia.block;
 
+import com.github.sokyranthedragon.mia.block.base.BlockBaseMeta;
 import mcp.MethodsReturnNonnullByDefault;
 
 @MethodsReturnNonnullByDefault

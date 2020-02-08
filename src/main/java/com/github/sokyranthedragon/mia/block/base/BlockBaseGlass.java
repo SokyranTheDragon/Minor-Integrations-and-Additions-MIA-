@@ -1,7 +1,8 @@
-package com.github.sokyranthedragon.mia.block;
+package com.github.sokyranthedragon.mia.block.base;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.MiaCreativeTab;
+import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockGlass;

@@ -1,6 +1,6 @@
 package com.github.sokyranthedragon.mia.block.decorative;
 
-import com.github.sokyranthedragon.mia.block.BlockBaseStairs;
+import com.github.sokyranthedragon.mia.block.base.BlockBaseStairs;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;

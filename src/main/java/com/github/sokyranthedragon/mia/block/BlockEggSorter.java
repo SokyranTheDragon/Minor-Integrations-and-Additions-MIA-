@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.block;
 
 import com.gendeathrow.hatchery.Hatchery;
 import com.github.sokyranthedragon.mia.Mia;
+import com.github.sokyranthedragon.mia.block.base.BlockBase;
 import com.github.sokyranthedragon.mia.gui.GuiHandler;
 import com.github.sokyranthedragon.mia.integrations.botania.wiki.IWikiProvider;
 import com.github.sokyranthedragon.mia.tile.TileEggSorter;

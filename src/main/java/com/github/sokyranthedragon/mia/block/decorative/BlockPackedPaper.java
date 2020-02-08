@@ -1,6 +1,6 @@
 package com.github.sokyranthedragon.mia.block.decorative;
 
-import com.github.sokyranthedragon.mia.block.BlockBaseMeta;
+import com.github.sokyranthedragon.mia.block.base.BlockBaseMeta;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

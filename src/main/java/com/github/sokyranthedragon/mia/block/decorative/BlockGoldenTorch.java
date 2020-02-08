@@ -1,7 +1,7 @@
 package com.github.sokyranthedragon.mia.block.decorative;
 
-import com.github.sokyranthedragon.mia.block.BlockBaseMeta;
-import com.github.sokyranthedragon.mia.block.BlockBaseMetaTorch;
+import com.github.sokyranthedragon.mia.block.base.BlockBaseMeta;
+import com.github.sokyranthedragon.mia.block.base.BlockBaseMetaTorch;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyInteger;

@@ -1,25 +1,26 @@
-package com.github.sokyranthedragon.mia.block;
+package com.github.sokyranthedragon.mia.block.base;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.MiaCreativeTab;
+import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-public class BlockBaseStairs extends BlockStairs implements IAutoRegisterBlock
+@ParametersAreNonnullByDefault
+public class BlockBase extends Block implements IAutoRegisterBlock
 {
-    public BlockBaseStairs(IBlockState modelState, @Nonnull String name, @Nullable CreativeTabs creativeTab)
+    public BlockBase(Material material, String name, @Nullable CreativeTabs creativeTab)
     {
-        super(modelState);
-    
+        super(material);
+        
         setTranslationKey(name);
         setRegistryName(Mia.MODID, name);
-        useNeighborBrightness = true;
-    
+        
         if (MiaConfig.miaCreativeTab)
             setCreativeTab(MiaCreativeTab.INSTANCE);
         else if (creativeTab != null)
