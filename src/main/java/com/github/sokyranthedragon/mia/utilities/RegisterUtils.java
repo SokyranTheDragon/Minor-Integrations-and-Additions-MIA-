@@ -87,7 +87,15 @@ public class RegisterUtils
             if (registryName != null)
             {
                 if (item instanceof IMetaBlock)
-                    ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(registryName, ((IMetaBlock) item).getVariantName() + "=" + ((IMetaBlock) item).getNameFromMeta(metadata)));
+                {
+                    String variantName = ((IMetaBlock)item).getVariantName();
+                    String variantValue = ((IMetaBlock) item).getNameFromMeta(metadata);
+    
+                    if (variantName == null)
+                        ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(registryName + "_" + variantValue, "inventory"));
+                    else
+                        ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(registryName, variantName + "=" + variantValue));
+                }
                 else
                     ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(registryName, "inventory"));
             }

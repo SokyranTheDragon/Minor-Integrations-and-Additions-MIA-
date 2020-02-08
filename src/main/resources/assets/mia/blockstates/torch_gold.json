@@ -8,7 +8,7 @@
     }
   },
   "variants": {
-    "normal": [{}], "inventory": [{}],
+    "normal": [{}],
     "variant": {
       "0": {},
       "1": {

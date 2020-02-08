@@ -117,6 +117,6 @@ public abstract class BlockBaseMetaTorch<T extends IProperty<V>, V extends Compa
     @Override
     public String getVariantName()
     {
-        return FACING.getName() + "=" + EnumFacing.UP.getName() + "," + getProperty().getName();
+        return null;
     }
 }
