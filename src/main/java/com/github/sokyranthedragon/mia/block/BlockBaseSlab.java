@@ -28,7 +28,7 @@ import java.util.Random;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class BlockBaseSlab extends BlockSlab
+public class BlockBaseSlab extends BlockSlab implements IAutoRegisterBlock
 {
     protected static final PropertyEnum<SingletonEnum> SINGLETON = PropertyEnum.create("singleton", SingletonEnum.class);
     protected final BlockBaseSlab single;
@@ -46,7 +46,7 @@ public class BlockBaseSlab extends BlockSlab
         setTranslationKey(name);
         setRegistryName(Mia.MODID, name);
         setDefaultState();
-        if(!isDouble())
+        if (!isDouble())
             useNeighborBrightness = true;
         
         if (MiaConfig.miaCreativeTab)
@@ -103,7 +103,7 @@ public class BlockBaseSlab extends BlockSlab
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
     {
-        return new ItemStack(this, 1, getMetaFromStateBottom(state));
+        return new ItemStack(isDouble() ? single : this, 1, getMetaFromStateBottom(state));
     }
     
     @Override
@@ -140,6 +140,12 @@ public class BlockBaseSlab extends BlockSlab
     public Comparable<?> getTypeForItem(ItemStack itemStack)
     {
         return SingletonEnum.SINGLETON;
+    }
+    
+    @Override
+    public boolean registerItemblock()
+    {
+        return false;
     }
     
     private enum SingletonEnum implements IStringSerializable

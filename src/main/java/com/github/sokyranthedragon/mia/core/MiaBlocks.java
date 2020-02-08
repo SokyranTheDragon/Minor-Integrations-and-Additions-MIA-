@@ -1,8 +1,18 @@
 package com.github.sokyranthedragon.mia.core;
 
+import com.github.sokyranthedragon.mia.block.BlockBaseGlass;
+import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
+import com.github.sokyranthedragon.mia.block.decorative.BlockGoldenTorch;
+import com.github.sokyranthedragon.mia.block.decorative.BlockPackedPaper;
 import com.github.sokyranthedragon.mia.block.decorative.SandstoneEntry;
+import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import javax.annotation.Nonnull;
@@ -19,6 +29,11 @@ public class MiaBlocks
     
     @Nonnull
     public static final List<Block> blocks = new LinkedList<>();
+    
+    // Mia
+    public static Block armoredGlass = null;
+    public static Block packedPaper = null;
+    public static Block torchGold = null;
     
     // Hatchery
     public static Block eggSorter = null;
@@ -46,5 +61,47 @@ public class MiaBlocks
             registry.register(block);
         blocks.add(block);
         return block;
+    }
+    
+    public static void initMiaBlocks()
+    {
+        armoredGlass = registerBlock(
+                new BlockBaseGlass("armored_glass", CreativeTabs.BUILDING_BLOCKS, false)
+                        .setHardness(40)
+                        .setResistance(1750));
+        packedPaper = registerBlock(new BlockPackedPaper());
+        torchGold = registerBlock(new BlockGoldenTorch());
+    }
+    
+    public static void registerMiaBlocks(RegistryEvent.Register<Block> event)
+    {
+        IForgeRegistry<Block> registry = event.getRegistry();
+        
+        for (Block block : blocks)
+        {
+            if (block instanceof IAutoRegisterBlock && ((IAutoRegisterBlock) block).registerBlock())
+                registry.register(block);
+        }
+    }
+    
+    public static void registerMiaItemblocks(RegistryEvent.Register<Item> event)
+    {
+        IForgeRegistry<Item> registry = event.getRegistry();
+        
+        for (Block block : blocks)
+        {
+            if (block instanceof IAutoRegisterBlock && ((IAutoRegisterBlock) block).registerItemblock())
+                RegisterUtils.registerItemblock(block, registry);
+        }
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public static void registerMiaItemblockRenderers()
+    {
+        for (Block block : blocks)
+        {
+            if (block instanceof IAutoRegisterBlock && ((IAutoRegisterBlock) block).registerItemblockRenderer())
+                RegisterUtils.registerItemblockRenderer(block);
+        }
     }
 }

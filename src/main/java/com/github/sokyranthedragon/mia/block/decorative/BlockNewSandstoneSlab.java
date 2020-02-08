@@ -9,13 +9,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -76,12 +73,6 @@ public class BlockNewSandstoneSlab extends BlockBaseSlab implements IMetaBlock
     }
     
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
-    {
-        return new ItemStack(this, 1, this.getMetaFromStateBottom(state));
-    }
-    
-    @Override
     public IProperty<?> getVariantProperty()
     {
         return VARIANT;
@@ -91,12 +82,6 @@ public class BlockNewSandstoneSlab extends BlockBaseSlab implements IMetaBlock
     public Comparable<?> getTypeForItem(ItemStack itemStack)
     {
         return EnumType.values()[itemStack.getMetadata() & 0b0111];
-    }
-    
-    @Override
-    public int damageDropped(IBlockState state)
-    {
-        return getMetaFromStateBottom(state);
     }
     
     @Override

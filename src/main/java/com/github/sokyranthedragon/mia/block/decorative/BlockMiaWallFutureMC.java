@@ -1,6 +1,7 @@
 package com.github.sokyranthedragon.mia.block.decorative;
 
 import com.github.sokyranthedragon.mia.MiaCreativeTab;
+import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
@@ -16,7 +17,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class BlockMiaWallFutureMC extends BlockWall
+public class BlockMiaWallFutureMC extends BlockWall implements IAutoRegisterBlock
 {
     protected final MapColor mapColor;
     

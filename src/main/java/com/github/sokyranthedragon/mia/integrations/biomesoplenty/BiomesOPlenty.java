@@ -14,12 +14,8 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.function.BiConsumer;
 
@@ -72,14 +68,11 @@ public class BiomesOPlenty implements IBaseMod
         if (!bopAdditionsEnabled)
             return;
         
-        IForgeRegistry<Block> registry = event.getRegistry();
-        
         if (GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneEnabled)
             MiaBlocks.whiteSandstone = SandstoneEntry.init(BOPBlocks.white_sandstone,
                     "white",
                     CreativeTabs.BUILDING_BLOCKS,
                     MapColor.WHITE_STAINED_HARDENED_CLAY,
-                    registry,
                     GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneQuarkWallsEnabled);
     }
     
@@ -88,19 +81,7 @@ public class BiomesOPlenty implements IBaseMod
     {
         if (!bopAdditionsEnabled)
             return;
-    
-        IForgeRegistry<Item> registry = event.getRegistry();
         
-        SandstoneEntry.registerItemBlocks(MiaBlocks.whiteSandstone, registry);
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerRenders(ModelRegistryEvent event)
-    {
-        if (!bopAdditionsEnabled)
-            return;
-        
-        SandstoneEntry.registerRenders(MiaBlocks.whiteSandstone);
+        SandstoneEntry.registerItemblocks(MiaBlocks.whiteSandstone, event.getRegistry());
     }
 }

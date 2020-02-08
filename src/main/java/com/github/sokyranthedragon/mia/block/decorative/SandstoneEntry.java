@@ -13,8 +13,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional.Method;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import thedarkcolour.futuremc.init.FutureConfig;
 import thedarkcolour.futuremc.recipe.StonecutterRecipes;
@@ -51,20 +49,20 @@ public class SandstoneEntry implements IBlockEntry
     {
     }
     
-    protected SandstoneEntry(Block sandstone, String sandName, CreativeTabs creativeTab, MapColor mapColor, IForgeRegistry<Block> registry, boolean enableQuarkWalls)
+    protected SandstoneEntry(Block sandstone, String sandName, CreativeTabs creativeTab, MapColor mapColor, boolean enableQuarkWalls)
     {
         final String sandstoneName = sandName + "_sandstone_";
         
         if ((QUARK.isLoaded && isFeatureEnabled(MoreSandstone.class) && moreSandstone.moreSandstoneQuarkEnabled) || moreSandstone.forceMoreSandstone)
         {
-            this.sandstone = registerBlock(new BlockNewSandstone(sandstoneName + "new", creativeTab, mapColor), registry);
+            this.sandstone = registerBlock(new BlockNewSandstone(sandstoneName + "new", creativeTab, mapColor));
             if ((QUARK.isLoaded && MoreSandstone.enableStairsAndSlabs) || moreSandstone.forceMoreSandstoneStairsAndSlabs)
             {
-                BlockNewSandstoneSlab slabs = registerBlock(new BlockNewSandstoneSlab(sandstoneName + "new_slab", creativeTab, mapColor), registry);
+                BlockNewSandstoneSlab slabs = registerBlock(new BlockNewSandstoneSlab(sandstoneName + "new_slab", creativeTab, mapColor));
                 this.slab = slabs;
-                slabDouble = registerBlock(new BlockNewSandstoneSlabDouble(sandstoneName + "new_slab_double", creativeTab, slabs, mapColor), registry);
+                slabDouble = registerBlock(new BlockNewSandstoneSlabDouble(sandstoneName + "new_slab_double", creativeTab, slabs, mapColor));
                 
-                brickStairs = registerBlock(new BlockBaseStairs(sandstone.getDefaultState(), sandstoneName + "stairs_brick", creativeTab), registry);
+                brickStairs = registerBlock(new BlockBaseStairs(sandstone.getDefaultState(), sandstoneName + "stairs_brick", creativeTab));
             }
             if (QUARK.isLoaded && enableQuarkWalls && (isFeatureEnabled(VanillaWalls.class) || moreSandstone.forceMoreSandstoneQuarkWalls))
             {
@@ -74,7 +72,7 @@ public class SandstoneEntry implements IBlockEntry
         }
         
         if (FUTURE_MC.isLoaded && moreSandstone.sandstoneWallsFutureMcEnabled && (FutureConfig.general.newWallVariants || moreSandstone.forceMoreSandstoneFutureMcWalls))
-            wallFutureMc = registerBlock(getFutureMcWall(sandstoneName, creativeTab, mapColor), registry);
+            wallFutureMc = registerBlock(getFutureMcWall(sandstoneName, creativeTab, mapColor));
     }
     
     @Method(modid = ModIds.ConstantIds.QUARK)
@@ -96,37 +94,18 @@ public class SandstoneEntry implements IBlockEntry
     }
     
     @Nullable
-    public static SandstoneEntry init(Block sandstone, String sandName, CreativeTabs creativeTab, MapColor mapColor, IForgeRegistry<Block> registry, boolean enableQuarkWalls)
+    public static SandstoneEntry init(Block sandstone, String sandName, CreativeTabs creativeTab, MapColor mapColor, boolean enableQuarkWalls)
     {
-        SandstoneEntry entry = new SandstoneEntry(sandstone, sandName, creativeTab, mapColor, registry, enableQuarkWalls);
+        SandstoneEntry entry = new SandstoneEntry(sandstone, sandName, creativeTab, mapColor, enableQuarkWalls);
         if (entry.isEmpty())
             return null;
         return entry;
     }
     
-    public static void registerItemBlocks(@Nullable SandstoneEntry sandstone, IForgeRegistry<Item> registry)
+    public static void registerItemblocks(@Nullable SandstoneEntry sandstone, IForgeRegistry<Item> registry)
     {
         if (sandstone != null)
-        {
-            RegisterUtils.registerItemblock(sandstone.sandstone, registry);
             RegisterUtils.registerItemblockSlab(sandstone.slab, sandstone.slabDouble, registry);
-            RegisterUtils.registerItemblock(sandstone.wallFutureMc, registry);
-            RegisterUtils.registerItemblock(sandstone.brickStairs, registry);
-        }
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public static void registerRenders(@Nullable SandstoneEntry sandstone)
-    {
-        if (sandstone != null)
-        {
-            RegisterUtils.registerItemblockRenderer(sandstone.sandstone, 0);
-            RegisterUtils.registerItemblockRenderer(sandstone.sandstone, 1);
-            RegisterUtils.registerItemblockRenderer(sandstone.slab, 0);
-            RegisterUtils.registerItemblockRenderer(sandstone.slab, 1);
-            RegisterUtils.registerItemblockRenderer(sandstone.wallFutureMc);
-            RegisterUtils.registerItemblockRenderer(sandstone.brickStairs);
-        }
     }
     
     public static void registerRecipes(@Nullable SandstoneEntry sandstone, Block source)

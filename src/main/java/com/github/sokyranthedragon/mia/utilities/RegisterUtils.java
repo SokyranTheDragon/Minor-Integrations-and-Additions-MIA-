@@ -6,8 +6,10 @@ import com.github.sokyranthedragon.mia.items.itemblocks.ItemSlabMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -32,6 +34,8 @@ public class RegisterUtils
         {
             if (singleSlab instanceof IMetaBlock)
                 registry.register(new ItemSlabMeta((Block & IMetaBlock) singleSlab, singleSlab, doubleSlab).setRegistryName(singleSlab.getRegistryName()));
+            else
+                registry.register(new ItemSlab(singleSlab, singleSlab, doubleSlab).setRegistryName(singleSlab.getRegistryName()));
         }
     }
     
@@ -49,7 +53,13 @@ public class RegisterUtils
     @SideOnly(CLIENT)
     public static void registerItemblockRenderer(Block block)
     {
-        registerItemblockRenderer(block, 0);
+        if (block instanceof IMetaBlock)
+        {
+            for (int i = 0; i <= ((IMetaBlock)block).getMaxMeta(); i++)
+                registerItemblockRenderer(block, i);
+        }
+        else
+            registerItemblockRenderer(block, 0);
     }
     
     @SideOnly(CLIENT)
@@ -71,7 +81,7 @@ public class RegisterUtils
     @SideOnly(CLIENT)
     public static void registerItemRenderer(Item item, int metadata)
     {
-        if (item != null)
+        if (item != null && item != Items.AIR)
         {
             ResourceLocation registryName = item.getRegistryName();
             if (registryName != null)

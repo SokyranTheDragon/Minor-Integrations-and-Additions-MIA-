@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.proxy;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
+import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.core.MiaItems;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.LootTableIntegrator;
@@ -84,13 +85,16 @@ public class CommonProxy
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event)
     {
+        MiaBlocks.initMiaBlocks();
         modIntegrator.registerBlocks(event);
+        MiaBlocks.registerMiaBlocks(event);
     }
     
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
-        MiaItems.registerItems(event);
+        MiaItems.registerMiaItems(event);
+        MiaBlocks.registerMiaItemblocks(event);
         modIntegrator.registerItems(event);
     }
     

@@ -7,11 +7,9 @@ import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import com.github.sokyranthedragon.mia.tile.TileVoidCreator;
-import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -20,7 +18,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -68,9 +65,7 @@ public class Thaumcraft implements IBaseMod
         if (!thaumcraftAdditionsEnabled)
             return;
         
-        final IForgeRegistry<Block> registry = event.getRegistry();
-        
-        MiaBlocks.voidCreator = MiaBlocks.registerBlock(new BlockVoidCreator(), registry);
+        MiaBlocks.voidCreator = MiaBlocks.registerBlock(new BlockVoidCreator());
         
         GameRegistry.registerTileEntity(TileVoidCreator.class, new ResourceLocation("mia", "void_creator"));
     }
@@ -82,9 +77,9 @@ public class Thaumcraft implements IBaseMod
         if (!thaumcraftAdditionsEnabled)
             return;
         
-        final IForgeRegistry<Item> registry = event.getRegistry();
-        
-        registry.register(new ItemBlock(MiaBlocks.voidCreator).setRegistryName(MiaBlocks.voidCreator.getRegistryName()));
+//        final IForgeRegistry<Item> registry = event.getRegistry();
+//
+//        registry.register(new ItemBlock(MiaBlocks.voidCreator).setRegistryName(MiaBlocks.voidCreator.getRegistryName()));
         
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(Mia.MODID, "void_creator"),
                 new InfusionRecipe(
@@ -111,6 +106,6 @@ public class Thaumcraft implements IBaseMod
         if (!thaumcraftAdditionsEnabled)
             return;
         
-        RegisterUtils.registerItemblockRenderer(MiaBlocks.voidCreator);
+//        RegisterUtils.registerItemblockRenderer(MiaBlocks.voidCreator);
     }
 }

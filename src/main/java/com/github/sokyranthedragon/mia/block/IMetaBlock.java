@@ -9,5 +9,8 @@ public interface IMetaBlock
     
     String getNameFromMeta(int i);
     
-    String getVariantName();
+    default String getVariantName()
+    {
+        return BlockBaseMeta.DEFAULT_VARIANT_NAME;
+    }
 }

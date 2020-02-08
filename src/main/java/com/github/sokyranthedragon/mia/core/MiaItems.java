@@ -2,9 +2,12 @@ package com.github.sokyranthedragon.mia.core;
 
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.items.ItemMusicPlayer;
+import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import javax.annotation.Nonnull;
@@ -24,7 +27,14 @@ public class MiaItems
     // Mia
     public static ItemMusicPlayer musicPlayer = null;
     
-    public static void registerItems(RegistryEvent.Register<Item> event)
+    public static <T extends Item> T registerItem(T item, IForgeRegistry<Item> registry)
+    {
+        registry.register(item);
+        items.add(item);
+        return item;
+    }
+    
+    public static void registerMiaItems(RegistryEvent.Register<Item> event)
     {
         IForgeRegistry<Item> registry = event.getRegistry();
         
@@ -32,10 +42,9 @@ public class MiaItems
             musicPlayer = registerItem(new ItemMusicPlayer(), registry);
     }
     
-    public static <T extends Item> T registerItem(T item, IForgeRegistry<Item> registry)
+    @SideOnly(Side.CLIENT)
+    public static void registerMiaItemRenderers()
     {
-        registry.register(item);
-        items.add(item);
-        return item;
+        RegisterUtils.registerItemRenderer(MiaItems.musicPlayer);
     }
 }

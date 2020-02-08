@@ -10,7 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockBaseStairs extends BlockStairs
+public class BlockBaseStairs extends BlockStairs implements IAutoRegisterBlock
 {
     public BlockBaseStairs(IBlockState modelState, @Nonnull String name, @Nullable CreativeTabs creativeTab)
     {

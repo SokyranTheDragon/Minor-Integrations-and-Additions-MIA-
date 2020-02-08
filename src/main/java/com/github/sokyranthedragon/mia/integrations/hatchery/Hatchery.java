@@ -13,22 +13,16 @@ import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import com.github.sokyranthedragon.mia.tile.TileEggSorter;
-import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
@@ -94,35 +88,9 @@ public class Hatchery implements IBaseMod
         if (!hatcheryAdditionsEnabled)
             return;
         
-        final IForgeRegistry<Block> registry = event.getRegistry();
-        
-        MiaBlocks.eggSorter = MiaBlocks.registerBlock(new BlockEggSorter(), registry);
+        MiaBlocks.eggSorter = MiaBlocks.registerBlock(new BlockEggSorter());
         
         GameRegistry.registerTileEntity(TileEggSorter.class, new ResourceLocation("mia", "egg_sorter"));
-    }
-    
-    @SuppressWarnings("ConstantConditions")
-    @Override
-    public void registerItems(RegistryEvent.Register<Item> event)
-    {
-        if (!hatcheryAdditionsEnabled)
-            return;
-        
-        final IForgeRegistry<Item> registry = event.getRegistry();
-        
-        registry.register(new ItemBlock(MiaBlocks.eggSorter).setRegistryName(MiaBlocks.eggSorter.getRegistryName()));
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerRenders(ModelRegistryEvent event)
-    {
-        if (!hatcheryAdditionsEnabled)
-            return;
-        
-        RegisterUtils.registerItemblockRenderer(MiaBlocks.eggSorter);
-//        Item eggSorterItem = Item.getItemFromBlock(MiaBlocks.egg_sorter);
-//        ModelLoader.setCustomModelResourceLocation(eggSorterItem, 0, new ModelResourceLocation("mia:" + eggSorterItem.getRegistryName().getPath(), "inventory"));
     }
     
     @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)

@@ -11,15 +11,11 @@ import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import com.github.sokyranthedragon.mia.integrations.iceandfire.client.RenderHippocampusJer;
 import com.github.sokyranthedragon.mia.tile.TilePixieDustExtractor;
-import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Optional;
@@ -28,7 +24,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
@@ -99,33 +94,9 @@ public class IceAndFire implements IBaseMod
         if (!iceandfireAdditionsEnabled)
             return;
         
-        final IForgeRegistry<Block> registry = event.getRegistry();
-        
-        MiaBlocks.pixieDustExtractor = MiaBlocks.registerBlock(new BlockPixieDustExtractor(), registry);
+        MiaBlocks.pixieDustExtractor = MiaBlocks.registerBlock(new BlockPixieDustExtractor());
         
         GameRegistry.registerTileEntity(TilePixieDustExtractor.class, new ResourceLocation("mia", "pixie_dust_extractor"));
-    }
-    
-    @SuppressWarnings("ConstantConditions")
-    @Override
-    public void registerItems(RegistryEvent.Register<Item> event)
-    {
-        if (!iceandfireAdditionsEnabled)
-            return;
-        
-        final IForgeRegistry<Item> registry = event.getRegistry();
-        
-        registry.register(new ItemBlock(MiaBlocks.pixieDustExtractor).setRegistryName(MiaBlocks.pixieDustExtractor.getRegistryName()));
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerRenders(ModelRegistryEvent event)
-    {
-        if (!iceandfireAdditionsEnabled)
-            return;
-        
-        RegisterUtils.registerItemblockRenderer(MiaBlocks.pixieDustExtractor);
     }
     
     @Override

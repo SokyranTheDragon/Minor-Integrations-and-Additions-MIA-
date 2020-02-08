@@ -2,8 +2,8 @@ package com.github.sokyranthedragon.mia.proxy;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.client.input.MiaKeyBindings;
+import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.core.MiaItems;
-import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -18,7 +18,8 @@ public class ClientProxy extends CommonProxy
     @SubscribeEvent
     public static void registerRenders(ModelRegistryEvent event)
     {
-        RegisterUtils.registerItemRenderer(MiaItems.musicPlayer);
+        MiaItems.registerMiaItemRenderers();
+        MiaBlocks.registerMiaItemblockRenderers();
         modIntegrator.registerRenders(event);
     }
     

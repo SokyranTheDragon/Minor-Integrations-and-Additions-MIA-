@@ -7,12 +7,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-public class BlockBase extends Block
+@ParametersAreNonnullByDefault
+public class BlockBase extends Block implements IAutoRegisterBlock
 {
-    public BlockBase(Material material, @Nonnull String name, @Nullable CreativeTabs creativeTab)
+    public BlockBase(Material material, String name, @Nullable CreativeTabs creativeTab)
     {
         super(material);
         
