@@ -6,6 +6,7 @@ import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.SoundType;
 import net.minecraft.creativetab.CreativeTabs;
 
 import javax.annotation.Nullable;
@@ -17,6 +18,7 @@ public class BlockBaseBush extends BlockBush implements IAutoRegisterBlock
 {
     public BlockBaseBush(String name, @Nullable CreativeTabs creativeTab)
     {
+        setSoundType(SoundType.PLANT);
         setTranslationKey(name);
         setRegistryName(Mia.MODID, name);
     
