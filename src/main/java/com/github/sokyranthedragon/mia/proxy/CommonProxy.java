@@ -72,6 +72,7 @@ public class CommonProxy
     
     public void postInit(FMLPostInitializationEvent event)
     {
+        MiaGenerators.postInit();
         modIntegrator.postInit(event);
     }
     
