@@ -1,14 +1,15 @@
 package com.github.sokyranthedragon.mia.core;
 
 import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
+import com.github.sokyranthedragon.mia.block.base.BlockBaseDoor;
 import com.github.sokyranthedragon.mia.block.base.BlockBaseGlass;
-import com.github.sokyranthedragon.mia.block.decorative.BlockDeadFlower;
-import com.github.sokyranthedragon.mia.block.decorative.BlockGoldenTorch;
-import com.github.sokyranthedragon.mia.block.decorative.BlockPackedPaper;
-import com.github.sokyranthedragon.mia.block.decorative.SandstoneEntry;
+import com.github.sokyranthedragon.mia.block.decorative.*;
 import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
@@ -35,7 +36,9 @@ public class MiaBlocks
     public static Block armoredGlass = null;
     public static Block packedPaper = null;
     public static Block torchGold = null;
-    public static Block flowerDead = null;
+    public static BlockBush flowerDead = null;
+    public static Block doorStone = null;
+    public static Block redstoneLantern = null;
     
     // Hatchery
     public static Block eggSorter = null;
@@ -74,6 +77,10 @@ public class MiaBlocks
         packedPaper = registerBlock(new BlockPackedPaper());
         torchGold = registerBlock(new BlockGoldenTorch());
         flowerDead = registerBlock(new BlockDeadFlower());
+        doorStone = registerBlock(new BlockBaseDoor(Material.ROCK, "door_stone", CreativeTabs.REDSTONE, SoundType.STONE).setHardness(4.0f));
+        doorStone.setHarvestLevel("pickaxe", -1);
+        redstoneLantern = registerBlock(new BlockRedstoneLantern());
+        redstoneLantern.setHarvestLevel("pickaxe", 0);
     }
     
     public static void registerMiaBlocks(RegistryEvent.Register<Block> event)

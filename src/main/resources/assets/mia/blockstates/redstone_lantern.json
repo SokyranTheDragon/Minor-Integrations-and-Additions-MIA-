@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=north,manual_state=false,redstone_state=false": { "model": "mia:redstone_lantern_off" },
+    "facing=north,manual_state=true,redstone_state=false": { "model": "mia:redstone_lantern_on" },
+    "facing=north,manual_state=false,redstone_state=true": { "model": "mia:redstone_lantern_on" },
+    "facing=north,manual_state=true,redstone_state=true": { "model": "mia:redstone_lantern_off" },
+
+    "facing=east,manual_state=false,redstone_state=false": { "y": 90, "model": "mia:redstone_lantern_off" },
+    "facing=east,manual_state=true,redstone_state=false": { "y": 90 ,"model": "mia:redstone_lantern_on" },
+    "facing=east,manual_state=false,redstone_state=true": { "y": 90 ,"model": "mia:redstone_lantern_on" },
+    "facing=east,manual_state=true,redstone_state=true": { "y": 90, "model": "mia:redstone_lantern_off" },
+
+    "facing=south,manual_state=false,redstone_state=false": { "y": 180, "model": "mia:redstone_lantern_off" },
+    "facing=south,manual_state=true,redstone_state=false": { "y": 180 ,"model": "mia:redstone_lantern_on" },
+    "facing=south,manual_state=false,redstone_state=true": { "y": 180 ,"model": "mia:redstone_lantern_on" },
+    "facing=south,manual_state=true,redstone_state=true": { "y": 180, "model": "mia:redstone_lantern_off" },
+
+    "facing=west,manual_state=false,redstone_state=false": { "y": 270, "model": "mia:redstone_lantern_off" },
+    "facing=west,manual_state=true,redstone_state=false": { "y": 270 ,"model": "mia:redstone_lantern_on" },
+    "facing=west,manual_state=false,redstone_state=true": { "y": 270 ,"model": "mia:redstone_lantern_on" },
+    "facing=west,manual_state=true,redstone_state=true": { "y": 270, "model": "mia:redstone_lantern_off" }
+  }
+}

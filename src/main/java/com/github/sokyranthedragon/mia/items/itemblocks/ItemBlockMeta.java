@@ -6,6 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nullable;
+
 @MethodsReturnNonnullByDefault
 public class ItemBlockMeta extends ItemBlock implements IMetaBlock
 {
@@ -15,8 +17,11 @@ public class ItemBlockMeta extends ItemBlock implements IMetaBlock
     {
         super(block);
         this.block = block;
-        setMaxDamage(0);
-        setHasSubtypes(true);
+        if (block.getMaxMeta() > 0)
+        {
+            setMaxDamage(0);
+            setHasSubtypes(true);
+        }
     }
     
     @Override
@@ -28,13 +33,23 @@ public class ItemBlockMeta extends ItemBlock implements IMetaBlock
     @Override
     public String getTranslationKey()
     {
-        return super.getTranslationKey() + "_" + block.getNameFromMeta(0);
+        return getTranslationKey(super.getTranslationKey(), 0);
     }
     
     @Override
     public String getTranslationKey(ItemStack stack)
     {
-        return super.getTranslationKey(stack) + "_" + block.getNameFromMeta(Math.min(stack.getMetadata(), block.getMaxMeta()));
+        return getTranslationKey(super.getTranslationKey(stack), stack.getMetadata());
+    }
+    
+    public String getTranslationKey(String baseKey, int meta)
+    {
+        String metaKey = block.getNameFromMeta(Math.min(meta, block.getMaxMeta()));
+        
+        if (metaKey.equals(""))
+            return baseKey;
+        else
+            return baseKey + "_" + metaKey;
     }
     
     @Override
@@ -53,5 +68,12 @@ public class ItemBlockMeta extends ItemBlock implements IMetaBlock
     public String getVariantName()
     {
         return block.getVariantName();
+    }
+    
+    @Nullable
+    @Override
+    public String getDefaultVariantValue()
+    {
+        return block.getDefaultVariantValue();
     }
 }

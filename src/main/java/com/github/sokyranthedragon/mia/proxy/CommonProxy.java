@@ -4,6 +4,7 @@ import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
+import com.github.sokyranthedragon.mia.core.MiaGenerators;
 import com.github.sokyranthedragon.mia.core.MiaItems;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.LootTableIntegrator;

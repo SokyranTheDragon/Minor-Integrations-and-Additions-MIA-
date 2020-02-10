@@ -7,6 +7,8 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nullable;
+
 @MethodsReturnNonnullByDefault
 public class ItemSlabMeta extends ItemSlab implements IMetaBlock
 {
@@ -52,5 +54,12 @@ public class ItemSlabMeta extends ItemSlab implements IMetaBlock
     public String getVariantName()
     {
         return block.getVariantName();
+    }
+    
+    @Nullable
+    @Override
+    public String getDefaultVariantValue()
+    {
+        return block.getDefaultVariantValue();
     }
 }

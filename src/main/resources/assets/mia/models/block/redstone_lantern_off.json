@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "mia:blocks/mia/lantern/lantern_default",
+    "down": "mia:blocks/mia/lantern/lantern_default",
+    "up": "mia:blocks/mia/lantern/lantern_default",
+    "north": "mia:blocks/mia/lantern/lantern_off_front",
+    "east": "mia:blocks/mia/lantern/lantern_default",
+    "south": "mia:blocks/mia/lantern/lantern_off_back",
+    "west": "mia:blocks/mia/lantern/lantern_off_side"
+  }
+}

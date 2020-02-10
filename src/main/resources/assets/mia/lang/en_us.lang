@@ -251,6 +251,9 @@ tile.packed_paper_3.name=Packed Paper
 tile.torch_gold_0.name=Golden Torch
 tile.torch_gold_1.name=Golden Torch
 tile.flower_dead.name=Dead Flower
+tile.redstone_lantern.name=Redstone Lantern
+
+item.door_stone.name=Stone Doors
 
 
 

@@ -17,4 +17,10 @@ public interface IMetaBlock
     {
         return BlockBaseMeta.DEFAULT_VARIANT_NAME;
     }
+    
+    @Nullable
+    default String getDefaultVariantValue()
+    {
+        return null;
+    }
 }

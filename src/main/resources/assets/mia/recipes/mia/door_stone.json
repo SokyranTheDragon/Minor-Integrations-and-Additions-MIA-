@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "door_stone"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ss",
+    "ss",
+    "ss"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:stone",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "mia:door_stone",
+    "count": 3
+  }
+}
