@@ -1,6 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.chisel;
 
 import com.github.sokyranthedragon.mia.Mia;
+import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
@@ -8,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 
@@ -35,8 +37,16 @@ public class Chisel implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        for (IChiselIntegration integration : modIntegrations.values())
-            integration.sendChiselMessages(Chisel::sendChiselMessage, Chisel::sendChiselMessage);
+        if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Chisel addRecipes", modIntegrations.size());
+            for (IChiselIntegration integration : modIntegrations.values())
+            {
+                progressBar.step(integration.getModId().modId);
+                integration.sendChiselMessages(Chisel::sendChiselMessage, Chisel::sendChiselMessage);
+            }
+            ProgressManager.pop(progressBar);
+        }
     }
     
     public static void sendChiselMessage(String blockType, Block block, int meta)

@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.integrations.botania;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.block.BlockBotaniaSpecialFlower;
+import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
@@ -14,6 +15,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -72,10 +74,15 @@ public class Botania implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (!modIntegrations.isEmpty())
+        if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
         {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Botania addRecipes", modIntegrations.size());
             for (IBotaniaIntegration integration : modIntegrations.values())
+            {
+                progressBar.step(integration.getModId().modId);
                 integration.addRecipes();
+            }
+            ProgressManager.pop(progressBar);
         }
         
         if (botaniaAdditionsEnabled)
@@ -91,7 +98,7 @@ public class Botania implements IBaseMod
         if (botaniaAdditionsEnabled)
         {
             BotaniaAPI.registerSubTile("orechidVacuam", SubTileOrechidVacuam.class);
-        
+            
             MiaBlocks.blockBotaniaSpecialFlower = new BlockBotaniaSpecialFlower();
             MiaBlocks.blocks.add(MiaBlocks.blockBotaniaSpecialFlower);
         }
