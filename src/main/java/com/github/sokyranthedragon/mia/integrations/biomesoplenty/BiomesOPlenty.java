@@ -39,6 +39,8 @@ public class BiomesOPlenty implements IBaseMod
             modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsBopIntegration());
         if (enableBotaniaIntegration && ModIds.BOTANIA.isLoaded)
             modIntegration.accept(ModIds.BOTANIA, new BotaniaBopIntegration());
+        if (enableChiselIntegration && ModIds.CHISEL.isLoaded)
+            modIntegration.accept(ModIds.CHISEL, new ChiselBopIntegration());
     }
     
     @Override

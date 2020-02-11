@@ -7,6 +7,7 @@ import com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.biomesoplenty.BiomesOPlenty;
 import com.github.sokyranthedragon.mia.integrations.botania.Botania;
+import com.github.sokyranthedragon.mia.integrations.chisel.Chisel;
 import com.github.sokyranthedragon.mia.integrations.cofhcore.CofhCore;
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.DungeonTactics;
 import com.github.sokyranthedragon.mia.integrations.extrabotany.ExtraBotany;
@@ -116,6 +117,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.NATURA, new Natura());
         if (ModIds.BIOMES_O_PLENTY.isLoaded)
             modIntegrations.put(ModIds.BIOMES_O_PLENTY, new BiomesOPlenty());
+        if (ModIds.CHISEL.isLoaded)
+            modIntegrations.put(ModIds.CHISEL, new Chisel());
         
         if (!modIntegrations.isEmpty())
         {

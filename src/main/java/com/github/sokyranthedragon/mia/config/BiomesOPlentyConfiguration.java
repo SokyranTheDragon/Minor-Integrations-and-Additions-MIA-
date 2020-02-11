@@ -4,50 +4,58 @@ import com.github.sokyranthedragon.mia.Mia;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.fml.common.Mod;
 
+import static net.minecraftforge.common.config.Config.*;
+
 @Config(modid = Mia.MODID, name = "mia/biomes_o_plenty")
-@Config.LangKey("mia.config.biomes_o_plenty.title")
+@LangKey("mia.config.biomes_o_plenty.title")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class BiomesOPlentyConfiguration
 {
-    @Config.Name("Enable Natura additions")
-    @Config.Comment("Set to false to completely disable new Biomes O' Plenty additions")
-    @Config.LangKey("mia.config.biomes_o_plenty.additions_enabled")
-    @Config.RequiresMcRestart
+    @Name("Enable Natura additions")
+    @Comment("Set to false to completely disable new Biomes O' Plenty additions")
+    @LangKey("mia.config.biomes_o_plenty.additions_enabled")
+    @RequiresMcRestart
     public static boolean bopAdditionsEnabled = true;
     
-    @Config.Name("Enable Thermal Expansion integration")
-    @Config.Comment("Set to false to completely disable integration with Thermal Expansion")
-    @Config.LangKey("mia.config.shared.enable_thermal_expansion_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Thermal Expansion integration")
+    @Comment("Set to false to completely disable integration with Thermal Expansion")
+    @LangKey("mia.config.shared.enable_thermal_expansion_integration")
+    @RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
-    @Config.Name("Enable Hatchery integration")
-    @Config.Comment("Set to false to completely disable integration with Dungeon Tactics")
-    @Config.LangKey("mia.config.shared.enable_dungeon_tactics_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Hatchery integration")
+    @Comment("Set to false to completely disable integration with Dungeon Tactics")
+    @LangKey("mia.config.shared.enable_dungeon_tactics_integration")
+    @RequiresMcRestart
     public static boolean enableDungeonTacticsIntegration = true;
     
-    @Config.Name("Enable FutureMC integration")
-    @Config.Comment("Set to false to completely disable integration with FutureMC")
-    @Config.LangKey("mia.config.shared.enable_future_mc_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable FutureMC integration")
+    @Comment("Set to false to completely disable integration with FutureMC")
+    @LangKey("mia.config.shared.enable_future_mc_integration")
+    @RequiresMcRestart
     public static boolean enableFutureMcIntegration = true;
     
-    @Config.Name("Enable Hatchery integration")
-    @Config.Comment("Set to false to completely disable integration with Hatchery")
-    @Config.LangKey("mia.config.shared.enable_hatchery_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Hatchery integration")
+    @Comment("Set to false to completely disable integration with Hatchery")
+    @LangKey("mia.config.shared.enable_hatchery_integration")
+    @RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
     
-    @Config.Name("Enable XU2 integration")
-    @Config.Comment("Set to false to completely disable integration with XU2")
-    @Config.LangKey("mia.config.shared.enable_extra_utils_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable XU2 integration")
+    @Comment("Set to false to completely disable integration with XU2")
+    @LangKey("mia.config.shared.enable_extra_utils_integration")
+    @RequiresMcRestart
     public static boolean enableXu2Integration = true;
     
-    @Config.Name("Enable Botania integration")
-    @Config.Comment("Set to false to completely disable integration with Botania")
-    @Config.LangKey("mia.config.shared.enable_botania_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Botania integration")
+    @Comment("Set to false to completely disable integration with Botania")
+    @LangKey("mia.config.shared.enable_botania_integration")
+    @RequiresMcRestart
     public static boolean enableBotaniaIntegration = true;
+    
+    @Name("Enable Chisel integration")
+    @Comment("Set to false to completely disable integration with Chisel")
+    @LangKey("mia.config.shared.enable_chisel_integration")
+    @RequiresMcRestart
+    public static boolean enableChiselIntegration = true;
 }

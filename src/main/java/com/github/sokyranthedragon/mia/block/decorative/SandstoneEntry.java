@@ -24,11 +24,11 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import static com.github.sokyranthedragon.mia.config.GenericAdditionsConfig.moreSandstone;
 import static com.github.sokyranthedragon.mia.core.MiaBlocks.registerBlock;
-import static com.github.sokyranthedragon.mia.integrations.ModIds.FUTURE_MC;
-import static com.github.sokyranthedragon.mia.integrations.ModIds.QUARK;
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
 import static com.github.sokyranthedragon.mia.utilities.QuarkUtils.isFeatureEnabled;
 
 @MethodsReturnNonnullByDefault
@@ -127,8 +127,21 @@ public class SandstoneEntry implements IBlockEntry
         }
     }
     
-    @Method(modid = ModIds.ConstantIds.FUTURE_MC)
-    private static void registerStonecutter(Block source, Collection<ItemStack> toRegister)
+    public static void registerChiselRecipes(SandstoneEntry sandstone, String chiselName, BiConsumer<String, ItemStack[]> chiselSender)
+    {
+        if (CHISEL.isLoaded && chiselName != null && chiselSender != null)
+        {
+            List<ItemStack> toRegister = new ArrayList<>(7);
+            addIfNotNull(toRegister, sandstone.sandstone, 0);
+            addIfNotNull(toRegister, sandstone.sandstone, 1);
+        
+            if (toRegister.size() > 0)
+                chiselSender.accept(chiselName, toRegister.toArray(new ItemStack[2]));
+        }
+    }
+    
+    @Method(modid = ConstantIds.FUTURE_MC)
+    protected static void registerStonecutter(Block source, Collection<ItemStack> toRegister)
     {
         StonecutterRecipes.addOrCreateRecipe(new ItemStack(source), toRegister.toArray(new ItemStack[0]));
     }

@@ -1,7 +1,9 @@
 package com.github.sokyranthedragon.mia.proxy;
 
 import com.github.sokyranthedragon.mia.Mia;
+import com.github.sokyranthedragon.mia.block.decorative.BlockPackedPaper;
 import com.github.sokyranthedragon.mia.capabilities.MusicPlayerCapabilityProvider;
+import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.core.MiaGenerators;
@@ -9,12 +11,14 @@ import com.github.sokyranthedragon.mia.core.MiaItems;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.LootTableIntegrator;
 import com.github.sokyranthedragon.mia.integrations.base.ModIntegrator;
+import com.github.sokyranthedragon.mia.integrations.chisel.Chisel;
 import com.github.sokyranthedragon.mia.integrations.harvestcraft.CraftTweakerHarvestcraftIntegration;
 import com.github.sokyranthedragon.mia.network.MessageSyncMusicPlayer;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -60,8 +64,28 @@ public class CommonProxy
             OreDictionary.registerOre("trapdoorWood", Blocks.TRAPDOOR);
             OreDictionary.registerOre("listAllsugar", Items.SUGAR);
             OreDictionary.registerOre("listAllmilk", Items.MILK_BUCKET);
-    //        OreDictionary.registerOre("listAllmushroom", Blocks.BROWN_MUSHROOM);
-    //        OreDictionary.registerOre("listAllmushroom", Blocks.RED_MUSHROOM);
+            // OreDictionary.registerOre("listAllmushroom", Blocks.BROWN_MUSHROOM);
+            // OreDictionary.registerOre("listAllmushroom", Blocks.RED_MUSHROOM);
+        }
+        
+        if (GenericAdditionsConfig.enableEvtp)
+        {
+            if (GenericAdditionsConfig.evtp.deadFlowerEnabled)
+            {
+                assert MiaBlocks.flowerDead != null;
+                OreDictionary.registerOre("dyeBlack", MiaBlocks.flowerDead);
+            }
+            
+            if (GenericAdditionsConfig.evtp.packedPaperEnabled)
+            {
+                assert MiaBlocks.packedPaper != null;
+                OreDictionary.registerOre("blockPaper", new ItemStack(MiaBlocks.packedPaper, 1, OreDictionary.WILDCARD_VALUE));
+                if (ModIds.CHISEL.isLoaded)
+                {
+                    for (int meta = 0; meta <= ((BlockPackedPaper)MiaBlocks.packedPaper).getMaxMeta(); meta++)
+                        Chisel.sendChiselMessage("block_paper", MiaBlocks.packedPaper, meta);
+                }
+            }
         }
         
         modIntegrator.init(event);

@@ -31,6 +31,7 @@ mia.config.harvestcraft.title=Harvestcraft
 mia.config.jei.title=Just Enough Items
 mia.config.natura.title=Natura
 mia.config.biomes_o_plenty.title=Biomes O' Plenty
+mia.config.chisel.title=Chisel
 
 ## Tooltips
 
@@ -55,6 +56,7 @@ mia.config.harvestcraft.title.tooltip=Browse and manage Harvestcraft settings
 mia.config.jei.title.tooltip=Browse and manage Just Enough Items settings
 mia.config.natura.title.tooltip=Browse and manage Natura settings
 mia.config.biomes_o_plenty.title.tooltip=Browse and manage Biomes O' Plenty settings
+mia.config.chisel.title.tooltip=Browse and manage Chisel settings
 
 ###
 ### To anyone who might be translating anything below (until TOP integrations section):
@@ -78,6 +80,7 @@ mia.config.shared.enable_quark_integration=Enable Quark integration
 mia.config.shared.enable_future_mc_integration=Enable FutureMC integration
 mia.config.shared.enable_harvestcraft_integration=Enable Harvestcraft integration
 mia.config.shared.enable_botania_integration=Enable Botania integration
+mia.config.shared.enable_chisel_integration=Enable Chisel integration
 
 ## Additions text
 

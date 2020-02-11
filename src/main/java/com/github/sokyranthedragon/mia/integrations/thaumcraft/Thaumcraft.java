@@ -28,26 +28,29 @@ import thaumcraft.api.items.ItemsTC;
 import java.util.function.BiConsumer;
 
 import static com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration.*;
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
 
 public class Thaumcraft implements IBaseMod
 {
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (ModIds.JEI.isLoaded)
-            modIntegration.accept(ModIds.JEI, new JeiThaumcraftIntegration());
-        if (enableJerIntegration && ModIds.JER.isLoaded)
-            modIntegration.accept(ModIds.JER, new JerThaumcraftIntegration());
-        if (enableTeIntegration && ModIds.THERMAL_EXPANSION.isLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionThaumcraftIntegration());
-        if (enableXu2Integration && ModIds.EXTRA_UTILITIES.isLoaded)
-            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsThaumcraftIntegration());
-        if (ModIds.HATCHERY.isLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryThaumcraftIntegration(enableHatcheryIntegration));
-        if (enableDungeonTacticsIntegration && ModIds.DUNGEON_TACTICS.isLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsThaumcraftIntegration());
-        if (enableFutureMcIntegration && ModIds.FUTURE_MC.isLoaded)
-            modIntegration.accept(ModIds.FUTURE_MC, new FutureMcThaumcraftIntegration());
+        if (JEI.isLoaded)
+            modIntegration.accept(JEI, new JeiThaumcraftIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerThaumcraftIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionThaumcraftIntegration());
+        if (enableXu2Integration && EXTRA_UTILITIES.isLoaded)
+            modIntegration.accept(EXTRA_UTILITIES, new ExtraUtilsThaumcraftIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryThaumcraftIntegration(enableHatcheryIntegration));
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsThaumcraftIntegration());
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcThaumcraftIntegration());
+        if (enableChiselIntegration && CHISEL.isLoaded)
+            modIntegration.accept(CHISEL, new ChiselThaumcraftIntegration());
     }
     
     @Override

@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static com.github.sokyranthedragon.mia.config.BotaniaConfiguration.*;
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
 
 public class Botania implements IBaseMod
 {
@@ -34,18 +35,20 @@ public class Botania implements IBaseMod
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableDungeonTacticsIntegration && ModIds.DUNGEON_TACTICS.isLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsBotaniaIntegration());
-        if (enableTeIntegration && ModIds.THERMAL_EXPANSION.isLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionBotaniaIntegration());
-        if (ModIds.JEI.isLoaded)
-            modIntegration.accept(ModIds.JEI, new JeiBotaniaIntegration());
-        if (ModIds.JER.isLoaded)
-            modIntegration.accept(ModIds.JER, new JerBotaniaIntegration());
-        if (enableFutureMcIntegration && ModIds.FUTURE_MC.isLoaded)
-            modIntegration.accept(ModIds.FUTURE_MC, new FutureMcBotaniaIntegration());
-        if (ModIds.HATCHERY.isLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryBotaniaIntegration(enableHatcheryIntegration));
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsBotaniaIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionBotaniaIntegration());
+        if (JEI.isLoaded)
+            modIntegration.accept(JEI, new JeiBotaniaIntegration());
+        if (JER.isLoaded)
+            modIntegration.accept(JER, new JerBotaniaIntegration());
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcBotaniaIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryBotaniaIntegration(enableHatcheryIntegration));
+        if (enableChiselIntegration && CHISEL.isLoaded)
+            modIntegration.accept(CHISEL, new ChiselBotaniaIntegration());
     }
     
     @Override
@@ -63,7 +66,7 @@ public class Botania implements IBaseMod
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        BotaniaAPI.registerModWiki(ModIds.MIA.modId, new PartialSimpleWikiProvider());
+        BotaniaAPI.registerModWiki(MIA.modId, new PartialSimpleWikiProvider());
     }
     
     @Override
@@ -99,6 +102,6 @@ public class Botania implements IBaseMod
     public void registerRenders(ModelRegistryEvent event)
     {
         if (botaniaAdditionsEnabled)
-            BotaniaAPIClient.registerSubtileModel(SubTileOrechidVacuam.class, new ModelResourceLocation(ModIds.BOTANIA.modId + ":orechidVacuam"));
+            BotaniaAPIClient.registerSubtileModel(SubTileOrechidVacuam.class, new ModelResourceLocation(BOTANIA.modId + ":orechidVacuam"));
     }
 }

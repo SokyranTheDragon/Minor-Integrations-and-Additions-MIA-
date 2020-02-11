@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static com.github.sokyranthedragon.mia.config.Xu2Configuration.*;
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
 
 public class ExtraUtilities2 implements IBaseMod
 {
@@ -38,16 +39,18 @@ public class ExtraUtilities2 implements IBaseMod
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableTeIntegration && ModIds.THERMAL_EXPANSION.isLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionExtraUtilsIntegration());
-        if (ModIds.HATCHERY.isLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryExtraUtilsIntegration(enableHatcheryIntegration));
-        if (enableQuarkIntegration && ModIds.QUARK.isLoaded)
-            modIntegration.accept(ModIds.QUARK, new QuarkExtraUtilsIntegration());
-        if (enableJerIntegration && ModIds.JER.isLoaded)
-            modIntegration.accept(ModIds.JER, new JerExtraUtilsIntegration());
-        if (enableFutureMcIntegration && ModIds.FUTURE_MC.isLoaded)
-            modIntegration.accept(ModIds.FUTURE_MC, new FutureMcExtraUtilsIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionExtraUtilsIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryExtraUtilsIntegration(enableHatcheryIntegration));
+        if (enableQuarkIntegration && QUARK.isLoaded)
+            modIntegration.accept(QUARK, new QuarkExtraUtilsIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerExtraUtilsIntegration());
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcExtraUtilsIntegration());
+        if (enableChiselIntegration && CHISEL.isLoaded)
+            modIntegration.accept(CHISEL, new ChiselExtraUtilsIntegration());
     }
     
     @Override
@@ -79,7 +82,7 @@ public class ExtraUtilities2 implements IBaseMod
             XUMachineGenerators.PINK_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(Blocks.PINK_SHULKER_BOX), 400, 40));
             
             // Crusher
-            if (ModIds.THERMAL_FOUNDATION.isLoaded)
+            if (THERMAL_FOUNDATION.isLoaded)
                 XUMachineCrusher.addRecipe(new ItemStack(Blocks.NETHERRACK), new ItemStack(Blocks.GRAVEL), ItemMaterial.dustSulfur, 0.1f);
             else
                 XUMachineCrusher.addRecipe(new ItemStack(Blocks.NETHERRACK), new ItemStack(Blocks.GRAVEL));
@@ -130,7 +133,7 @@ public class ExtraUtilities2 implements IBaseMod
     }
     
     @Override
-    @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
+    @Optional.Method(modid = ConstantIds.THAUMCRAFT)
     public void registerAspects(AspectRegistryEvent event)
     {
         event.register.registerObjectTag(XU2Entries.miniChest.newStack(), new AspectList().add(Aspect.PLANT, 2));
@@ -214,7 +217,7 @@ public class ExtraUtilities2 implements IBaseMod
         }
     }
     
-    @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
+    @Optional.Method(modid = ConstantIds.THAUMCRAFT)
     private void appendToolAspect(AspectEventProxy register, ItemStack item)
     {
         register.registerObjectTag(item, AspectHelper.getObjectAspects(item).merge(Aspect.TOOL, 12));
