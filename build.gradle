@@ -259,6 +259,7 @@ curseforge {
                 optionalDependency "baubles"
                 optionalDependency "botania"
                 optionalDependency "chickens"
+                optionalDependency "chisel"
                 optionalDependency "cofh-core"
                 optionalDependency "dungeon-tactics"
                 optionalDependency "extra-utilities"
