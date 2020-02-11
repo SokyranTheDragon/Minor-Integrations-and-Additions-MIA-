@@ -76,10 +76,13 @@ public class MiaBlocks
         if (GenericAdditionsConfig.enableEvtp)
         {
             if (evtp.armoredGlassEnabled)
+            {
                 armoredGlass = registerBlock(
                         new BlockBaseGlass("armored_glass", CreativeTabs.BUILDING_BLOCKS, false)
                                 .setHardness(40)
                                 .setResistance(1750));
+                armoredGlass.setHarvestLevel("pickaxe", 0);
+            }
             if (evtp.packedPaperEnabled)
                 packedPaper = registerBlock(new BlockPackedPaper());
             if (evtp.goldenTorchEnabled)
