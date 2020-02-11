@@ -17,13 +17,13 @@
       "item": "minecraft:cobblestone"
     },
     "r": {
-      "item": "minecraft:redstone_dust"
+      "item": "minecraft:redstone"
     },
     "g": {
       "item": "minecraft:glowstone"
     },
     "l": {
-      "item": "minecraft:level"
+      "item": "minecraft:lever"
     }
   },
   "result": {
