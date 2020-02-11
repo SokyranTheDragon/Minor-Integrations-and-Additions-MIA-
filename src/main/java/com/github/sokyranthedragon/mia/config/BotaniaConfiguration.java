@@ -44,10 +44,10 @@ public class BotaniaConfiguration
     @RequiresMcRestart
     public static boolean enableFutureMcIntegration = true;
     
-    @Config.Name("Enable Hatchery integration")
-    @Config.Comment("Set to false to completely disable integration with Hatchery")
-    @Config.LangKey("mia.config.shared.enable_hatchery_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Hatchery integration")
+    @Comment("Set to false to completely disable integration with Hatchery")
+    @LangKey("mia.config.shared.enable_hatchery_integration")
+    @RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
     
     
@@ -57,8 +57,10 @@ public class BotaniaConfiguration
      * @param event The event
      */
     @SubscribeEvent
-    public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(Mia.MODID)) {
+    public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
+    {
+        if (event.getModID().equals(Mia.MODID))
+        {
             ConfigManager.sync(Mia.MODID, Type.INSTANCE);
         }
     }
