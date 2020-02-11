@@ -234,6 +234,15 @@ dependencies {
         deobfProvided "curse.maven:Biomes_O_Plenty_7.0.1.2441:2715506"
     else
         compileOnly "curse.maven:Biomes_O_Plenty_7.0.1.2441:2715506"
+
+    if (project.run_ctm_chisel.equals("true")) {
+        deobfProvided "curse.maven:CTM_1.0.1.30:2832564"
+        deobfProvided "curse.maven:Chisel_1.0.1.44:2813538"
+    }
+    else {
+        compileOnly "curse.maven:CTM_1.0.1.30:2832564"
+        compileOnly "curse.maven:Chisel_1.0.1.44:2813538"
+    }
 }
 
 curseforge {

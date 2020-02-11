@@ -20,6 +20,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import pegbeard.dungeontactics.reference.Reference;
 import slimeknights.tconstruct.TConstruct;
+import team.chisel.Chisel;
+import team.chisel.ctm.CTM;
 import thaumcraft.Thaumcraft;
 import thedarkcolour.futuremc.FutureMC;
 
@@ -47,7 +49,9 @@ public enum ModIds
     CRAFT_TWEAKER(ConstantIds.CRAFT_TWEAKER),
     FUTURE_MC(ConstantIds.FUTURE_MC),
     NATURA(ConstantIds.NATURA),
-    BIOMES_O_PLENTY(ConstantIds.BIOMES_O_PLENTY);
+    BIOMES_O_PLENTY(ConstantIds.BIOMES_O_PLENTY),
+    CONNECTED_TEXTURES(ConstantIds.CONNECTED_TEXTURES),
+    CHISEL(ConstantIds.CHISEL);
     
     public final String modId;
     public final boolean isLoaded;
@@ -81,6 +85,10 @@ public enum ModIds
     
     public static class ConstantIds
     {
+        private ConstantIds()
+        {
+        }
+        
         public static final String EXTRA_UTILITIES = ExtraUtils2.MODID;
         public static final String COFH_CORE = CoFHCore.MOD_ID;
         public static final String THERMAL_FOUNDATION = ThermalFoundation.MOD_ID;
@@ -103,8 +111,7 @@ public enum ModIds
         public static final String FUTURE_MC = FutureMC.ID;
         public static final String NATURA = Natura.modID;
         public static final String BIOMES_O_PLENTY = BiomesOPlenty.MOD_ID;
-        private ConstantIds()
-        {
-        }
+        public static final String CONNECTED_TEXTURES = CTM.MOD_ID;
+        public static final String CHISEL = Chisel.MOD_ID;
     }
 }
