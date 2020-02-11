@@ -2,7 +2,6 @@ package com.github.sokyranthedragon.mia.integrations.quark;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
-import com.github.sokyranthedragon.mia.config.QuarkConfiguration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
@@ -33,6 +32,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.github.sokyranthedragon.mia.config.QuarkConfiguration.*;
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
+
 public class Quark implements IBaseMod
 {
     private List<IQuarkIntegration> modIntegrations = new ArrayList<>();
@@ -40,22 +42,24 @@ public class Quark implements IBaseMod
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (QuarkConfiguration.enableXu2Integration && ModIds.EXTRA_UTILITIES.isLoaded)
-            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsQuarkIntegration());
-        if (QuarkConfiguration.enableTeIntegration && ModIds.THERMAL_EXPANSION.isLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionQuarkIntegration());
-        if (QuarkConfiguration.enableJerIntegration && ModIds.JER.isLoaded)
-            modIntegration.accept(ModIds.JER, new JerQuarkIntegration());
-        if (QuarkConfiguration.enableDungeonTacticsIntegration && ModIds.DUNGEON_TACTICS.isLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsQuarkIntegration());
-        if (QuarkConfiguration.enableFutureMcIntegration && ModIds.FUTURE_MC.isLoaded)
-            modIntegration.accept(ModIds.FUTURE_MC, new FutureMcQuarkIntegration());
+        if (enableXu2Integration && EXTRA_UTILITIES.isLoaded)
+            modIntegration.accept(EXTRA_UTILITIES, new ExtraUtilsQuarkIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionQuarkIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerQuarkIntegration());
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsQuarkIntegration());
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcQuarkIntegration());
+        if (enableChiselIntegration && CHISEL.isLoaded)
+            modIntegration.accept(CHISEL, new ChiselQuarkIntegration());
     }
     
     @Override
     public void addIntegration(IModIntegration integration)
     {
-        if (!QuarkConfiguration.externalIntegrationsEnabled)
+        if (!externalIntegrationsEnabled)
             return;
         
         if (integration instanceof IQuarkIntegration)
@@ -68,7 +72,7 @@ public class Quark implements IBaseMod
     public void preInit(FMLPreInitializationEvent event)
     {
         Feature ancientTomesFeature = ModuleLoader.featureInstances.get(AncientTomes.class);
-        if (QuarkConfiguration.addAncientTomes && !modIntegrations.isEmpty() && ancientTomesFeature.isEnabled())
+        if (addAncientTomes && !modIntegrations.isEmpty() && ancientTomesFeature.isEnabled())
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("Quark ancient tomes", modIntegrations.size() + 1);
             
@@ -109,10 +113,10 @@ public class Quark implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (QuarkConfiguration.addItemTooltips && event.getSide() == Side.CLIENT && !modIntegrations.isEmpty() && QuarkUtils.isFeatureEnabled(EnchantedBooksShowItems.class))
+        if (addItemTooltips && event.getSide() == Side.CLIENT && !modIntegrations.isEmpty() && QuarkUtils.isFeatureEnabled(EnchantedBooksShowItems.class))
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("Quark enchantment tooltips", modIntegrations.size() + 1);
-    
+            
             List<ItemStack> tempItems = new ArrayList<>();
             for (IQuarkIntegration integration : modIntegrations)
             {
@@ -121,20 +125,20 @@ public class Quark implements IBaseMod
             }
             
             progressBar.step("adding tooltips");
-        
+            
             if (!tempItems.isEmpty())
             {
                 try
                 {
                     Field testItems = EnchantedBooksShowItems.class.getDeclaredField("testItemLocations");
                     testItems.setAccessible(true);
-                
+                    
                     Object obj = testItems.get(testItems);
                     if (obj instanceof List)
                     {
                         //noinspection unchecked
                         List<Pair<ResourceLocation, Integer>> items = (List<Pair<ResourceLocation, Integer>>) obj;
-                    
+                        
                         for (ItemStack item : tempItems)
                             items.add(Pair.of(item.getItem().getRegistryName(), item.getMetadata()));
                     }
@@ -147,7 +151,7 @@ public class Quark implements IBaseMod
             ProgressManager.pop(progressBar);
         }
         
-        if (QuarkConfiguration.quarkAdditionsEnabled)
+        if (quarkAdditionsEnabled)
         {
             if (QuarkUtils.isFeatureEnabled(Trowel.class) && !MiaConfig.disableAllRecipes)
                 FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(Trowel.trowel), new ItemStack(Items.IRON_NUGGET), 0.1f);
