@@ -4,6 +4,7 @@ import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
 import com.github.sokyranthedragon.mia.block.base.BlockBaseDoor;
 import com.github.sokyranthedragon.mia.block.base.BlockBaseGlass;
 import com.github.sokyranthedragon.mia.block.decorative.*;
+import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;
 import net.minecraft.block.Block;
@@ -21,6 +22,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.github.sokyranthedragon.mia.config.GenericAdditionsConfig.evtp;
 
 @FieldsAreNullableByDefault
 public class MiaBlocks
@@ -70,17 +73,27 @@ public class MiaBlocks
     
     public static void initMiaBlocks()
     {
-        armoredGlass = registerBlock(
-                new BlockBaseGlass("armored_glass", CreativeTabs.BUILDING_BLOCKS, false)
-                        .setHardness(40)
-                        .setResistance(1750));
-        packedPaper = registerBlock(new BlockPackedPaper());
-        torchGold = registerBlock(new BlockGoldenTorch());
-        flowerDead = registerBlock(new BlockDeadFlower());
-        doorStone = registerBlock(new BlockBaseDoor(Material.ROCK, "door_stone", CreativeTabs.REDSTONE, SoundType.STONE).setHardness(4.0f));
-        doorStone.setHarvestLevel("pickaxe", -1);
-        redstoneLantern = registerBlock(new BlockRedstoneLantern());
-        redstoneLantern.setHarvestLevel("pickaxe", 0);
+        if (GenericAdditionsConfig.enableEvtp)
+        {
+            if (evtp.armoredGlassEnabled)
+                armoredGlass = registerBlock(
+                        new BlockBaseGlass("armored_glass", CreativeTabs.BUILDING_BLOCKS, false)
+                                .setHardness(40)
+                                .setResistance(1750));
+            if (evtp.packedPaperEnabled)
+                packedPaper = registerBlock(new BlockPackedPaper());
+            if (evtp.goldenTorchEnabled)
+                torchGold = registerBlock(new BlockGoldenTorch());
+            if (evtp.deadFlowerEnabled)
+                flowerDead = registerBlock(new BlockDeadFlower());
+            if (evtp.stoneDoorsEnabled)
+            {
+                doorStone = registerBlock(new BlockBaseDoor(Material.ROCK, "door_stone", CreativeTabs.REDSTONE, SoundType.STONE).setHardness(4.0f));
+                doorStone.setHarvestLevel("pickaxe", -1);
+            }
+            if (evtp.redstoneLanternEnabled)
+                redstoneLantern = registerBlock(new BlockRedstoneLantern());
+        }
     }
     
     public static void registerMiaBlocks(RegistryEvent.Register<Block> event)
