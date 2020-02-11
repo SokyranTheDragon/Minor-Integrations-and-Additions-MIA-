@@ -261,6 +261,7 @@ curseforge {
                 optionalDependency "chickens"
                 optionalDependency "chisel"
                 optionalDependency "cofh-core"
+                optionalDependency "ctm"
                 optionalDependency "dungeon-tactics"
                 optionalDependency "extra-utilities"
                 optionalDependency "extrabotany"
