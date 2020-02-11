@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "mia:are_recipes_enabled",
+      "recipe": "redstone_lantern",
+      "category": "evtp"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ccc",
+    "lgr",
+    "ccc"
+  ],
+  "key": {
+    "c": {
+      "item": "minecraft:cobblestone"
+    },
+    "r": {
+      "item": "minecraft:redstone_dust"
+    },
+    "g": {
+      "item": "minecraft:glowstone"
+    },
+    "l": {
+      "item": "minecraft:level"
+    }
+  },
+  "result": {
+    "item": "mia:redstone_lantern"
+  }
+}
