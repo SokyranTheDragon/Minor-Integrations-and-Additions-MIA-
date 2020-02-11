@@ -13,8 +13,7 @@ import vazkii.quark.building.feature.MoreSandstone;
 
 import java.util.function.BooleanSupplier;
 
-import static com.github.sokyranthedragon.mia.config.GenericAdditionsConfig.enableMoreSandstone;
-import static com.github.sokyranthedragon.mia.config.GenericAdditionsConfig.moreSandstone;
+import static com.github.sokyranthedragon.mia.config.GenericAdditionsConfig.*;
 import static com.github.sokyranthedragon.mia.integrations.ModIds.FUTURE_MC;
 
 public class AreRecipesEnabledFactory implements IConditionFactory
@@ -22,38 +21,65 @@ public class AreRecipesEnabledFactory implements IConditionFactory
     @Override
     public BooleanSupplier parse(JsonContext context, JsonObject json)
     {
+        boolean isEnabled = true;
+        
         if (JsonUtils.hasField(json, "category"))
         {
             switch (JsonUtils.getString(json, "category"))
             {
                 case "sandstone":
                     if (!enableMoreSandstone)
-                        return () -> false;
+                        isEnabled = false;
                     if (JsonUtils.hasField(json, "subtype") && JsonUtils.getString(json, "subtype").equals("white") && !moreSandstone.bopWhiteSandstoneEnabled)
-                        return () -> false;
+                        isEnabled = false;
                     
-                    if (JsonUtils.hasField(json, "recipe"))
+                    if (isEnabled && JsonUtils.hasField(json, "recipe"))
                     {
                         switch (JsonUtils.getString(json, "recipe"))
                         {
                             case "block":
                                 if (!moreSandstone.moreSandstoneQuarkEnabled && !moreSandstone.forceMoreSandstone)
-                                    return () -> false;
+                                    isEnabled = false;
                                 break;
                             case "slab":
                             case "stairs":
                                 if (!moreSandstone.moreSandstoneQuarkEnabled && !moreSandstone.forceMoreSandstone)
-                                    return () -> false;
+                                    isEnabled = false;
                                 if (!moreSandstone.forceMoreSandstoneStairsAndSlabs && !(ModIds.QUARK.isLoaded && MoreSandstone.enableStairsAndSlabs))
-                                    return () -> false;
+                                    isEnabled = false;
                                 break;
                             case "futuremc_wall":
                                 if (!FUTURE_MC.isLoaded || !moreSandstone.sandstoneWallsFutureMcEnabled || (!FutureConfig.general.newWallVariants && !moreSandstone.forceMoreSandstoneFutureMcWalls))
-                                    return () -> false;
+                                    isEnabled = false;
                                 break;
                         }
                     }
                     break;
+                case "evtp":
+                    if (!enableEvtp)
+                        isEnabled = false;
+                    else if (JsonUtils.hasField(json, "recipe"))
+                    {
+                        switch (JsonUtils.getString(json, "recipe"))
+                        {
+                            case "armored_glass":
+                                isEnabled = evtp.armoredGlassEnabled;
+                                break;
+                            case "door_stone":
+                                isEnabled = evtp.stoneDoorsEnabled;
+                                break;
+                            case "redstone_lantern":
+                                isEnabled = evtp.redstoneLanternEnabled;
+                                break;
+                            case "packed_paper":
+                                isEnabled = evtp.packedPaperEnabled;
+                                break;
+                            case "torch_gold":
+                                isEnabled = evtp.goldenTorchEnabled;
+                                break;
+                        }
+                        break;
+                    }
                 case "bark":
                     // Nothing yet
                     break;
@@ -65,15 +91,15 @@ public class AreRecipesEnabledFactory implements IConditionFactory
             {
                 case "music_player":
                     if (!MiaConfig.musicPlayerEnabled)
-                        return () -> false;
+                        isEnabled = false;
                     break;
                 case "egg_sorter":
                     if (!HatcheryConfiguration.hatcheryAdditionsEnabled)
-                        return () -> false;
+                        isEnabled = false;
                     break;
                 case "pixie_dust_collector":
                     if (!IceAndFireConfiguration.iceandfireAdditionsEnabled)
-                        return () -> false;
+                        isEnabled = false;
                     break;
             }
         }
@@ -85,6 +111,9 @@ public class AreRecipesEnabledFactory implements IConditionFactory
 //                return () -> false;
 //        }
         
-        return () -> true;
+        if (isEnabled)
+            return () -> true;
+        else
+            return () -> false;
     }
 }

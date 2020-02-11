@@ -2,7 +2,8 @@
   "conditions": [
     {
       "type": "mia:are_recipes_enabled",
-      "recipe": "armored_glass"
+      "recipe": "armored_glass",
+      "category": "evtp"
     }
   ],
   "type": "minecraft:crafting_shaped",

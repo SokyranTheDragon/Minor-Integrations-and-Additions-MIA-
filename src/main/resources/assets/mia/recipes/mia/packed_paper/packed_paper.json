@@ -2,7 +2,8 @@
   "conditions": [
     {
       "type": "mia:are_recipes_enabled",
-      "recipe": "packed_paper"
+      "recipe": "packed_paper",
+      "category": "evtp"
     }
   ],
   "type": "minecraft:crafting_shaped",

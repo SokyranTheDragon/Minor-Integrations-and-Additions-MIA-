@@ -2,7 +2,8 @@
   "conditions": [
     {
       "type": "mia:are_recipes_enabled",
-      "recipe": "torch_gold"
+      "recipe": "torch_gold",
+      "category": "evtp"
     }
   ],
   "type": "minecraft:crafting_shapeless",

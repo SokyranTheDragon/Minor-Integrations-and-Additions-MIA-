@@ -2,7 +2,8 @@
   "conditions": [
     {
       "type": "mia:are_recipes_enabled",
-      "recipe": "door_stone"
+      "recipe": "door_stone",
+      "category": "evtp"
     }
   ],
   "type": "minecraft:crafting_shaped",
