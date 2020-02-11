@@ -41,6 +41,7 @@ public class BlockRedstoneLantern extends BlockBase implements IAutoRegisterBloc
         setDefaultState(blockState.getBaseState().withProperty(REDSTONE_STATE, false).withProperty(MANUAL_STATE, false).withProperty(FACING, EnumFacing.NORTH));
         setHardness(3.0f);
         setResistance(5.0f);
+        setHarvestLevel("pickaxe", 0);
     }
     
     @Override

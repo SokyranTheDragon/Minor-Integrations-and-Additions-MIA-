@@ -1,6 +1,7 @@
 package com.github.sokyranthedragon.mia.world;
 
 import com.github.sokyranthedragon.mia.Mia;
+import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;
 import net.minecraft.block.BlockLeaves;
@@ -30,11 +31,12 @@ public class WorldGenDeadFlower implements IWorldGenerator
     
     private void generate(World world, Biome biome, Random random, BlockPos pos)
     {
+        assert MiaBlocks.flowerDead != null;
         pos = findGround(world, pos);
         if (pos != null && pos.getY() >= 1)
         {
             float temperature = Math.max(0.05f, biome.getTemperature(pos));
-            if (random.nextInt() <= 2.5f / 100f * temperature)
+            if (random.nextInt() <= GenericAdditionsConfig.evtp.deadFlowerSpawnChance * temperature)
                 world.setBlockState(pos, MiaBlocks.flowerDead.getDefaultState(), 2);
         }
     }
@@ -78,6 +80,7 @@ public class WorldGenDeadFlower implements IWorldGenerator
     @Nullable
     private BlockPos findGround(World world, BlockPos pos)
     {
+        assert MiaBlocks.flowerDead != null;
         for (pos = new BlockPos(pos.getX(), 95, pos.getY()); pos.getY() >= 55; pos = pos.down())
         {
             IBlockState stateDown = world.getBlockState(pos);
