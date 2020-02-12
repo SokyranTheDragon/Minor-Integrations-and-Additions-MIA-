@@ -4,6 +4,8 @@ import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.chisel.IChiselIntegration;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.util.TriConsumer;
 import team.chisel.common.config.Configurations;
@@ -60,7 +62,18 @@ class ChiselQuarkIntegration implements IChiselIntegration
         if (isFeatureEnabled(PolishedStone.class) && Configurations.allowSmoothStone)
             messageBlockSender.accept("stonebrick", PolishedStone.polished_stone, 0);
         if (isFeatureEnabled(HardenedClayTiles.class))
-            messageBlockSender.accept("terracota", HardenedClayTiles.hardened_clay_tiles, 0);
+        {
+            messageBlockSender.accept("hardenedclay", HardenedClayTiles.hardened_clay_tiles, 0);
+            if (HardenedClayTiles.enableStainedClay)
+            {
+                for (int meta = 0; meta < EnumDyeColor.values().length; meta++)
+                {
+                    EnumDyeColor color = EnumDyeColor.values()[meta];
+                    messageBlockSender.accept("hardenedclaydyed_" + color.getName(), Blocks.STAINED_HARDENED_CLAY, meta);
+                    messageBlockSender.accept("hardenedclaydyed_" + color.getName(), HardenedClayTiles.stained_clay_tiles, meta);
+                }
+            }
+        }
         if (isFeatureEnabled(WorldStoneBricks.class) || isFeatureEnabled(WorldStonePavement.class))
         {
             for (int meta = 0; meta < BlockWorldStoneBricks.Variants.values().length; meta++)
