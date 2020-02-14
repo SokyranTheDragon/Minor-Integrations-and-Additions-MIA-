@@ -12,12 +12,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -80,10 +77,6 @@ public class Thaumcraft implements IBaseMod
         if (!thaumcraftAdditionsEnabled)
             return;
         
-//        final IForgeRegistry<Item> registry = event.getRegistry();
-//
-//        registry.register(new ItemBlock(MiaBlocks.voidCreator).setRegistryName(MiaBlocks.voidCreator.getRegistryName()));
-        
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(Mia.MODID, "void_creator"),
                 new InfusionRecipe(
                         "MIA.VOID_CREATOR",
@@ -100,15 +93,5 @@ public class Thaumcraft implements IBaseMod
                         new ItemStack(Items.DIAMOND),
                         new ItemStack(Items.NETHER_STAR)
                 ));
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerRenders(ModelRegistryEvent event)
-    {
-        if (!thaumcraftAdditionsEnabled)
-            return;
-        
-//        RegisterUtils.registerItemblockRenderer(MiaBlocks.voidCreator);
     }
 }
