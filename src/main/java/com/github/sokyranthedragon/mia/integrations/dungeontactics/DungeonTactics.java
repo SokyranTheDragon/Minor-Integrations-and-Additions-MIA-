@@ -2,18 +2,29 @@ package com.github.sokyranthedragon.mia.integrations.dungeontactics;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
+import com.github.sokyranthedragon.mia.dispenserbehavior.DispenserLootBag;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import com.github.sokyranthedragon.mia.integrations.base.LootTableIntegrator;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import pegbeard.dungeontactics.handlers.DTBlocks;
+import pegbeard.dungeontactics.handlers.DTFireworkHelper;
 import pegbeard.dungeontactics.handlers.DTItems;
 import pegbeard.dungeontactics.handlers.DTLoots;
+import pegbeard.dungeontactics.items.DTLootBagGeneric;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
@@ -113,13 +124,92 @@ public class DungeonTactics implements IBaseMod
             OreDictionary.registerOre("foodBreadslice", DTItems.BREADSLICE);
             
             OreDictionary.registerOre("flourEqualswheat", DTItems.FLOUR);
-    
+            
             OreDictionary.registerOre("oreNetherGold", DTBlocks.NETHER_GOLD);
             OreDictionary.registerOre("oreEndDiamond", DTBlocks.END_DIAMOND);
             OreDictionary.registerOre("oreEndLapis", DTBlocks.END_LAPIS);
             
             OreDictionary.registerOre("obsidian", DTBlocks.OBSIDIAN_BRICK);
         }
+    }
+    
+    @Override
+    public void registerDispenserBehaviors()
+    {
+        DispenserLootBag.getInstance().addListener((source, stack) ->
+        {
+            if (!(stack.getItem() instanceof DTLootBagGeneric))
+                return false;
+            
+            ResourceLocation drop;
+            Item item = stack.getItem();
+            IBehaviorDispenseItem defaultDispenserBehavior = BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(null);
+    
+            if (item == DTItems.BAG_FOOD) drop = DTLoots.FOOD_LOOT;
+            else if (item == DTItems.BAG_ARBOUR) drop = DTLoots.ARBOUR_LOOT;
+            else if (item == DTItems.BAG_ORE) drop = DTLoots.ORE_LOOT;
+            else if (item == DTItems.BAG_TOOL) drop = DTLoots.TOOL_LOOT;
+            else if (item == DTItems.BAG_BOOK) drop = DTLoots.BOOK_LOOT;
+            else if (item == DTItems.BAG_QUIVER) drop = DTLoots.QUIVER_LOOT;
+            else if (item == DTItems.BAG_MAGIC) drop = DTLoots.MAGIC_LOOT;
+            else if (item == DTItems.BAG_POTION) drop = DTLoots.POTION_LOOT;
+            else if (item == DTItems.BAG_RECORD) drop = DTLoots.RECORD_LOOT;
+            else if (item == DTItems.BAG_SAMHAIN)
+            {
+                int rand = source.getWorld().rand.nextInt(6);
+                
+                if (rand == 0)
+                {
+                    BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(DTItems.BOMB_FRAG).dispense(source, new ItemStack(DTItems.BOMB_FRAG));
+                    stack.shrink(1);
+                    return true;
+                }
+                else if (rand <= 2)
+                    drop = DTLoots.SAMHAIN_LOOT;
+                else
+                {
+                    ItemStack firework = DTFireworkHelper.samhainRocket();
+                    stack.shrink(1);
+                    BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(firework.getItem()).dispense(source, firework.copy());
+                    defaultDispenserBehavior.dispense(source, firework);
+                    return true;
+                }
+            }
+            else if (item == DTItems.BAG_SOLSTICE)
+            {
+                int rand = source.getWorld().rand.nextInt(6);
+                
+                if (rand == 0)
+                {
+                    defaultDispenserBehavior.dispense(source, new ItemStack(Items.COAL));
+                    stack.shrink(1);
+                    return true;
+                }
+                else if (rand <= 2)
+                    drop = DTLoots.SOLSTICE_LOOT;
+                else
+                {
+                    ItemStack firework = DTFireworkHelper.solsticeRocket();
+                    stack.shrink(1);
+                    BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(firework.getItem()).dispense(source, firework);
+                    defaultDispenserBehavior.dispense(source, firework);
+                    return true;
+                }
+            }
+            else return false;
+            
+            assert source.getWorld() instanceof WorldServer;
+            
+            LootContext.Builder builder = new LootContext.Builder((WorldServer) source.getWorld());
+            List<ItemStack> lootDrops = source.getWorld().getLootTableManager().getLootTableFromLocation(drop).generateLootForPools(source.getWorld().rand, builder.build());
+            
+            
+            for (ItemStack lootDrop : lootDrops)
+                defaultDispenserBehavior.dispense(source, lootDrop);
+            
+            stack.shrink(1);
+            return true;
+        }, DTItems.BAG_ARBOUR, DTItems.BAG_ORE, DTItems.BAG_TOOL, DTItems.BAG_BOOK, DTItems.BAG_QUIVER, DTItems.BAG_MAGIC, DTItems.BAG_POTION, DTItems.BAG_RECORD, DTItems.BAG_SAMHAIN, DTItems.BAG_SOLSTICE);
     }
     
     @FunctionalInterface

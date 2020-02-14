@@ -64,6 +64,7 @@ public class ModIntegrator
     private boolean registeredItems = false;
     private boolean registeredRenders = false;
     private boolean registeredLootTableListeners = false;
+    private boolean registeredDispenserBehaviors = false;
     
     private boolean registeredAspects = false;
     
@@ -247,6 +248,27 @@ public class ModIntegrator
             LootTableIntegrator.LootTableListener listener = mod.registerLootListener();
             if (listener != null)
                 integrations.add(listener);
+        }
+    }
+    
+    public void registerDispenserBehaviors()
+    {
+        if (registeredDispenserBehaviors)
+        {
+            Mia.LOGGER.warn("ModIntegrator.registerDispenserBehaviors() was called more than once, this is not something that should happen.");
+            return;
+        }
+        registeredDispenserBehaviors = true;
+        
+        if (!modIntegrations.isEmpty())
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Registering dispenser behaviors", modIntegrations.size());
+            for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+            {
+                progressBar.step(mod.getKey().modId);
+                mod.getValue().registerDispenserBehaviors();
+            }
+            ProgressManager.pop(progressBar);
         }
     }
     

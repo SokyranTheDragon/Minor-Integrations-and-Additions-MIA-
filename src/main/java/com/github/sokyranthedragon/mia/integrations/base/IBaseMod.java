@@ -62,6 +62,10 @@ public interface IBaseMod
         return null;
     }
     
+    default void registerDispenserBehaviors()
+    {
+    }
+    
     @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
     default void registerAspects(AspectRegistryEvent event)
     {

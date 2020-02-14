@@ -88,6 +88,7 @@ public class CommonProxy
             }
         }
         
+        modIntegrator.registerDispenserBehaviors();
         modIntegrator.init(event);
         
         if (ModIds.HARVESTCRAFT.isLoaded && ModIds.CRAFT_TWEAKER.isLoaded)
