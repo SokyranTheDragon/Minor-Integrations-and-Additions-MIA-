@@ -2,12 +2,20 @@ package com.github.sokyranthedragon.mia.integrations.harvestcraft;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
+import com.github.sokyranthedragon.mia.dispenserbehavior.DispenserLootBag;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import com.pam.harvestcraft.HarvestCraft;
+import com.pam.harvestcraft.blocks.BlockRegistry;
 import com.pam.harvestcraft.blocks.FruitRegistry;
+import com.pam.harvestcraft.blocks.blocks.BlockBaseGarden;
 import com.pam.harvestcraft.item.ItemRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -75,5 +83,31 @@ public class Harvestcraft implements IBaseMod
 
             ProgressManager.pop(progressBar);
         }
+    }
+    
+    @Override
+    public void registerDispenserBehaviors()
+    {
+        DispenserLootBag.getInstance().addListener(((source, stack) ->
+        {
+            Block block = Block.getBlockFromItem(stack.getItem());
+            if (block instanceof BlockBaseGarden)
+            {
+                stack.shrink(1);
+                IBehaviorDispenseItem defaultDispenserBehavior = BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(null);
+                
+                NonNullList<ItemStack> drops = NonNullList.create();
+                block.getDrops(drops, source.getWorld(), source.getBlockPos(), source.getBlockState(), 0);
+                for (ItemStack lootItem : drops)
+                {
+                    if (!lootItem.isEmpty())
+                        defaultDispenserBehavior.dispense(source, lootItem);
+                }
+                
+                return true;
+            }
+            
+            return false;
+        }), BlockRegistry.gardens.values().toArray(new BlockBaseGarden[0]));
     }
 }

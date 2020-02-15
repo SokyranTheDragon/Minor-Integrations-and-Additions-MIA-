@@ -3,11 +3,14 @@ package com.github.sokyranthedragon.mia.integrations.thaumcraft;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.block.BlockVoidCreator;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
+import com.github.sokyranthedragon.mia.dispenserbehavior.DispenserLootBag;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import com.github.sokyranthedragon.mia.tile.TileVoidCreator;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +24,9 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.items.ItemsTC;
+import thaumcraft.common.blocks.world.BlockLoot;
+import thaumcraft.common.items.curios.ItemLootBag;
+import thaumcraft.common.lib.utils.Utils;
 
 import java.util.function.BiConsumer;
 
@@ -93,5 +99,45 @@ public class Thaumcraft implements IBaseMod
                         new ItemStack(Items.DIAMOND),
                         new ItemStack(Items.NETHER_STAR)
                 ));
+    }
+    
+    @Override
+    public void registerDispenserBehaviors()
+    {
+        DispenserLootBag.getInstance().addListener(((source, stack) ->
+        {
+            if (stack.getItem() instanceof ItemLootBag)
+            {
+                stack.shrink(1);
+                IBehaviorDispenseItem defaultDispenserBehavior = BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(null);
+                int count = 8 + source.getWorld().rand.nextInt(5);
+                
+                for (int i = 0; i < count; i++)
+                {
+                    ItemStack lootItem = Utils.generateLoot(stack.getMetadata(), source.getWorld().rand);
+                    if (!lootItem.isEmpty())
+                        defaultDispenserBehavior.dispense(source, lootItem);
+                }
+                return true;
+            }
+            
+            Block block = Block.getBlockFromItem(stack.getItem());
+            if (block instanceof BlockLoot)
+            {
+                stack.shrink(1);
+                IBehaviorDispenseItem defaultDispenserBehavior = BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(null);
+                
+                //noinspection deprecation
+                for (ItemStack lootItem : block.getDrops(source.getWorld(), source.getBlockPos(), source.getBlockState(), 0))
+                {
+                    if (!lootItem.isEmpty())
+                        defaultDispenserBehavior.dispense(source, lootItem);
+                }
+                
+                return true;
+            }
+            
+            return false;
+        }), new ItemStack(ItemsTC.lootBag), new ItemStack(BlocksTC.lootCrateCommon), new ItemStack(BlocksTC.lootCrateUncommon), new ItemStack(BlocksTC.lootCrateRare), new ItemStack(BlocksTC.lootUrnCommon), new ItemStack(BlocksTC.lootUrnUncommon), new ItemStack(BlocksTC.lootUrnRare));
     }
 }
