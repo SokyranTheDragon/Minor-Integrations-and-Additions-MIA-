@@ -139,6 +139,7 @@ mia.config.quark.add_ancient_tomes=Add all supported enchantments as ancient tom
 mia.config.quark.add_item_tooltip=Add supported items to enchanted book tooltips
 mia.config.quark.ancient_tomes_crafting=Add ancient tome crafting
 mia.config.thaumcraft.register_aspects=Register aspects for other mods
+mia.config.botania.orechid_vacuam_oredict=Orechid Vacuam ore dictionary
 
 ## JEI
 

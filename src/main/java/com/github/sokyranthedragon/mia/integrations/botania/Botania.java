@@ -1,5 +1,6 @@
 package com.github.sokyranthedragon.mia.integrations.botania;
 
+import com.github.sokyranthedragon.api.botania.MiaBotaniaAPI;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.block.BlockBotaniaSpecialFlower;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
@@ -69,6 +70,31 @@ public class Botania implements IBaseMod
     public void preInit(FMLPreInitializationEvent event)
     {
         BotaniaAPI.registerModWiki(MIA.modId, new PartialSimpleWikiProvider());
+        
+        if (botaniaAdditionsEnabled)
+        {
+            for (String ore : orechidVacuamOreDict)
+            {
+                int pos = ore.lastIndexOf(":");
+                if (pos > 0 && pos < ore.length() - 1)
+                {
+                    String weightString = ore.substring(pos + 1);
+                    
+                    try
+                    {
+                        int weight = Integer.parseInt(weightString);
+                        if (weight > 0)
+                            MiaBotaniaAPI.addOreWeightEnd(ore.substring(0, pos), weight);
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        Mia.LOGGER.warn("Incorrect Orechid Vacuam entry: " + ore);
+                    }
+                }
+                else
+                    Mia.LOGGER.warn("Incorrect Orechid Vacuam entry: " + ore);
+            }
+        }
     }
     
     @Override

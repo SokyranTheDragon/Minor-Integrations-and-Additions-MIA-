@@ -14,10 +14,10 @@ import static net.minecraftforge.common.config.Config.*;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class BotaniaConfiguration
 {
-    @Config.Name("Enable Botania additions")
-    @Config.Comment("Set to false to completely disable new Botania additions")
-    @Config.LangKey("mia.config.botania.additions_enabled")
-    @Config.RequiresMcRestart
+    @Name("Enable Botania additions")
+    @Comment("Set to false to completely disable new Botania additions")
+    @LangKey("mia.config.botania.additions_enabled")
+    @RequiresMcRestart
     public static boolean botaniaAdditionsEnabled = true;
     
     @Name("Enable Thermal Expansion integration")
@@ -26,10 +26,10 @@ public class BotaniaConfiguration
     @RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
-    @Config.Name("Enable external integrations")
-    @Config.Comment("Set to false to prevent other mods from integrating with Botania")
-    @Config.LangKey("mia.config.shared.enable_external_integrations")
-    @Config.RequiresMcRestart
+    @Name("Enable external integrations")
+    @Comment("Set to false to prevent other mods from integrating with Botania")
+    @LangKey("mia.config.shared.enable_external_integrations")
+    @RequiresMcRestart
     public static boolean externalIntegrationsEnabled = true;
     
     @Name("Enable Hatchery integration")
@@ -50,11 +50,84 @@ public class BotaniaConfiguration
     @RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
     
-    @Config.Name("Enable Chisel integration")
-    @Config.Comment("Set to false to completely disable integration with Chisel")
-    @Config.LangKey("mia.config.shared.enable_chisel_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Chisel integration")
+    @Comment("Set to false to completely disable integration with Chisel")
+    @LangKey("mia.config.shared.enable_chisel_integration")
+    @RequiresMcRestart
     public static boolean enableChiselIntegration = true;
+    
+    @Name("Orechid Vacuam ore dictionary")
+    @Comment({ "List of all the ore dictionary entries for ores supported by Orechid Vacuam",
+               "The ore dictionary entry needs to be followed by a colon : symbol and its weight (lower = rarer)",
+               "Any entries containing the word 'Ender' in it will also include the same entries, but with the word 'End' instead for the highest compatibility",
+               "Please note, it might get replaced in the future by CraftTweaker or a separate config file" })
+    @LangKey("mia.config.botania.orechid_vacuam_oredict")
+    @RequiresMcRestart
+    public static String[] orechidVacuamOreDict = new String[]
+            {   // Quark
+                "oreEnderBiotite:2000",
+                // Biomes O' Plenty
+                "oreEnderAmethyst:2000",
+                // Thermal Foundation
+                "oreClathrateEnder:1250",
+            
+                // Other
+                "oreEnderAluminum:2000",
+                "oreEnderAmber:1000",
+                "oreEnderApatite:750",
+                "oreEnderBlueTopaz:2000",
+                "oreEnderCertusQuartz:2000",
+                "oreEnderChimerite:2000",
+                "oreEnderCinnabar:1500",
+                "oreEnderDark:700",
+                "oreEnderDarkIron:800",
+                "oreEnderFzDarkIron:800",
+                "oreEnderEmerald:400",
+                "oreEnderGalena:500",
+                "oreEnderInfusedAir:500",
+                "oreEnderInfusedEarth:500",
+                "oreEnderInfusedEntropy:500",
+                "oreEnderInfusedFire:500",
+                "oreEnderInfusedOrder:500",
+                "oreEnderInfusedWater:500",
+                "oreEnderLapis:700",
+                "oreEnderMithril:8",
+                "oreEnderOlivine:600",
+                "oreEnderRuby:600",
+                "oreEnderSapphire:600",
+                "oreEnderUranium:750",
+                "oreEnderVinteum:300",
+                "oreEnderYellorite:200",
+                "oreEnderZinc:3500",
+                "oreEnderMythril:3500",
+                "oreEnderAdamantium:1300",
+                "oreEnderTungsten:2000",
+                "oreEnderOsmium:3500",
+                "oreEnderQuartzBlack:2500",
+                "oreEnderQuartz:9000",
+                "oreEnderCobalt:250",
+                "oreEnderArdite:250",
+                "oreEnderFirestone:5",
+                "oreEnderCoal:8500",
+                "oreEnderCopper:2500",
+                "oreEnderDiamond:100",
+                "oreEnderEssence:1500",
+                "oreEnderGold:1500",
+                "oreEnderIron:2500",
+                "oreEnderLead:1500",
+                "oreEnderNickel:800",
+                "oreEnderPlatinum:100",
+                "oreEnderRedstone:2500",
+                "oreEnderSilver:750",
+                "oreEnderSteel:800",
+                "oreEnderTin:200",
+                "oreEnderFyrite:500",
+                "oreEnderAshstone:500",
+                "oreEnderDragonstone:100",
+                "oreEnderArgonite:500",
+                "oreEnderOnyx:250",
+                "oreEnderHaditeCoal:250"
+            };
     
     
     /**
