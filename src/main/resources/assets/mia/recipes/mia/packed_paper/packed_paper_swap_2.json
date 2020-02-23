@@ -6,13 +6,17 @@
       "category": "evtp"
     }
   ],
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pp",
+    "pp"
+  ],
+  "key": {
+    "p": {
       "item": "mia:packed_paper",
       "data": 1
     }
-  ],
+  },
   "result": {
     "item": "mia:packed_paper",
     "data": 2
