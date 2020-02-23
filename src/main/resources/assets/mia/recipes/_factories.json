@@ -2,5 +2,8 @@
   "conditions": {
     "is_mod_loaded": "com.github.sokyranthedragon.mia.recipe.IsModLoadedConditionFactory",
     "are_recipes_enabled": "com.github.sokyranthedragon.mia.recipe.AreRecipesEnabledFactory"
+  },
+  "ingredients": {
+    "conditional_ingredient": "com.github.sokyranthedragon.mia.recipe.ConditionalIngredientFactory"
   }
 }

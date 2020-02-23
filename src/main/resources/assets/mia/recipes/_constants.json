@@ -12,13 +12,24 @@
         "item": "minecraft:pumpkin"
       },
       {
-        "item": "dungeontactics:cherry_bomb"
-      },
-      {
-        "item": "dungeontactics:incindiberry"
-      },
-      {
-        "item": "dungeontactics:glowcurrent"
+        "type": "mia:conditional_ingredient",
+        "conditions": [
+          {
+            "type": "mia:is_mod_loaded",
+            "modid": "dungeontactics"
+          }
+        ],
+        "ingredient": [
+          {
+            "item": "dungeontactics:cherry_bomb"
+          },
+          {
+            "item": "dungeontactics:incindiberry"
+          },
+          {
+            "item": "dungeontactics:glowcurrent"
+          }
+        ]
       },
       {
         "type": "forge:ore_dict",
