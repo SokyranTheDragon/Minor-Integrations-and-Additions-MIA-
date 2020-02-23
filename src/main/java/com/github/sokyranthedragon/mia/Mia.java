@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
         modid = Mia.MODID,
         name = Mia.NAME,
         version = Mia.VERSION,
-        updateJSON = "https://github.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-/blob/master/update.json",
+        updateJSON = "https://raw.githubusercontent.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-/master/update.json",
         dependencies = "after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
                 ";after:" + ModIds.ConstantIds.COFH_CORE +
                 ";after:" + ModIds.ConstantIds.THERMAL_FOUNDATION +
