@@ -5,6 +5,7 @@ import com.github.sokyranthedragon.mia.block.IMetaBlock;
 import com.github.sokyranthedragon.mia.block.base.BlockBaseDoor;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.core.MiaItems;
+import com.github.sokyranthedragon.mia.items.itemblocks.ItemBlockDoor;
 import com.github.sokyranthedragon.mia.items.itemblocks.ItemBlockMeta;
 import com.github.sokyranthedragon.mia.items.itemblocks.ItemSlabMeta;
 import net.minecraft.block.Block;
@@ -15,7 +16,6 @@ import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemSlab;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
@@ -52,7 +52,7 @@ public class RegisterUtils
         {
             if (block instanceof BlockBaseDoor)
             {
-                Item item = new ItemDoor(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey().substring("tile.".length()));
+                Item item = new ItemBlockDoor(block).setRegistryName(block.getRegistryName()).setTranslationKey(block.getTranslationKey().substring("tile.".length()));
                 if (MiaConfig.miaCreativeTab)
                     item.setCreativeTab(MiaCreativeTab.INSTANCE);
                 else
@@ -73,7 +73,7 @@ public class RegisterUtils
         if (block instanceof BlockBaseDoor)
         {
             ModelLoader.setCustomStateMapper(block, new StateMap.Builder().ignore(BlockDoor.POWERED).build());
-            registerItemRenderer(((BlockBaseDoor)block).getDoorsItem());
+            registerItemRenderer(((BlockBaseDoor) block).getDoorsItem());
         }
         else if (block instanceof IMetaBlock)
         {

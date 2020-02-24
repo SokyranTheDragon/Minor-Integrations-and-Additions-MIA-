@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.block.base;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.MiaCreativeTab;
 import com.github.sokyranthedragon.mia.block.IAutoRegisterBlock;
+import com.github.sokyranthedragon.mia.block.IFurnaceFuel;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockDoor;
@@ -27,9 +28,10 @@ import java.util.Random;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class BlockBaseDoor extends BlockDoor implements IAutoRegisterBlock
+public class BlockBaseDoor extends BlockDoor implements IAutoRegisterBlock, IFurnaceFuel
 {
     protected Item doors;
+    protected int burnTime;
     
     public BlockBaseDoor(Material materialIn, String name, @Nullable CreativeTabs creativeTab)
     {
@@ -38,14 +40,20 @@ public class BlockBaseDoor extends BlockDoor implements IAutoRegisterBlock
     
     public BlockBaseDoor(Material materialIn, String name, @Nullable CreativeTabs creativeTab, @Nullable SoundType soundType)
     {
+        this(materialIn, name, creativeTab, soundType, 0);
+    }
+    
+    public BlockBaseDoor(Material materialIn, String name, @Nullable CreativeTabs creativeTab, @Nullable SoundType soundType, int burnTime)
+    {
         super(materialIn);
         
         disableStats();
         setTranslationKey(name);
         setRegistryName(Mia.MODID, name);
+        this.burnTime = burnTime;
         if (soundType != null)
             setSoundType(SoundType.STONE);
-    
+        
         if (MiaConfig.miaCreativeTab)
             setCreativeTab(MiaCreativeTab.INSTANCE);
         else if (creativeTab != null)
@@ -96,5 +104,11 @@ public class BlockBaseDoor extends BlockDoor implements IAutoRegisterBlock
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
         return material.getMaterialMapColor();
+    }
+    
+    @Override
+    public int getBurnTime(ItemStack stack)
+    {
+        return burnTime;
     }
 }
