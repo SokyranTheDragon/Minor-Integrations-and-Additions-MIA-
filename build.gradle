@@ -81,6 +81,9 @@ dependencies {
     //  The One Probe
     deobfProvided "curse.maven:TheOneProbe_1.4.28:2667280"
 
+    boolean kotlinSupport = false
+    boolean runBaubles = false
+
     // Extra Utilities 2
     if (project.run_xu2.equals("true"))
         deobfProvided "curse.maven:ExtraUtilities_1.9.9:2678374"
@@ -98,18 +101,12 @@ dependencies {
         compileOnly "curse.maven:MoreChickens_3.1.0:2521137"
     }
 
-    // Thaumcraft and baubles
-    if (project.run_baubles.equals("true"))
-        deobfProvided "curse.maven:Baubles_1.5.2:2518667"
-    else
-        compileOnly "curse.maven:Baubles_1.5.2:2518667"
-    if (project.run_thaumcraft.equals("true") && project.run_baubles.equals("true"))
-    {
+    // Thaumcraft
+    if (project.run_thaumcraft.equals("true")) {
+        runBaubles = true
         deobfProvided "curse.maven:Thaumcraft_6.1.BETA26:2629023"
         deobfProvided "curse.maven:Thaumic_Jei_1.6.0-27:2705304"
-    }
-    else
-    {
+    } else {
         compileOnly "curse.maven:Thaumcraft_6.1.BETA26:2629023"
         compileOnly "curse.maven:Thaumic_Jei_1.6.0-27:2705304"
     }
@@ -136,7 +133,8 @@ dependencies {
 
     // Ice and Fire
 //    compile "llibrary:llibrary-1.7.18:1.12.2:dev"
-    if (project.run_iceandfire.equals("true") || true) { // Temporarily always run no matter what, it won't work otherwise
+    if (project.run_iceandfire.equals("true") || true) {
+        // Temporarily always run no matter what, it won't work otherwise
         deobfProvided "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
         deobfProvided "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
         deobfProvided "curse.maven:iceandfire-1.8.3:2803425"
@@ -193,28 +191,26 @@ dependencies {
     if (project.run_harvestcraft.equals("true")) {
         provided "curse.maven:PamsHarvestcraft_1.12.2zf:2771840"
         deobfProvided "curse.maven:JustEnoughHarvestcraft_1.12.2-1.7.0:2849443"
-    }
-    else {
+    } else {
         compileOnly "curse.maven:PamsHarvestcraft_1.12.2zf:2771840"
         compileOnly "curse.maven:JustEnoughHarvestcraft_1.12.2-1.7.0:2849443"
     }
 
     // Botania and friends
     if (project.run_botania.equals("true")) {
-     deobfProvided "curse.maven:Bontina_r1.10-362:2782181"
-     deobfProvided "curse.maven:ExtraBontina_r1.1-59:2815560"
+        runBaubles = true
+        deobfProvided "curse.maven:Bontina_r1.10-362:2782181"
+        deobfProvided "curse.maven:ExtraBontina_r1.1-59:2815560"
+    } else {
+        compileOnly "curse.maven:Bontina_r1.10-362:2782181"
+        compileOnly "curse.maven:ExtraBontina_r1.1-59:2815560"
     }
-    else {
-         compileOnly "curse.maven:Bontina_r1.10-362:2782181"
-         compileOnly "curse.maven:ExtraBontina_r1.1-59:2815560"
-     }
 
     // Quark
     if (project.run_quark.equals("true")) {
         deobfProvided "curse.maven:AutoRegLib_1.3-32:2746011"
         deobfProvided "curse.maven:Quark_r1.6-177:2759240"
-    }
-    else {
+    } else {
         compileOnly "curse.maven:AutoRegLib_1.3-32:2746011"
         compileOnly "curse.maven:Quark_r1.6-177:2759240"
     }
@@ -238,11 +234,33 @@ dependencies {
     if (project.run_ctm_chisel.equals("true")) {
         deobfProvided "curse.maven:CTM_1.0.1.30:2832564"
         deobfProvided "curse.maven:Chisel_1.0.1.44:2813538"
-    }
-    else {
+    } else {
         compileOnly "curse.maven:CTM_1.0.1.30:2832564"
         compileOnly "curse.maven:Chisel_1.0.1.44:2813538"
     }
+
+    if (project.run_industrial_foregoing.equals("true")) {
+        kotlinSupport = true
+        deobfProvided "curse.maven:Tesla_1.12.2-1.0.63_deobf:2487962"
+        deobfProvided "curse.maven:TeslaCoreLib_1.12.2-1.0.16_deobf:2882824"
+        deobfProvided "curse.maven:IndustrialForegoing_1.12.2-1.12.13-237_deobf:2745324"
+        deobfProvided "curse.maven:IntegrationForegoing_1.12.2-1.9:2676458"
+    } else {
+        compileOnly "curse.maven:Tesla_1.12.2-1.0.63_deobf:2487962"
+        compileOnly "curse.maven:TeslaCoreLib_1.12.2-1.0.16_deobf:2882824"
+        compileOnly "curse.maven:IndustrialForegoing_1.12.2-1.12.13-237_deobf:2745324"
+        compileOnly "curse.maven:IntegrationForegoing_1.12.2-1.9:2676458"
+    }
+
+    if (kotlinSupport)
+        deobfProvided "curse.maven:Forgelin_1.8.4-1.12.2:2785465"
+    else
+        compileOnly "curse.maven:Forgelin_1.8.4-1.12.2:2785465"
+
+    if (runBaubles || project.run_baubles.equals("true"))
+        deobfProvided "curse.maven:Baubles_1.5.2:2518667"
+    else
+        compileOnly "curse.maven:Baubles_1.5.2:2518667"
 }
 
 curseforge {
