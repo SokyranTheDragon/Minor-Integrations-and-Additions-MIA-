@@ -1,5 +1,8 @@
 package com.github.sokyranthedragon.mia.integrations.industrialforegoing;
 
+import com.buuz135.industrial.api.IndustrialForegoingHelper;
+import com.buuz135.industrial.api.recipe.LaserDrillEntry;
+import com.buuz135.industrial.api.recipe.ProteinReactorEntry;
 import com.buuz135.industrial.proxy.BlockRegistry;
 import com.buuz135.industrial.tile.misc.FrosterTile;
 import com.github.sokyranthedragon.mia.Mia;
@@ -8,11 +11,16 @@ import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import jackyy.integrationforegoing.util.Reference;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -44,6 +52,26 @@ public class IndustrialForegoing implements IBaseMod
     }
     
     @Override
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        if (!modIntegrations.isEmpty())
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Industrial Foregoing preInit", modIntegrations.size());
+    
+            for (IIndustrialForegoingIntegration integration : modIntegrations)
+            {
+                progressBar.step(integration.getModId().modId);
+                if (integration.loadLaserDrillEntries())
+                    LaserDrillEntry.addOreFile(new ResourceLocation(ModIds.MIA.modId, "default_laser_drill_ore/" + integration.getModId().modId));
+                else
+                    deleteExistingLaserDrillFile(event.getModConfigurationDirectory(), "default_laser_drill_ore/" + integration.getModId().modId);
+            }
+    
+            ProgressManager.pop(progressBar);
+        }
+    }
+    
+    @Override
     public void init(FMLInitializationEvent event)
     {
         if (!modIntegrations.isEmpty())
@@ -66,10 +94,28 @@ public class IndustrialForegoing implements IBaseMod
                             Mia.LOGGER.warn("Incorrect Froster entry, liquid= " + value + ", item=" + item);
                     });
                 }
+                
+                for (ItemStack proteinGeneratorEntry : integration.getBasicProteinGeneratorEntries())
+                    IndustrialForegoingHelper.addProteinReactorEntry(new ProteinReactorEntry(proteinGeneratorEntry));
+                
                 integration.addGenericIntegrations();
             }
             
             ProgressManager.pop(progressBar);
+        }
+    }
+    
+    private static void deleteExistingLaserDrillFile(File dir, String fileName)
+    {
+        Path path = dir.toPath().resolve("laser_drill_ores");
+        if (Files.exists(path))
+        {
+            File file = new File(path.toFile(), fileName + "_ores.json");
+            if (!file.exists())
+                return;
+            
+            if (file.delete())
+                Reference.LOGGER.info("Deleted existing Laser Drill config file " + file.getName());
         }
     }
 }
