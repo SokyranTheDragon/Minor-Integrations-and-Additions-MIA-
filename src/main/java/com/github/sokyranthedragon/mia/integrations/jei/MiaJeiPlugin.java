@@ -22,15 +22,18 @@ public class MiaJeiPlugin implements IModPlugin
     @Override
     public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry)
     {
-        subtypeRegistry.registerSubtypeInterpreter(MiaItems.musicPlayer, new ISubtypeRegistry.ISubtypeInterpreter()
+        if (MiaItems.musicPlayer != null)
         {
-            @Nonnull
-            @Override
-            public String apply(@Nonnull ItemStack itemStack)
+            subtypeRegistry.registerSubtypeInterpreter(MiaItems.musicPlayer, new ISubtypeRegistry.ISubtypeInterpreter()
             {
-                return "mia:music_player:0";
-            }
-        });
+                @Nonnull
+                @Override
+                public String apply(@Nonnull ItemStack itemStack)
+                {
+                    return "mia:music_player:0";
+                }
+            });
+        }
     }
     
     @Override
@@ -41,11 +44,11 @@ public class MiaJeiPlugin implements IModPlugin
         for (IJeiIntegration integration : jeiIntegration.modIntegrations)
             integration.register(registry, registeredCategories);
         
-        if (ModIds.HATCHERY.isLoaded)
+        if (ModIds.HATCHERY.isLoaded && MiaBlocks.eggSorter != null)
             registry.addIngredientInfo(new ItemStack(MiaBlocks.eggSorter), VanillaTypes.ITEM, "mia.jei.info.egg_sorter");
-        if (ModIds.ICE_AND_FIRE.isLoaded)
+        if (ModIds.ICE_AND_FIRE.isLoaded && MiaBlocks.pixieDustExtractor != null)
             registry.addIngredientInfo(new ItemStack(MiaBlocks.pixieDustExtractor), VanillaTypes.ITEM, "mia.jei.info.pixie_dust_extractor");
-        if (ModIds.THAUMCRAFT.isLoaded)
+        if (ModIds.THAUMCRAFT.isLoaded && MiaBlocks.voidCreator != null)
             registry.addIngredientInfo(new ItemStack(MiaBlocks.voidCreator), VanillaTypes.ITEM, "mia.jei.info.void_creator");
     }
     
