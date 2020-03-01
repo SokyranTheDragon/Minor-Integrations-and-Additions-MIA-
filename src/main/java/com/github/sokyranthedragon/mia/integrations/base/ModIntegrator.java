@@ -15,6 +15,7 @@ import com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc;
 import com.github.sokyranthedragon.mia.integrations.harvestcraft.Harvestcraft;
 import com.github.sokyranthedragon.mia.integrations.hatchery.Hatchery;
 import com.github.sokyranthedragon.mia.integrations.iceandfire.IceAndFire;
+import com.github.sokyranthedragon.mia.integrations.industrialforegoing.IndustrialForegoing;
 import com.github.sokyranthedragon.mia.integrations.jei.Jei;
 import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.github.sokyranthedragon.mia.integrations.mocreatures.MoCreatures;
@@ -120,6 +121,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.BIOMES_O_PLENTY, new BiomesOPlenty());
         if (ModIds.CHISEL.isLoaded)
             modIntegrations.put(ModIds.CHISEL, new Chisel());
+        if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
+            modIntegrations.put(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoing());
         
         if (!modIntegrations.isEmpty())
         {
