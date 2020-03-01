@@ -59,8 +59,8 @@ public class Natura implements IBaseMod
                         OreDictionary.registerOre("listAllberry", new ItemStack(NaturaCommons.edibles, 1, meta));
                 for (int meta = 0; meta <= 2; meta++)
                 {
-                    OreDictionary.registerOre("mushroomAny", new ItemStack(NaturaNether.netherGlowshroom));
-                    OreDictionary.registerOre("listAllmushroom", new ItemStack(NaturaNether.netherGlowshroom));
+                    OreDictionary.registerOre("mushroomAny", new ItemStack(NaturaNether.netherGlowshroom, 1, OreDictionary.WILDCARD_VALUE));
+                    OreDictionary.registerOre("listAllmushroom", new ItemStack(NaturaNether.netherGlowshroom, 1, OreDictionary.WILDCARD_VALUE));
                 }
             }
         }
