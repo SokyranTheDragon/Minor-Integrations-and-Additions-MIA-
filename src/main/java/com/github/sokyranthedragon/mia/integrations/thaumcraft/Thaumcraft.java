@@ -7,6 +7,7 @@ import com.github.sokyranthedragon.mia.dispenserbehavior.DispenserLootBag;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
+import com.github.sokyranthedragon.mia.integrations.dungeontactics.IndustrialForegoingDungeonTacticsIntegration;
 import com.github.sokyranthedragon.mia.tile.TileVoidCreator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -54,6 +55,8 @@ public class Thaumcraft implements IBaseMod
             modIntegration.accept(FUTURE_MC, new FutureMcThaumcraftIntegration());
         if (enableChiselIntegration && CHISEL.isLoaded)
             modIntegration.accept(CHISEL, new ChiselThaumcraftIntegration());
+        if (INDUSTRIAL_FOREGOING.isLoaded)
+            modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingDungeonTacticsIntegration());
     }
     
     @Override

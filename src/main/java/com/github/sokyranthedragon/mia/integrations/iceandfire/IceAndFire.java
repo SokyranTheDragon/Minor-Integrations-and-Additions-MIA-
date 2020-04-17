@@ -51,6 +51,8 @@ public class IceAndFire implements IBaseMod
             modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsIceAndFireIntegration());
         if (enableFutureMcIntegration && ModIds.FUTURE_MC.isLoaded)
             modIntegration.accept(ModIds.FUTURE_MC, new FutureMcIceAndFireIntegration());
+        if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
+            modIntegration.accept(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoingIceAndFireIntegration());
     }
     
     @Override

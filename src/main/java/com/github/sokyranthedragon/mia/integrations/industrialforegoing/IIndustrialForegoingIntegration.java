@@ -1,5 +1,6 @@
 package com.github.sokyranthedragon.mia.integrations.industrialforegoing;
 
+import com.buuz135.industrial.api.extractor.ExtractorEntry;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,11 @@ public interface IIndustrialForegoingIntegration extends IModIntegration
     default ItemStack[] getBasicProteinGeneratorEntries()
     {
         return new ItemStack[0];
+    }
+    
+    default ExtractorEntry[] getLatexEntries()
+    {
+        return new ExtractorEntry[0];
     }
     
     default boolean loadLaserDrillEntries()

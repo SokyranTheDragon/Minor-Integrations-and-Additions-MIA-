@@ -39,6 +39,8 @@ public class FutureMc implements IBaseMod
             modIntegration.accept(ModIds.HATCHERY, new HatcheryFutureMcIntegration(FutureMcConfiguration.enableHatcheryIntegration));
         if (FutureMcConfiguration.enableHarvestcraftIntegration && ModIds.HARVESTCRAFT.isLoaded)
             modIntegration.accept(ModIds.HARVESTCRAFT, new HarvestcraftFutureMcIntegration());
+        if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
+            modIntegration.accept(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoingFutureMcIntegration());
     }
     
     @Override

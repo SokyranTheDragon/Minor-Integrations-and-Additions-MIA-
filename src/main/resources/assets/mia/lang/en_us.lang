@@ -32,6 +32,7 @@ mia.config.jei.title=Just Enough Items
 mia.config.natura.title=Natura
 mia.config.biomes_o_plenty.title=Biomes O' Plenty
 mia.config.chisel.title=Chisel
+mia.config.industrial_foregoing.title=Industrial Foregoing
 
 ## Tooltips
 
@@ -57,6 +58,7 @@ mia.config.jei.title.tooltip=Browse and manage Just Enough Items settings
 mia.config.natura.title.tooltip=Browse and manage Natura settings
 mia.config.biomes_o_plenty.title.tooltip=Browse and manage Biomes O' Plenty settings
 mia.config.chisel.title.tooltip=Browse and manage Chisel settings
+mia.config.industrial_foregoing.title.tooltip=Browse and manage Industrial Foregoing settings
 
 ###
 ### To anyone who might be translating anything below (until TOP integrations section):
@@ -131,13 +133,8 @@ mia.config.base_additions.evtp.dead_flower_chance=Dead flower spawn chance
 ## Mod specific
 
 mia.config.hatchery.register_custom_eggs=Register custom lucky eggs
-mia.config.mocreatures.buff_silver_weapons=Buff silver weapons from other mods
-mia.config.mocreatures.replace_fish_drops=Replace fish drops
 mia.config.dungeon_tactics.register_custom_loot=Register custom loot for loot bags
 mia.config.harvestcraft.squid_drops_calamari=Squid drops calamari
-mia.config.quark.add_ancient_tomes=Add all supported enchantments as ancient tomes
-mia.config.quark.add_item_tooltip=Add supported items to enchanted book tooltips
-mia.config.quark.ancient_tomes_crafting=Add ancient tome crafting
 mia.config.thaumcraft.register_aspects=Register aspects for other mods
 mia.config.botania.orechid_vacuam_oredict=Orechid Vacuam ore dictionary
 
@@ -145,7 +142,24 @@ mia.config.botania.orechid_vacuam_oredict=Orechid Vacuam ore dictionary
 
 mia.config.jei.loot_bag=Enable loot bag category
 mia.config.jei.alchemical_cauldron=Enable alchemical cauldron category
-mia.config.jei.orechid_vacuam=Enable orechid vacuam category (test 12345)
+mia.config.jei.orechid_vacuam=Enable orechid vacuam category
+
+## Quark
+
+mia.config.quark.add_ancient_tomes=Add all supported enchantments as ancient tomes
+mia.config.quark.add_item_tooltip=Add supported items to enchanted book tooltips
+mia.config.quark.ancient_tomes_crafting=Add ancient tome crafting
+
+# Industrial Foregoing
+
+mia.config.industrial_foregoing.enable_froster=Enable new Froster recipes
+mia.config.industrial_foregoing.enable_laser_drill=Enable new Laser Drill entries
+mia.config.industrial_foregoing.enable_protein_generator=Enable new Protein Generator entries
+
+## Mo' Creatures
+
+mia.config.mocreatures.buff_silver_weapons=Buff silver weapons from other mods
+mia.config.mocreatures.replace_fish_drops=Replace fish drops
 
 
 

@@ -54,6 +54,8 @@ public class Quark implements IBaseMod
             modIntegration.accept(FUTURE_MC, new FutureMcQuarkIntegration());
         if (enableChiselIntegration && CHISEL.isLoaded)
             modIntegration.accept(CHISEL, new ChiselQuarkIntegration());
+        if (INDUSTRIAL_FOREGOING.isLoaded)
+            modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingQuarkIntegration());
     }
     
     @Override

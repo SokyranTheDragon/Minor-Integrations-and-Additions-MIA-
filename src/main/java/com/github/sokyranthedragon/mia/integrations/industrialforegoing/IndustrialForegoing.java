@@ -1,6 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.industrialforegoing;
 
 import com.buuz135.industrial.api.IndustrialForegoingHelper;
+import com.buuz135.industrial.api.extractor.ExtractorEntry;
 import com.buuz135.industrial.api.recipe.LaserDrillEntry;
 import com.buuz135.industrial.api.recipe.ProteinReactorEntry;
 import com.buuz135.industrial.proxy.BlockRegistry;
@@ -25,6 +26,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.github.sokyranthedragon.mia.config.IndustrialForegoingConfiguration.*;
+
 public class IndustrialForegoing implements IBaseMod
 {
     private final List<IIndustrialForegoingIntegration> modIntegrations = new LinkedList<>();
@@ -38,6 +41,8 @@ public class IndustrialForegoing implements IBaseMod
         
         if (ModIds.JEI.isLoaded)
             modIntegration.accept(ModIds.JEI, new JeiIndustrialForegoingIntegration(this));
+        if (ModIds.JER.isLoaded)
+            modIntegration.accept(ModIds.JER, new JerIndustrialForegoingIntegration());
     }
     
     @Override
@@ -57,16 +62,16 @@ public class IndustrialForegoing implements IBaseMod
         if (!modIntegrations.isEmpty())
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("Industrial Foregoing preInit", modIntegrations.size());
-    
+            
             for (IIndustrialForegoingIntegration integration : modIntegrations)
             {
                 progressBar.step(integration.getModId().modId);
-                if (integration.loadLaserDrillEntries())
-                    LaserDrillEntry.addOreFile(new ResourceLocation(ModIds.MIA.modId, "default_laser_drill_ore/" + integration.getModId().modId));
+                if (enableLaserDrillEntries && integration.loadLaserDrillEntries())
+                    LaserDrillEntry.addOreFile(new ResourceLocation(ModIds.MIA.modId, integration.getModId().modId + "_ores.json"));
                 else
-                    deleteExistingLaserDrillFile(event.getModConfigurationDirectory(), "default_laser_drill_ore/" + integration.getModId().modId);
+                    deleteExistingLaserDrillFile(event.getModConfigurationDirectory(), integration.getModId().modId + "_ores.json");
             }
-    
+            
             ProgressManager.pop(progressBar);
         }
     }
@@ -81,7 +86,7 @@ public class IndustrialForegoing implements IBaseMod
             for (IIndustrialForegoingIntegration integration : modIntegrations)
             {
                 progressBar.step(integration.getModId().modId);
-                if (BlockRegistry.frosterBlock.isEnabled())
+                if (enableFrosterRecipes && BlockRegistry.frosterBlock.isEnabled())
                 {
                     integration.addFrosterRecipe((name, item, value) ->
                     {
@@ -95,8 +100,17 @@ public class IndustrialForegoing implements IBaseMod
                     });
                 }
                 
-                for (ItemStack proteinGeneratorEntry : integration.getBasicProteinGeneratorEntries())
-                    IndustrialForegoingHelper.addProteinReactorEntry(new ProteinReactorEntry(proteinGeneratorEntry));
+                if (enableProteinGeneratorEntries)
+                {
+                    for (ItemStack proteinGeneratorEntry : integration.getBasicProteinGeneratorEntries())
+                        IndustrialForegoingHelper.addProteinReactorEntry(new ProteinReactorEntry(proteinGeneratorEntry));
+                }
+                
+                if (true)
+                {
+                    for (ExtractorEntry entry : integration.getLatexEntries())
+                        IndustrialForegoingHelper.addWoodToLatex(entry);
+                }
                 
                 integration.addGenericIntegrations();
             }

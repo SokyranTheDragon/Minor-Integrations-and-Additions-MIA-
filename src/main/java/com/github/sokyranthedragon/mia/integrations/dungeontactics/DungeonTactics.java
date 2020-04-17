@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 import static com.github.sokyranthedragon.mia.config.DungeonTacticsConfiguration.*;
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
 
 public class DungeonTactics implements IBaseMod
 {
@@ -41,22 +42,24 @@ public class DungeonTactics implements IBaseMod
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableTConstructIntegration && ModIds.TINKERS_CONSTRUCT.isLoaded)
-            modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructDungeonTacticsIntegration());
-        if (enableTeIntegration && ModIds.THERMAL_EXPANSION.isLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionDungeonTacticsIntegration());
-        if (ModIds.JEI.isLoaded)
-            modIntegration.accept(ModIds.JEI, new JeiDungeonTacticsIntegration());
-        if (enableJerIntegration && ModIds.JER.isLoaded)
-            modIntegration.accept(ModIds.JER, new JerDungeonTacticsIntegration());
-        if (enableFutureMcIntegration && ModIds.FUTURE_MC.isLoaded)
-            modIntegration.accept(ModIds.FUTURE_MC, new FutureMcDungeonTacticsIntegration());
-        if (enableQuarkIntegration && ModIds.QUARK.isLoaded)
-            modIntegration.accept(ModIds.QUARK, new QuarkDungeonTacticsIntegration());
-        if (ModIds.HATCHERY.isLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryDungeonTacticsIntegration(enableHatcheryIntegration));
-        if (enableChiselIntegration && ModIds.CHISEL.isLoaded)
-            modIntegration.accept(ModIds.CHISEL, new ChiselDungeonTacticsIntegration());
+        if (enableTConstructIntegration && TINKERS_CONSTRUCT.isLoaded)
+            modIntegration.accept(TINKERS_CONSTRUCT, new TConstructDungeonTacticsIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionDungeonTacticsIntegration());
+        if (JEI.isLoaded)
+            modIntegration.accept(JEI, new JeiDungeonTacticsIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerDungeonTacticsIntegration());
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcDungeonTacticsIntegration());
+        if (enableQuarkIntegration && QUARK.isLoaded)
+            modIntegration.accept(QUARK, new QuarkDungeonTacticsIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryDungeonTacticsIntegration(enableHatcheryIntegration));
+        if (enableChiselIntegration && CHISEL.isLoaded)
+            modIntegration.accept(CHISEL, new ChiselDungeonTacticsIntegration());
+        if (INDUSTRIAL_FOREGOING.isLoaded)
+            modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingDungeonTacticsIntegration());
     }
     
     @Override
