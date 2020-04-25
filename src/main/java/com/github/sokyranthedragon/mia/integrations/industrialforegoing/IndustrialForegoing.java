@@ -106,7 +106,7 @@ public class IndustrialForegoing implements IBaseMod
                         IndustrialForegoingHelper.addProteinReactorEntry(new ProteinReactorEntry(proteinGeneratorEntry));
                 }
                 
-                if (true)
+                if (enableLogLatexEntries)
                 {
                     for (ExtractorEntry entry : integration.getLatexEntries())
                         IndustrialForegoingHelper.addWoodToLatex(entry);

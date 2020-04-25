@@ -7,7 +7,6 @@ import com.github.sokyranthedragon.mia.dispenserbehavior.DispenserLootBag;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
-import com.github.sokyranthedragon.mia.integrations.dungeontactics.IndustrialForegoingDungeonTacticsIntegration;
 import com.github.sokyranthedragon.mia.tile.TileVoidCreator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -56,7 +55,7 @@ public class Thaumcraft implements IBaseMod
         if (enableChiselIntegration && CHISEL.isLoaded)
             modIntegration.accept(CHISEL, new ChiselThaumcraftIntegration());
         if (INDUSTRIAL_FOREGOING.isLoaded)
-            modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingDungeonTacticsIntegration());
+            modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingThaumcraftIntegration());
     }
     
     @Override
@@ -87,21 +86,21 @@ public class Thaumcraft implements IBaseMod
             return;
         
         ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(Mia.MODID, "void_creator"),
-                new InfusionRecipe(
-                        "MIA.VOID_CREATOR",
-                        new ItemStack(MiaBlocks.voidCreator),
-                        9,
-                        new AspectList().add(Aspect.ELDRITCH, 50).add(Aspect.CRAFT, 50).add(Aspect.ENTROPY, 50).add(Aspect.VOID, 100),
-                        new ItemStack(Items.GHAST_TEAR),
-                        new ItemStack(BlocksTC.stoneArcane),
-                        new ItemStack(BlocksTC.stoneArcane),
-                        new ItemStack(ItemsTC.mechanismComplex),
-                        "plateBrass",
-                        "plateBrass",
-                        new ItemStack(Items.DIAMOND),
-                        new ItemStack(Items.DIAMOND),
-                        new ItemStack(Items.NETHER_STAR)
-                ));
+            new InfusionRecipe(
+                "MIA.VOID_CREATOR",
+                new ItemStack(MiaBlocks.voidCreator),
+                9,
+                new AspectList().add(Aspect.ELDRITCH, 50).add(Aspect.CRAFT, 50).add(Aspect.ENTROPY, 50).add(Aspect.VOID, 100),
+                new ItemStack(Items.GHAST_TEAR),
+                new ItemStack(BlocksTC.stoneArcane),
+                new ItemStack(BlocksTC.stoneArcane),
+                new ItemStack(ItemsTC.mechanismComplex),
+                "plateBrass",
+                "plateBrass",
+                new ItemStack(Items.DIAMOND),
+                new ItemStack(Items.DIAMOND),
+                new ItemStack(Items.NETHER_STAR)
+            ));
     }
     
     @Override

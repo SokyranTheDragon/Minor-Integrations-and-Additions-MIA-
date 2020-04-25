@@ -7,34 +7,42 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static net.minecraftforge.common.config.Config.*;
+
 @Config(modid = Mia.MODID, name = "mia/industrial_foregoing")
-@Config.LangKey("mia.config.industrial_foregoing.title")
+@LangKey("mia.config.industrial_foregoing.title")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class IndustrialForegoingConfiguration
 {
-    @Config.Name("Enable external integrations")
-    @Config.Comment("Set to false to prevent other mods from integrating with Industrial Foregoing")
-    @Config.LangKey("mia.config.shared.enable_external_integrations")
-    @Config.RequiresMcRestart
+    @Name("Enable external integrations")
+    @Comment("Set to false to prevent other mods from integrating with Industrial Foregoing")
+    @LangKey("mia.config.shared.enable_external_integrations")
+    @RequiresMcRestart
     public static boolean externalIntegrationsEnabled = true;
     
-    @Config.Name("Enable Froster recipes")
-    @Config.Comment("Set to false to prevent other mods from adding new recipes to the Froster")
-    @Config.LangKey("mia.config.industrial_foregoing.enable_froster")
-    @Config.RequiresMcRestart
+    @Name("Enable Froster recipes")
+    @Comment("Set to false to prevent other mods from adding new recipes to the Froster")
+    @LangKey("mia.config.industrial_foregoing.enable_froster")
+    @RequiresMcRestart
     public static boolean enableFrosterRecipes = true;
     
-    @Config.Name("Enable Laser Drill entries")
-    @Config.Comment("Set to false to prevent other mods from adding new entries to the Laser Drill")
-    @Config.LangKey("mia.config.industrial_foregoing.enable_laser_drill")
-    @Config.RequiresMcRestart
+    @Name("Enable Laser Drill entries")
+    @Comment("Set to false to prevent other mods from adding new entries to the Laser Drill")
+    @LangKey("mia.config.industrial_foregoing.enable_laser_drill")
+    @RequiresMcRestart
     public static boolean enableLaserDrillEntries = true;
     
-    @Config.Name("Enable Protein Generator entries")
-    @Config.Comment("Set to false to prevent other mods from adding new entries to the Protein Generator")
-    @Config.LangKey("mia.config.industrial_foregoing.enable_protein_generator")
-    @Config.RequiresMcRestart
+    @Name("Enable Protein Generator entries")
+    @Comment("Set to false to prevent other mods from adding new entries to the Protein Generator")
+    @LangKey("mia.config.industrial_foregoing.enable_protein_generator")
+    @RequiresMcRestart
     public static boolean enableProteinGeneratorEntries = true;
+    
+    @Name("Enable Tree Fluid Extractor entries")
+    @Comment("Set to false to prevent other mods from adding new Tree Fluid Extractor")
+    @LangKey("mia.config.industrial_foregoing.enable_tree_fluid_extractor")
+    @RequiresMcRestart
+    public static boolean enableLogLatexEntries = true;
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.
@@ -45,6 +53,6 @@ public class IndustrialForegoingConfiguration
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
     {
         if (event.getModID().equals(Mia.MODID))
-            ConfigManager.sync(Mia.MODID, Config.Type.INSTANCE);
+            ConfigManager.sync(Mia.MODID, Type.INSTANCE);
     }
 }

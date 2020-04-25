@@ -155,6 +155,7 @@ mia.config.quark.ancient_tomes_crafting=Add ancient tome crafting
 mia.config.industrial_foregoing.enable_froster=Enable new Froster recipes
 mia.config.industrial_foregoing.enable_laser_drill=Enable new Laser Drill entries
 mia.config.industrial_foregoing.enable_protein_generator=Enable new Protein Generator entries
+mia.config.industrial_foregoing.enable_tree_fluid_extractor=Enable Tree Fluid Extractor entries
 
 ## Mo' Creatures
 
