@@ -140,6 +140,7 @@ public class LootBagEntry
                                    .forEach(entry -> toDrops(manager, getTable(entry), possibleOutputs));
                 }
         );
+        possibleOutputs.removeIf(entry -> entry.items.size() == 0);
     }
     
     private static List<ItemStack> applyFunction(Item item, LootFunction[] functions)

@@ -27,9 +27,19 @@ class JeiIndustrialForegoingIntegration implements IJeiIntegration
     {
         if (industrialForegoing.registeredFrosterItems.size() > 0)
             registry.addRecipes(
-                    industrialForegoing.registeredFrosterItems.stream().map(stack -> new MachineProduceWrapper(BlockRegistry.frosterBlock, stack)).collect(Collectors.toList()),
-                    "machine_produce_category");
+                industrialForegoing.registeredFrosterItems.stream().map(stack -> new MachineProduceWrapper(BlockRegistry.frosterBlock, stack)).collect(Collectors.toList()),
+                "machine_produce_category");
+//
+//        if (ModIds.JER.isLoaded)
+//            registerFishingEntries();
     }
+
+//    @Optional.Method(modid = ModIds.ConstantIds.JER)
+//    private void registerFishingEntries()
+//    {
+//        LootTableManager manager = LootTableHelper.getManager();
+//        LootTableHelper.toDrops(LootTableHelper.getManager().getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING))
+//    }
     
     @Override
     public ModIds getModId()
