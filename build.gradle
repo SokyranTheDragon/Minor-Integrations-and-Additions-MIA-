@@ -35,7 +35,7 @@ def parseConfig(File config) {
 }
 
 
-version = "1.12.2-0.1.5c"
+version = "1.12.2-0.1.6a"
 group = "com.github.sokyranthedragon.mia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mia"
 
@@ -286,6 +286,7 @@ curseforge {
                 optionalDependency "future-mc"
                 optionalDependency "hatchery"
                 optionalDependency "ice-and-fire-dragons"
+                optionalDependency "industrial-foregoing"
                 optionalDependency "jei"
                 optionalDependency "just-enough-resources-jer"
                 optionalDependency "mo-creatures"
