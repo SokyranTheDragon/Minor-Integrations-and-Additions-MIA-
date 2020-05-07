@@ -1,13 +1,13 @@
 package com.github.sokyranthedragon.mia.integrations.iceandfire;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
-import com.github.alexthe666.iceandfire.structures.WorldGenCyclopsCave;
-import com.github.alexthe666.iceandfire.structures.WorldGenFireDragonCave;
-import com.github.alexthe666.iceandfire.structures.WorldGenIceDragonCave;
-import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexDecoration;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.world.gen.WorldGenCyclopsCave;
+import com.github.alexthe666.iceandfire.world.gen.WorldGenFireDragonCave;
+import com.github.alexthe666.iceandfire.world.gen.WorldGenIceDragonCave;
+import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexDecoration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import jeresources.api.IDungeonRegistry;
@@ -96,25 +96,25 @@ class JerIceAndFireIntegration implements IJerIntegration
         ignoreMobOverrides.add(EntityIceDragon.class);
         
         return Stream.of(
-                EntityAmphithere.class,
-                EntityCockatrice.class,
-                EntityCyclops.class,
-                EntityDeathWorm.class,
-                EntityGorgon.class,
-                EntityFireDragon.class,
-                EntityHippocampus.class,
-                EntityHippogryph.class,
-                EntityIceDragon.class,
-                EntityMyrmexQueen.class,
-                EntityMyrmexRoyal.class,
-                EntityMyrmexSentinel.class,
-                EntityMyrmexSoldier.class,
-                EntityMyrmexWorker.class,
-                EntityPixie.class,
-                EntitySeaSerpent.class,
-                EntitySiren.class,
-                EntityStymphalianBird.class,
-                EntityTroll.class
+            EntityAmphithere.class,
+            EntityCockatrice.class,
+            EntityCyclops.class,
+            EntityDeathWorm.class,
+            EntityGorgon.class,
+            EntityFireDragon.class,
+            EntityHippocampus.class,
+            EntityHippogryph.class,
+            EntityIceDragon.class,
+            EntityMyrmexQueen.class,
+            EntityMyrmexRoyal.class,
+            EntityMyrmexSentinel.class,
+            EntityMyrmexSoldier.class,
+            EntityMyrmexWorker.class,
+            EntityPixie.class,
+            EntitySeaSerpent.class,
+            EntitySiren.class,
+            EntityStymphalianBird.class,
+            EntityTroll.class
         ).collect(Collectors.toSet());
     }
     
@@ -217,12 +217,13 @@ class JerIceAndFireIntegration implements IJerIntegration
         else if (entity instanceof EntityDragonBase)
         {
             EntityDragonBase dragon = (EntityDragonBase) entity;
+            boolean isFire = dragon instanceof EntityFireDragon;
             
             for (Biome biome : Biome.REGISTRY)
             {
                 if (dragon.isModelDead())
                 {
-                    if (dragon.isFire)
+                    if (isFire)
                     {
                         if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.DRY) && BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY))
                             validBiomes.add(biome);
@@ -235,12 +236,12 @@ class JerIceAndFireIntegration implements IJerIntegration
                 }
                 else
                 {
-                    if (dragon.isFire)
+                    if (isFire)
                     {
                         if (!biome.getEnableSnow() && (double) biome.getDefaultTemperature() > -0.5D &&
-                                biome != Biomes.ICE_PLAINS && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.COLD) &&
-                                !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY) && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.WET) &&
-                                !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN) && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER))
+                            biome != Biomes.ICE_PLAINS && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.COLD) &&
+                            !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY) && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.WET) &&
+                            !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN) && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER))
                             validBiomes.add(biome);
                     }
                     else
@@ -254,7 +255,7 @@ class JerIceAndFireIntegration implements IJerIntegration
             if (dragon.isModelDead())
             {
                 if (loot != null && IceAndFire.CONFIG.dragonDropSkull)
-                    loot.add(new LootDrop(new ItemStack(ModItems.dragon_skull, 1, dragon.isFire ? 0 : 1)));
+                    loot.add(new LootDrop(new ItemStack(IafItemRegistry.dragon_skull, 1, isFire ? 0 : 1)));
             }
             else
             {
@@ -264,9 +265,9 @@ class JerIceAndFireIntegration implements IJerIntegration
                 if (loot != null)
                 {
                     if (IceAndFire.CONFIG.dragonDropHeart)
-                        loot.add(new LootDrop(new ItemStack(dragon.isFire ? ModItems.fire_dragon_heart : ModItems.ice_dragon_heart)));
+                        loot.add(new LootDrop(new ItemStack(isFire ? IafItemRegistry.fire_dragon_heart : IafItemRegistry.ice_dragon_heart)));
                     if (IceAndFire.CONFIG.dragonDropBlood)
-                        loot.add(new LootDrop(new ItemStack(dragon.isFire ? ModItems.fire_dragon_blood : ModItems.ice_dragon_blood)));
+                        loot.add(new LootDrop(new ItemStack(isFire ? IafItemRegistry.fire_dragon_blood : IafItemRegistry.ice_dragon_blood)));
                 }
             }
         }
@@ -325,7 +326,7 @@ class JerIceAndFireIntegration implements IJerIntegration
     public void overrideExistingMobDrops(MobEntry mobEntry)
     {
         if (mobEntry.getEntity() instanceof EntityWitherSkeleton)
-            mobEntry.addDrop(new LootDrop(ModItems.witherbone, 0, 2));
+            mobEntry.addDrop(new LootDrop(IafItemRegistry.witherbone, 0, 2));
     }
     
     @Override

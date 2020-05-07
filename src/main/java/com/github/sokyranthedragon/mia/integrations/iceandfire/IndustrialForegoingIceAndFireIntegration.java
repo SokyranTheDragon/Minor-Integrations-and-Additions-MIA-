@@ -1,7 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.iceandfire;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.industrialforegoing.IIndustrialForegoingIntegration;
 import mcp.MethodsReturnNonnullByDefault;
@@ -19,12 +19,12 @@ class IndustrialForegoingIceAndFireIntegration implements IIndustrialForegoingIn
     {
         List<ItemStack> items = Arrays.stream(EnumSkullType.values()).map(e -> new ItemStack(e.skull_item)).collect(Collectors.toList());
         
-        items.add(new ItemStack(ModItems.ice_dragon_flesh));
-        items.add(new ItemStack(ModItems.ice_dragon_heart));
-        items.add(new ItemStack(ModItems.fire_dragon_flesh));
-        items.add(new ItemStack(ModItems.fire_dragon_heart));
-        items.add(new ItemStack(ModItems.dragon_skull, 1, 0));
-        items.add(new ItemStack(ModItems.dragon_skull, 1, 1));
+        items.add(new ItemStack(IafItemRegistry.ice_dragon_flesh));
+        items.add(new ItemStack(IafItemRegistry.ice_dragon_heart));
+        items.add(new ItemStack(IafItemRegistry.fire_dragon_flesh));
+        items.add(new ItemStack(IafItemRegistry.fire_dragon_heart));
+        items.add(new ItemStack(IafItemRegistry.dragon_skull, 1, 0));
+        items.add(new ItemStack(IafItemRegistry.dragon_skull, 1, 1));
         
         return items.toArray(new ItemStack[0]);
     }

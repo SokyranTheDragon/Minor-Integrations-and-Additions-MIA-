@@ -1,7 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.iceandfire;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.DungeonTactics;
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.IDungeonTacticsIntegration;
@@ -19,26 +19,26 @@ class DungeonTacticsIceAndFireIntegration implements IDungeonTacticsIntegration
             switch (type)
             {
                 case BOOK:
-                    LootUtils.addDtLoot(loot, ModItems.manuscript, LootUtils.setCountFunction(3, 5));
+                    LootUtils.addDtLoot(loot, IafItemRegistry.manuscript, LootUtils.setCountFunction(3, 5));
                     break;
                 case ORE:
-                    LootUtils.addDtLoot(loot, ModBlocks.sapphireOre);
+                    LootUtils.addDtLoot(loot, IafBlockRegistry.sapphireOre);
 //                LootUtils.addDtLoot(loot, ModBlocks.silverOre);
                     break;
                 case FOOD:
-                    LootUtils.addDtLoot(loot, ModItems.pixie_dust, 1);
-                    LootUtils.addDtLoot(loot, ModItems.ambrosia, 1);
-                    LootUtils.addDtLoot(loot, ModItems.fire_dragon_flesh, 1);
-                    LootUtils.addDtLoot(loot, ModItems.ice_dragon_flesh, 1);
+                    LootUtils.addDtLoot(loot, IafItemRegistry.pixie_dust, 1);
+                    LootUtils.addDtLoot(loot, IafItemRegistry.ambrosia, 1);
+                    LootUtils.addDtLoot(loot, IafItemRegistry.fire_dragon_flesh, 1);
+                    LootUtils.addDtLoot(loot, IafItemRegistry.ice_dragon_flesh, 1);
                     break;
                 case QUIVER:
-                    LootUtils.addDtLoot(loot, ModItems.amphithere_arrow, 7, LootUtils.setCountFunction(1, 16));
-                    LootUtils.addDtLoot(loot, ModItems.dragonbone_arrow, 7, LootUtils.setCountFunction(1, 16));
-                    LootUtils.addDtLoot(loot, ModItems.sea_serpent_arrow, 7, LootUtils.setCountFunction(1, 16));
-                    LootUtils.addDtLoot(loot, ModItems.stymphalian_arrow, 7, LootUtils.setCountFunction(1, 16));
+                    LootUtils.addDtLoot(loot, IafItemRegistry.amphithere_arrow, 7, LootUtils.setCountFunction(1, 16));
+                    LootUtils.addDtLoot(loot, IafItemRegistry.dragonbone_arrow, 7, LootUtils.setCountFunction(1, 16));
+                    LootUtils.addDtLoot(loot, IafItemRegistry.sea_serpent_arrow, 7, LootUtils.setCountFunction(1, 16));
+                    LootUtils.addDtLoot(loot, IafItemRegistry.stymphalian_arrow, 7, LootUtils.setCountFunction(1, 16));
                     break;
                 case TOOL:
-                    LootUtils.addDtLoot(loot, ModItems.fishing_spear);
+                    LootUtils.addDtLoot(loot, IafItemRegistry.fishing_spear);
                     break;
             }
         };

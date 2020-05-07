@@ -137,11 +137,11 @@ dependencies {
         // Temporarily always run no matter what, it won't work otherwise
         deobfProvided "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
         deobfProvided "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
-        deobfProvided "curse.maven:iceandfire-1.8.3:2803425"
+        deobfProvided "curse.maven:iceandfire-1.9.1:2939529"
     } else {
         compileOnly "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
         compileOnly "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
-        compileOnly "curse.maven:iceandfire-1.8.3:2803425"
+        compileOnly "curse.maven:iceandfire-1.9.1:2803425"
     }
 
     // Ender IO

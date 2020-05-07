@@ -1,8 +1,8 @@
 package com.github.sokyranthedragon.mia.integrations.iceandfire;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.sokyranthedragon.mia.block.BlockPixieDustExtractor;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
@@ -63,16 +63,16 @@ public class IceAndFire implements IBaseMod
             FurnaceRecipes furnaceRecipes = FurnaceRecipes.instance();
             
             // Smelting weapons/armor to nuggets (vanilla smelting)
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_sword), new ItemStack(ModItems.silverNugget), 0.1f);
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_axe), new ItemStack(ModItems.silverNugget), 0.1f);
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_pickaxe), new ItemStack(ModItems.silverNugget), 0.1f);
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_hoe), new ItemStack(ModItems.silverNugget), 0.1f);
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_shovel), new ItemStack(ModItems.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_sword), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_axe), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_pickaxe), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_hoe), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_shovel), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
             
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_helmet), new ItemStack(ModItems.silverNugget), 0.1f);
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_chestplate), new ItemStack(ModItems.silverNugget), 0.1f);
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_leggings), new ItemStack(ModItems.silverNugget), 0.1f);
-            furnaceRecipes.addSmeltingRecipe(new ItemStack(ModItems.silver_boots), new ItemStack(ModItems.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_helmet), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_chestplate), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_leggings), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
+            furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_boots), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
         }
     }
     
@@ -109,6 +109,6 @@ public class IceAndFire implements IBaseMod
             return;
         
         Aspect MYTHICAL = Aspect.getAspect("mythus");
-        event.register.registerObjectTag(new ItemStack(ModBlocks.pixieHouse, 1, 0), (new AspectList()).add(Aspect.EARTH, 2).add(Aspect.CRAFT, 5).add(Aspect.PLANT, 2).add(MYTHICAL, 2).add(Aspect.MAGIC, 2).add(Aspect.METAL, 60).add(Aspect.LIGHT, 3).add(Aspect.SENSES, 1).add(Aspect.AIR, 1).add(Aspect.CRYSTAL, 1));
+        event.register.registerObjectTag(new ItemStack(IafBlockRegistry.pixieHouse, 1, 0), (new AspectList()).add(Aspect.EARTH, 2).add(Aspect.CRAFT, 5).add(Aspect.PLANT, 2).add(MYTHICAL, 2).add(Aspect.MAGIC, 2).add(Aspect.METAL, 60).add(Aspect.LIGHT, 3).add(Aspect.SENSES, 1).add(Aspect.AIR, 1).add(Aspect.CRYSTAL, 1));
     }
 }

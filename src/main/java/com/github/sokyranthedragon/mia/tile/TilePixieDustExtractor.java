@@ -1,7 +1,7 @@
 package com.github.sokyranthedragon.mia.tile;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.sokyranthedragon.mia.integrations.theoneprobe.ITileProbeProgress;
 import com.github.sokyranthedragon.mia.utilities.ExtraUtilitiesUtils;
 import com.github.sokyranthedragon.mia.utilities.HatcheryUtils;
@@ -141,7 +141,7 @@ public class TilePixieDustExtractor extends TileBaseInventory implements ITickab
     
     public static boolean isItemValid(@Nonnull ItemStack stack)
     {
-        if (stack.getItem() == Item.getItemFromBlock(ModBlocks.jar_pixie))
+        if (stack.getItem() == Item.getItemFromBlock(IafBlockRegistry.jar_pixie))
             return true;
         else return ThermalExpansionUtils.isItemStackMorbWithMob(stack, "iceandfire:if_pixie") ||
                 HatcheryUtils.isItemAnimalNetWithMob(stack, "iceandfire:if_pixie") ||
@@ -187,7 +187,7 @@ public class TilePixieDustExtractor extends TileBaseInventory implements ITickab
                 dustProgress -= 24_000;
                 
                 if (dust.isEmpty())
-                    stacks.set(10, new ItemStack(ModItems.pixie_dust));
+                    stacks.set(10, new ItemStack(IafItemRegistry.pixie_dust));
                 else
                     dust.setCount(dust.getCount() + 1);
                 
