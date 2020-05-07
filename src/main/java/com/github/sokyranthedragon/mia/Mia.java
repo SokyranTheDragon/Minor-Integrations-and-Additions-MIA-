@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ConstantIds.TINKERS_CONSTRUCT +
                 ";after:" + ModIds.ConstantIds.JEI +
                 ";after:" + ModIds.ConstantIds.JER + "@[0.9.1.56,]" +
-                ";after:" + ModIds.ConstantIds.ICE_AND_FIRE +
+                ";after:" + ModIds.ConstantIds.ICE_AND_FIRE + "@[1.9.0,]" +
                 ";after:" + ModIds.ConstantIds.HATCHERY +
                 ";after:" + ModIds.ConstantIds.THAUMCRAFT +
                 ";after:" + ModIds.ConstantIds.MO_CREATURES +
@@ -51,7 +51,7 @@ public class Mia
 {
     public static final String MODID = "mia";
     public static final String NAME = "Minor Integrations & Additions";
-    public static final String VERSION = "1.12.2-0.1.6a";
+    public static final String VERSION = "1.12.2-0.1.6b";
     
     @Mod.Instance
     public static Mia instance;
