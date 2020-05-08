@@ -1,11 +1,12 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/minor-integrations-and-additions-mia",
   "1.12.2": {
+    "1.12.2-0.1.6b": "Fixed Ice and Fire crash\nAdded Chisel integration with Ice and Fire\nUpdated existing Ice and Fire integrations",
     "1.12.2-0.1.6a": "Added Industrial Foregoing integrations\nA few minor fixes and improvements",
     "1.12.2-0.1.5c": "Added update checking\nFixed crafting bugs"
   },
   "promos": {
-    "1.12.2-latest": "1.12.2-0.1.6a",
-    "1.12.2-recommended": "1.12.2-0.1.6a"
+    "1.12.2-latest": "1.12.2-0.1.6b",
+    "1.12.2-recommended": "1.12.2-0.1.6b"
   }
 }
