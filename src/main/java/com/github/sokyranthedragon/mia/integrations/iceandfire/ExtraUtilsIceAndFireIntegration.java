@@ -36,6 +36,8 @@ class ExtraUtilsIceAndFireIntegration implements IExtraUtilsIntegration
         for (EnumSkullType skull : EnumSkullType.values())
         {
             XUMachineGenerators.DEATH_GENERATOR.recipes_registry.addRecipe(new EnergyBaseRecipe.EnergyBaseItem(ItemRef.wrap(skull.skull_item), 120_000, 200));
+            
+            XUMachineCrusher.addRecipe(new ItemStack(skull.skull_item), new ItemStack(Items.DYE, 5, 15), new ItemStack(Items.DYE, 3, 15), 50);
         }
         
         // Ice generator
@@ -63,7 +65,6 @@ class ExtraUtilsIceAndFireIntegration implements IExtraUtilsIntegration
         
         // Magic Infuser
         TileTerraformerClimograph.register(BlockTerraformer.Type.MAGIC_INFUSER, ItemRef.wrap(IafItemRegistry.pixie_dust), 16);
-        
         
         // Crusher
         XUMachineCrusher.addRecipe(new ItemStack(IafItemRegistry.troll_tusk), new ItemStack(Items.DYE, 5, 15), new ItemStack(Items.DYE, 3, 15), 50);

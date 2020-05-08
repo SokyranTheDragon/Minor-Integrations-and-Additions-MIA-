@@ -36,6 +36,7 @@ class DungeonTacticsIceAndFireIntegration implements IDungeonTacticsIntegration
                     LootUtils.addDtLoot(loot, IafItemRegistry.dragonbone_arrow, 7, LootUtils.setCountFunction(1, 16));
                     LootUtils.addDtLoot(loot, IafItemRegistry.sea_serpent_arrow, 7, LootUtils.setCountFunction(1, 16));
                     LootUtils.addDtLoot(loot, IafItemRegistry.stymphalian_arrow, 7, LootUtils.setCountFunction(1, 16));
+                    LootUtils.addDtLoot(loot, IafItemRegistry.hydra_arrow, 7, LootUtils.setCountFunction(1, 16));
                     break;
                 case TOOL:
                     LootUtils.addDtLoot(loot, IafItemRegistry.fishing_spear);

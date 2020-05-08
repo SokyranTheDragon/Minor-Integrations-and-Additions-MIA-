@@ -7,6 +7,7 @@ import cofh.thermalexpansion.util.managers.machine.SawmillManager;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
@@ -69,6 +70,9 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         // Pulverizer
         energy = 3_000;
         PulverizerManager.addRecipe(energy, new ItemStack(IafItemRegistry.troll_tusk), new ItemStack(Items.DYE, 8, 15));
+        for (EnumSkullType skull : EnumSkullType.values())
+            PulverizerManager.addRecipe(energy, new ItemStack(skull.skull_item), new ItemStack(Items.DYE, 8, 15));
+        
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(IafBlockRegistry.lectern), ItemMaterial.dustWood, 4);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(IafBlockRegistry.podium, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.dustWood, 6);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(IafItemRegistry.earplugs), ItemMaterial.dustWood, 1);

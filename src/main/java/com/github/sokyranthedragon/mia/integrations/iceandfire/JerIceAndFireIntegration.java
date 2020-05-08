@@ -4,10 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.world.gen.WorldGenCyclopsCave;
-import com.github.alexthe666.iceandfire.world.gen.WorldGenFireDragonCave;
-import com.github.alexthe666.iceandfire.world.gen.WorldGenIceDragonCave;
-import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexDecoration;
+import com.github.alexthe666.iceandfire.world.gen.*;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import jeresources.api.IDungeonRegistry;
@@ -91,6 +88,15 @@ class JerIceAndFireIntegration implements IJerIntegration
         builder.add(EntityTroll.FOREST_LOOT, EntityTroll.class, new TrollSetter(EnumTroll.FOREST));
         builder.add(EntityTroll.FROST_LOOT, EntityTroll.class, new TrollSetter(EnumTroll.FROST));
         builder.add(EntityTroll.MOUNTAIN_LOOT, EntityTroll.class, new TrollSetter(EnumTroll.MOUNTAIN));
+        builder.add(EntityHydra.LOOT, EntityHydra.class);
+        builder.add(EntityDreadBeast.LOOT, EntityDreadBeast.class);
+        builder.add(EntityDreadGhoul.LOOT, EntityDreadGhoul.class);
+//        builder.add(EntityDreadHorse.LOOT, EntityDreadHorse.class);
+        builder.add(EntityDreadKnight.LOOT, EntityDreadKnight.class);
+        builder.add(EntityDreadLich.LOOT, EntityDreadLich.class);
+//        builder.add(EntityDreadQueen.LOOT, EntityDreadQueen.class);
+        builder.add(EntityDreadScuttler.LOOT, EntityDreadScuttler.class);
+        builder.add(EntityDreadThrall.LOOT, EntityDreadThrall.class);
         
         ignoreMobOverrides.add(EntityFireDragon.class);
         ignoreMobOverrides.add(EntityIceDragon.class);
@@ -114,7 +120,14 @@ class JerIceAndFireIntegration implements IJerIntegration
             EntitySeaSerpent.class,
             EntitySiren.class,
             EntityStymphalianBird.class,
-            EntityTroll.class
+            EntityTroll.class,
+            EntityHydra.class,
+            EntityDreadBeast.class,
+            EntityDreadGhoul.class,
+            EntityDreadKnight.class,
+            EntityDreadLich.class,
+            EntityDreadScuttler.class,
+            EntityDreadThrall.class
         ).collect(Collectors.toSet());
     }
     
@@ -303,6 +316,19 @@ class JerIceAndFireIntegration implements IJerIntegration
                 }
             }
         }
+        else if (entity instanceof EntityHydra)
+        {
+            validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.SWAMP));
+            experienceMin = 5;
+            experienceMax = 5;
+        }
+        else if (entity instanceof EntityDreadMob)
+        {
+            if (entity instanceof EntityDreadLich)
+                validBiomes.addAll((BiomeDictionary.getBiomes(BiomeDictionary.Type.SNOWY)));
+            experienceMin = 5;
+            experienceMax = 5;
+        }
         
         if (loot == null)
         {
@@ -353,6 +379,8 @@ class JerIceAndFireIntegration implements IJerIntegration
         final String myrmexTrash = "chest/myrmex_trash";
         // Cyclops
         final String cyclopsCave = "chests/cyclops_cave";
+        // Hydra
+        final String hydraCave = "chests/hydra_cave";
         
         // Dragons
         dungeonRegistry.registerCategory(fireDragon, "mia.jer.dungeon.fire_dragon");
@@ -364,6 +392,8 @@ class JerIceAndFireIntegration implements IJerIntegration
         dungeonRegistry.registerCategory(myrmexTrash, "mia.jer.dungeon.myrmex_trash");
         // Cyclops
         dungeonRegistry.registerCategory(cyclopsCave, "mia.jer.dungeon.cyclops_cave");
+        // Hydra
+        dungeonRegistry.registerCategory(hydraCave, "mia.jer.dungeon.hydra_cave");
         
         // Dragons
         dungeonRegistry.registerChest(fireDragon, WorldGenFireDragonCave.FIREDRAGON_CHEST);
@@ -375,6 +405,8 @@ class JerIceAndFireIntegration implements IJerIntegration
         dungeonRegistry.registerChest(myrmexTrash, WorldGenMyrmexDecoration.MYRMEX_TRASH_CHEST);
         // Cyclops
         dungeonRegistry.registerChest(cyclopsCave, WorldGenCyclopsCave.CYCLOPS_CHEST);
+        // Hydra
+        dungeonRegistry.registerChest(hydraCave, WorldGenHydraCave.HYDRA_CHEST);
     }
     
     @Nonnull

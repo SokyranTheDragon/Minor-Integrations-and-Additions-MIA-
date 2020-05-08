@@ -4,6 +4,7 @@ import com.gendeathrow.hatchery.api.crafting.ShredderRecipe;
 import com.gendeathrow.hatchery.block.shredder.ShredderTileEntity;
 import com.gendeathrow.hatchery.core.config.ConfigLootHandler;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.hatchery.IHatcheryIntegration;
@@ -27,6 +28,9 @@ class HatcheryIceAndFireIntegration implements IHatcheryIntegration
     public void registerShredder()
     {
         ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(IafItemRegistry.troll_tusk), new ItemStack(Items.DYE, 6, 15)));
+        for (EnumSkullType skull : EnumSkullType.values())
+            ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(skull.skull_item), new ItemStack(Items.DYE, 6, 15)));
+            
         ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(IafBlockRegistry.fire_lily), new ItemStack(Items.DYE, 2, 1)));
         ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(IafBlockRegistry.frost_lily), new ItemStack(Items.DYE, 2, 12)));
     }
