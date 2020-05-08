@@ -1,10 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.iceandfire;
 
 import cofh.thermalexpansion.util.managers.dynamo.NumismaticManager;
-import cofh.thermalexpansion.util.managers.machine.CrucibleManager;
-import cofh.thermalexpansion.util.managers.machine.PulverizerManager;
-import cofh.thermalexpansion.util.managers.machine.SawmillManager;
-import cofh.thermalexpansion.util.managers.machine.SmelterManager;
+import cofh.thermalexpansion.util.managers.machine.*;
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
@@ -181,6 +178,13 @@ class ThermalExpansionIceAndFireIntegration implements IThermalExpansionIntegrat
         // Magma Crucible
         CrucibleManager.addRecipe(1_600, new ItemStack(IafBlockRegistry.dragon_ice), new FluidStack(FluidRegistry.WATER, 1000));
         CrucibleManager.addRecipe(1_600, new ItemStack(IafBlockRegistry.dragon_ice_spikes), new FluidStack(FluidRegistry.WATER, 1000));
+        
+        // Glacial Precipitator
+        PrecipitatorManager.addRecipe(6_400, new ItemStack(IafBlockRegistry.dragon_ice), new FluidStack(FluidRegistry.WATER, 4000));
+        PrecipitatorManager.addRecipe(6_400, new ItemStack(IafBlockRegistry.dragon_ice_spikes), new FluidStack(FluidRegistry.WATER, 4000));
+        
+        // Fluid Transposer
+        TransposerManager.addFillRecipe(4_000, new ItemStack(IafBlockRegistry.dread_stone_bricks), new ItemStack(IafBlockRegistry.dread_stone_bricks_mossy), new FluidStack(FluidRegistry.WATER, 250), false);
     }
     
     @Nonnull

@@ -37,13 +37,6 @@ class IndustrialForegoingIceAndFireIntegration implements IIndustrialForegoingIn
     @Override
     public void addFrosterRecipe(TriConsumer<String, ItemStack, Integer> frosterEntry)
     {
-        frosterEntry.accept("DRAGON_FROZEN_COBBLESTONE", new ItemStack(IafBlockRegistry.frozenCobblestone), 1000);
-        frosterEntry.accept("DRAGON_FROZEN_DIRT", new ItemStack(IafBlockRegistry.frozenDirt), 1000);
-        frosterEntry.accept("DRAGON_FROZEN_GRASS", new ItemStack(IafBlockRegistry.frozenGrass), 1000);
-        frosterEntry.accept("DRAGON_FROZEN_GRASS_PATH", new ItemStack(IafBlockRegistry.frozenGrassPath), 1000);
-        frosterEntry.accept("DRAGON_FROZEN_GRAVEL", new ItemStack(IafBlockRegistry.frozenGravel), 1000);
-        frosterEntry.accept("DRAGON_FROZEN_SPLINTERS", new ItemStack(IafBlockRegistry.frozenSplinters), 1000);
-        frosterEntry.accept("DRAGON_FROZEN_STONE", new ItemStack(IafBlockRegistry.frozenStone), 1000);
         frosterEntry.accept("DRAGON_ICE", new ItemStack(IafBlockRegistry.dragon_ice), 4000);
         frosterEntry.accept("DRAGON_ICE", new ItemStack(IafBlockRegistry.dragon_ice_spikes), 4000);
     }

@@ -7,6 +7,7 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.world.gen.*;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
@@ -91,10 +92,10 @@ class JerIceAndFireIntegration implements IJerIntegration
         builder.add(EntityHydra.LOOT, EntityHydra.class);
         builder.add(EntityDreadBeast.LOOT, EntityDreadBeast.class);
         builder.add(EntityDreadGhoul.LOOT, EntityDreadGhoul.class);
-//        builder.add(EntityDreadHorse.LOOT, EntityDreadHorse.class);
+        builder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntityDreadHorse.class);
         builder.add(EntityDreadKnight.LOOT, EntityDreadKnight.class);
         builder.add(EntityDreadLich.LOOT, EntityDreadLich.class);
-//        builder.add(EntityDreadQueen.LOOT, EntityDreadQueen.class);
+        builder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntityDreadQueen.class);
         builder.add(EntityDreadScuttler.LOOT, EntityDreadScuttler.class);
         builder.add(EntityDreadThrall.LOOT, EntityDreadThrall.class);
         
@@ -124,8 +125,10 @@ class JerIceAndFireIntegration implements IJerIntegration
             EntityHydra.class,
             EntityDreadBeast.class,
             EntityDreadGhoul.class,
+            EntityDreadHorse.class,
             EntityDreadKnight.class,
             EntityDreadLich.class,
+            EntityDreadQueen.class,
             EntityDreadScuttler.class,
             EntityDreadThrall.class
         ).collect(Collectors.toSet());
@@ -324,8 +327,27 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
         else if (entity instanceof EntityDreadMob)
         {
-            if (entity instanceof EntityDreadLich)
+            if (loot != null)
+            {
+                if (entity instanceof EntityDreadKnight)
+                {
+                    loot.add(new LootDrop(IafItemRegistry.dread_knight_sword, 0, 1));
+                    loot.add(new LootDrop(EntityDreadKnight.SHIELD));
+                }
+                else if (entity instanceof EntityDreadLich)
+                {
+                    validBiomes.addAll((BiomeDictionary.getBiomes(BiomeDictionary.Type.SNOWY)));
+                    loot.add(new LootDrop(IafItemRegistry.lich_staff, 0, 1));
+                }
+                else if (entity instanceof EntityDreadQueen)
+                {
+                    loot.add(new LootDrop(IafItemRegistry.dread_queen_sword, 0, 1));
+                    loot.add(new LootDrop(IafItemRegistry.dread_queen_staff, 0, 1));
+                }
+            }
+            else if (entity instanceof EntityDreadKnight)
                 validBiomes.addAll((BiomeDictionary.getBiomes(BiomeDictionary.Type.SNOWY)));
+            
             experienceMin = 5;
             experienceMax = 5;
         }

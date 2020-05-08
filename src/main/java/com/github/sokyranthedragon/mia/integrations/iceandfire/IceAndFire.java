@@ -24,6 +24,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
@@ -31,34 +32,40 @@ import thaumcraft.api.aspects.AspectRegistryEvent;
 import java.util.function.BiConsumer;
 
 import static com.github.sokyranthedragon.mia.config.IceAndFireConfiguration.*;
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
 
 public class IceAndFire implements IBaseMod
 {
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        if (enableXu2Integration && ModIds.EXTRA_UTILITIES.isLoaded)
-            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsIceAndFireIntegration());
-        if (enableTeIntegration && ModIds.THERMAL_EXPANSION.isLoaded)
-            modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionIceAndFireIntegration());
-        if (enableJerIntegration && ModIds.JER.isLoaded)
-            modIntegration.accept(ModIds.JER, new JerIceAndFireIntegration());
-        if (enableTConstructIntegration && ModIds.TINKERS_CONSTRUCT.isLoaded)
-            modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
-        if (ModIds.HATCHERY.isLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
-        if (enableDungeonTacticsIntegration && ModIds.DUNGEON_TACTICS.isLoaded)
-            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsIceAndFireIntegration());
-        if (enableFutureMcIntegration && ModIds.FUTURE_MC.isLoaded)
-            modIntegration.accept(ModIds.FUTURE_MC, new FutureMcIceAndFireIntegration());
-        if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
-            modIntegration.accept(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoingIceAndFireIntegration());
+        if (enableXu2Integration && EXTRA_UTILITIES.isLoaded)
+            modIntegration.accept(EXTRA_UTILITIES, new ExtraUtilsIceAndFireIntegration());
+        if (enableTeIntegration && THERMAL_EXPANSION.isLoaded)
+            modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionIceAndFireIntegration());
+        if (enableJerIntegration && JER.isLoaded)
+            modIntegration.accept(JER, new JerIceAndFireIntegration());
+        if (enableTConstructIntegration && TINKERS_CONSTRUCT.isLoaded)
+            modIntegration.accept(TINKERS_CONSTRUCT, new TConstructIceAndFireIntegration());
+        if (HATCHERY.isLoaded)
+            modIntegration.accept(HATCHERY, new HatcheryIceAndFireIntegration(enableHatcheryIntegration));
+        if (enableDungeonTacticsIntegration && DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsIceAndFireIntegration());
+        if (enableFutureMcIntegration && FUTURE_MC.isLoaded)
+            modIntegration.accept(FUTURE_MC, new FutureMcIceAndFireIntegration());
+        if (INDUSTRIAL_FOREGOING.isLoaded)
+            modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingIceAndFireIntegration());
+        if (enableChiselIntegration && CHISEL.isLoaded)
+            modIntegration.accept(CHISEL, new ChiselIceAndFireIntegration());
     }
     
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (iceandfireAdditionsEnabled && !MiaConfig.disableAllRecipes)
+        if (!iceandfireAdditionsEnabled)
+            return;
+        
+        if (!MiaConfig.disableAllRecipes)
         {
             FurnaceRecipes furnaceRecipes = FurnaceRecipes.instance();
             
@@ -74,12 +81,23 @@ public class IceAndFire implements IBaseMod
             furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_leggings), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
             furnaceRecipes.addSmeltingRecipe(new ItemStack(IafItemRegistry.silver_boots), new ItemStack(IafItemRegistry.silverNugget), 0.1f);
         }
+        
+        if (!MiaConfig.disableOreDict)
+        {
+            OreDictionary.registerOre("logWood", new ItemStack(IafBlockRegistry.dreadwood_log));
+            OreDictionary.registerOre("plankWood", new ItemStack(IafBlockRegistry.dreadwood_planks));
+    
+            OreDictionary.registerOre("stoneDreastone", new ItemStack(IafBlockRegistry.dread_stone));
+            OreDictionary.registerOre("stoneDreastonePolished", new ItemStack(IafBlockRegistry.dread_stone_tile));
+            OreDictionary.registerOre("brickDreadstone", new ItemStack(IafBlockRegistry.dread_stone_bricks));
+            OreDictionary.registerOre("blockMossy", new ItemStack(IafBlockRegistry.dread_stone_bricks_mossy));
+        }
     }
     
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        if (ModIds.JER.isLoaded && enableJerIntegration && event.getSide() == Side.CLIENT)
+        if (JER.isLoaded && enableJerIntegration && event.getSide() == Side.CLIENT)
             registerRenderingOverride();
     }
     
@@ -102,7 +120,7 @@ public class IceAndFire implements IBaseMod
     }
     
     @Override
-    @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
+    @Optional.Method(modid = ConstantIds.THAUMCRAFT)
     public void registerAspects(AspectRegistryEvent event)
     {
         if (!iceandfireAdditionsEnabled)
