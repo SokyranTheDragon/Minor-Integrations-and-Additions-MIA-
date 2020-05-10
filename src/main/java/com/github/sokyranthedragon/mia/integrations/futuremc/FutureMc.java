@@ -12,15 +12,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import thedarkcolour.futuremc.block.BlockFurnaceAdvanced;
-import thedarkcolour.futuremc.init.Init;
-import thedarkcolour.futuremc.tile.TileCampfire;
+import thedarkcolour.futuremc.recipe.campfire.CampfireRecipes;
+import thedarkcolour.futuremc.recipe.furnace.BlastFurnaceRecipes;
+import thedarkcolour.futuremc.recipe.furnace.SmokerRecipes;
+import thedarkcolour.futuremc.recipe.stonecutter.StonecutterRecipes;
+import thedarkcolour.futuremc.registry.FBlocks;
+import thedarkcolour.futuremc.registry.FItems;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
-
-import static thedarkcolour.futuremc.block.BlockFurnaceAdvanced.Recipes.blastFurnaceRecipe;
 
 public class FutureMc implements IBaseMod
 {
@@ -60,11 +61,11 @@ public class FutureMc implements IBaseMod
     {
         if (FutureMcConfiguration.futureMcAdditionsEnabled && !MiaConfig.disableOreDict)
         {
-            OreDictionary.registerOre("blockHoney", Init.HONEY_BLOCK);
-            OreDictionary.registerOre("honeycomb", Init.HONEY_COMB);
-            OreDictionary.registerOre("listAllsugar", Init.HONEY_BOTTLE);
-            OreDictionary.registerOre("dropHoney", Init.HONEY_BOTTLE);
-            OreDictionary.registerOre("foodHoneydrop", Init.HONEY_BOTTLE);
+            OreDictionary.registerOre("blockHoney", FBlocks.INSTANCE.getHONEY_BLOCK());
+            OreDictionary.registerOre("honeycomb", FItems.INSTANCE.getHONEYCOMB());
+            OreDictionary.registerOre("listAllsugar", FItems.INSTANCE.getHONEY_BOTTLE());
+            OreDictionary.registerOre("dropHoney", FItems.INSTANCE.getHONEY_BOTTLE());
+            OreDictionary.registerOre("foodHoneydrop", FItems.INSTANCE.getHONEY_BOTTLE());
         }
         
         if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
@@ -81,8 +82,8 @@ public class FutureMc implements IBaseMod
     
     public static void addFoodRecipe(ItemStack input, ItemStack output, int duration)
     {
-        TileCampfire.Recipes.recipe(input, output, duration);
-        BlockFurnaceAdvanced.Recipes.smokerRecipe(input, output);
+        CampfireRecipes.INSTANCE.addRecipe(input, output, duration);
+        SmokerRecipes.INSTANCE.addRecipe(input, output);
     }
     
     public static void addFoodRecipe(ItemStack input, ItemStack output)
@@ -98,7 +99,7 @@ public class FutureMc implements IBaseMod
             if (!ores.isEmpty())
             {
                 ItemStack ore = ores.get(0);
-                blastFurnaceRecipe(input, new ItemStack(ore.getItem(), count, ore.getMetadata()));
+                BlastFurnaceRecipes.INSTANCE.addRecipe(input, new ItemStack(ore.getItem(), count, ore.getMetadata()));
                 return;
             }
         }
@@ -117,5 +118,30 @@ public class FutureMc implements IBaseMod
     public static void oreDictBlastFurnaceRecipe(Item input, String... outputs)
     {
         oreDictBlastFurnaceRecipe(new ItemStack(input), outputs);
+    }
+    
+    public static void addBlastFurnaceRecipe(ItemStack input, ItemStack output)
+    {
+        BlastFurnaceRecipes.INSTANCE.addRecipe(input, output);
+    }
+    
+    public static void addSmokerRecipe(ItemStack input, ItemStack output)
+    {
+        SmokerRecipes.INSTANCE.addRecipe(input, output);
+    }
+    
+    public static void addOrCreateStonecutterRecipe(ItemStack input, ItemStack... output)
+    {
+        StonecutterRecipes.INSTANCE.addOrCreateRecipe(input, output);
+    }
+    
+    public static void addCampfireRecipe(ItemStack input, ItemStack output, int duration)
+    {
+        CampfireRecipes.INSTANCE.addRecipe(input, output, duration);
+    }
+    
+    public static void addCampfireRecipe(ItemStack input, ItemStack output)
+    {
+        addCampfireRecipe(input, output, 600);
     }
 }

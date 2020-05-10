@@ -7,8 +7,8 @@ import com.github.sokyranthedragon.mia.integrations.futuremc.IFutureMcIntegratio
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.item.ItemStack;
 
-import static thedarkcolour.futuremc.block.BlockFurnaceAdvanced.Recipes.blastFurnaceRecipe;
-import static thedarkcolour.futuremc.recipe.StonecutterRecipes.addOrCreateRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addBlastFurnaceRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addOrCreateStonecutterRecipe;
 
 @MethodsReturnNonnullByDefault
 class FutureMcBopIntegration implements IFutureMcIntegration
@@ -17,14 +17,14 @@ class FutureMcBopIntegration implements IFutureMcIntegration
     public void addRecipes()
     {
         for (int meta = 0; meta <= 7; meta++)
-            blastFurnaceRecipe(new ItemStack(BOPBlocks.gem_ore, 1, meta), new ItemStack(BOPItems.gem, 1, meta));
+            addBlastFurnaceRecipe(new ItemStack(BOPBlocks.gem_ore, 1, meta), new ItemStack(BOPItems.gem, 1, meta));
         
-        addOrCreateRecipe(new ItemStack(BOPBlocks.white_sandstone, 1, 0),
+        addOrCreateStonecutterRecipe(new ItemStack(BOPBlocks.white_sandstone, 1, 0),
                 new ItemStack(BOPBlocks.white_sandstone, 1, 1),
                 new ItemStack(BOPBlocks.white_sandstone, 1, 1),
                 new ItemStack(BOPBlocks.white_sandstone_stairs, 1),
                 new ItemStack(BOPBlocks.other_slab, 2, 1));
-        addOrCreateRecipe(new ItemStack(BOPBlocks.mud_brick_block),
+        addOrCreateStonecutterRecipe(new ItemStack(BOPBlocks.mud_brick_block),
                 new ItemStack(BOPBlocks.mud_brick_stairs),
                 new ItemStack(BOPBlocks.other_slab, 2, 0));
     }

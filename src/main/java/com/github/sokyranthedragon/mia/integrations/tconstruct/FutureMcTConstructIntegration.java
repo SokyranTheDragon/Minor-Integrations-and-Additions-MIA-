@@ -9,12 +9,10 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import thedarkcolour.futuremc.tile.TileCampfire;
 
 import javax.annotation.Nonnull;
 
-import static thedarkcolour.futuremc.block.BlockFurnaceAdvanced.Recipes.blastFurnaceRecipe;
-import static thedarkcolour.futuremc.recipe.StonecutterRecipes.addOrCreateRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.*;
 
 class FutureMcTConstructIntegration implements IFutureMcIntegration
 {
@@ -23,26 +21,26 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
     {
         if (TConstruct.pulseManager.isPulseLoaded(TinkerCommons.PulseId))
         {
-            blastFurnaceRecipe(TinkerCommons.oreCobalt, TinkerCommons.ingotCobalt);
-            blastFurnaceRecipe(TinkerCommons.oreArdite, TinkerCommons.ingotArdite);
+            addBlastFurnaceRecipe(TinkerCommons.oreCobalt, TinkerCommons.ingotCobalt);
+            addBlastFurnaceRecipe(TinkerCommons.oreArdite, TinkerCommons.ingotArdite);
             
-            addOrCreateRecipe(TinkerCommons.mudBrickBlock, new ItemStack(TinkerCommons.slabDecoGround, 2), new ItemStack(TinkerCommons.stairsMudBrick));
+            addOrCreateStonecutterRecipe(TinkerCommons.mudBrickBlock, new ItemStack(TinkerCommons.slabDecoGround, 2), new ItemStack(TinkerCommons.stairsMudBrick));
         }
         
         if (TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId))
         {
             registerSeared(0,
-                    new ItemStack(TinkerSmeltery.searedStairsStone),
-                    new ItemStack(TinkerSmeltery.searedSlab, 2, 0),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 2),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 3),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 5),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 6),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 7),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 8),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 9),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 10),
-                    new ItemStack(TinkerSmeltery.searedBlock, 1, 11));
+                new ItemStack(TinkerSmeltery.searedStairsStone),
+                new ItemStack(TinkerSmeltery.searedSlab, 2, 0),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 2),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 3),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 5),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 6),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 7),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 8),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 9),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 10),
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 11));
             registerSeared(1, new ItemStack(TinkerSmeltery.searedSlab, 2, 1), new ItemStack(TinkerSmeltery.searedStairsCobble));
             registerDoubleSeared(2, new ItemStack(TinkerSmeltery.searedSlab, 2, 2), new ItemStack(TinkerSmeltery.searedStairsPaver));
             registerDoubleSeared(3, new ItemStack(TinkerSmeltery.searedSlab, 2, 3), new ItemStack(TinkerSmeltery.searedStairsBrick));
@@ -58,28 +56,28 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
         
         if (TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId))
         {
-            TileCampfire.Recipes.recipe(new ItemStack(TinkerGadgets.spaghetti, 1, 1), new ItemStack(TinkerGadgets.spaghetti, 1, 2), 20 * 60 * 15);
+            addCampfireRecipe(new ItemStack(TinkerGadgets.spaghetti, 1, 1), new ItemStack(TinkerGadgets.spaghetti, 1, 2), 20 * 60 * 15);
             FutureMc.addFoodRecipe(new ItemStack(TinkerGadgets.spaghetti, 1, 2), new ItemStack(TinkerGadgets.momsSpaghetti));
             
-            addOrCreateRecipe(new ItemStack(TinkerGadgets.driedClay, 1, 0),
-                    new ItemStack(TinkerGadgets.driedClaySlab, 2, 0),
-                    new ItemStack(TinkerGadgets.driedClayStairs));
-            addOrCreateRecipe(new ItemStack(TinkerGadgets.driedClay, 1, 1),
-                    new ItemStack(TinkerGadgets.driedClaySlab, 2, 1),
-                    new ItemStack(TinkerGadgets.driedBrickStairs));
+            addOrCreateStonecutterRecipe(new ItemStack(TinkerGadgets.driedClay, 1, 0),
+                new ItemStack(TinkerGadgets.driedClaySlab, 2, 0),
+                new ItemStack(TinkerGadgets.driedClayStairs));
+            addOrCreateStonecutterRecipe(new ItemStack(TinkerGadgets.driedClay, 1, 1),
+                new ItemStack(TinkerGadgets.driedClaySlab, 2, 1),
+                new ItemStack(TinkerGadgets.driedBrickStairs));
             
             registerBrownstone(0,
-                    new ItemStack(TinkerGadgets.brownstoneSlab, 2, 0),
-                    new ItemStack(TinkerGadgets.brownstoneStairsSmooth),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 2),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 3),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 5),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 6),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 7),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 8),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 9),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 10),
-                    new ItemStack(TinkerGadgets.brownstone, 1, 11));
+                new ItemStack(TinkerGadgets.brownstoneSlab, 2, 0),
+                new ItemStack(TinkerGadgets.brownstoneStairsSmooth),
+                new ItemStack(TinkerGadgets.brownstone, 1, 2),
+                new ItemStack(TinkerGadgets.brownstone, 1, 3),
+                new ItemStack(TinkerGadgets.brownstone, 1, 5),
+                new ItemStack(TinkerGadgets.brownstone, 1, 6),
+                new ItemStack(TinkerGadgets.brownstone, 1, 7),
+                new ItemStack(TinkerGadgets.brownstone, 1, 8),
+                new ItemStack(TinkerGadgets.brownstone, 1, 9),
+                new ItemStack(TinkerGadgets.brownstone, 1, 10),
+                new ItemStack(TinkerGadgets.brownstone, 1, 11));
             registerBrownstone(1, new ItemStack(TinkerGadgets.brownstoneSlab, 2, 1), new ItemStack(TinkerGadgets.brownstoneStairsRough));
             registerDoubleBrownstone(2, new ItemStack(TinkerGadgets.brownstoneSlab, 2, 2), new ItemStack(TinkerGadgets.brownstoneStairsPaver));
             registerDoubleBrownstone(3, new ItemStack(TinkerGadgets.brownstoneSlab, 2, 3), new ItemStack(TinkerGadgets.brownstoneStairsBrick));
@@ -96,7 +94,7 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
     
     private static void registerRecipe(Block block, int meta, ItemStack... outputs)
     {
-        addOrCreateRecipe(new ItemStack(block, meta), outputs);
+        addOrCreateStonecutterRecipe(new ItemStack(block, meta), outputs);
     }
     
     private static void registerSeared(int meta, ItemStack... outputs)

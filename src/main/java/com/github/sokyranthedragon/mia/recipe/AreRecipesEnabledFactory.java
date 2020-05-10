@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.crafting.IConditionFactory;
 import net.minecraftforge.common.crafting.JsonContext;
-import thedarkcolour.futuremc.init.FutureConfig;
 import vazkii.quark.building.feature.MoreSandstone;
 
 import java.util.function.BooleanSupplier;
@@ -49,7 +48,7 @@ public class AreRecipesEnabledFactory implements IConditionFactory
                                     isEnabled = false;
                                 break;
                             case "futuremc_wall":
-                                if (!FUTURE_MC.isLoaded || !moreSandstone.sandstoneWallsFutureMcEnabled || (!FutureConfig.general.newWallVariants && !moreSandstone.forceMoreSandstoneFutureMcWalls))
+                                if (!FUTURE_MC.isLoaded || !moreSandstone.sandstoneWallsFutureMcEnabled)
                                     isEnabled = false;
                                 break;
                         }

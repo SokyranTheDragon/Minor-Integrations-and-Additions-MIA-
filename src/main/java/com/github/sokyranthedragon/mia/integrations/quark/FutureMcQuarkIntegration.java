@@ -6,7 +6,6 @@ import com.github.sokyranthedragon.mia.utilities.ItemStackUtils;
 import com.github.sokyranthedragon.mia.utilities.QuarkUtils;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import thedarkcolour.futuremc.block.BlockFurnaceAdvanced;
 import vazkii.quark.building.block.BlockWorldStoneBricks;
 import vazkii.quark.building.block.BlockWorldStonePavement;
 import vazkii.quark.building.feature.*;
@@ -17,8 +16,7 @@ import javax.annotation.Nonnull;
 
 import static com.github.sokyranthedragon.mia.integrations.ModIds.FUTURE_MC;
 import static com.github.sokyranthedragon.mia.integrations.ModIds.QUARK;
-import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addFoodRecipe;
-import static thedarkcolour.futuremc.recipe.StonecutterRecipes.addOrCreateRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.*;
 
 class FutureMcQuarkIntegration implements IFutureMcIntegration
 {
@@ -35,9 +33,9 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         
         if (soulSandstoneEnabled)
         {
-            addOrCreateRecipe(new ItemStack(SoulSandstone.soul_sandstone),
-                    new ItemStack(SoulSandstone.soul_sandstone, 1, 1),
-                    new ItemStack(SoulSandstone.soul_sandstone, 1, 2));
+            addOrCreateStonecutterRecipe(new ItemStack(SoulSandstone.soul_sandstone),
+                new ItemStack(SoulSandstone.soul_sandstone, 1, 1),
+                new ItemStack(SoulSandstone.soul_sandstone, 1, 2));
 
 //            registerSlabs(new ItemStack(SoulSandstone.soul_sandstone), "soul_sandstone");
             if (SoulSandstone.enableStairs)
@@ -48,17 +46,17 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         
         if (QuarkUtils.isFeatureEnabled(MoreSandstone.class))
         {
-            addOrCreateRecipe(new ItemStack(Blocks.SANDSTONE),
-                    new ItemStack(MoreSandstone.sandstone_new, 1, 0),
-                    new ItemStack(MoreSandstone.sandstone_new, 1, 1));
-            addOrCreateRecipe(new ItemStack(Blocks.RED_SANDSTONE),
-                    new ItemStack(MoreSandstone.sandstone_new, 1, 2),
-                    new ItemStack(MoreSandstone.sandstone_new, 1, 3));
+            addOrCreateStonecutterRecipe(new ItemStack(Blocks.SANDSTONE),
+                new ItemStack(MoreSandstone.sandstone_new, 1, 0),
+                new ItemStack(MoreSandstone.sandstone_new, 1, 1));
+            addOrCreateStonecutterRecipe(new ItemStack(Blocks.RED_SANDSTONE),
+                new ItemStack(MoreSandstone.sandstone_new, 1, 2),
+                new ItemStack(MoreSandstone.sandstone_new, 1, 3));
             if (soulSandstoneEnabled)
             {
-                addOrCreateRecipe(new ItemStack(SoulSandstone.soul_sandstone),
-                        new ItemStack(MoreSandstone.sandstone_new, 1, 4),
-                        new ItemStack(MoreSandstone.sandstone_new, 1, 5));
+                addOrCreateStonecutterRecipe(new ItemStack(SoulSandstone.soul_sandstone),
+                    new ItemStack(MoreSandstone.sandstone_new, 1, 4),
+                    new ItemStack(MoreSandstone.sandstone_new, 1, 5));
             }
             
             if (MoreSandstone.enableStairsAndSlabs)
@@ -138,11 +136,11 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         
         if (QuarkUtils.isFeatureEnabled(Biotite.class))
         {
-            BlockFurnaceAdvanced.Recipes.blastFurnaceRecipe(new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite));
+            addBlastFurnaceRecipe(new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite));
             
-            addOrCreateRecipe(new ItemStack(Biotite.biotite_block),
-                    new ItemStack(Biotite.biotite_block, 1, 1),
-                    new ItemStack(Biotite.biotite_block, 1, 2));
+            addOrCreateStonecutterRecipe(new ItemStack(Biotite.biotite_block),
+                new ItemStack(Biotite.biotite_block, 1, 1),
+                new ItemStack(Biotite.biotite_block, 1, 2));
             
             registerStairsAndSlabs(new ItemStack(Biotite.biotite_block), "biotite");
             if (Biotite.enableWalls)
@@ -151,13 +149,13 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         
         if (QuarkUtils.isFeatureEnabled(PolishedStone.class))
         {
-            addOrCreateRecipe(new ItemStack(Blocks.STONE), new ItemStack(PolishedStone.polished_stone));
-            addOrCreateRecipe(new ItemStack(PolishedStone.polished_stone), new ItemStack(Blocks.STONE_SLAB));
+            addOrCreateStonecutterRecipe(new ItemStack(Blocks.STONE), new ItemStack(PolishedStone.polished_stone));
+            addOrCreateStonecutterRecipe(new ItemStack(PolishedStone.polished_stone), new ItemStack(Blocks.STONE_SLAB));
         }
         
         if (QuarkUtils.isFeatureEnabled(PolishedNetherrack.class))
         {
-            addOrCreateRecipe(new ItemStack(PolishedNetherrack.polished_netherrack), new ItemStack(PolishedNetherrack.polished_netherrack, 1, 1));
+            addOrCreateStonecutterRecipe(new ItemStack(PolishedNetherrack.polished_netherrack), new ItemStack(PolishedNetherrack.polished_netherrack, 1, 1));
             if (PolishedNetherrack.enableStairsAndSlabs)
             {
                 registerStairsAndSlabs(new ItemStack(PolishedNetherrack.polished_netherrack), "polished_netherrack_bricks");
@@ -174,7 +172,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         {
             if (RevampStoneGen.enableMarble)
             {
-                addOrCreateRecipe(new ItemStack(RevampStoneGen.marble), new ItemStack(RevampStoneGen.marble, 1, 1));
+                addOrCreateStonecutterRecipe(new ItemStack(RevampStoneGen.marble), new ItemStack(RevampStoneGen.marble, 1, 1));
                 if (RevampStoneGen.enableStairsAndSlabs)
                     registerStairsAndSlabs(new ItemStack(RevampStoneGen.marble), "stone_marble");
                 if (RevampStoneGen.enableWalls)
@@ -182,7 +180,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
             }
             if (RevampStoneGen.enableLimestone)
             {
-                addOrCreateRecipe(new ItemStack(RevampStoneGen.limestone), new ItemStack(RevampStoneGen.limestone, 1, 1));
+                addOrCreateStonecutterRecipe(new ItemStack(RevampStoneGen.limestone), new ItemStack(RevampStoneGen.limestone, 1, 1));
                 if (RevampStoneGen.enableStairsAndSlabs)
                     registerStairsAndSlabs(new ItemStack(RevampStoneGen.limestone), "stone_limestone");
                 if (RevampStoneGen.enableWalls)
@@ -190,7 +188,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
             }
             if (RevampStoneGen.enableJasper)
             {
-                addOrCreateRecipe(new ItemStack(RevampStoneGen.jasper), new ItemStack(RevampStoneGen.jasper, 1, 1));
+                addOrCreateStonecutterRecipe(new ItemStack(RevampStoneGen.jasper), new ItemStack(RevampStoneGen.jasper, 1, 1));
                 if (RevampStoneGen.enableStairsAndSlabs)
                     registerStairsAndSlabs(new ItemStack(RevampStoneGen.jasper), "stone_jasper");
                 if (RevampStoneGen.enableWalls)
@@ -198,7 +196,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
             }
             if (RevampStoneGen.enableSlate)
             {
-                addOrCreateRecipe(new ItemStack(RevampStoneGen.slate), new ItemStack(RevampStoneGen.slate, 1, 1));
+                addOrCreateStonecutterRecipe(new ItemStack(RevampStoneGen.slate), new ItemStack(RevampStoneGen.slate, 1, 1));
                 if (RevampStoneGen.enableStairsAndSlabs)
                     registerStairsAndSlabs(new ItemStack(RevampStoneGen.slate), "stone_slate");
                 if (RevampStoneGen.enableWalls)
@@ -210,7 +208,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         {
             if (UndergroundBiomes.firestoneEnabled)
             {
-                addOrCreateRecipe(new ItemStack(UndergroundBiomes.biome_cobblestone), new ItemStack(UndergroundBiomes.biome_brick));
+                addOrCreateStonecutterRecipe(new ItemStack(UndergroundBiomes.biome_cobblestone), new ItemStack(UndergroundBiomes.biome_brick));
                 if (UndergroundBiomes.enableStairsAndSlabs)
                 {
                     registerStairsAndSlabs(new ItemStack(UndergroundBiomes.biome_cobblestone), "fire_stone");
@@ -226,7 +224,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
             }
             if (UndergroundBiomes.icystoneEnabled)
             {
-                addOrCreateRecipe(new ItemStack(UndergroundBiomes.biome_cobblestone, 1, 1), new ItemStack(UndergroundBiomes.biome_brick, 1, 1));
+                addOrCreateStonecutterRecipe(new ItemStack(UndergroundBiomes.biome_cobblestone, 1, 1), new ItemStack(UndergroundBiomes.biome_brick, 1, 1));
                 if (UndergroundBiomes.enableStairsAndSlabs)
                 {
                     registerStairsAndSlabs(new ItemStack(UndergroundBiomes.biome_cobblestone, 1, 1), "icy_stone");
@@ -261,7 +259,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         
         if (QuarkUtils.isFeatureEnabled(Basalt.class))
         {
-            addOrCreateRecipe(new ItemStack(Basalt.basalt), new ItemStack(Basalt.basalt));
+            addOrCreateStonecutterRecipe(new ItemStack(Basalt.basalt), new ItemStack(Basalt.basalt));
             
             if (Basalt.enableStairsAndSlabs)
                 registerStairsAndSlabs(new ItemStack(Basalt.basalt), "stone_basalt");
@@ -287,7 +285,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         
         if (QuarkUtils.isFeatureEnabled(MidoriBlocks.class))
         {
-            addOrCreateRecipe(new ItemStack(MidoriBlocks.midori_block), new ItemStack(MidoriBlocks.midori_pillar));
+            addOrCreateStonecutterRecipe(new ItemStack(MidoriBlocks.midori_block), new ItemStack(MidoriBlocks.midori_pillar));
             if (MidoriBlocks.enableStairsAndSlabs)
                 registerStairsAndSlabs(new ItemStack(MidoriBlocks.midori_block), "midori_block");
             if (MidoriBlocks.enableWalls)
@@ -344,7 +342,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
                     }
                     
                     if (!input.isEmpty())
-                        addOrCreateRecipe(input, new ItemStack(WorldStonePavement.world_stone_pavement, 1, value.ordinal()));
+                        addOrCreateStonecutterRecipe(input, new ItemStack(WorldStonePavement.world_stone_pavement, 1, value.ordinal()));
                 }
             }
         }
@@ -411,10 +409,10 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
                     
                     ItemStack brick = new ItemStack(WorldStoneBricks.world_stone_bricks, 1, value.ordinal());
                     if (!input.isEmpty())
-                        addOrCreateRecipe(input, brick);
+                        addOrCreateStonecutterRecipe(input, brick);
                     if (!inputSecond.isEmpty())
-                        addOrCreateRecipe(inputSecond, brick);
-                    addOrCreateRecipe(brick, new ItemStack(WorldStoneBricks.world_stone_chiseled, 1, value.ordinal()));
+                        addOrCreateStonecutterRecipe(inputSecond, brick);
+                    addOrCreateStonecutterRecipe(brick, new ItemStack(WorldStoneBricks.world_stone_chiseled, 1, value.ordinal()));
                     if (WorldStoneBricks.enableStairsAndSlabs)
                         registerStairsAndSlabs(brick, value.getName());
                     if (WorldStoneBricks.enableWalls)
@@ -434,19 +432,19 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
     {
         ItemStackUtils.getStack(QUARK, name + "_slab", 2)
                       .ifPresent(slab ->
-                              addOrCreateRecipe(input, slab));
+                          addOrCreateStonecutterRecipe(input, slab));
     }
     
     private static void registerStairs(ItemStack input, String name)
     {
         ItemStackUtils.getStack(QUARK, name + "_stairs")
                       .ifPresent(stairs ->
-                              addOrCreateRecipe(input, stairs));
+                          addOrCreateStonecutterRecipe(input, stairs));
     }
     
     private static void registerWalls(ItemStack input, String name)
     {
-        ItemStackUtils.getStack(QUARK, name + "_wall").ifPresent(wall -> addOrCreateRecipe(input, wall));
+        ItemStackUtils.getStack(QUARK, name + "_wall").ifPresent(wall -> addOrCreateStonecutterRecipe(input, wall));
     }
     
     @Override

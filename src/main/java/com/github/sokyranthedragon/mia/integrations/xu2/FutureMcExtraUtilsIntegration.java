@@ -8,28 +8,28 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import static thedarkcolour.futuremc.recipe.StonecutterRecipes.addOrCreateRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addOrCreateStonecutterRecipe;
 
 class FutureMcExtraUtilsIntegration implements IFutureMcIntegration
 {
     @Override
     public void addRecipes()
     {
-        addOrCreateRecipe(new ItemStack(Blocks.STONE),
-                XU2Entries.decorativeSolid.newStackMeta(0),
-                XU2Entries.decorativeSolid.newStackMeta(1),
-                XU2Entries.decorativeSolid.newStackMeta(2),
-                XU2Entries.decorativeSolid.newStackMeta(5));
-        addOrCreateRecipe(new ItemStack(Blocks.STONEBRICK),
-                XU2Entries.decorativeSolid.newStackMeta(0),
-                XU2Entries.decorativeSolid.newStackMeta(1),
-                XU2Entries.decorativeSolid.newStackMeta(2),
-                XU2Entries.decorativeSolid.newStackMeta(5));
-        addOrCreateRecipe(XU2Entries.decorativeSolid.newStackMeta(0),
-                XU2Entries.decorativeSolid.newStackMeta(1),
-                XU2Entries.decorativeSolid.newStackMeta(5));
-        addOrCreateRecipe(XU2Entries.decorativeSolid.newStackMeta(2),
-                XU2Entries.decorativeSolid.newStackMeta(5));
+        addOrCreateStonecutterRecipe(new ItemStack(Blocks.STONE),
+            XU2Entries.decorativeSolid.newStackMeta(0),
+            XU2Entries.decorativeSolid.newStackMeta(1),
+            XU2Entries.decorativeSolid.newStackMeta(2),
+            XU2Entries.decorativeSolid.newStackMeta(5));
+        addOrCreateStonecutterRecipe(new ItemStack(Blocks.STONEBRICK),
+            XU2Entries.decorativeSolid.newStackMeta(0),
+            XU2Entries.decorativeSolid.newStackMeta(1),
+            XU2Entries.decorativeSolid.newStackMeta(2),
+            XU2Entries.decorativeSolid.newStackMeta(5));
+        addOrCreateStonecutterRecipe(XU2Entries.decorativeSolid.newStackMeta(0),
+            XU2Entries.decorativeSolid.newStackMeta(1),
+            XU2Entries.decorativeSolid.newStackMeta(5));
+        addOrCreateStonecutterRecipe(XU2Entries.decorativeSolid.newStackMeta(2),
+            XU2Entries.decorativeSolid.newStackMeta(5));
     }
     
     @Override

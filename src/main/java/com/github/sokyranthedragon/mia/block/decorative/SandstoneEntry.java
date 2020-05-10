@@ -14,8 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.registries.IForgeRegistry;
-import thedarkcolour.futuremc.init.FutureConfig;
-import thedarkcolour.futuremc.recipe.StonecutterRecipes;
 import vazkii.quark.base.block.BlockQuarkWall;
 import vazkii.quark.building.feature.MoreSandstone;
 import vazkii.quark.building.feature.VanillaWalls;
@@ -29,6 +27,7 @@ import java.util.function.BiConsumer;
 import static com.github.sokyranthedragon.mia.config.GenericAdditionsConfig.moreSandstone;
 import static com.github.sokyranthedragon.mia.core.MiaBlocks.registerBlock;
 import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addOrCreateStonecutterRecipe;
 import static com.github.sokyranthedragon.mia.utilities.QuarkUtils.isFeatureEnabled;
 
 @MethodsReturnNonnullByDefault
@@ -71,7 +70,7 @@ public class SandstoneEntry implements IBlockEntry
             }
         }
         
-        if (FUTURE_MC.isLoaded && moreSandstone.sandstoneWallsFutureMcEnabled && (FutureConfig.general.newWallVariants || moreSandstone.forceMoreSandstoneFutureMcWalls))
+        if (FUTURE_MC.isLoaded && moreSandstone.sandstoneWallsFutureMcEnabled)
             wallFutureMc = registerBlock(getFutureMcWall(sandstoneName, creativeTab, mapColor));
     }
     
@@ -134,7 +133,7 @@ public class SandstoneEntry implements IBlockEntry
             List<ItemStack> toRegister = new ArrayList<>(7);
             addIfNotNull(toRegister, sandstone.sandstone, 0);
             addIfNotNull(toRegister, sandstone.sandstone, 1);
-        
+            
             if (toRegister.size() > 0)
                 chiselSender.accept(chiselName, toRegister.toArray(new ItemStack[2]));
         }
@@ -143,7 +142,7 @@ public class SandstoneEntry implements IBlockEntry
     @Method(modid = ConstantIds.FUTURE_MC)
     protected static void registerStonecutter(Block source, Collection<ItemStack> toRegister)
     {
-        StonecutterRecipes.addOrCreateRecipe(new ItemStack(source), toRegister.toArray(new ItemStack[0]));
+        addOrCreateStonecutterRecipe(new ItemStack(source), toRegister.toArray(new ItemStack[0]));
     }
     
     private static void addIfNotNull(List<ItemStack> list, Block block)

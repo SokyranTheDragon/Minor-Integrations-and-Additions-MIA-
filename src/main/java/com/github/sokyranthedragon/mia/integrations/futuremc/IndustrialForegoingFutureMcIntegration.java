@@ -5,7 +5,7 @@ import com.github.sokyranthedragon.mia.integrations.industrialforegoing.IIndustr
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.util.TriConsumer;
-import thedarkcolour.futuremc.init.Init;
+import thedarkcolour.futuremc.registry.FBlocks;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -16,7 +16,7 @@ class IndustrialForegoingFutureMcIntegration implements IIndustrialForegoingInte
     @Override
     public void addFrosterRecipe(TriConsumer<String, ItemStack, Integer> frosterEntry)
     {
-        frosterEntry.accept("BLUE_ICE", new ItemStack(Init.BLUE_ICE), 8000);
+        frosterEntry.accept("BLUE_ICE", new ItemStack(FBlocks.INSTANCE.getBLUE_ICE()), 8000);
     }
     
     @Override
