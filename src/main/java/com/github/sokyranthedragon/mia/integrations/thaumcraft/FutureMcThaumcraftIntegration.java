@@ -29,19 +29,19 @@ class FutureMcThaumcraftIntegration implements IFutureMcIntegration
         addBlastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1, 6), new ItemStack(ItemsTC.quicksilver, 2));
         addBlastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1, 7), new ItemStack(Items.QUARTZ, 2));
         
-        addOrCreateStonecutterRecipe(new ItemStack(BlocksTC.stoneArcane),
+        addStonecutterRecipes(new ItemStack(BlocksTC.stoneArcane),
             new ItemStack(BlocksTC.stoneArcaneBrick),
             new ItemStack(BlocksTC.stairsArcane),
             new ItemStack(BlocksTC.slabArcaneStone, 2),
             new ItemStack(BlocksTC.stairsArcaneBrick),
             new ItemStack(BlocksTC.slabArcaneBrick, 2));
-        addOrCreateStonecutterRecipe(new ItemStack(BlocksTC.stoneArcaneBrick),
+        addStonecutterRecipes(new ItemStack(BlocksTC.stoneArcaneBrick),
             new ItemStack(BlocksTC.stairsArcaneBrick),
             new ItemStack(BlocksTC.slabArcaneBrick, 2));
-        addOrCreateStonecutterRecipe(new ItemStack(BlocksTC.stoneAncient),
+        addStonecutterRecipes(new ItemStack(BlocksTC.stoneAncient),
             new ItemStack(BlocksTC.stairsAncient),
             new ItemStack(BlocksTC.slabAncient, 2));
-        addOrCreateStonecutterRecipe(new ItemStack(BlocksTC.stoneEldritchTile),
+        addStonecutterRecipes(new ItemStack(BlocksTC.stoneEldritchTile),
             new ItemStack(BlocksTC.slabEldritch, 2));
     }
     

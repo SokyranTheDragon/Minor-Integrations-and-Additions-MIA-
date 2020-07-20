@@ -65,7 +65,7 @@ repositories {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2836"
+    version = "1.12.2-14.23.5.2847"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.
@@ -223,10 +223,10 @@ dependencies {
 
     if (project.run_future_mc.equals("true")) {
         kotlinSupport = true
-        deobfProvided "curse.maven:FutureMC_0.2.02:2924986"
+        deobfProvided "curse.maven:FutureMC_0.2.3.2:2976806"
     }
     else
-        compileOnly "curse.maven:FutureMC_0.2.02:2924986"
+        compileOnly "curse.maven:FutureMC_0.2.3.2:2976806"
 
     if (project.run_biomes_o_plenty.equals("true"))
         deobfProvided "curse.maven:Biomes_O_Plenty_7.0.1.2444:2842510"

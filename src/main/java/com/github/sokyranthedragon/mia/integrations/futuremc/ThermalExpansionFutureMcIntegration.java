@@ -33,10 +33,10 @@ class ThermalExpansionFutureMcIntegration implements IThermalExpansionIntegratio
         FactorizerManager.addDefaultRecipe(new ItemStack(FItems.INSTANCE.getHONEY_BOTTLE()), new ItemStack(FBlocks.INSTANCE.getHONEY_BLOCK()), 4);
         
         // Arcane Enscroller
-        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FItems.INSTANCE.getBAMBOO(), 64), "minecraftfuture:impaling", 0);
-        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE(), 32), "minecraftfuture:channeling", 3);
-        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getHONEY_BLOCK(), 8), "minecraftfuture:loyalty", 2);
-        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getBLUE_ICE(), 1), "minecraftfuture:riptide", 3);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FItems.INSTANCE.getBAMBOO(), 64), "futuremc:impaling", 0);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE(), 32), "futuremc:channeling", 3);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getHONEY_BLOCK(), 8), "futuremc:loyalty", 2);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getBLUE_ICE(), 1), "futuremc:riptide", 3);
     }
     
     @Nonnull

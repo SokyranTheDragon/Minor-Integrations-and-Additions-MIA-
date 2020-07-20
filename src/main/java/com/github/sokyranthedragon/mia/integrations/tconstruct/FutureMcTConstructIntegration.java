@@ -24,7 +24,7 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
             addBlastFurnaceRecipe(TinkerCommons.oreCobalt, TinkerCommons.ingotCobalt);
             addBlastFurnaceRecipe(TinkerCommons.oreArdite, TinkerCommons.ingotArdite);
             
-            addOrCreateStonecutterRecipe(TinkerCommons.mudBrickBlock, new ItemStack(TinkerCommons.slabDecoGround, 2), new ItemStack(TinkerCommons.stairsMudBrick));
+            addStonecutterRecipes(TinkerCommons.mudBrickBlock, new ItemStack(TinkerCommons.slabDecoGround, 2), new ItemStack(TinkerCommons.stairsMudBrick));
         }
         
         if (TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId))
@@ -59,10 +59,10 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
             addCampfireRecipe(new ItemStack(TinkerGadgets.spaghetti, 1, 1), new ItemStack(TinkerGadgets.spaghetti, 1, 2), 20 * 60 * 15);
             FutureMc.addFoodRecipe(new ItemStack(TinkerGadgets.spaghetti, 1, 2), new ItemStack(TinkerGadgets.momsSpaghetti));
             
-            addOrCreateStonecutterRecipe(new ItemStack(TinkerGadgets.driedClay, 1, 0),
+            addStonecutterRecipes(new ItemStack(TinkerGadgets.driedClay, 1, 0),
                 new ItemStack(TinkerGadgets.driedClaySlab, 2, 0),
                 new ItemStack(TinkerGadgets.driedClayStairs));
-            addOrCreateStonecutterRecipe(new ItemStack(TinkerGadgets.driedClay, 1, 1),
+            addStonecutterRecipes(new ItemStack(TinkerGadgets.driedClay, 1, 1),
                 new ItemStack(TinkerGadgets.driedClaySlab, 2, 1),
                 new ItemStack(TinkerGadgets.driedBrickStairs));
             
@@ -94,7 +94,7 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
     
     private static void registerRecipe(Block block, int meta, ItemStack... outputs)
     {
-        addOrCreateStonecutterRecipe(new ItemStack(block, meta), outputs);
+        addStonecutterRecipes(new ItemStack(block, meta), outputs);
     }
     
     private static void registerSeared(int meta, ItemStack... outputs)

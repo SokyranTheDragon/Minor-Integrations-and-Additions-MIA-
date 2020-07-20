@@ -38,7 +38,7 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ConstantIds.EXTRABOTANY +
                 ";after:" + ModIds.ConstantIds.QUARK +
                 ";after:" + ModIds.ConstantIds.CRAFT_TWEAKER +
-                ";after:" + ModIds.ConstantIds.FUTURE_MC +
+                ";after:" + ModIds.ConstantIds.FUTURE_MC + "@[0.2.0.0,]" +
                 ";after:" + ModIds.ConstantIds.THE_ONE_PROBE +
                 ";after:" + ModIds.ConstantIds.NATURA +
                 ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +

@@ -17,8 +17,8 @@ class QuarkFutureMcIntegration implements IQuarkIntegration
     public Collection<String> getAllowedAncientTomeEnchants()
     {
         return Arrays.asList(
-            "minecraftfuture:impaling",
-            "minecraftfuture:riptide");
+            "futuremc:impaling",
+            "futuremc:riptide");
     }
     
     @Override

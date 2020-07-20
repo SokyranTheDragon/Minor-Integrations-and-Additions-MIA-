@@ -130,9 +130,10 @@ public class FutureMc implements IBaseMod
         SmokerRecipes.INSTANCE.addRecipe(input, output);
     }
     
-    public static void addOrCreateStonecutterRecipe(ItemStack input, ItemStack... output)
+    public static void addStonecutterRecipes(ItemStack input, ItemStack... output)
     {
-        StonecutterRecipes.INSTANCE.addOrCreateRecipe(input, output);
+        for (ItemStack item : output)
+            StonecutterRecipes.INSTANCE.addRecipe(input, item);
     }
     
     public static void addCampfireRecipe(ItemStack input, ItemStack output, int duration)

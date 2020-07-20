@@ -71,11 +71,11 @@ public class BiomesOPlenty implements IBaseMod
     {
         if (!bopAdditionsEnabled)
             return;
-        
         if (GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneEnabled)
             MiaBlocks.whiteSandstone = SandstoneEntry.init(BOPBlocks.white_sandstone,
                     "white",
                     CreativeTabs.BUILDING_BLOCKS,
+//                    Material.ROCK,
                     MapColor.WHITE_STAINED_HARDENED_CLAY,
                     GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneQuarkWallsEnabled);
     }

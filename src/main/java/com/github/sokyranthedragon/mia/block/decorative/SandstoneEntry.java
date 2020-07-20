@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.MapColor;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,7 +28,7 @@ import java.util.function.BiConsumer;
 import static com.github.sokyranthedragon.mia.config.GenericAdditionsConfig.moreSandstone;
 import static com.github.sokyranthedragon.mia.core.MiaBlocks.registerBlock;
 import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
-import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addOrCreateStonecutterRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
 import static com.github.sokyranthedragon.mia.utilities.QuarkUtils.isFeatureEnabled;
 
 @MethodsReturnNonnullByDefault
@@ -71,7 +72,7 @@ public class SandstoneEntry implements IBlockEntry
         }
         
         if (FUTURE_MC.isLoaded && moreSandstone.sandstoneWallsFutureMcEnabled)
-            wallFutureMc = registerBlock(getFutureMcWall(sandstoneName, creativeTab, mapColor));
+            wallFutureMc = registerBlock(getFutureMcWall(sandstoneName, creativeTab, sandstone.getDefaultState(), mapColor));
     }
     
     @Method(modid = ModIds.ConstantIds.QUARK)
@@ -81,9 +82,9 @@ public class SandstoneEntry implements IBlockEntry
     }
     
     @Method(modid = ModIds.ConstantIds.FUTURE_MC)
-    private static Block getFutureMcWall(String sandstoneName, CreativeTabs creativeTab, MapColor mapColor)
+    private static Block getFutureMcWall(String sandstoneName, CreativeTabs creativeTab, IBlockState sandstoneState, MapColor mapColor)
     {
-        return new BlockMiaWallFutureMC(sandstoneName + "futuremc", creativeTab, mapColor);
+        return new BlockMiaWallFutureMC(sandstoneName + "futuremc_wall", creativeTab, sandstoneState, mapColor);
     }
     
     @Override
@@ -142,7 +143,7 @@ public class SandstoneEntry implements IBlockEntry
     @Method(modid = ConstantIds.FUTURE_MC)
     protected static void registerStonecutter(Block source, Collection<ItemStack> toRegister)
     {
-        addOrCreateStonecutterRecipe(new ItemStack(source), toRegister.toArray(new ItemStack[0]));
+        addStonecutterRecipes(new ItemStack(source), toRegister.toArray(new ItemStack[0]));
     }
     
     private static void addIfNotNull(List<ItemStack> list, Block block)

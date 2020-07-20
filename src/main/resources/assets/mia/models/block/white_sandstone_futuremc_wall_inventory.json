@@ -1,5 +1,5 @@
 {
-    "parent": "minecraftfuture:block/wall_inventory",
+    "parent": "futuremc:block/wall_inventory",
     "textures": {
         "wall": "biomesoplenty:blocks/white_sandstone_normal"
     }

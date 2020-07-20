@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 
 import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addBlastFurnaceRecipe;
-import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addOrCreateStonecutterRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
 
 class FutureMcIceAndFireIntegration implements IFutureMcIntegration
 {
@@ -19,13 +19,13 @@ class FutureMcIceAndFireIntegration implements IFutureMcIntegration
         addBlastFurnaceRecipe(new ItemStack(IafBlockRegistry.silverOre), new ItemStack(IafItemRegistry.silverIngot));
         addBlastFurnaceRecipe(new ItemStack(IafBlockRegistry.sapphireOre), new ItemStack(IafItemRegistry.sapphireGem));
         
-        addOrCreateStonecutterRecipe(new ItemStack(IafBlockRegistry.dread_stone),
+        addStonecutterRecipes(new ItemStack(IafBlockRegistry.dread_stone),
             new ItemStack(IafBlockRegistry.dread_stone_bricks),
             new ItemStack(IafBlockRegistry.dread_stone_bricks_chiseled),
             new ItemStack(IafBlockRegistry.dread_stone_tile),
             new ItemStack(IafBlockRegistry.dread_stone_bricks_stairs),
             new ItemStack(IafBlockRegistry.dread_stone_bricks_slab, 2));
-        addOrCreateStonecutterRecipe(new ItemStack(IafBlockRegistry.dread_stone_bricks),
+        addStonecutterRecipes(new ItemStack(IafBlockRegistry.dread_stone_bricks),
             new ItemStack(IafBlockRegistry.dread_stone_bricks_chiseled),
             new ItemStack(IafBlockRegistry.dread_stone_tile),
             new ItemStack(IafBlockRegistry.dread_stone_bricks_stairs),

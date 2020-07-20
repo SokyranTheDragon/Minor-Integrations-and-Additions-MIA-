@@ -1,5 +1,5 @@
 {
-    "parent": "minecraftfuture:block/template_wall_post",
+    "parent": "futuremc:block/template_wall_post",
     "textures": {
         "wall": "biomesoplenty:blocks/white_sandstone_normal"
     }

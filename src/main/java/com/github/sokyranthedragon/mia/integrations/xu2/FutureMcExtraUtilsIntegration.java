@@ -8,27 +8,27 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addOrCreateStonecutterRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
 
 class FutureMcExtraUtilsIntegration implements IFutureMcIntegration
 {
     @Override
     public void addRecipes()
     {
-        addOrCreateStonecutterRecipe(new ItemStack(Blocks.STONE),
+        addStonecutterRecipes(new ItemStack(Blocks.STONE),
             XU2Entries.decorativeSolid.newStackMeta(0),
             XU2Entries.decorativeSolid.newStackMeta(1),
             XU2Entries.decorativeSolid.newStackMeta(2),
             XU2Entries.decorativeSolid.newStackMeta(5));
-        addOrCreateStonecutterRecipe(new ItemStack(Blocks.STONEBRICK),
+        addStonecutterRecipes(new ItemStack(Blocks.STONEBRICK),
             XU2Entries.decorativeSolid.newStackMeta(0),
             XU2Entries.decorativeSolid.newStackMeta(1),
             XU2Entries.decorativeSolid.newStackMeta(2),
             XU2Entries.decorativeSolid.newStackMeta(5));
-        addOrCreateStonecutterRecipe(XU2Entries.decorativeSolid.newStackMeta(0),
+        addStonecutterRecipes(XU2Entries.decorativeSolid.newStackMeta(0),
             XU2Entries.decorativeSolid.newStackMeta(1),
             XU2Entries.decorativeSolid.newStackMeta(5));
-        addOrCreateStonecutterRecipe(XU2Entries.decorativeSolid.newStackMeta(2),
+        addStonecutterRecipes(XU2Entries.decorativeSolid.newStackMeta(2),
             XU2Entries.decorativeSolid.newStackMeta(5));
     }
     
