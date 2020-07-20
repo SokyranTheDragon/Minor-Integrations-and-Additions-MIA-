@@ -1,11 +1,18 @@
 package com.github.sokyranthedragon.mia.integrations.biomesoplenty;
 
 import biomesoplenty.api.block.BOPBlocks;
+import biomesoplenty.api.enums.BOPFlowers;
 import biomesoplenty.api.item.BOPItems;
+import biomesoplenty.common.block.BlockBOPFlower;
+import biomesoplenty.common.util.block.VariantPagingHelper;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.futuremc.IFutureMcIntegration;
 import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addBlastFurnaceRecipe;
 import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
@@ -27,6 +34,20 @@ class FutureMcBopIntegration implements IFutureMcIntegration
         addStonecutterRecipes(new ItemStack(BOPBlocks.mud_brick_block),
                 new ItemStack(BOPBlocks.mud_brick_stairs),
                 new ItemStack(BOPBlocks.other_slab, 2, 0));
+    }
+    
+    @Override
+    public IBlockState[] registerPollinationFlowers()
+    {
+        VariantPagingHelper<BlockBOPFlower, BOPFlowers> paging = BlockBOPFlower.paging;
+        BOPFlowers[] flowers = BOPFlowers.values();
+        
+        List<IBlockState> states = new ArrayList<>(flowers.length);
+        
+        for (BOPFlowers flower : flowers)
+            states.add(paging.getVariantState(flower));
+        
+        return states.toArray(new IBlockState[0]);
     }
     
     @Override

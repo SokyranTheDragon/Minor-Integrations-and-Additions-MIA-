@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.futuremc.IFutureMcIntegration;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -30,6 +31,16 @@ class FutureMcIceAndFireIntegration implements IFutureMcIntegration
             new ItemStack(IafBlockRegistry.dread_stone_tile),
             new ItemStack(IafBlockRegistry.dread_stone_bricks_stairs),
             new ItemStack(IafBlockRegistry.dread_stone_bricks_slab, 2));
+    }
+    
+    @Override
+    public IBlockState[] registerPollinationFlowers()
+    {
+        return new IBlockState[]
+            {
+                IafBlockRegistry.fire_lily.getDefaultState(),
+                IafBlockRegistry.frost_lily.getDefaultState()
+            };
     }
     
     @Override

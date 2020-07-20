@@ -2,10 +2,13 @@ package com.github.sokyranthedragon.mia.integrations.dungeontactics;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.futuremc.IFutureMcIntegration;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import pegbeard.dungeontactics.blocks.DTBushIncindiberry;
 import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTItems;
+import thedarkcolour.futuremc.api.BeePollinationHandlerJVM;
 
 import javax.annotation.Nonnull;
 
@@ -50,6 +53,29 @@ class FutureMcDungeonTacticsIntegration implements IFutureMcIntegration
         addFoodRecipe(new ItemStack(DTItems.FISH_LUNG), new ItemStack(DTItems.FISH_LUNG_COOKED), 1200);
         addFoodRecipe(new ItemStack(DTItems.FISH_OBSIDIAN), new ItemStack(DTItems.FISH_OBSIDIAN_COOKED), 1200);
         addFoodRecipe(new ItemStack(DTItems.FISH_TUNNEL), new ItemStack(DTItems.FISH_TUNNEL_COOKED), 1200);
+    
+        GenericBeePollinationHandler berryHandler = new GenericBeePollinationHandler(DTBushIncindiberry.AGE, 3);
+    
+        BeePollinationHandlerJVM.registerHandler(DTBlocks.CHERRYBOMB_BUSH, berryHandler);
+        BeePollinationHandlerJVM.registerHandler(DTBlocks.INCINDIBERRY_BUSH, berryHandler);
+        BeePollinationHandlerJVM.registerHandler(DTBlocks.GLOWCURRENT_BUSH, berryHandler);
+    }
+    
+    @Override
+    public IBlockState[] registerPollinationFlowers()
+    {
+        return new IBlockState[]
+            {
+                DTBlocks.FLOWER_BARK.getDefaultState(),
+                DTBlocks.FLOWER_BRAMBLE.getDefaultState(),
+                DTBlocks.FLOWER_CINDER.getDefaultState(),
+                DTBlocks.FLOWER_FADE.getDefaultState(),
+                DTBlocks.FLOWER_SANGUINE.getDefaultState(),
+                DTBlocks.FLOWER_TANGLE.getDefaultState(),
+                DTBlocks.FLOWER_AILMENT.getDefaultState(),
+                DTBlocks.FLOWER_FEATHER.getDefaultState(),
+                DTBlocks.FLOWER_XP.getDefaultState()
+            };
     }
     
     @Override

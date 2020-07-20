@@ -6,12 +6,19 @@ import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import thedarkcolour.futuremc.api.BeePollinationHandler;
+import thedarkcolour.futuremc.api.BeePollinationTargetsJVM;
+import thedarkcolour.futuremc.entity.bee.EntityBee;
 import thedarkcolour.futuremc.recipe.campfire.CampfireRecipes;
 import thedarkcolour.futuremc.recipe.furnace.BlastFurnaceRecipes;
 import thedarkcolour.futuremc.recipe.furnace.SmokerRecipes;
@@ -19,6 +26,7 @@ import thedarkcolour.futuremc.recipe.stonecutter.StonecutterRecipes;
 import thedarkcolour.futuremc.registry.FBlocks;
 import thedarkcolour.futuremc.registry.FItems;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -42,6 +50,8 @@ public class FutureMc implements IBaseMod
             modIntegration.accept(ModIds.HARVESTCRAFT, new HarvestcraftFutureMcIntegration());
         if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
             modIntegration.accept(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoingFutureMcIntegration());
+        if (ModIds.DUNGEON_TACTICS.isLoaded)
+            modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsFutureMcIntegration());
     }
     
     @Override
@@ -75,6 +85,10 @@ public class FutureMc implements IBaseMod
             {
                 progressBar.step(integration.getModId().modId);
                 integration.addRecipes();
+                
+                IBlockState[] flowersToRegister = integration.registerPollinationFlowers();
+                if (flowersToRegister.length > 0)
+                    BeePollinationTargetsJVM.addPollinationTargets();
             }
             ProgressManager.pop(progressBar);
         }
@@ -144,5 +158,31 @@ public class FutureMc implements IBaseMod
     public static void addCampfireRecipe(ItemStack input, ItemStack output)
     {
         addCampfireRecipe(input, output, 600);
+    }
+    
+    @ParametersAreNonnullByDefault
+    public static class GenericBeePollinationHandler implements BeePollinationHandler
+    {
+        private final PropertyInteger ageProperty;
+        private final int maxValue;
+        
+        public GenericBeePollinationHandler(PropertyInteger ageProperty, int maxValue)
+        {
+            this.ageProperty = ageProperty;
+            this.maxValue = maxValue;
+        }
+        
+        @Override
+        public boolean pollinateCrop(World world, BlockPos blockPos, IBlockState blockState, EntityBee entityBee)
+        {
+            if (world.getBlockState(blockPos).getValue(ageProperty) < maxValue)
+            {
+                entityBee.world.playEvent(2005, blockPos, 0);
+                entityBee.world.setBlockState(blockPos, blockState.withProperty(ageProperty, blockState.getValue(ageProperty) + 1));
+                return true;
+            }
+    
+            return false;
+        }
     }
 }
