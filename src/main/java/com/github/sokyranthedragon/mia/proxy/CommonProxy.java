@@ -13,7 +13,10 @@ import com.github.sokyranthedragon.mia.integrations.base.LootTableIntegrator;
 import com.github.sokyranthedragon.mia.integrations.base.ModIntegrator;
 import com.github.sokyranthedragon.mia.integrations.chisel.Chisel;
 import com.github.sokyranthedragon.mia.integrations.harvestcraft.CraftTweakerHarvestcraftIntegration;
+import com.github.sokyranthedragon.mia.network.MessageExtendedReachAttack;
 import com.github.sokyranthedragon.mia.network.MessageSyncMusicPlayer;
+import com.github.sokyranthedragon.mia.utilities.size.SizeOreDictionaryUtils;
+import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -42,6 +45,12 @@ public class CommonProxy
     
     public void preInit(FMLPreInitializationEvent event)
     {
+        SizeUtils.isSizeComponentEnabled = GenericAdditionsConfig.enableSizeComponent && ModIds.ARTEMISLIB.isLoaded;
+        if (SizeUtils.isSizeComponentEnabled)
+            SizeOreDictionaryUtils.setupOreDictUtils();
+        if (GenericAdditionsConfig.enableSizeComponent && !ModIds.ARTEMISLIB.isLoaded)
+            Mia.LOGGER.warn("Size component is enabled, but ArtemisLib is not installed! It won't work!");
+        
         MusicPlayerCapabilityProvider.register();
         
         modIntegrator = new ModIntegrator();
@@ -57,6 +66,7 @@ public class CommonProxy
     {
         Mia.network = NetworkRegistry.INSTANCE.newSimpleChannel(Mia.MODID + "_NETWORK");
         Mia.network.registerMessage(MessageSyncMusicPlayer.Handler.class, MessageSyncMusicPlayer.class, 0, Side.SERVER);
+        Mia.network.registerMessage(MessageExtendedReachAttack.Handler.class, MessageExtendedReachAttack.class, 1, Side.SERVER);
         
         if (!MiaConfig.disableOreDict)
         {

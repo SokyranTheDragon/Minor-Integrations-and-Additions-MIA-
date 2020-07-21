@@ -1,0 +1,11 @@
+[
+  {
+    "name": "mia_modifiers",
+    "data": "sections/modifiers.json",
+    "icon": {
+      "item": {
+        "id": "minecraft:redstone"
+      }
+    }
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "modifier": "size_steal",
+  "text": [
+    {
+      "text": "Hitting an opponent with this modifier causes them to lose their size, transferring it to you"
+    }
+  ],
+  "effects": [
+    "Shrinks enemies you've struck",
+    "Makes you bigger",
+    "Not compatible with Shrinking",
+    "Single level"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

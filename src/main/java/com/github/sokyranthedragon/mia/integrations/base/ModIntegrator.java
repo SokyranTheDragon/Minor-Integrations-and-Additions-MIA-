@@ -18,6 +18,7 @@ import com.github.sokyranthedragon.mia.integrations.iceandfire.IceAndFire;
 import com.github.sokyranthedragon.mia.integrations.industrialforegoing.IndustrialForegoing;
 import com.github.sokyranthedragon.mia.integrations.jei.Jei;
 import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
+import com.github.sokyranthedragon.mia.integrations.mia.MiaSelfIntegrations;
 import com.github.sokyranthedragon.mia.integrations.mocreatures.MoCreatures;
 import com.github.sokyranthedragon.mia.integrations.natura.Natura;
 import com.github.sokyranthedragon.mia.integrations.quark.Quark;
@@ -79,6 +80,7 @@ public class ModIntegrator
         }
         modsRegistered = true;
         
+        modIntegrations.put(ModIds.MIA, new MiaSelfIntegrations());
         if (ModIds.EXTRA_UTILITIES.isLoaded)
             modIntegrations.put(ModIds.EXTRA_UTILITIES, new ExtraUtilities2());
         if (ModIds.COFH_CORE.isLoaded)

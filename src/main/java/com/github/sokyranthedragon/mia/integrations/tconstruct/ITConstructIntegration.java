@@ -5,5 +5,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 public interface ITConstructIntegration extends IModIntegration
 {
-    void init(FMLInitializationEvent event);
+    default void init(FMLInitializationEvent event)
+    {
+    }
+    
+    default String[] registerBookPages()
+    {
+        return new String[0];
+    }
 }

@@ -1,15 +1,14 @@
 package com.github.sokyranthedragon.mia;
 
+import com.github.sokyranthedragon.mia.commands.CommandSize;
 import com.github.sokyranthedragon.mia.gui.GuiHandler;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.proxy.CommonProxy;
+import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +20,8 @@ import org.apache.logging.log4j.Logger;
         name = Mia.NAME,
         version = Mia.VERSION,
         updateJSON = "https://raw.githubusercontent.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-/master/update.json",
-        dependencies = "after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
+        dependencies = "after:" + ModIds.ConstantIds.ARTEMISLIB + "@[1.0.6,)" +
+                ";after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
                 ";after:" + ModIds.ConstantIds.COFH_CORE +
                 ";after:" + ModIds.ConstantIds.THERMAL_FOUNDATION +
                 ";after:" + ModIds.ConstantIds.THERMAL_EXPANSION +
@@ -51,7 +51,7 @@ public class Mia
 {
     public static final String MODID = "mia";
     public static final String NAME = "Minor Integrations & Additions";
-    public static final String VERSION = "1.12.2-0.1.6b";
+    public static final String VERSION = "1.12.2-0.1.7a";
     
     @Mod.Instance
     public static Mia instance;
@@ -85,5 +85,12 @@ public class Mia
     public void loadCompleted(FMLLoadCompleteEvent event)
     {
         proxy.loadCompleted(event);
+    }
+    
+    @EventHandler
+    public void serverRegistries(FMLServerStartingEvent event)
+    {
+        if (SizeUtils.isSizeComponentEnabled)
+            event.registerServerCommand(new CommandSize());
     }
 }

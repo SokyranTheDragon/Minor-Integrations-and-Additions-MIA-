@@ -109,6 +109,7 @@ mia.config.base.disable_ore_dict=Disable any new ore dictionary entries
 
 ## Base additions specific
 
+# More sandstone
 mia.config.base_additions.more_sandstone_shared=More Sandstone Settings
 mia.config.base_additions.more_sandstone=Enable more sandstone
 mia.config.base_additions.more_sandstone.quark=Enable more sandstone Quark blocks
@@ -120,6 +121,7 @@ mia.config.base_additions.more_sandstone.forced_futuremc_walls=Force more sandst
 mia.config.base_additions.more_sandstone.bop_white_sandstone=Enable white sandstone
 mia.config.base_additions.more_sandstone.bop_white_sandstone_quark_walls=Enable white sandstone Quark walls
 
+# EVTP
 mia.config.base_additions.evtp=EVTP settings
 mia.config.base_additions.evtp.enabled=Enable EVTP
 mia.config.base_additions.evtp.armored_glass_enabled=Enable Armored Glass
@@ -129,6 +131,32 @@ mia.config.base_additions.evtp.dead_flower_enabled=Enable dead flowers
 mia.config.base_additions.evtp.stone_doors_enabled=Enable stone doors
 mia.config.base_additions.evtp.redstone_lantern_enabled=Enable redstone lantern
 mia.config.base_additions.evtp.dead_flower_chance=Dead flower spawn chance
+
+# Size module
+mia.config.title=SSD Configuration
+mia.config.min_player_size=Minimum player size
+mia.config.max_player_size=Maximum player size
+mia.config.min_mob_size=Minimum mob size
+mia.config.max_mob_size=Maximum mob size
+mia.config.scale_speed=Scale movement speed
+mia.config.scale_strength=Scale strength
+mia.config.scale_max_health=Scale max health
+mia.config.scale_current_health=Scale current health when growing
+mia.config.scale_reach=Scale reach
+mia.config.scale_swim_speed=Scale swim speed
+mia.config.fix_rendering=Fix entity rendering at small sizes
+mia.config.fix_rendering_inventory=Fix player rendering in inventory
+mia.config.banned_entities_size=Entities banned from size change
+mia.config.mob_size=Can mob size change
+mia.config.giants_crush_entities=Can enties crush smaller ones
+mia.config.players_crush_players=Can players crush other players
+mia.config.banned_entities_crushing=Entities banned from crushing others or being crushed
+mia.config.roses_hurt_player=Do small players get hurt while walking through roses
+mia.config.plants_slow_player=Do small players get slowed down while walking through plants
+mia.config.climb_some_blocks=Can small players climb some blocks
+mia.config.climb_with_slime=Can small players climb any blocks while holding slime
+mia.config.glide_with_paper=Can small players glide while holding paper
+mia.config.hot_blocks_lift=Do small players who are gliding get flight height boost while gliding over hot blocks
 
 ## Mod specific
 
@@ -161,6 +189,18 @@ mia.config.industrial_foregoing.enable_tree_fluid_extractor=Enable Tree Fluid Ex
 
 mia.config.mocreatures.buff_silver_weapons=Buff silver weapons from other mods
 mia.config.mocreatures.replace_fish_drops=Replace fish drops
+
+
+
+################
+### Commands ###
+################
+
+mia.commands.size.usage_op=/size <player> <size> or /size [size]
+mia.commands.size.usage=/size
+mia.commands.size.success_1=%s size modifier is %s (actual size is %s)
+mia.commands.size.success_2=Succesfully changed %s size modifier to %s (actual size is %s)
+mia.commands.size.failure_1=%s is not a player nor a valid size
 
 
 
@@ -274,6 +314,9 @@ mia.jer.dungeon.dt_wizard_tower=DT Wizard Tower
 ############################
 
 item.music_player.name=Music Player
+item.ring_of_the_kobold.name=Ring of the Kobold
+
+# EVTP stuff
 tile.armored_glass.name=Armored Glass
 tile.packed_paper_0.name=Packed Paper
 tile.packed_paper_1.name=Packed Paper
@@ -285,6 +328,116 @@ tile.flower_dead.name=Dead Flower
 tile.redstone_lantern.name=Redstone Lantern
 
 item.door_stone.name=Stone Door
+
+
+
+#################################
+### Potions and tipped arrows ###
+#################################
+
+## Shrinking potions ##
+effect.shrinking=Shrinking
+effect.shrinkingvenom=Shrinking Venom
+potion.effect.shrinking_potion1=Potion of Shrinking
+potion.effect.shrinking_potion1_long=Potion of Shrinking
+potion.effect.shrinking_potion1_longer=Potion of Shrinking
+potion.effect.shrinking_potion2=Potion of Shrinking
+potion.effect.shrinking_potion2_long=Potion of Shrinking
+potion.effect.shrinking_potion2_longer=Potion of Shrinking
+potion.effect.shrinking_potion3=Potion of Shrinking
+potion.effect.shrinking_potion3_long=Potion of Shrinking
+potion.effect.shrinking_venom=Shrinking Venom
+splash_potion.effect.shrinking_potion1=Splash Potion of Shrinking
+splash_potion.effect.shrinking_potion1_long=Splash Potion of Shrinking
+splash_potion.effect.shrinking_potion1_longer=Splash Potion of Shrinking
+splash_potion.effect.shrinking_potion2=Splash Potion of Shrinking
+splash_potion.effect.shrinking_potion2_long=Splash Potion of Shrinking
+splash_potion.effect.shrinking_potion2_longer=Splash Potion of Shrinking
+splash_potion.effect.shrinking_potion3=Splash Potion of Shrinking
+splash_potion.effect.shrinking_potion3_long=Splash Potion of Shrinking
+splash_potion.effect.shrinking_venom=Splash Shrinking Venom
+lingering_potion.effect.shrinking_potion1=Lingering Potion of Shrinking
+lingering_potion.effect.shrinking_potion1_long=Lingering Potion of Shrinking
+lingering_potion.effect.shrinking_potion1_longer=Lingering Potion of Shrinking
+lingering_potion.effect.shrinking_potion2=Lingering Potion of Shrinking
+lingering_potion.effect.shrinking_potion2_long=Lingering Potion of Shrinking
+lingering_potion.effect.shrinking_potion2_longer=Lingering Potion of Shrinking
+lingering_potion.effect.shrinking_potion3=Lingering Potion of Shrinking
+lingering_potion.effect.shrinking_potion3_long=Lingering Potion of Shrinking
+lingering_potion.effect.shrinking_venom=Lingering Shrinking Venom
+tipped_arrow.effect.shrinking_potion1=Arrow of Shrinking
+tipped_arrow.effect.shrinking_potion1_long=Arrow of Shrinking
+tipped_arrow.effect.shrinking_potion1_longer=Arrow of Shrinking
+tipped_arrow.effect.shrinking_potion2=Arrow of Shrinking
+tipped_arrow.effect.shrinking_potion2_long=Arrow of Shrinking
+tipped_arrow.effect.shrinking_potion2_longer=Arrow of Shrinking
+tipped_arrow.effect.shrinking_potion3=Arrow of Shrinking
+tipped_arrow.effect.shrinking_potion3_long=Arrow of Shrinking
+tipped_arrow.effect.shrinking_venom=Shrinking Venom Arrow
+
+## Growth potions ##
+effect.growth=Growth
+effect.growthvenom=Growth Venom
+potion.effect.growth_potion1=Potion of Growth
+potion.effect.growth_potion1_long=Potion of Growth
+potion.effect.growth_potion1_longer=Potion of Growth
+potion.effect.growth_potion2=Potion of Growth
+potion.effect.growth_potion2_long=Potion of Growth
+potion.effect.growth_potion2_longer=Potion of Growth
+potion.effect.growth_potion3=Potion of Growth
+potion.effect.growth_potion3_long=Potion of Growth
+potion.effect.growth_venom=Growth Venom
+splash_potion.effect.growth_potion1=Splash Potion of Growth
+splash_potion.effect.growth_potion1_long=Splash Potion of Growth
+splash_potion.effect.growth_potion1_longer=Splash Potion of Growth
+splash_potion.effect.growth_potion2=Splash Potion of Growth
+splash_potion.effect.growth_potion2_long=Splash Potion of Growth
+splash_potion.effect.growth_potion2_longer=Splash Potion of Growth
+splash_potion.effect.growth_potion3=Splash Potion of Growth
+splash_potion.effect.growth_potion3_long=Splash Potion of Growth
+splash_potion.effect.growth_venom=Splash Growth Venom
+lingering_potion.effect.growth_potion1=Lingering Potion of Growth
+lingering_potion.effect.growth_potion1_long=Lingering Potion of Growth
+lingering_potion.effect.growth_potion1_longer=Lingering Potion of Growth
+lingering_potion.effect.growth_potion2=Lingering Potion of Growth
+lingering_potion.effect.growth_potion2_long=Lingering Potion of Growth
+lingering_potion.effect.growth_potion2_longer=Lingering Potion of Growth
+lingering_potion.effect.growth_potion3=Lingering Potion of Growth
+lingering_potion.effect.growth_potion3_long=Lingering Potion of Growth
+lingering_potion.effect.growth_venom=Lingering Growth Venom
+tipped_arrow.effect.growth_potion1=Arrow of Growth
+tipped_arrow.effect.growth_potion1_long=Arrow of Growth
+tipped_arrow.effect.growth_potion1_longer=Arrow of Growth
+tipped_arrow.effect.growth_potion2=Arrow of Growth
+tipped_arrow.effect.growth_potion2_long=Arrow of Growth
+tipped_arrow.effect.growth_potion2_longer=Arrow of Growth
+tipped_arrow.effect.growth_potion3=Arrow of Growth
+tipped_arrow.effect.growth_potion3_long=Arrow of Growth
+tipped_arrow.effect.growth_venom=Growth Venom Arrow
+
+## Size stabilization
+effect.size_stabilization=Size Stabilization
+potion.effect.size_stabilization_potion=Potion of Size Stabilization
+splash_potion.effect.size_stabilization_potion=Splash Potion Size Stabilization
+lingering_potion.effect.size_stabilization_potion=Lingering Potion of Size Stabilization
+tipped_arrow.effect.size_stabilization_potion=Arrow of Size Stabilization
+
+####################
+### Enchantments ###
+####################
+
+enchantment.size_steal=Size Steal
+enchantment.shrinking=Shrinking
+enchantment.kobold=Kobold Blessing
+
+
+
+####################################
+### Tinker's Construct additions ###
+####################################
+
+modifier.shrinking.name=Shrinking
+modifier.size_steal.name=Size Steal
 
 
 
@@ -365,6 +518,8 @@ mia.gui.music_player.tooltip.repeat=Play the next song when the current one fini
 mia.gui.music_player.tooltip.repeat_alt=Repeat current song when it finishes
 mia.gui.music_player.tooltip.autoplay_required=(Autoplay needs to be on)
 mia.gui.music_player.tooltip.sound_off=Can't play music due to volume being disabled
+# Other tooltips
+tooltip.ring_of_the_kobold=Slowly changes your size until you reach half of your normal size. After reaching that size, it allows you to climb and glide like you were smaller.
 
 
 
@@ -388,5 +543,6 @@ key.music_player_previous=Play previous song
 ###############################
 ### Generic texts, reusable ###
 ###############################
+
 
 mia.generic.chance=Chance: %s%%

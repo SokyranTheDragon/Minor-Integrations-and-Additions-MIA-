@@ -1,0 +1,18 @@
+{
+  "modifier": "shrinking",
+  "text": [
+    {
+      "text": "Hitting an opponent with this modifier causes them to lose their size for a few seconds"
+    }
+  ],
+  "effects": [
+    "Shrinks your foes",
+    "Not compatible with Size Steal",
+    "Three levels"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

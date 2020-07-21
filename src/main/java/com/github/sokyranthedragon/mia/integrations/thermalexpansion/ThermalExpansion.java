@@ -1,5 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.thermalexpansion;
 
+import cofh.thermalexpansion.util.managers.machine.BrewerManager;
+import cofh.thermalexpansion.util.managers.machine.EnchanterManager;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
@@ -9,10 +11,13 @@ import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -84,5 +89,24 @@ public class ThermalExpansion implements IBaseMod
             }
             ProgressManager.pop(progressBar);
         }
+    }
+    
+    public static void addBrewingRecipe(@Nonnull PotionType result, @Nullable PotionType previousLevel, @Nonnull ItemStack ingredient)
+    {
+        if (!ModIds.THERMAL_EXPANSION.isLoaded)
+            return;
+        
+        if (previousLevel == null)
+            BrewerManager.addSwapPotionRecipes(result);
+        else
+            BrewerManager.addDefaultPotionRecipes(previousLevel, ingredient, result);
+    }
+    
+    public static void addEnchantingRecipe(ItemStack input, @Nonnull String enchantment, int tier)
+    {
+        if (!ModIds.THERMAL_EXPANSION.isLoaded)
+            return;
+        
+        EnchanterManager.addDefaultEnchantmentRecipe(input, enchantment, tier);
     }
 }

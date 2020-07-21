@@ -1,0 +1,10 @@
+[
+  {
+    "type": "modifier",
+    "data": "modifiers/shrinking.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/size_steal.json"
+  }
+]

@@ -5,16 +5,20 @@ import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
+import com.github.sokyranthedragon.mia.integrations.tconstruct.book.TinkersBook;
 import net.minecraft.init.Items;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -79,10 +83,28 @@ public class TinkersConstruct implements IBaseMod
         if (!modIntegrations.isEmpty())
         {
             ProgressManager.ProgressBar progressBar = ProgressManager.push("ThermalExpansion init", modIntegrations.size());
+            
+            List<String> modifiersToAdd = null;
+            if (event.getSide() == Side.CLIENT)
+                modifiersToAdd = new ArrayList<>();
+            
             for (ITConstructIntegration integration : modIntegrations)
             {
                 progressBar.step(integration.getModId().modId);
                 integration.init(event);
+                
+                if (event.getSide() == Side.CLIENT)
+                {
+                    assert modifiersToAdd != null;
+                    Collections.addAll(modifiersToAdd, integration.registerBookPages());
+                }
+            }
+            
+            if (event.getSide() == Side.CLIENT)
+            {
+                assert modifiersToAdd != null;
+                if (modifiersToAdd.size() > 0)
+                    TinkersBook.registerBookPages(modifiersToAdd);
             }
             ProgressManager.pop(progressBar);
         }

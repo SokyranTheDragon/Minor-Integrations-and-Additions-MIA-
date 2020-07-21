@@ -29,6 +29,7 @@ import thedarkcolour.futuremc.FutureMC;
 public enum ModIds
 {
     MIA(Mia.MODID),
+    ARTEMISLIB(ConstantIds.ARTEMISLIB),
     EXTRA_UTILITIES(ConstantIds.EXTRA_UTILITIES),
     COFH_CORE(ConstantIds.COFH_CORE),
     THERMAL_FOUNDATION(ConstantIds.THERMAL_FOUNDATION),
@@ -91,6 +92,7 @@ public enum ModIds
         {
         }
         
+        public static final String ARTEMISLIB = com.artemis.artemislib.Reference.MODID;
         public static final String EXTRA_UTILITIES = ExtraUtils2.MODID;
         public static final String COFH_CORE = CoFHCore.MOD_ID;
         public static final String THERMAL_FOUNDATION = ThermalFoundation.MOD_ID;

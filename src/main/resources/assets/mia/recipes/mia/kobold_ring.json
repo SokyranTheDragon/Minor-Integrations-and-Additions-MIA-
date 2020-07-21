@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "nnn",
+    "ncn",
+    "nnn"
+  ],
+  "key": {
+    "n": {
+      "item": "minecraft:iron_nugget"
+    },
+    "c": {
+      "item": "minecraft:chorus_flower"
+    }
+  },
+  "result": {
+    "item": "mia:kobold_ring",
+    "count": 1
+  }
+}

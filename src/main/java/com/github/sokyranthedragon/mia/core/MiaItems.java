@@ -1,7 +1,10 @@
 package com.github.sokyranthedragon.mia.core;
 
+import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
+import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.items.ItemMusicPlayer;
+import com.github.sokyranthedragon.mia.items.ItemRingKobold;
 import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;
 import net.minecraft.item.Item;
@@ -26,11 +29,18 @@ public class MiaItems
     
     // Mia
     public static ItemMusicPlayer musicPlayer = null;
+    public static ItemRingKobold koboldRing = null;
     
     public static <T extends Item> T registerItem(T item, IForgeRegistry<Item> registry)
     {
+        return registerItem(item, registry, true);
+    }
+    
+    public static <T extends Item> T registerItem(T item, IForgeRegistry<Item> registry, boolean registerCreative)
+    {
         registry.register(item);
-        items.add(item);
+        if (registerCreative)
+            items.add(item);
         return item;
     }
     
@@ -40,11 +50,16 @@ public class MiaItems
         
         if (MiaConfig.musicPlayerEnabled)
             musicPlayer = registerItem(new ItemMusicPlayer(), registry);
+        
+        if (ModIds.ARTEMISLIB.isLoaded && ModIds.BAUBLES.isLoaded)
+            koboldRing = registerItem(new ItemRingKobold(), registry, GenericAdditionsConfig.enableSizeComponent);
     }
     
     @SideOnly(Side.CLIENT)
     public static void registerMiaItemRenderers()
     {
         RegisterUtils.registerItemRenderer(MiaItems.musicPlayer);
+        if (koboldRing != null)
+            RegisterUtils.registerItemRenderer(MiaItems.koboldRing);
     }
 }
