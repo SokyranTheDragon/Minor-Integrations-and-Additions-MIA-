@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -53,6 +54,23 @@ public class Harvestcraft implements IBaseMod
             modIntegrations.add((IHarvestcraftIntegration)integration);
         else
             Mia.LOGGER.warn("Incorrect Harvestcraft integration with id of " + integration.getModId() + ": " + integration.toString());
+    }
+    
+    @Override
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        if (balanceModdedFood)
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Harvestcraft replaceFood", modIntegrations.size());
+    
+            for (IHarvestcraftIntegration integration : modIntegrations)
+            {
+                progressBar.step(integration.getModId().modId);
+                integration.replaceFood();
+            }
+            
+            ProgressManager.pop(progressBar);
+        }
     }
     
     @Override

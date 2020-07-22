@@ -164,6 +164,7 @@ mia.config.base_additions.size_component.hot_blocks_lift=Do small players who ar
 mia.config.hatchery.register_custom_eggs=Register custom lucky eggs
 mia.config.dungeon_tactics.register_custom_loot=Register custom loot for loot bags
 mia.config.harvestcraft.squid_drops_calamari=Squid drops calamari
+mia.config.harvestcraft.balance_modded_food=Balance modded food similarly to vanilla ones
 mia.config.thaumcraft.register_aspects=Register aspects for other mods
 mia.config.botania.orechid_vacuam_oredict=Orechid Vacuam ore dictionary
 

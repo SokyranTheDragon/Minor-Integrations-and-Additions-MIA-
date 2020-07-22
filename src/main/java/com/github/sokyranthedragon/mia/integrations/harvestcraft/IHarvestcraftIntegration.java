@@ -4,5 +4,11 @@ import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 
 public interface IHarvestcraftIntegration extends IModIntegration
 {
-    void addRecipes();
+    default void replaceFood()
+    {
+    }
+    
+    default void addRecipes()
+    {
+    }
 }

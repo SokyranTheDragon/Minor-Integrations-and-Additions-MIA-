@@ -48,6 +48,12 @@ public class HarvestcraftConfiguration
     @Config.RequiresMcRestart
     public static boolean enableFutureMcIntegration = true;
     
+    @Config.Name("Balance mod food")
+    @Config.Comment("Set to true to balance modded food similarly to vanilla ones")
+    @Config.LangKey("mia.config.harvestcraft.balance_modded_food")
+    @Config.RequiresMcRestart
+    public static boolean balanceModdedFood = false;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.
