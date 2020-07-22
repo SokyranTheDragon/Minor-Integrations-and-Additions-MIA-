@@ -1,0 +1,39 @@
+{
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "harvestcraft"
+    },
+    {
+      "type": "mia:are_recipes_enabled",
+      "ore_dicted": true
+    }
+  ],
+  "pattern": [
+    "aba",
+    "cdc",
+    "aca"
+  ],
+  "key": {
+    "a": {
+      "type": "forge:ore_dict",
+      "ore": "stickWood"
+    },
+    "b": {
+      "item": "minecraft:trapdoor"
+    },
+    "c": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "d": {
+      "type": "forge:ore_dict",
+      "ore": "chestWood"
+    }
+  },
+  "result": {
+    "item": "harvestcraft:groundtrap"
+  },
+  "type": "forge:ore_shaped"
+}
+

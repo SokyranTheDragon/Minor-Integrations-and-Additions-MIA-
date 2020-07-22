@@ -18,11 +18,11 @@
       "type": "forge:ore_dict",
       "ore": "toolCuttingboard"
     },
-{
+    {
       "type": "forge:ore_dict",
       "ore": "cropOnion"
     },
-{
+    {
       "type": "forge:ore_dict",
       "ore": "cropChilipepper"
     },

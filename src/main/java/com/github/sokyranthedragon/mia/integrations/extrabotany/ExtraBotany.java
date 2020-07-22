@@ -9,6 +9,11 @@ import com.meteor.extrabotany.api.item.WeightCategory;
 import com.meteor.extrabotany.common.item.ModItems;
 import com.meteor.extrabotany.common.item.bonus.ItemBonusBase;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.oredict.OreIngredient;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -31,6 +36,36 @@ public class ExtraBotany implements IBaseMod
     }
     
     @Override
+    public void init(FMLInitializationEvent event)
+    {
+//        if (!MiaConfig.disableOreDict)
+//        {
+//            try
+//            {
+//                Field input = ShapedOreRecipe.class.getDeclaredField("input");
+//                input.setAccessible(true);
+//
+//                if (ModCraftingRecipe.KINGGARDEN2 instanceof ShapedOreRecipe)
+//                {
+//                    Object o = input.get(ModCraftingRecipe.KINGGARDEN2);
+//                    if (o instanceof NonNullList)
+//                        replaceItemIngredient((NonNullList<Ingredient>)o, new ItemStack(Blocks.CHEST), "chestWood");
+//                }
+//                if (ModCraftingRecipe.MINIHANDBAG instanceof ShapedOreRecipe)
+//                {
+//                    Object o = input.get(ModCraftingRecipe.MINIHANDBAG);
+//                    if (o instanceof NonNullList)
+//                        replaceItemIngredient((NonNullList<Ingredient>)o, new ItemStack(Blocks.CHEST), "woodChest");
+//                }
+//            } catch (NoSuchFieldException | IllegalAccessException e)
+//            {
+//                Mia.LOGGER.error("Could not access ExtraBotany recipes, can't oredict them.");
+//                e.printStackTrace();
+//            }
+//        }
+    }
+    
+    @Override
     public void registerDispenserBehaviors()
     {
         DispenserLootBag.getInstance().addListener(((source, stack) ->
@@ -46,5 +81,25 @@ public class ExtraBotany implements IBaseMod
             stack.shrink(1);
             return true;
         }), ModItems.rewardbag, ModItems.rewardbag943, ModItems.candybag);
+    }
+    
+    private static void replaceItemIngredient(NonNullList<Ingredient> ingredients, ItemStack toReplace, @SuppressWarnings("SameParameterValue") String oredictReplacement)
+    {
+        replaceItemIngredient(ingredients, toReplace, oredictReplacement, true);
+    }
+    
+    private static void replaceItemIngredient(NonNullList<Ingredient> ingredients, ItemStack toReplace, String oredictReplacement, @SuppressWarnings("SameParameterValue") boolean shortCircuitOnSuccess)
+    {
+        for (int i = 0; i < ingredients.size(); i++)
+        {
+            Ingredient ingredient = ingredients.get(i);
+            
+            if (ingredient.apply(toReplace))
+            {
+                ingredients.set(i, new OreIngredient(oredictReplacement));
+                if (shortCircuitOnSuccess)
+                    return;
+            }
+        }
     }
 }
