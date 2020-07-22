@@ -300,6 +300,8 @@ curseforge {
             displayName = "MIA $project.version"
             relations {
                 optionalDependency "artemislib"
+
+                optionalDependency "abyssalcraft"
                 optionalDependency "biomes-o-plenty"
                 optionalDependency "baubles"
                 optionalDependency "botania"
@@ -329,7 +331,7 @@ curseforge {
         }
         options {
             //noinspection GrDeprecatedAPIUsage
-            debug = false // Leave as true unless publishing, prevents accidental uploads
+            debug = true // Leave as true unless publishing, prevents accidental uploads
         }
     }
 }
