@@ -5,6 +5,7 @@ import com.gendeathrow.morechickens.core.ModItems;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.integrations.abyssalcraft.AbyssalCraft;
 import com.github.sokyranthedragon.mia.integrations.biomesoplenty.BiomesOPlenty;
 import com.github.sokyranthedragon.mia.integrations.botania.Botania;
 import com.github.sokyranthedragon.mia.integrations.chisel.Chisel;
@@ -125,6 +126,8 @@ public class ModIntegrator
             modIntegrations.put(ModIds.CHISEL, new Chisel());
         if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
             modIntegrations.put(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoing());
+        if (ModIds.ABYSSALCRAFT.isLoaded)
+            modIntegrations.put(ModIds.ABYSSALCRAFT, new AbyssalCraft());
         
         if (!modIntegrations.isEmpty())
         {
