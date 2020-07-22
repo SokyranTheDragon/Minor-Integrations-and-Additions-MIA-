@@ -30,6 +30,7 @@ public class GenericAdditionsConfig
     
     @Name("Enable size module")
     @Comment("If set to false then any size change related content will be disabled (requires ArtemisLib to be installed)")
+    @LangKey("mia.config.base_additions.size_component.enabled")
     @RequiresMcRestart
     public static boolean enableSizeComponent = false;
     
@@ -45,6 +46,7 @@ public class GenericAdditionsConfig
     
     @Name("Size module")
     @Comment("Configuration related to size changing related components")
+    @LangKey("mia.config.base_additions.size_component")
     public static SizeModule sizeModule = new SizeModule();
     
     /**
@@ -172,112 +174,112 @@ public class GenericAdditionsConfig
         
         @Name("Minimum player size")
         @Comment("Changes the lowest allowed player size")
-        @LangKey("mia.config.min_player_size")
+        @LangKey("mia.config.base_additions.size_component.min_player_size")
         @RangeDouble(min = 0.125f, max = 1f)
         public float minPlayerSize = 0.125f;
         @Name("Maximum player size")
         @Comment("Changes the highest allowed player size")
-        @LangKey("mia.config.max_player_size")
+        @LangKey("mia.config.base_additions.size_component.max_player_size")
         @RangeDouble(min = 1f, max = 10f)
         public float maxPlayerSize = 10f;
     
         @Name("Can mob size change")
         @Comment("Setting this to true allows the player to change the size of non-player mobs.")
-        @LangKey("mia.config.mob_size")
+        @LangKey("mia.config.base_additions.size_component.mob_size")
         public boolean canScaleMobs = true;
     
         @Name("Minimum mob size")
         @Comment("Changes the lowest allowed mob size")
-        @LangKey("mia.config.min_mob_size")
+        @LangKey("mia.config.base_additions.size_component.min_mob_size")
         @RangeDouble(min = 0.125f, max = 1f)
         public float minMobSize = 0.125f;
         @Name("Maximum mob size")
         @Comment("Changes the highest allowed mob size")
-        @LangKey("mia.config.max_mob_size")
+        @LangKey("mia.config.base_additions.size_component.max_mob_size")
         @RangeDouble(min = 1f, max = 10f)
         public float maxMobSize = 10f;
     
         @Name("Scale movement speed")
         @Comment("Scales movement speed based on size")
-        @LangKey("mia.config.scale_speed")
+        @LangKey("mia.config.base_additions.size_component.scale_speed")
         public boolean scaleMovementSpeed = true;
         @Name("Scale strength")
         @Comment("Scales strength based on size")
-        @LangKey("mia.config.scale_strength")
+        @LangKey("mia.config.base_additions.size_component.scale_strength")
         public boolean scaleStrength = true;
         @Name("Scale max health")
         @Comment("Scales max health based on size")
-        @LangKey("mia.config.scale_max_health")
+        @LangKey("mia.config.base_additions.size_component.scale_max_health")
         public boolean scaleMaxHealth = true;
         @Name("Scale current health when growing")
         @Comment("Scales current health when max health is increased when growing")
-        @LangKey("mia.config.scale_current_health")
+        @LangKey("mia.config.base_additions.size_component.scale_current_health")
         public boolean scaleCurrentHealthWhenGrowing = true;
         @Name("Scale reach distance")
         @Comment("Scales reach distance based on size")
-        @LangKey("mia.config.scale_reach")
+        @LangKey("mia.config.base_additions.size_component.scale_reach")
         public boolean scaleReachDistance = true;
         @Name("Scale swimming speed")
         @Comment("Scales swimming speed based on size")
-        @LangKey("mia.config.scale_swim_speed")
+        @LangKey("mia.config.base_additions.size_component.scale_swim_speed")
         public boolean scaleSwimSpeed = true;
     
         @Name("Health multiplier")
         @Comment("If max health scaling is enabled, this determines how much the health is affected by size")
-        @LangKey("mia.config.health_multiplier")
+        @LangKey("mia.config.base_additions.size_component.health_multiplier")
         @RangeDouble(min = 1.4E-45F, max = 3.4028235E38F)
         public float healthMultiplier = 1f;
     
         @Name("Fix small entity rendering")
         @Comment("While entities are small size (below 0.4) they start looking weird, which is fixed by this setting. Could cause issues with other mods. Disabling this could very slightly help performance.")
-        @LangKey("mia.config.fix_rendering")
+        @LangKey("mia.config.base_additions.size_component.fix_rendering")
         public boolean fixRendering = true;
         @Name("Fix player rendering in inventory")
         @Comment("While the inventory is open, the player size is scaled to match unchanged player size. Could cause issues with other mods. Disabling this could slightly help performance.")
-        @LangKey("mia.config.fix_rendering_inventory")
+        @LangKey("mia.config.base_additions.size_component.fix_rendering_inventory")
         public boolean fixInventoryRendering = true;
     
         @Name("Entities banned from size change")
         @Comment("Any entity inside of this list will not be able to change size in any way.")
-        @LangKey("mia.config.banned_entities_size")
+        @LangKey("mia.config.base_additions.size_component.banned_entities_size")
         public String[] bannedEntitiesSize = new String[] { "botania:doppleganger", "extrabotany:gaiaIII", "extrabotany:voidherrscher" };
     
         @Name("Can entities crush smaller entities from themselves")
         @Comment("If there's big enough difference between two entities sizes, the bigger one will damage to the smaller one")
-        @LangKey("mia.config.giants_crush_entities")
-        public boolean giantsCrushEntities = true;
+        @LangKey("mia.config.base_additions.size_component.giants_crush_entities")
+        public boolean giantsCrushEntities = false;
         @Name("Can bigger players crush smaller players")
         @Comment("If there's big enough difference between two player sizes, and the option for entities crushing smaller ones is enabled, the bigger players will damage the smaller ones")
-        @LangKey("mia.config.players_crush_players")
+        @LangKey("mia.config.base_additions.size_component.players_crush_players")
         public boolean canPlayersCrushOtherPlayers = true;
         @Name("Entities being banned from crushing smaller entities or being crushed by them")
         @Comment("If the option for entities to crush smaller ones is enabled, this list will be used to determine which entities are banned from crushing other or being crushed")
-        @LangKey("mia.config.banned_entities_crushing")
+        @LangKey("mia.config.base_additions.size_component.banned_entities_crushing")
         public String[] bannedEntitiesCrushing = new String[0];
     
         @Name("Do roses hurt small players")
         @Comment("If this is set to true, small players will take damage if walking through roses")
-        @LangKey("mia.config.roses_hurt_player")
+        @LangKey("mia.config.base_additions.size_component.roses_hurt_player")
         public boolean doRosesHurtSmallPlayer = true;
         @Name("Do bushes slow down small players")
         @Comment("If this is set to true, small players will be slowed down if walking through plants")
-        @LangKey("mia.config.plants_slow_player")
+        @LangKey("mia.config.base_additions.size_component.plants_slow_player")
         public boolean doPlantsSlowSmallPlayer = true;
         @Name("Can small players climb some blocks")
         @Comment("If this is set to true, small players can climb some blocks without having to use any special means")
-        @LangKey("mia.config.climb_some_blocks")
+        @LangKey("mia.config.base_additions.size_component.climb_some_blocks")
         public boolean canClimbSomeBlocks = true;
         @Name("Can small players climb while holding slime balls/slime blocks")
         @Comment("If this value is set to true, small players can climb blocks while holding either a slime ball, or a slime block")
-        @LangKey("mia.config.climb_with_slime")
+        @LangKey("mia.config.base_additions.size_component.climb_with_slime")
         public boolean canClimbWithSlime = true;
         @Name("Can small players climb while holding paper")
         @Comment("If this value is set to true, small players can glide while holding paper")
-        @LangKey("mia.config.glide_with_paper")
+        @LangKey("mia.config.base_additions.size_component.glide_with_paper")
         public boolean canGlideWithPaper = true;
         @Name("Do small blocks give lift while gliding")
         @Comment("If this value is true and while player is gliding with paper over hot blocks, it will increase player's flight height")
-        @LangKey("mia.config.hot_blocks_lift")
+        @LangKey("mia.config.base_additions.size_component.hot_blocks_lift")
         public boolean hotBlocksGiveLift = true;
     }
 }

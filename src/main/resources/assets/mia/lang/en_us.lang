@@ -133,30 +133,31 @@ mia.config.base_additions.evtp.redstone_lantern_enabled=Enable redstone lantern
 mia.config.base_additions.evtp.dead_flower_chance=Dead flower spawn chance
 
 # Size module
-mia.config.title=SSD Configuration
-mia.config.min_player_size=Minimum player size
-mia.config.max_player_size=Maximum player size
-mia.config.min_mob_size=Minimum mob size
-mia.config.max_mob_size=Maximum mob size
-mia.config.scale_speed=Scale movement speed
-mia.config.scale_strength=Scale strength
-mia.config.scale_max_health=Scale max health
-mia.config.scale_current_health=Scale current health when growing
-mia.config.scale_reach=Scale reach
-mia.config.scale_swim_speed=Scale swim speed
-mia.config.fix_rendering=Fix entity rendering at small sizes
-mia.config.fix_rendering_inventory=Fix player rendering in inventory
-mia.config.banned_entities_size=Entities banned from size change
-mia.config.mob_size=Can mob size change
-mia.config.giants_crush_entities=Can enties crush smaller ones
-mia.config.players_crush_players=Can players crush other players
-mia.config.banned_entities_crushing=Entities banned from crushing others or being crushed
-mia.config.roses_hurt_player=Do small players get hurt while walking through roses
-mia.config.plants_slow_player=Do small players get slowed down while walking through plants
-mia.config.climb_some_blocks=Can small players climb some blocks
-mia.config.climb_with_slime=Can small players climb any blocks while holding slime
-mia.config.glide_with_paper=Can small players glide while holding paper
-mia.config.hot_blocks_lift=Do small players who are gliding get flight height boost while gliding over hot blocks
+mia.config.base_additions.size_component=Experimental size feature
+mia.config.base_additions.size_component.enabled=Enable experimental size feature
+mia.config.base_additions.size_component.min_player_size=Minimum player size
+mia.config.base_additions.size_component.max_player_size=Maximum player size
+mia.config.base_additions.size_component.min_mob_size=Minimum mob size
+mia.config.base_additions.size_component.max_mob_size=Maximum mob size
+mia.config.base_additions.size_component.scale_speed=Scale movement speed
+mia.config.base_additions.size_component.scale_strength=Scale strength
+mia.config.base_additions.size_component.scale_max_health=Scale max health
+mia.config.base_additions.size_component.scale_current_health=Scale current health when growing
+mia.config.base_additions.size_component.scale_reach=Scale reach
+mia.config.base_additions.size_component.scale_swim_speed=Scale swim speed
+mia.config.base_additions.size_component.fix_rendering=Fix entity rendering at small sizes
+mia.config.base_additions.size_component.fix_rendering_inventory=Fix player rendering in inventory
+mia.config.base_additions.size_component.banned_entities_size=Entities banned from size change
+mia.config.base_additions.size_component.mob_size=Can mob size change
+mia.config.base_additions.size_component.giants_crush_entities=Can enties crush smaller ones
+mia.config.base_additions.size_component.players_crush_players=Can players crush other players
+mia.config.base_additions.size_component.banned_entities_crushing=Entities banned from crushing others or being crushed
+mia.config.base_additions.size_component.roses_hurt_player=Do small players get hurt while walking through roses
+mia.config.base_additions.size_component.plants_slow_player=Do small players get slowed down while walking through plants
+mia.config.base_additions.size_component.climb_some_blocks=Can small players climb some blocks
+mia.config.base_additions.size_component.climb_with_slime=Can small players climb any blocks while holding slime
+mia.config.base_additions.size_component.glide_with_paper=Can small players glide while holding paper
+mia.config.base_additions.size_component.hot_blocks_lift=Do small players who are gliding get flight height boost while gliding over hot blocks
 
 ## Mod specific
 
