@@ -143,7 +143,6 @@ public class Size_ExtendedEvents
             } catch (IllegalAccessException e)
             {
                 Mia.LOGGER.error("Could not change tipped arrow value, ignoring");
-                e.printStackTrace();
             }
         }
     }
@@ -151,6 +150,9 @@ public class Size_ExtendedEvents
     @SubscribeEvent
     public static void onPlayerLogin(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event)
     {
+        if (!SizeUtils.isSizeComponentEnabled)
+            return;
+    
         if (event.player != null)
         {
             if (!EnchantmentKobold.checkKoboldEnchantment(event.player))
