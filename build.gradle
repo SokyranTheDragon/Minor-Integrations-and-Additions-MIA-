@@ -268,6 +268,16 @@ dependencies {
         compileOnly "curse.maven:IntegrationForegoing_1.12.2-1.10:2904594"
     }
 
+    if (project.run_abysscalcraft.equals("true")) {
+        deobfProvided "curse.maven:AbyssalCraft-1.12.2-1.10.1:2984712"
+        deobfProvided "curse.maven:AbyssalCraft Integration-1.12.2-1.11.2:2959100"
+    }
+    else {
+        compileOnly "curse.maven:AbyssalCraft-1.12.2-1.10.1:2984712"
+        compileOnly "curse.maven:AbyssalCraft Integration-1.12.2-1.11.2:2959100"
+    }
+
+
     if (kotlinSupport)
         deobfProvided "curse.maven:Forgelin_1.8.4-1.12.2:2785465"
     else

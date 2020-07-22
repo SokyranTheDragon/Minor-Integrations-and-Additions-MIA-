@@ -13,6 +13,7 @@ import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
 import com.meteor.extrabotany.ExtraBotany;
 import com.progwml6.natura.Natura;
 import com.rwtema.extrautils2.ExtraUtils2;
+import com.shinoow.abyssalcraft.AbyssalCraft;
 import crafttweaker.mc1120.CraftTweaker;
 import drzhark.mocreatures.MoCConstants;
 import mcjty.theoneprobe.TheOneProbe;
@@ -54,7 +55,8 @@ public enum ModIds
     BIOMES_O_PLENTY(ConstantIds.BIOMES_O_PLENTY),
     CONNECTED_TEXTURES(ConstantIds.CONNECTED_TEXTURES),
     CHISEL(ConstantIds.CHISEL),
-    INDUSTRIAL_FOREGOING(ConstantIds.INDUSTRIAL_FOREGOING);
+    INDUSTRIAL_FOREGOING(ConstantIds.INDUSTRIAL_FOREGOING),
+    ABYSSALCRAFT(ConstantIds.ABYSSALCRAFT);
     
     public final String modId;
     public final boolean isLoaded;
@@ -118,5 +120,6 @@ public enum ModIds
         public static final String CONNECTED_TEXTURES = CTM.MOD_ID;
         public static final String CHISEL = Chisel.MOD_ID;
         public static final String INDUSTRIAL_FOREGOING = IndustrialForegoingHelper.MOD_ID;
+        public static final String ABYSSALCRAFT = AbyssalCraft.modid;
     }
 }

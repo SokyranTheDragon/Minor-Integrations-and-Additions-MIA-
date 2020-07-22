@@ -44,6 +44,7 @@ import org.apache.logging.log4j.Logger;
                 ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +
                 // ";after:" + ModIds.ConstantIds.CHISEL + // Not really needed for anything, since we're using IMC for adding blocks
                 ";after:" + ModIds.ConstantIds.INDUSTRIAL_FOREGOING +
+                ";after:" + ModIds.ConstantIds.ABYSSALCRAFT +
                 // Unrelated to the project, but seemed to be causing some issues
                 ";after:mystcraft" +
                 ";")
