@@ -1,4 +1,14 @@
 {
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "hatchery"
+    },
+    {
+      "type": "mia:are_recipes_enabled",
+      "category": "size"
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "nnn",

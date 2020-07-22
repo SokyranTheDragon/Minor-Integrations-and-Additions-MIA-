@@ -79,7 +79,10 @@ minecraft {
 
 dependencies {
     // Actual dependency for some new features
-    deobfProvided "curse.maven:ArtemisLib-1.12.2-v1.0.6:2741812"
+    if (project.run_artemislib.equals("true"))
+        deobfProvided "curse.maven:ArtemisLib-1.12.2-v1.0.6:2741812"
+    else
+        compileOnly "curse.maven:ArtemisLib-1.12.2-v1.0.6:2741812"
 
     //  The One Probe
     deobfProvided "curse.maven:TheOneProbe_1.4.28:2667280"

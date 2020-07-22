@@ -112,7 +112,7 @@ public class CommandSize extends CommandBase
             
             SizeUtils.setEntitySize(entityPlayer, targetSize);
             notifyCommandListener(sender, this, "mia.commands.size.success_2",
-                    entityPlayer.getName(), SizeUtils.getEntitySize(entityPlayer), entityPlayer.height);
+                    entityPlayer.getName(), SizeUtils.getEntitySize(entityPlayer));
         }
         else if (args.length == 1)
         {
@@ -124,7 +124,7 @@ public class CommandSize extends CommandBase
             float targetSize = parseFloat(args[1]);
             SizeUtils.setEntitySize(entityPlayer, targetSize);
             notifyCommandListener(sender, this, "mia.commands.size.success_2",
-                    entityPlayer.getName(), SizeUtils.getEntitySize(entityPlayer), entityPlayer.height);
+                    entityPlayer.getName(), SizeUtils.getEntitySize(entityPlayer));
         }
     }
     

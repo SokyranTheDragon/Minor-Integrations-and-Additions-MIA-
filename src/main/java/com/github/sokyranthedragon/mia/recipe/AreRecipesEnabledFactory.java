@@ -4,6 +4,7 @@ import com.github.sokyranthedragon.mia.config.HatcheryConfiguration;
 import com.github.sokyranthedragon.mia.config.IceAndFireConfiguration;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.crafting.IConditionFactory;
@@ -81,6 +82,9 @@ public class AreRecipesEnabledFactory implements IConditionFactory
                     }
                 case "bark":
                     // Nothing yet
+                    break;
+                case "size":
+                    isEnabled = SizeUtils.isSizeComponentEnabled;
                     break;
             }
         }

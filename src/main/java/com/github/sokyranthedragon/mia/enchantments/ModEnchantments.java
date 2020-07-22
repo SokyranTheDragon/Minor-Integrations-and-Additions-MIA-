@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.enchantments;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.thermalexpansion.ThermalExpansion;
+import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,9 +15,25 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class ModEnchantments
 {
-    public static final Enchantment SHRINKING = addEnchantment(new EnchantmentShrinking(), "shrinking");
-    public static final Enchantment SIZE_STEAL = addEnchantment(new EnchantmentSizeSteal(), "size_steal");
-    public static final Enchantment KOBOLD = addEnchantment(new EnchantmentKobold(), "kobold");
+    public static final Enchantment SHRINKING;
+    public static final Enchantment SIZE_STEAL;
+    public static final Enchantment KOBOLD;
+    
+    static
+    {
+        if (SizeUtils.isSizeComponentEnabled)
+        {
+            SHRINKING = addEnchantment(new EnchantmentShrinking(), "shrinking");
+            SIZE_STEAL = addEnchantment(new EnchantmentSizeSteal(), "size_steal");
+            KOBOLD = addEnchantment(new EnchantmentKobold(), "kobold");
+        }
+        else
+        {
+            SHRINKING = null;
+            SIZE_STEAL = null;
+            KOBOLD = null;
+        }
+    }
     
     private static Enchantment addEnchantment(Enchantment enchantment, String name)
     {

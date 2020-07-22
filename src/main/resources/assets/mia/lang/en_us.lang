@@ -199,7 +199,7 @@ mia.config.mocreatures.replace_fish_drops=Replace fish drops
 mia.commands.size.usage_op=/size <player> <size> or /size [size]
 mia.commands.size.usage=/size
 mia.commands.size.success_1=%s size modifier is %s (actual size is %s)
-mia.commands.size.success_2=Succesfully changed %s size modifier to %s (actual size is %s)
+mia.commands.size.success_2=Succesfully changed %s size modifier to %s
 mia.commands.size.failure_1=%s is not a player nor a valid size
 
 
