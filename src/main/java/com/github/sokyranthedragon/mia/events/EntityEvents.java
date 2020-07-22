@@ -76,7 +76,7 @@ public class EntityEvents
         {
             if (HarvestcraftConfiguration.squidDropsCalamari && event.getEntityLiving() instanceof EntitySquid)
             {
-                dropFewItems(ItemRegistry.calamaricookedItem, ItemRegistry.calamaricookedItem, event);
+                dropFewItems(ItemRegistry.calamarirawItem, ItemRegistry.calamaricookedItem, event);
                 return;
             }
             else if (ModIds.MO_CREATURES.isLoaded)
