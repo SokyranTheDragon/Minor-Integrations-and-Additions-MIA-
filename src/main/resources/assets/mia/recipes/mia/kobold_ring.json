@@ -2,7 +2,7 @@
   "conditions": [
     {
       "type": "mia:is_mod_loaded",
-      "modid": "hatchery"
+      "modid": "artemislib"
     },
     {
       "type": "mia:are_recipes_enabled",
