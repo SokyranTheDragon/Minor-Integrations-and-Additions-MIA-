@@ -100,31 +100,32 @@ class ThermalExpansionQuarkIntegration implements IThermalExpansionIntegration
             for (EnchanterRecipe recipe : recipes)
             {
                 Optional<Enchantment> result =
-                        AncientTomes.validEnchants.stream()
-                                                  .filter(enchant ->
-                                                  {
-                                                      ResourceLocation name = enchant.getRegistryName();
-                                                      return name != null && name.toString().equals(recipe.getEnchantName());
-                                                  })
-                                                  .findAny();
+                    AncientTomes.validEnchants.stream()
+                                              .filter(enchant ->
+                                              {
+                                                  ResourceLocation name = enchant.getRegistryName();
+                                                  return name != null && name.toString().equals(recipe.getEnchantName());
+                                              })
+                                              .findAny();
                 
                 if (result.isPresent())
                 {
                     Enchantment enchantment = result.get();
-                    ItemStack baseBook = new ItemStack(Items.ENCHANTED_BOOK);
+//                    ItemStack baseBook = new ItemStack(Items.ENCHANTED_BOOK);
+                    ItemStack baseBook = ItemEnchantedBook.getEnchantedItemStack(new EnchantmentData(enchantment, 1));
                     ItemStack ancientTome = new ItemStack(AncientTomes.ancient_tome);
-                    ItemEnchantedBook.addEnchantment(baseBook, new EnchantmentData(enchantment, enchantment.getMaxLevel()));
+//                    ItemEnchantedBook.addEnchantment(baseBook, new EnchantmentData(enchantment, enchantment.getMaxLevel()));
                     ItemEnchantedBook.addEnchantment(ancientTome, new EnchantmentData(enchantment, enchantment.getMaxLevel()));
                     
                     if (baseBook.hasTagCompound() && ancientTome.hasTagCompound())
                     {
                         EnchanterManager.addRecipe(
-                                recipe.getEnergy() * 10,
-                                baseBook,
-                                new ItemStack(recipe.getSecondaryInput().getItem(), recipe.getSecondaryInput().getMaxStackSize()),
-                                ancientTome,
-                                10_000,
-                                EnchanterManager.Type.STANDARD);
+                            recipe.getEnergy() * 10,
+                            baseBook,
+                            new ItemStack(recipe.getSecondaryInput().getItem(), recipe.getSecondaryInput().getMaxStackSize()),
+                            ancientTome,
+                            10_000,
+                            EnchanterManager.Type.STANDARD);
                     }
                 }
             }
