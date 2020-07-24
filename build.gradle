@@ -277,6 +277,19 @@ dependencies {
         compileOnly "curse.maven:AbyssalCraft Integration-1.12.2-1.11.2:2959100"
     }
 
+    if (project.run_aether.equals("true")) {
+        deobfProvided "curse.maven:Aether_Legacy_1.12.2-v1.4.4:2698950"
+        deobfProvided "curse.maven:Extra_Moas_v1.2.0:2646020"
+        deobfProvided "curse.maven:Aether_Continuation_v1.2.3:2701616"
+        deobfProvided "curse.maven:Lost_Aether_Content_1.12.2-v1.0.1:2960407"
+    }
+    else {
+        compileOnly "curse.maven:Aether_Legacy_1.12.2-v1.4.4:2698950"
+        compileOnly "curse.maven:Extra_Moas_v1.2.0:2646020"
+        compileOnly "curse.maven:Aether_Continuation_v1.2.3:2701616"
+        compileOnly "curse.maven:Lost_Aether_Content_1.12.2-v1.0.1:2960407"
+    }
+
 
     if (kotlinSupport)
         deobfProvided "curse.maven:Forgelin_1.8.4-1.12.2:2785465"
@@ -301,7 +314,6 @@ curseforge {
             relations {
                 optionalDependency "artemislib"
 
-                optionalDependency "abyssalcraft"
                 optionalDependency "biomes-o-plenty"
                 optionalDependency "baubles"
                 optionalDependency "botania"
