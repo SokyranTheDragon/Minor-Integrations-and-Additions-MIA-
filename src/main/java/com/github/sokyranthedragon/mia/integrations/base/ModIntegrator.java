@@ -6,6 +6,9 @@ import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.abyssalcraft.AbyssalCraft;
+import com.github.sokyranthedragon.mia.integrations.aether.Aether;
+import com.github.sokyranthedragon.mia.integrations.aether_continuation.AetherContinuation;
+import com.github.sokyranthedragon.mia.integrations.aether_lost_content.AetherLostContent;
 import com.github.sokyranthedragon.mia.integrations.biomesoplenty.BiomesOPlenty;
 import com.github.sokyranthedragon.mia.integrations.botania.Botania;
 import com.github.sokyranthedragon.mia.integrations.chisel.Chisel;
@@ -53,6 +56,8 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
+
 public class ModIntegrator
 {
     private Map<ModIds, IBaseMod> modIntegrations = new LinkedHashMap<>();
@@ -81,53 +86,61 @@ public class ModIntegrator
         }
         modsRegistered = true;
         
-        modIntegrations.put(ModIds.MIA, new MiaSelfIntegrations());
-        if (ModIds.EXTRA_UTILITIES.isLoaded)
-            modIntegrations.put(ModIds.EXTRA_UTILITIES, new ExtraUtilities2());
-        if (ModIds.COFH_CORE.isLoaded)
-            modIntegrations.put(ModIds.COFH_CORE, new CofhCore());
-        if (ModIds.THERMAL_FOUNDATION.isLoaded)
-            modIntegrations.put(ModIds.THERMAL_FOUNDATION, new ThermalFoundation());
-        if (ModIds.THERMAL_EXPANSION.isLoaded)
-            modIntegrations.put(ModIds.THERMAL_EXPANSION, new ThermalExpansion());
-        if (ModIds.TINKERS_CONSTRUCT.isLoaded)
-            modIntegrations.put(ModIds.TINKERS_CONSTRUCT, new TinkersConstruct());
-        if (ModIds.JEI.isLoaded)
-            modIntegrations.put(ModIds.JEI, new Jei());
-        if (ModIds.JER.isLoaded)
-            modIntegrations.put(ModIds.JER, new JustEnoughResources());
-        if (ModIds.ICE_AND_FIRE.isLoaded)
-            modIntegrations.put(ModIds.ICE_AND_FIRE, new IceAndFire());
-        if (ModIds.HATCHERY.isLoaded)
-            modIntegrations.put(ModIds.HATCHERY, new Hatchery());
-        if (ModIds.THAUMCRAFT.isLoaded)
-            modIntegrations.put(ModIds.THAUMCRAFT, new Thaumcraft());
-        if (ModIds.THE_ONE_PROBE.isLoaded)
-            modIntegrations.put(ModIds.THE_ONE_PROBE, new TheOneProbe());
-        if (ModIds.MO_CREATURES.isLoaded)
-            modIntegrations.put(ModIds.MO_CREATURES, new MoCreatures());
-        if (ModIds.DUNGEON_TACTICS.isLoaded)
-            modIntegrations.put(ModIds.DUNGEON_TACTICS, new DungeonTactics());
-        if (ModIds.HARVESTCRAFT.isLoaded)
-            modIntegrations.put(ModIds.HARVESTCRAFT, new Harvestcraft());
-        if (ModIds.BOTANIA.isLoaded)
-            modIntegrations.put(ModIds.BOTANIA, new Botania());
-        if (ModIds.EXTRABOTANY.isLoaded)
-            modIntegrations.put(ModIds.EXTRABOTANY, new ExtraBotany());
-        if (ModIds.QUARK.isLoaded)
-            modIntegrations.put(ModIds.QUARK, new Quark());
-        if (ModIds.FUTURE_MC.isLoaded)
-            modIntegrations.put(ModIds.FUTURE_MC, new FutureMc());
-        if (ModIds.NATURA.isLoaded)
-            modIntegrations.put(ModIds.NATURA, new Natura());
-        if (ModIds.BIOMES_O_PLENTY.isLoaded)
-            modIntegrations.put(ModIds.BIOMES_O_PLENTY, new BiomesOPlenty());
-        if (ModIds.CHISEL.isLoaded)
-            modIntegrations.put(ModIds.CHISEL, new Chisel());
-        if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
-            modIntegrations.put(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoing());
-        if (ModIds.ABYSSALCRAFT.isLoaded)
-            modIntegrations.put(ModIds.ABYSSALCRAFT, new AbyssalCraft());
+        modIntegrations.put(MIA, new MiaSelfIntegrations());
+        if (EXTRA_UTILITIES.isLoaded)
+            modIntegrations.put(EXTRA_UTILITIES, new ExtraUtilities2());
+        if (COFH_CORE.isLoaded)
+            modIntegrations.put(COFH_CORE, new CofhCore());
+        if (THERMAL_FOUNDATION.isLoaded)
+            modIntegrations.put(THERMAL_FOUNDATION, new ThermalFoundation());
+        if (THERMAL_EXPANSION.isLoaded)
+            modIntegrations.put(THERMAL_EXPANSION, new ThermalExpansion());
+        if (TINKERS_CONSTRUCT.isLoaded)
+            modIntegrations.put(TINKERS_CONSTRUCT, new TinkersConstruct());
+        if (JEI.isLoaded)
+            modIntegrations.put(JEI, new Jei());
+        if (JER.isLoaded)
+            modIntegrations.put(JER, new JustEnoughResources());
+        if (ICE_AND_FIRE.isLoaded)
+            modIntegrations.put(ICE_AND_FIRE, new IceAndFire());
+        if (HATCHERY.isLoaded)
+            modIntegrations.put(HATCHERY, new Hatchery());
+        if (THAUMCRAFT.isLoaded)
+            modIntegrations.put(THAUMCRAFT, new Thaumcraft());
+        if (THE_ONE_PROBE.isLoaded)
+            modIntegrations.put(THE_ONE_PROBE, new TheOneProbe());
+        if (MO_CREATURES.isLoaded)
+            modIntegrations.put(MO_CREATURES, new MoCreatures());
+        if (DUNGEON_TACTICS.isLoaded)
+            modIntegrations.put(DUNGEON_TACTICS, new DungeonTactics());
+        if (HARVESTCRAFT.isLoaded)
+            modIntegrations.put(HARVESTCRAFT, new Harvestcraft());
+        if (BOTANIA.isLoaded)
+            modIntegrations.put(BOTANIA, new Botania());
+        if (EXTRABOTANY.isLoaded)
+            modIntegrations.put(EXTRABOTANY, new ExtraBotany());
+        if (QUARK.isLoaded)
+            modIntegrations.put(QUARK, new Quark());
+        if (FUTURE_MC.isLoaded)
+            modIntegrations.put(FUTURE_MC, new FutureMc());
+        if (NATURA.isLoaded)
+            modIntegrations.put(NATURA, new Natura());
+        if (BIOMES_O_PLENTY.isLoaded)
+            modIntegrations.put(BIOMES_O_PLENTY, new BiomesOPlenty());
+        if (CHISEL.isLoaded)
+            modIntegrations.put(CHISEL, new Chisel());
+        if (INDUSTRIAL_FOREGOING.isLoaded)
+            modIntegrations.put(INDUSTRIAL_FOREGOING, new IndustrialForegoing());
+        if (ABYSSALCRAFT.isLoaded)
+            modIntegrations.put(ABYSSALCRAFT, new AbyssalCraft());
+        if (AETHER.isLoaded)
+        {
+            modIntegrations.put(AETHER, new Aether());
+            if (AETHER_CONTINUATION.isLoaded)
+                modIntegrations.put(AETHER_CONTINUATION, new AetherContinuation());
+            if (AETHER_LOST_CONTENT.isLoaded)
+                modIntegrations.put(AETHER_LOST_CONTENT, new AetherLostContent());
+        }
         
         if (!modIntegrations.isEmpty())
         {
@@ -280,7 +293,7 @@ public class ModIntegrator
         }
     }
     
-    @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
+    @Optional.Method(modid = ConstantIds.THAUMCRAFT)
     public void registerAspects(AspectRegistryEvent event)
     {
         if (registeredAspects)

@@ -41,11 +41,6 @@ public class PlayerEvents
         if (event.getSide() == Side.CLIENT)
             return;
         
-        if (event.isCanceled())
-        {
-            return;
-        }
-        
         final TileEntity tile = event.getWorld().getTileEntity(event.getPos());
         
         if (ModIds.HATCHERY.isLoaded && tile instanceof NestPenTileEntity)
