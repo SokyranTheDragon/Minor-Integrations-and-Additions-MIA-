@@ -339,6 +339,10 @@ curseforge {
                 optionalDependency "thermal-expansion"
                 optionalDependency "thermal-foundation"
                 optionalDependency "tinkers-construct"
+
+                optionalDependency "the-aether"
+                optionalDependency "aether-addon"
+                optionalDependency "aether-lost-content"
             }
         }
         options {
