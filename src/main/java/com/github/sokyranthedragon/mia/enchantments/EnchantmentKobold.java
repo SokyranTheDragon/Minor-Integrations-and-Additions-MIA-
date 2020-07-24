@@ -25,13 +25,13 @@ public class EnchantmentKobold extends Enchantment
     @Override
     public int getMaxLevel()
     {
-        return 5;
+        return 1;
     }
     
     @Override
     public int getMinEnchantability(int level)
     {
-        return 5 + 5 * level;
+        return 35;
     }
     
     @Override
@@ -53,7 +53,7 @@ public class EnchantmentKobold extends Enchantment
         
         if (level == 0)
             return size;
-        return Math.min(size + (1 - size) * 0.2f * level, 1f);
+        return Math.min(size + (1 - size), 1f);
     }
     
     public static boolean checkKoboldEnchantment(EntityPlayer player)
