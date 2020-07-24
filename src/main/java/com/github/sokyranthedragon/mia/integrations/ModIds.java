@@ -10,6 +10,9 @@ import com.gendeathrow.hatchery.Hatchery;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
+import com.legacy.aether.Aether;
+import com.legacy.aether.addon.AetherAddon;
+import com.legacy.lostaether.LostAetherContent;
 import com.meteor.extrabotany.ExtraBotany;
 import com.progwml6.natura.Natura;
 import com.rwtema.extrautils2.ExtraUtils2;
@@ -56,7 +59,10 @@ public enum ModIds
     CONNECTED_TEXTURES(ConstantIds.CONNECTED_TEXTURES),
     CHISEL(ConstantIds.CHISEL),
     INDUSTRIAL_FOREGOING(ConstantIds.INDUSTRIAL_FOREGOING),
-    ABYSSALCRAFT(ConstantIds.ABYSSALCRAFT);
+    ABYSSALCRAFT(ConstantIds.ABYSSALCRAFT),
+    AETHER(ConstantIds.AETHER),
+    AETHER_CONTINUATION(ConstantIds.AETHER_CONTINUATION),
+    AETHER_LOST_CONTENT(ConstantIds.AETHER_LOST_CONTENT);
     
     public final String modId;
     public final boolean isLoaded;
@@ -121,5 +127,8 @@ public enum ModIds
         public static final String CHISEL = Chisel.MOD_ID;
         public static final String INDUSTRIAL_FOREGOING = IndustrialForegoingHelper.MOD_ID;
         public static final String ABYSSALCRAFT = AbyssalCraft.modid;
+        public static final String AETHER = Aether.modid;
+        public static final String AETHER_CONTINUATION = AetherAddon.modid;
+        public static final String AETHER_LOST_CONTENT = LostAetherContent.MODID;
     }
 }

@@ -27,38 +27,42 @@ import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 @Mod(
-        modid = Mia.MODID,
-        name = Mia.NAME,
-        version = Mia.VERSION,
-        updateJSON = "https://raw.githubusercontent.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-/master/update.json",
-        dependencies = "after:" + ModIds.ConstantIds.ARTEMISLIB + "@[1.0.6,)" +
-                ";after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
-                ";after:" + ModIds.ConstantIds.COFH_CORE +
-                ";after:" + ModIds.ConstantIds.THERMAL_FOUNDATION +
-                ";after:" + ModIds.ConstantIds.THERMAL_EXPANSION +
-                ";after:" + ModIds.ConstantIds.TINKERS_CONSTRUCT +
-                ";after:" + ModIds.ConstantIds.JEI +
-                ";after:" + ModIds.ConstantIds.JER + "@[0.9.1.56,]" +
-                ";after:" + ModIds.ConstantIds.ICE_AND_FIRE + "@[1.9.0,]" +
-                ";after:" + ModIds.ConstantIds.HATCHERY +
-                ";after:" + ModIds.ConstantIds.THAUMCRAFT +
-                ";after:" + ModIds.ConstantIds.MO_CREATURES +
-                ";after:" + ModIds.ConstantIds.HARVESTCRAFT +
-                ";after:" + ModIds.ConstantIds.DUNGEON_TACTICS +
-                ";after:" + ModIds.ConstantIds.BOTANIA +
-                ";after:" + ModIds.ConstantIds.EXTRABOTANY +
-                ";after:" + ModIds.ConstantIds.QUARK +
-                ";after:" + ModIds.ConstantIds.CRAFT_TWEAKER +
-                ";after:" + ModIds.ConstantIds.FUTURE_MC + "@[0.2.0.0,]" +
-                ";after:" + ModIds.ConstantIds.THE_ONE_PROBE +
-                ";after:" + ModIds.ConstantIds.NATURA +
-                ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +
-                // ";after:" + ModIds.ConstantIds.CHISEL + // Not really needed for anything, since we're using IMC for adding blocks
-                ";after:" + ModIds.ConstantIds.INDUSTRIAL_FOREGOING +
-                ";after:" + ModIds.ConstantIds.ABYSSALCRAFT +
-                // Unrelated to the project, but seemed to be causing some issues
-                ";after:mystcraft" +
-                ";")
+    modid = Mia.MODID,
+    name = Mia.NAME,
+    version = Mia.VERSION,
+    updateJSON = "https://raw.githubusercontent.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-/master/update.json",
+    dependencies =
+        "after:" + ModIds.ConstantIds.ARTEMISLIB + "@[1.0.6,)" +
+            ";after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
+            ";after:" + ModIds.ConstantIds.COFH_CORE +
+            ";after:" + ModIds.ConstantIds.THERMAL_FOUNDATION +
+            ";after:" + ModIds.ConstantIds.THERMAL_EXPANSION +
+            ";after:" + ModIds.ConstantIds.TINKERS_CONSTRUCT +
+            ";after:" + ModIds.ConstantIds.JEI +
+            ";after:" + ModIds.ConstantIds.JER + "@[0.9.1.56,]" +
+            ";after:" + ModIds.ConstantIds.ICE_AND_FIRE + "@[1.9.0,]" +
+            ";after:" + ModIds.ConstantIds.HATCHERY +
+            ";after:" + ModIds.ConstantIds.THAUMCRAFT +
+            ";after:" + ModIds.ConstantIds.MO_CREATURES +
+            ";after:" + ModIds.ConstantIds.HARVESTCRAFT +
+            ";after:" + ModIds.ConstantIds.DUNGEON_TACTICS +
+            ";after:" + ModIds.ConstantIds.BOTANIA +
+            ";after:" + ModIds.ConstantIds.EXTRABOTANY +
+            ";after:" + ModIds.ConstantIds.QUARK +
+            ";after:" + ModIds.ConstantIds.CRAFT_TWEAKER +
+            ";after:" + ModIds.ConstantIds.FUTURE_MC + "@[0.2.0.0,]" +
+            ";after:" + ModIds.ConstantIds.THE_ONE_PROBE +
+            ";after:" + ModIds.ConstantIds.NATURA +
+            ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +
+            // ";after:" + ModIds.ConstantIds.CHISEL + // Not really needed for anything, since we're using IMC for adding blocks
+            ";after:" + ModIds.ConstantIds.INDUSTRIAL_FOREGOING +
+            ";after:" + ModIds.ConstantIds.ABYSSALCRAFT +
+            ";after:" + ModIds.ConstantIds.AETHER +
+            ";after:" + ModIds.ConstantIds.AETHER_CONTINUATION +
+            ";after:" + ModIds.ConstantIds.AETHER_LOST_CONTENT +
+            // Unrelated to the project, but seemed to be causing some issues
+            ";after:mystcraft" +
+            ";")
 public class Mia
 {
     public static final String MODID = "mia";
