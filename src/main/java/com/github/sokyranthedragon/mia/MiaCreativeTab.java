@@ -48,7 +48,6 @@ public class MiaCreativeTab extends CreativeTabs
         else if (!MiaItems.items.isEmpty())
             return new ItemStack(MiaItems.items.get(0));
         
-        
         return ItemStack.EMPTY;
     }
     

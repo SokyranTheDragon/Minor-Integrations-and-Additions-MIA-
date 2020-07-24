@@ -1,10 +1,17 @@
 package com.github.sokyranthedragon.mia;
 
+import cofh.thermalexpansion.util.managers.machine.EnchanterManager;
 import com.github.sokyranthedragon.mia.commands.CommandSize;
+import com.github.sokyranthedragon.mia.config.QuarkConfiguration;
 import com.github.sokyranthedragon.mia.gui.GuiHandler;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.proxy.CommonProxy;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemEnchantedBook;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -13,6 +20,10 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vazkii.quark.misc.feature.AncientTomes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 @Mod(
@@ -93,5 +104,39 @@ public class Mia
     {
         if (SizeUtils.isSizeComponentEnabled)
             event.registerServerCommand(new CommandSize());
+    }
+    
+    @EventHandler
+    public void handleIdMappingEvent(FMLModIdMappingEvent event)
+    {
+        if (ModIds.THERMAL_EXPANSION.isLoaded && ModIds.QUARK.isLoaded && AncientTomes.ancient_tome != null && QuarkConfiguration.ancientTomesCrafting)
+        {
+            List<EnchanterManager.EnchanterRecipe> recipesToReplace = new ArrayList<>();
+            
+            for (EnchanterManager.EnchanterRecipe enchanterRecipe : EnchanterManager.getRecipeList())
+            {
+                if (enchanterRecipe.getPrimaryInput().getItem() == Items.ENCHANTED_BOOK && enchanterRecipe.getOutput().getItem() == AncientTomes.ancient_tome)
+                    recipesToReplace.add(enchanterRecipe);
+            }
+            
+            for (EnchanterManager.EnchanterRecipe enchanterRecipe : recipesToReplace)
+            {
+                EnchanterManager.removeRecipe(enchanterRecipe.getPrimaryInput(), enchanterRecipe.getSecondaryInput());
+                Enchantment enchantment = Enchantment.getEnchantmentByLocation(enchanterRecipe.getEnchantName());
+                
+                if (enchantment == null)
+                    continue;
+                
+                ItemStack ancientTome = new ItemStack(AncientTomes.ancient_tome);
+                ItemEnchantedBook.addEnchantment(ancientTome, new EnchantmentData(enchantment, enchantment.getMaxLevel()));
+                
+                EnchanterManager.addRecipe(enchanterRecipe.getEnergy(),
+                    ItemEnchantedBook.getEnchantedItemStack(new EnchantmentData(enchantment, enchantment.getMaxLevel())),
+                    enchanterRecipe.getSecondaryInput(),
+                    ancientTome,
+                    enchanterRecipe.getExperience(),
+                    enchanterRecipe.getType());
+            }
+        }
     }
 }
