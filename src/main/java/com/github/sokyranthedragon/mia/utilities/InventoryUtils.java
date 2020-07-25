@@ -4,6 +4,8 @@ import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.google.common.collect.ImmutableSet;
+import com.legacy.aether.api.AetherAPI;
+import com.legacy.aether.api.player.util.IAccessoryInventory;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,9 +46,7 @@ public class InventoryUtils
                 ItemStack dropStack = itemstack.splitStack(itemstack.getMaxStackSize());
                 
                 if (!dropStack.isEmpty())
-                {
                     InventoryHelper.spawnItemStack(worldIn, x, y, z, itemstack);
-                }
             }
         }
     }
@@ -65,6 +65,21 @@ public class InventoryUtils
             {
                 item = BaublesApi.getBaublesHandler(player).getStackInSlot(slot);
                 type = 3;
+            }
+        }
+        
+        if (ModIds.AETHER.isLoaded && item.isEmpty())
+        {
+            IAccessoryInventory accessoryInventory = AetherAPI.getInstance().get(player).getAccessoryInventory();
+            NonNullList<ItemStack> accessories = accessoryInventory.getAccessories();
+            for (slot = 0; slot < accessories.size(); slot++)
+            {
+                ItemStack accessory = accessories.get(slot);
+                if (accessory.getItem() == targetItem)
+                {
+                    item = accessory;
+                    type = 5;
+                }
             }
         }
         
@@ -117,6 +132,15 @@ public class InventoryUtils
             }
         }
         
+        if (ModIds.AETHER.isLoaded)
+        {
+            for (ItemStack accessory : AetherAPI.getInstance().get(player).getAccessoryInventory().getAccessories())
+            {
+                if (accessory.getItem() == targetItem)
+                    set.add(accessory);
+            }
+        }
+        
         for (ItemStack stack : player.inventory.mainInventory)
         {
             if (stack.getItem() == targetItem)
@@ -155,6 +179,10 @@ public class InventoryUtils
             // Item held in GUI
             case 4:
                 itemStack = player.inventory.getItemStack();
+                break;
+            case 5:
+                if (ModIds.AETHER.isLoaded)
+                    itemStack = AetherAPI.getInstance().get(player).getAccessoryInventory().getStackInSlot(slot);
                 break;
         }
         

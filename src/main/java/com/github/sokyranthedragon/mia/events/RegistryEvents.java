@@ -2,11 +2,17 @@ package com.github.sokyranthedragon.mia.events;
 
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
+import com.github.sokyranthedragon.mia.core.MiaItems;
+import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
+import com.legacy.aether.api.accessories.AccessoryType;
+import com.legacy.aether.api.accessories.AetherAccessory;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nullable;
@@ -62,5 +68,15 @@ public class RegistryEvents
         }
         
         return null;
+    }
+    
+    @SubscribeEvent
+    @Optional.Method(modid = ModIds.ConstantIds.AETHER)
+    public static void onRegisterAetherAccessory(RegistryEvent.Register<AetherAccessory> event)
+    {
+        if (MiaItems.musicPlayer != null)
+            event.getRegistry().register(new AetherAccessory(MiaItems.musicPlayer, AccessoryType.MISC));
+        if (SizeUtils.isSizeComponentEnabled && MiaItems.koboldRing != null)
+            event.getRegistry().register(new AetherAccessory(MiaItems.koboldRing, AccessoryType.RING));
     }
 }

@@ -51,7 +51,7 @@ public class MiaItems
         if (MiaConfig.musicPlayerEnabled)
             musicPlayer = registerItem(new ItemMusicPlayer(), registry);
         
-        if (ModIds.ARTEMISLIB.isLoaded && ModIds.BAUBLES.isLoaded)
+        if (ModIds.ARTEMISLIB.isLoaded && (ModIds.BAUBLES.isLoaded || ModIds.AETHER.isLoaded))
             koboldRing = registerItem(new ItemRingKobold(), registry, GenericAdditionsConfig.enableSizeComponent);
     }
     

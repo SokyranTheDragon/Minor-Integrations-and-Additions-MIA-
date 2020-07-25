@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.utilities;
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.legacy.aether.api.AetherAPI;
 import com.meteor.extrabotany.common.item.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -28,9 +29,21 @@ public class BaublesUtils
     {
         if (item == null)
             return false;
-        if (!isLoaded)
-            return BaublesApi.isBaubleEquipped(player, item) >= 0;
-        
+        if (ModIds.BAUBLES.isLoaded)
+        {
+            if (isLoaded)
+            {
+                if (baublesCheck(player, item))
+                    return true;
+            }
+            else if (BaublesApi.isBaubleEquipped(player, item) >= 0)
+                return true;
+        }
+        return ModIds.AETHER.isLoaded && !getAetherStack(player, item).isEmpty();
+    }
+    
+    public static boolean baublesCheck(EntityPlayer player, Item item)
+    {
         IBaublesItemHandler handler = BaublesApi.getBaublesHandler(player);
         int maxSize = 0;
         
@@ -72,5 +85,16 @@ public class BaublesUtils
         }
         
         return false;
+    }
+    
+    public static ItemStack getAetherStack(EntityPlayer player, Item item)
+    {
+        for (ItemStack accessory : AetherAPI.getInstance().get(player).getAccessoryInventory().getAccessories())
+        {
+            if (accessory.getItem() == item)
+                return accessory;
+        }
+        
+        return ItemStack.EMPTY;
     }
 }

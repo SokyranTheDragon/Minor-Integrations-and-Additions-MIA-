@@ -12,10 +12,12 @@ import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.network.MessageSyncMusicPlayer;
 import com.github.sokyranthedragon.mia.utilities.InventoryUtils;
 import com.github.sokyranthedragon.mia.utilities.MusicUtils;
+import com.legacy.aether.api.AetherAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -55,7 +57,7 @@ public class ClientEvents
         boolean nextSongPressed = MiaKeyBindings.nextSong.isPressed();
         boolean previousSongPressed = MiaKeyBindings.previousSong.isPressed();
         
-        if (openGuiPressed || musicTogglePressed || nextSongPressed || previousSongPressed)
+        if (MiaItems.musicPlayer != null && (openGuiPressed || musicTogglePressed || nextSongPressed || previousSongPressed))
         {
             ImmutableTriple<ItemStack, Integer, Integer> itemInInventory = InventoryUtils.findItemInInventory(player, MiaItems.musicPlayer);
             MusicPlayerStackHandler capability = itemInInventory.left.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
@@ -98,6 +100,13 @@ public class ClientEvents
                 handleMusicPlayerVerification(baubles.getStackInSlot(i), uuidList, 3, i);
         }
         
+        if (ModIds.AETHER.isLoaded)
+        {
+            NonNullList<ItemStack> accessories = AetherAPI.getInstance().get(player).getAccessoryInventory().getAccessories();
+            for (int i = 0; i < accessories.size(); i++)
+                handleMusicPlayerVerification(accessories.get(i), uuidList, 5, i);
+        }
+        
         for (int i = 0; i < player.inventory.mainInventory.size(); i++)
             handleMusicPlayerVerification(player.inventory.mainInventory.get(i), uuidList, 2, i);
         
@@ -105,16 +114,16 @@ public class ClientEvents
         handleMusicPlayerVerification(player.inventory.getItemStack(), uuidList, 4, 0);
         
         MusicUtils.currentlyPlayedSongs = MusicUtils.currentlyPlayedSongs
-                .entrySet().stream().filter(e ->
+            .entrySet().stream().filter(e ->
+            {
+                if (!uuidList.contains(e.getKey()))
                 {
-                    if (!uuidList.contains(e.getKey()))
-                    {
-                        Minecraft.getMinecraft().getSoundHandler().stopSound(e.getValue());
-                        return false;
-                    }
-                    else
-                        return true;
-                }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                    Minecraft.getMinecraft().getSoundHandler().stopSound(e.getValue());
+                    return false;
+                }
+                else
+                    return true;
+            }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
     
     @SideOnly(Side.CLIENT)
@@ -124,7 +133,7 @@ public class ClientEvents
             return;
         
         MusicPlayerStackHandler capability = item.getCapability(MusicPlayerCapabilityProvider.ITEM_HANDLER_CAPABILITY, null);
-    
+        
         if (capability == null)
             return;
         
@@ -157,7 +166,7 @@ public class ClientEvents
                     MusicUtils.stopSong(capability);
             }
         }
-    
+        
         uuidList.add(capability.itemUuid);
     }
 }

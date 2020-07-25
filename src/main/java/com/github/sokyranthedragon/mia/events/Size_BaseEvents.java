@@ -681,6 +681,7 @@ import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.core.MiaItems;
 import com.github.sokyranthedragon.mia.enchantments.EnchantmentKobold;
+import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.utilities.BaublesUtils;
 import com.github.sokyranthedragon.mia.utilities.size.ClimbingHandler;
 import com.github.sokyranthedragon.mia.utilities.size.SizeOreDictionaryUtils;
@@ -690,6 +691,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -751,7 +753,6 @@ public class Size_BaseEvents
                         other.attackEntityFrom(causeCrushingDamage(entity), entity.height - other.height);
                 }
             }
-            
         }
     }
     
@@ -842,6 +843,12 @@ public class Size_BaseEvents
         
         if (event.side == Side.SERVER)
             EnchantmentKobold.checkKoboldEnchantment(player);
+        if (ModIds.AETHER.isLoaded && MiaItems.koboldRing != null)
+        {
+            ItemStack ring = BaublesUtils.getAetherStack(player, MiaItems.koboldRing);
+            if (!ring.isEmpty())
+                MiaItems.koboldRing.onWornTick(ring, player);
+        }
         
         float height = SizeUtils.getEntitySize(player);
         // Other mods might have changed the step height by now, so we multiply that value by height
@@ -974,7 +981,7 @@ public class Size_BaseEvents
     {
         if (!SizeUtils.isSizeComponentEnabled)
             return;
-    
+        
         if (event.getEntity() != null)
         {
             EntityPlayer player = event.getEntity();
@@ -993,7 +1000,7 @@ public class Size_BaseEvents
     {
         if (!SizeUtils.isSizeComponentEnabled)
             return;
-    
+        
         EntityPlayer player = Minecraft.getMinecraft().player;
         float scale = player.height / 1.8F;
         
