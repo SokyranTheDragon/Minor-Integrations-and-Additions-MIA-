@@ -43,14 +43,17 @@ public class ModEnchantments
     @SubscribeEvent
     public static void registerEnchantments(RegistryEvent.Register<Enchantment> event)
     {
-        IForgeRegistry<Enchantment> registry = event.getRegistry();
-        
-        registry.register(SHRINKING);
-        registry.register(SIZE_STEAL);
-        registry.register(KOBOLD);
-        
-        ThermalExpansion.addEnchantingRecipe(new ItemStack(Items.CHORUS_FRUIT), "mia:shrinking", 0);
-        ThermalExpansion.addEnchantingRecipe(new ItemStack(Items.CHORUS_FRUIT_POPPED), "mia:size_steal", 3);
-        ThermalExpansion.addEnchantingRecipe(new ItemStack(Blocks.CHORUS_FLOWER), "mia:kobold", 4);
+        if (SizeUtils.isSizeComponentEnabled)
+        {
+            IForgeRegistry<Enchantment> registry = event.getRegistry();
+            
+            registry.register(SHRINKING);
+            registry.register(SIZE_STEAL);
+            registry.register(KOBOLD);
+            
+            ThermalExpansion.addEnchantingRecipe(new ItemStack(Items.CHORUS_FRUIT), "mia:shrinking", 0);
+            ThermalExpansion.addEnchantingRecipe(new ItemStack(Items.CHORUS_FRUIT_POPPED), "mia:size_steal", 3);
+            ThermalExpansion.addEnchantingRecipe(new ItemStack(Blocks.CHORUS_FLOWER), "mia:kobold", 4);
+        }
     }
 }
