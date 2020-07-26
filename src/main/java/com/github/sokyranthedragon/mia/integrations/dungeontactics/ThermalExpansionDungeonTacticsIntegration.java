@@ -6,6 +6,7 @@ import cofh.thermalfoundation.item.ItemFertilizer;
 import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.thermalexpansion.IThermalExpansionIntegration;
+import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -26,6 +27,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_HAMMER), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_BATTLEAXE), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_GLAIVE), new ItemStack(Items.IRON_INGOT), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_CLUB), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_CUTLASS), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_KNIFE), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.IRON_CESTUS), new ItemStack(Items.IRON_INGOT), 1);
@@ -38,6 +40,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_HAMMER), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_BATTLEAXE), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_GLAIVE), new ItemStack(Items.GOLD_INGOT), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_CLUB), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_CUTLASS), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_KNIFE), new ItemStack(Items.GOLD_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.GOLDEN_CESTUS), new ItemStack(Items.GOLD_INGOT), 1);
@@ -50,6 +53,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_HAMMER), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_BATTLEAXE), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_GLAIVE), new ItemStack(DTItems.INGOT_STEEL), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_CLUB), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_CUTLASS), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_KNIFE), new ItemStack(DTItems.INGOT_STEEL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.STEEL_CESTUS), new ItemStack(DTItems.INGOT_STEEL), 1);
@@ -71,6 +75,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_HAMMER), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_BATTLEAXE), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_GLAIVE), new ItemStack(DTItems.INGOT_SILVER), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_CLUB), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_CUTLASS), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_KNIFE), new ItemStack(DTItems.INGOT_SILVER), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.SILVER_CESTUS), new ItemStack(DTItems.INGOT_SILVER), 1);
@@ -92,6 +97,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_HAMMER), new ItemStack(DTItems.INGOT_MITHRIL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_BATTLEAXE), new ItemStack(DTItems.INGOT_MITHRIL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_GLAIVE), new ItemStack(DTItems.INGOT_MITHRIL), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_CLUB), new ItemStack(DTItems.INGOT_MITHRIL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_CUTLASS), new ItemStack(DTItems.INGOT_MITHRIL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_KNIFE), new ItemStack(DTItems.INGOT_MITHRIL), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(DTItems.MITHRIL_CESTUS), new ItemStack(DTItems.INGOT_MITHRIL), 1);
@@ -123,6 +129,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.DIAMOND_HAMMER), new ItemStack(Items.DIAMOND), 2);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.DIAMOND_BATTLEAXE), new ItemStack(Items.DIAMOND), 1);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.DIAMOND_GLAIVE), new ItemStack(Items.DIAMOND), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.DIAMOND_CLUB), new ItemStack(Items.DIAMOND), 1);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.DIAMOND_CUTLASS), new ItemStack(Items.DIAMOND), 1);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.DIAMOND_KNIFE), new ItemStack(Items.DIAMOND), 1);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.DIAMOND_CESTUS), new ItemStack(Items.DIAMOND), 1);
@@ -135,6 +142,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.WOODEN_HAMMER), ItemMaterial.dustWood, 2);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.WOODEN_BATTLEAXE), ItemMaterial.dustWood, 2);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.WOODEN_GLAIVE), ItemMaterial.dustWood, 2);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.WOODEN_CLUB), ItemMaterial.dustWood, 2);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.WOODEN_CUTLASS), ItemMaterial.dustWood, 2);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.WOODEN_KNIFE), ItemMaterial.dustWood, 2);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.WOODEN_CESTUS), ItemMaterial.dustWood, 2);
@@ -143,6 +151,7 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.BONE_HAMMER), new ItemStack(Items.DYE, 1, 15), 13);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.BONE_BATTLEAXE), new ItemStack(Items.DYE, 1, 15), 13);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.BONE_GLAIVE), new ItemStack(Items.DYE, 1, 15), 9);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.BONE_CLUB), new ItemStack(Items.DYE, 1, 15), 9);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.BONE_CUTLASS), new ItemStack(Items.DYE, 1, 15), 9);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.BONE_KNIFE), new ItemStack(Items.DYE, 1, 15), 4);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(DTItems.BONE_CESTUS), new ItemStack(Items.DYE, 1, 15), 4);
@@ -215,22 +224,32 @@ class ThermalExpansionDungeonTacticsIntegration implements IThermalExpansionInte
         
         
         // Phytogenic Insolator
-        ItemStack input = new ItemStack(DTBlocks.FLOWER_AILMENT);
-        InsolatorManager.addDefaultRecipe(input, input, input, 5);
-        input = new ItemStack(DTBlocks.FLOWER_BARK);
-        InsolatorManager.addDefaultRecipe(input, input, input, 5);
-        input = new ItemStack(DTBlocks.FLOWER_BRAMBLE);
-        InsolatorManager.addDefaultRecipe(input, input, input, 5);
-        input = new ItemStack(DTBlocks.FLOWER_CINDER);
-        InsolatorManager.addDefaultRecipe(input, input, input, 5);
-        input = new ItemStack(DTBlocks.FLOWER_FADE);
-        InsolatorManager.addDefaultRecipe(input, input, input, 5);
-        input = new ItemStack(DTBlocks.FLOWER_FEATHER);
-        InsolatorManager.addDefaultRecipe(input, input, input, 5);
-        input = new ItemStack(DTBlocks.FLOWER_SANGUINE);
-        InsolatorManager.addDefaultRecipe(input, input, input, 5);
-        input = new ItemStack(DTBlocks.FLOWER_TANGLE);
-        InsolatorManager.addDefaultRecipe(input, input, input, 5);
+        ItemStack input;
+        Block[] blocks = new Block[]
+            {
+                DTBlocks.FLOWER_AILMENT,
+                DTBlocks.FLOWER_BARK,
+                DTBlocks.FLOWER_BRAMBLE,
+                DTBlocks.FLOWER_CINDER,
+                DTBlocks.FLOWER_FADE,
+                DTBlocks.FLOWER_FEATHER,
+                DTBlocks.FLOWER_SANGUINE,
+                DTBlocks.FLOWER_TANGLE,
+                DTBlocks.MUSHROOM_BLAST,
+                DTBlocks.MUSHROOM_COAL,
+                DTBlocks.MUSHROOM_GOLD,
+                DTBlocks.MUSHROOM_IRON,
+                DTBlocks.MUSHROOM_MITHRIL,
+                DTBlocks.MUSHROOM_SILVER,
+                DTBlocks.MUSHROOM_STEEL
+            };
+        
+        for (Block block : blocks)
+        {
+            input = new ItemStack(block);
+            InsolatorManager.addDefaultRecipe(input, input, input, 5);
+        }
+        
         input = new ItemStack(DTBlocks.CHERRYBOMB_BUSH);
         InsolatorManager.addDefaultRecipe(input, new ItemStack(DTItems.CHERRYBOMB, 3), input, 100);
         input = new ItemStack(DTBlocks.INCINDIBERRY_BUSH);
