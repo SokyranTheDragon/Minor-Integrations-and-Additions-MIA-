@@ -163,7 +163,7 @@ mia.config.base_additions.size_component.plants_slow_player=Do small players get
 mia.config.base_additions.size_component.climb_some_blocks=Can small players climb some blocks
 mia.config.base_additions.size_component.climb_with_slime=Can small players climb any blocks while holding slime
 mia.config.base_additions.size_component.glide_with_paper=Can small players glide while holding paper
-mia.config.base_additions.size_component.hot_blocks_lift=Do small players who are gliding get flight height boost while gliding over hot blocks
+mia.config.base_additions.size_component.hot_blocks_lift=Do small players get flight height boost while gliding over hot blocks
 
 ## Mod specific
 
@@ -173,6 +173,8 @@ mia.config.harvestcraft.squid_drops_calamari=Squid drops calamari
 mia.config.harvestcraft.balance_modded_food=Balance modded food similarly to vanilla ones
 mia.config.thaumcraft.register_aspects=Register aspects for other mods
 mia.config.botania.orechid_vacuam_oredict=Orechid Vacuam ore dictionary
+
+mia.config.aether.laser_drill_blacklist_aether=Blacklist laser drill Aether biome for non-Aether ores
 
 ## JEI
 
@@ -314,6 +316,15 @@ mia.jer.dungeon.dt_mini_bunker=DT Mini Bunker
 mia.jer.dungeon.dt_pirate_ship=DT Pirate Ship
 mia.jer.dungeon.dt_gypsy_wagon=DT Gypsy Wagon
 mia.jer.dungeon.dt_wizard_tower=DT Wizard Tower
+
+
+### Aether
+
+mia.jer.dungeon.aether_bronze_dungeon_reward=Bronze Dungeon Reward
+mia.jer.dungeon.aether_bronze_dungeon=Bronze Dungeon Chests
+mia.jer.dungeon.aether_silver_dungeon_reward=Silver Dungeon Reward
+mia.jer.dungeon.aether_silver_dungeon=Silver Dungeon Chests
+mia.jer.dungeon.aether_gold_dungeon_reward=Gold Dungeon Reward
 
 
 

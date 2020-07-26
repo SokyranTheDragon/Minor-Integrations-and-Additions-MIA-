@@ -7,6 +7,7 @@ import com.github.sokyranthedragon.mia.items.ItemMusicPlayer;
 import com.github.sokyranthedragon.mia.items.ItemRingKobold;
 import com.github.sokyranthedragon.mia.utilities.RegisterUtils;
 import com.github.sokyranthedragon.mia.utilities.annotations.FieldsAreNullableByDefault;
+import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -51,7 +52,7 @@ public class MiaItems
         if (MiaConfig.musicPlayerEnabled)
             musicPlayer = registerItem(new ItemMusicPlayer(), registry);
         
-        if (ModIds.ARTEMISLIB.isLoaded && (ModIds.BAUBLES.isLoaded || ModIds.AETHER.isLoaded))
+        if (SizeUtils.isSizeComponentEnabled && (ModIds.BAUBLES.isLoaded || ModIds.AETHER.isLoaded))
             koboldRing = registerItem(new ItemRingKobold(), registry, GenericAdditionsConfig.enableSizeComponent);
     }
     

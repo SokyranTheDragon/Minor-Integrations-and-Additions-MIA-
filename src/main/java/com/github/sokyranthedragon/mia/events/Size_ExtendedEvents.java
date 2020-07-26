@@ -3,11 +3,13 @@ package com.github.sokyranthedragon.mia.events;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.enchantments.EnchantmentKobold;
+import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.network.MessageExtendedReachAttack;
 import com.github.sokyranthedragon.mia.potions.BasePotion;
 import com.github.sokyranthedragon.mia.potions.ModPotions;
 import com.github.sokyranthedragon.mia.utilities.size.CollisionUtils;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
+import com.legacy.aether.items.ItemsAether;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -74,7 +76,12 @@ public class Size_ExtendedEvents
         if (!SizeUtils.isSizeComponentEnabled || event.getEntityLiving() instanceof FakePlayer)
             return;
         
-        if (event.getEntityLiving() instanceof EntityPlayer && event.getItem().getItem() == Items.MILK_BUCKET && SizeUtils.getEntitySize(event.getEntityLiving()) != 1)
+        boolean isMilkBucket = event.getItem().getItem() == Items.MILK_BUCKET;
+        
+        if (!isMilkBucket && ModIds.AETHER.isLoaded)
+            isMilkBucket = event.getItem().getItem() == ItemsAether.skyroot_bucket && event.getItem().getMetadata() == 4;
+        
+        if (event.getEntityLiving() instanceof EntityPlayer && isMilkBucket && SizeUtils.getEntitySize(event.getEntityLiving()) != 1)
         {
             event.getEntityLiving().removePotionEffect(ModPotions.sizeStabilizationPotion);
             

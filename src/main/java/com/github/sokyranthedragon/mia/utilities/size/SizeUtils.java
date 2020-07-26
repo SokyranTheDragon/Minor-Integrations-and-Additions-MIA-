@@ -78,6 +78,8 @@ public class SizeUtils
     
     public static void setEntitySize(EntityLivingBase entity, float size, boolean ignoreSizeMatch)
     {
+        if (!isSizeComponentEnabled)
+            return;
         if (entity instanceof FakePlayer)
             return;
         

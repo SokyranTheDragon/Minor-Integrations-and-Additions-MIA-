@@ -740,11 +740,17 @@ public class Size_BaseEvents
             return;
         
         EntityLivingBase entity = event.getEntityLiving();
-        boolean player = entity instanceof EntityPlayer;
+        boolean canPlayerCrush = GenericAdditionsConfig.sizeModule.canPlayersCrushOtherPlayers && entity instanceof EntityPlayer;
+        boolean canNonPlayerCrush = GenericAdditionsConfig.sizeModule.onlyHostileMobsCanCrush || entity instanceof EntityMob;
         
         for (EntityLivingBase other : entity.world.getEntitiesWithinAABB(EntityLivingBase.class, entity.getEntityBoundingBox()))
         {
-            if (!player || !GenericAdditionsConfig.sizeModule.canPlayersCrushOtherPlayers || !(other instanceof EntityPlayer))
+            boolean canCrush = canNonPlayerCrush;
+            
+            if (other instanceof EntityPlayer)
+                canCrush = canPlayerCrush;
+            
+            if (canCrush)
             {
                 if (entity.height / other.height >= 4 && entity.getRidingEntity() != entity)
                 {
@@ -780,12 +786,13 @@ public class Size_BaseEvents
         if (event.getEntityLiving() instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            float sizeModifier = SizeUtils.getEntitySize(player);
             
-            if ((player.isSneaking() || player.isSprinting()) && player.height < 1.8f)
+            if ((player.isSneaking() || player.isSprinting() || EnchantmentKobold.getSizeModifier(player, sizeModifier) > 0) && player.height < 1.8f)
                 player.motionY = 0.42F;
             else
             {
-                float size = MathHelper.sqrt(SizeUtils.getEntitySize(player));
+                float size = MathHelper.sqrt(sizeModifier);
                 size = MathHelper.clamp(size, 0.65F, size);
                 player.motionY *= size;
             }
@@ -851,9 +858,10 @@ public class Size_BaseEvents
         }
         
         float height = SizeUtils.getEntitySize(player);
+        float koboldHeight = EnchantmentKobold.getSizeModifier(player, height);
         // Other mods might have changed the step height by now, so we multiply that value by height
-        player.stepHeight *= height;
-        player.jumpMovementFactor *= height;
+        player.stepHeight *= koboldHeight;
+        player.jumpMovementFactor *= koboldHeight;
         
         if (height < 0.5f)
         {
@@ -917,50 +925,53 @@ public class Size_BaseEvents
                 }
             }
             
-            for (ItemStack stack : player.getHeldEquipment())
+            if (GenericAdditionsConfig.sizeModule.canClimbWithSlime || GenericAdditionsConfig.sizeModule.canGlideWithPaper)
             {
-                if (GenericAdditionsConfig.sizeModule.canClimbWithSlime && SizeOreDictionaryUtils.isItemSlime(stack))
+                for (ItemStack stack : player.getHeldEquipment())
                 {
-                    if (ClimbingHandler.canClimb(player, facing) && player.collidedHorizontally)
+                    if (GenericAdditionsConfig.sizeModule.canClimbWithSlime && SizeOreDictionaryUtils.isItemSlime(stack))
                     {
-                        if (!player.isSneaking())
-                            player.motionY = 0.1D;
-                        
-                        if (player.isSneaking())
-                            player.motionY = 0.0D;
-                    }
-                }
-                
-                if (GenericAdditionsConfig.sizeModule.canGlideWithPaper && SizeOreDictionaryUtils.isItemPaper(stack))
-                {
-                    if (!player.onGround)
-                    {
-                        player.jumpMovementFactor = 0.02F * 1.75F;
-                        player.fallDistance = 0;
-                        
-                        if (player.motionY < 0D)
+                        if (ClimbingHandler.canClimb(player, facing) && player.collidedHorizontally)
                         {
-                            player.motionY *= 0.6D;
-                        }
-                        
-                        if (player.isSneaking())
-                        {
-                            player.jumpMovementFactor *= 3.50F;
-                        }
-                        
-                        if (GenericAdditionsConfig.sizeModule.hotBlocksGiveLift && !player.isSneaking())
-                        {
-                            double blockY = player.posY;
-                            if (blockY >= 256)
-                                blockY = blockY - (blockY - 256);
+                            if (!player.isSneaking())
+                                player.motionY = 0.1D;
                             
-                            for (; blockY >= 0 && player.posY - blockY < 25; blockY--)
+                            if (player.isSneaking())
+                                player.motionY = 0.0D;
+                        }
+                    }
+                    
+                    if (GenericAdditionsConfig.sizeModule.canGlideWithPaper && SizeOreDictionaryUtils.isItemPaper(stack))
+                    {
+                        if (!player.onGround)
+                        {
+                            player.jumpMovementFactor = 0.02F * 1.75F;
+                            player.fallDistance = 0;
+                            
+                            if (player.motionY < 0D)
                             {
-                                Block currentBlock = world.getBlockState(new BlockPos(player.posX, blockY, player.posZ)).getBlock();
-                                if ((currentBlock == Blocks.LAVA) || (currentBlock == Blocks.FIRE) || (currentBlock == Blocks.LIT_FURNACE) || (currentBlock == Blocks.MAGMA))
-                                    player.motionY += MathHelper.clamp(0.07D, Double.MIN_VALUE, 0.1D);
-                                else if (currentBlock != Blocks.AIR)
-                                    break;
+                                player.motionY *= 0.6D;
+                            }
+                            
+                            if (player.isSneaking())
+                            {
+                                player.jumpMovementFactor *= 3.50F;
+                            }
+                            
+                            if (GenericAdditionsConfig.sizeModule.hotBlocksGiveLift && !player.isSneaking())
+                            {
+                                double blockY = player.posY;
+                                if (blockY >= 256)
+                                    blockY = blockY - (blockY - 256);
+                                
+                                for (; blockY >= 0 && player.posY - blockY < 25; blockY--)
+                                {
+                                    Block currentBlock = world.getBlockState(new BlockPos(player.posX, blockY, player.posZ)).getBlock();
+                                    if ((currentBlock == Blocks.LAVA) || (currentBlock == Blocks.FIRE) || (currentBlock == Blocks.LIT_FURNACE) || (currentBlock == Blocks.MAGMA))
+                                        player.motionY += MathHelper.clamp(0.07D, Double.MIN_VALUE, 0.1D);
+                                    else if (currentBlock != Blocks.AIR)
+                                        break;
+                                }
                             }
                         }
                     }
@@ -975,7 +986,7 @@ public class Size_BaseEvents
 //        // TODO: Handle riding other entities
 //    }
     
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     @SideOnly(Side.CLIENT)
     public static void onFOVChange(FOVUpdateEvent event)
     {
@@ -987,10 +998,12 @@ public class Size_BaseEvents
             EntityPlayer player = event.getEntity();
             PotionEffect speed = player.getActivePotionEffect(MobEffects.SPEED);
             
+            float fovScale = event.getFov() / event.getNewfov();
+            
             if (player.isSprinting())
-                event.setNewfov(speed != null ? 1 + ((0.1F * (speed.getAmplifier() + 1)) + 0.15F) : 1 + 0.1F);
+                event.setNewfov(speed != null ? fovScale + ((0.1F * (speed.getAmplifier() + 1)) + 0.15F) : fovScale + 0.1F);
             else
-                event.setNewfov(speed != null ? 1 + (0.1F * (speed.getAmplifier() + 1)) : 1);
+                event.setNewfov(speed != null ? fovScale + (0.1F * (speed.getAmplifier() + 1)) : fovScale);
         }
     }
     
