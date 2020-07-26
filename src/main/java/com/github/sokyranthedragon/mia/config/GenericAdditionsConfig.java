@@ -1,8 +1,6 @@
 package com.github.sokyranthedragon.mia.config;
 
 import com.github.sokyranthedragon.mia.Mia;
-import com.github.sokyranthedragon.mia.integrations.ModIds;
-import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -58,11 +56,7 @@ public class GenericAdditionsConfig
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event)
     {
         if (event.getModID().equals(Mia.MODID))
-        {
             ConfigManager.sync(Mia.MODID, Type.INSTANCE);
-    
-            SizeUtils.isSizeComponentEnabled = enableSizeComponent && ModIds.ARTEMISLIB.isLoaded;
-        }
     }
     
     public static class MoreSandstone
@@ -146,9 +140,11 @@ public class GenericAdditionsConfig
         public boolean deadFlowerEnabled = true;
         
         @Name("Dead flower spawn chance")
-        @Comment({ "Determines percentage chance to generate a dead flower",
-                   "A value of 0 is 0%, a value of 100 is 100%",
-                   "The chance itself is also affected by biome temperature (higher temperature means higher chance, unless the chance is 0)" })
+        @Comment({
+            "Determines percentage chance to generate a dead flower",
+            "A value of 0 is 0%, a value of 100 is 100%",
+            "The chance itself is also affected by biome temperature (higher temperature means higher chance, unless the chance is 0)"
+        })
         @LangKey("mia.config.base_additions.evtp.dead_flower_chance")
         @RangeDouble(min = 0, max = 100)
         public double deadFlowerSpawnChance = 1.5d;
@@ -182,12 +178,12 @@ public class GenericAdditionsConfig
         @LangKey("mia.config.base_additions.size_component.max_player_size")
         @RangeDouble(min = 1f, max = 10f)
         public float maxPlayerSize = 10f;
-    
+        
         @Name("Can mob size change")
         @Comment("Setting this to true allows the player to change the size of non-player mobs.")
         @LangKey("mia.config.base_additions.size_component.mob_size")
         public boolean canScaleMobs = true;
-    
+        
         @Name("Minimum mob size")
         @Comment("Changes the lowest allowed mob size")
         @LangKey("mia.config.base_additions.size_component.min_mob_size")
@@ -198,7 +194,7 @@ public class GenericAdditionsConfig
         @LangKey("mia.config.base_additions.size_component.max_mob_size")
         @RangeDouble(min = 1f, max = 10f)
         public float maxMobSize = 10f;
-    
+        
         @Name("Scale movement speed")
         @Comment("Scales movement speed based on size")
         @LangKey("mia.config.base_additions.size_component.scale_speed")
@@ -223,13 +219,13 @@ public class GenericAdditionsConfig
         @Comment("Scales swimming speed based on size")
         @LangKey("mia.config.base_additions.size_component.scale_swim_speed")
         public boolean scaleSwimSpeed = true;
-    
+        
         @Name("Health multiplier")
         @Comment("If max health scaling is enabled, this determines how much the health is affected by size")
         @LangKey("mia.config.base_additions.size_component.health_multiplier")
         @RangeDouble(min = 1.4E-45F, max = 3.4028235E38F)
         public float healthMultiplier = 1f;
-    
+        
         @Name("Fix small entity rendering")
         @Comment("While entities are small size (below 0.4) they start looking weird, which is fixed by this setting. Could cause issues with other mods. Disabling this could very slightly help performance.")
         @LangKey("mia.config.base_additions.size_component.fix_rendering")
@@ -238,16 +234,18 @@ public class GenericAdditionsConfig
         @Comment("While the inventory is open, the player size is scaled to match unchanged player size. Could cause issues with other mods. Disabling this could slightly help performance.")
         @LangKey("mia.config.base_additions.size_component.fix_rendering_inventory")
         public boolean fixInventoryRendering = true;
-    
+        
         @Name("Entities banned from size change")
         @Comment("Any entity inside of this list will not be able to change size in any way.")
         @LangKey("mia.config.base_additions.size_component.banned_entities_size")
-        public String[] bannedEntitiesSize = new String[] { "botania:doppleganger", "extrabotany:gaiaIII", "extrabotany:voidherrscher" };
-    
+        public String[] bannedEntitiesSize = new String[]{ "botania:doppleganger", "extrabotany:gaiaIII", "extrabotany:voidherrscher" };
+        
         @Name("Can entities crush smaller entities from themselves")
         @Comment("If there's big enough difference between two entities sizes, the bigger one will damage to the smaller one")
         @LangKey("mia.config.base_additions.size_component.giants_crush_entities")
         public boolean giantsCrushEntities = false;
+        
+        public boolean onlyHostileMobsCanCrush = true;
         @Name("Can bigger players crush smaller players")
         @Comment("If there's big enough difference between two player sizes, and the option for entities crushing smaller ones is enabled, the bigger players will damage the smaller ones")
         @LangKey("mia.config.base_additions.size_component.players_crush_players")
@@ -256,7 +254,7 @@ public class GenericAdditionsConfig
         @Comment("If the option for entities to crush smaller ones is enabled, this list will be used to determine which entities are banned from crushing other or being crushed")
         @LangKey("mia.config.base_additions.size_component.banned_entities_crushing")
         public String[] bannedEntitiesCrushing = new String[0];
-    
+        
         @Name("Do roses hurt small players")
         @Comment("If this is set to true, small players will take damage if walking through roses")
         @LangKey("mia.config.base_additions.size_component.roses_hurt_player")

@@ -1,7 +1,6 @@
 package com.github.sokyranthedragon.mia.integrations.futuremc;
 
 import com.github.sokyranthedragon.mia.Mia;
-import com.github.sokyranthedragon.mia.config.FutureMcConfiguration;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
@@ -19,6 +18,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import thedarkcolour.futuremc.api.BeePollinationHandler;
 import thedarkcolour.futuremc.api.BeePollinationTargetsJVM;
 import thedarkcolour.futuremc.entity.bee.EntityBee;
+import thedarkcolour.futuremc.recipe.SimpleRecipe;
 import thedarkcolour.futuremc.recipe.campfire.CampfireRecipes;
 import thedarkcolour.futuremc.recipe.furnace.BlastFurnaceRecipes;
 import thedarkcolour.futuremc.recipe.furnace.SmokerRecipes;
@@ -31,6 +31,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.github.sokyranthedragon.mia.config.FutureMcConfiguration.*;
+
 public class FutureMc implements IBaseMod
 {
     private final List<IFutureMcIntegration> modIntegrations = new LinkedList<>();
@@ -40,24 +42,24 @@ public class FutureMc implements IBaseMod
     {
         if (ModIds.JER.isLoaded)
             modIntegration.accept(ModIds.JER, new JerFutureMcIntegration());
-        if (FutureMcConfiguration.enableQuarkIntegration && ModIds.QUARK.isLoaded)
+        if (enableQuarkIntegration && ModIds.QUARK.isLoaded)
             modIntegration.accept(ModIds.QUARK, new QuarkFutureMcIntegration());
-        if (FutureMcConfiguration.enableTeIntegration && ModIds.THERMAL_EXPANSION.isLoaded)
+        if (enableTeIntegration && ModIds.THERMAL_EXPANSION.isLoaded)
             modIntegration.accept(ModIds.THERMAL_EXPANSION, new ThermalExpansionFutureMcIntegration());
         if (ModIds.HATCHERY.isLoaded)
-            modIntegration.accept(ModIds.HATCHERY, new HatcheryFutureMcIntegration(FutureMcConfiguration.enableHatcheryIntegration));
-        if (FutureMcConfiguration.enableHarvestcraftIntegration && ModIds.HARVESTCRAFT.isLoaded)
+            modIntegration.accept(ModIds.HATCHERY, new HatcheryFutureMcIntegration(enableHatcheryIntegration));
+        if (enableHarvestcraftIntegration && ModIds.HARVESTCRAFT.isLoaded)
             modIntegration.accept(ModIds.HARVESTCRAFT, new HarvestcraftFutureMcIntegration());
-        if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
+        if (enableIFIntegration && ModIds.INDUSTRIAL_FOREGOING.isLoaded)
             modIntegration.accept(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoingFutureMcIntegration());
-        if (ModIds.DUNGEON_TACTICS.isLoaded)
+        if (enableDungeonTacticsIntegration && ModIds.DUNGEON_TACTICS.isLoaded)
             modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsFutureMcIntegration());
     }
     
     @Override
     public void addIntegration(IModIntegration integration)
     {
-        if (!FutureMcConfiguration.externalIntegrationsEnabled)
+        if (!externalIntegrationsEnabled)
             return;
         
         if (integration instanceof IFutureMcIntegration)
@@ -69,7 +71,7 @@ public class FutureMc implements IBaseMod
     @Override
     public void init(FMLInitializationEvent event)
     {
-        if (FutureMcConfiguration.futureMcAdditionsEnabled && !MiaConfig.disableOreDict)
+        if (futureMcAdditionsEnabled && !MiaConfig.disableOreDict)
         {
             OreDictionary.registerOre("blockHoney", FBlocks.INSTANCE.getHONEY_BLOCK());
             OreDictionary.registerOre("honeycomb", FItems.INSTANCE.getHONEYCOMB());
@@ -96,8 +98,8 @@ public class FutureMc implements IBaseMod
     
     public static void addFoodRecipe(ItemStack input, ItemStack output, int duration)
     {
-        CampfireRecipes.INSTANCE.addRecipe(input, output, duration);
-        SmokerRecipes.INSTANCE.addRecipe(input, output);
+        addCampfireRecipe(input, output, duration);
+        addSmokerRecipe(input, output);
     }
     
     public static void addFoodRecipe(ItemStack input, ItemStack output)
@@ -107,6 +109,12 @@ public class FutureMc implements IBaseMod
     
     public static void oreDictBlastFurnaceRecipe(ItemStack input, int count, String... outputs)
     {
+        if (BlastFurnaceRecipes.INSTANCE.getRecipe(input) != null)
+        {
+            Mia.LOGGER.warn("Tried to add existing FutureMc blast furnace oredict recipe, input: " + input.toString());
+            return;
+        }
+        
         for (String output : outputs)
         {
             NonNullList<ItemStack> ores = OreDictionary.getOres(output);
@@ -136,23 +144,42 @@ public class FutureMc implements IBaseMod
     
     public static void addBlastFurnaceRecipe(ItemStack input, ItemStack output)
     {
-        BlastFurnaceRecipes.INSTANCE.addRecipe(input, output);
+        if (BlastFurnaceRecipes.INSTANCE.getRecipe(input) != null)
+            BlastFurnaceRecipes.INSTANCE.addRecipe(input, output);
+        else
+            Mia.LOGGER.warn("Tried to add existing FutureMc blast furnace recipe, input: " + input.toString() + " output: " + output.toString());
     }
     
     public static void addSmokerRecipe(ItemStack input, ItemStack output)
     {
-        SmokerRecipes.INSTANCE.addRecipe(input, output);
+        if (SmokerRecipes.INSTANCE.getRecipe(input) != null)
+            SmokerRecipes.INSTANCE.addRecipe(input, output);
+        else
+            Mia.LOGGER.warn("Tried to add existing FutureMc smoker recipe, input: " + input.toString() + " output: " + output.toString());
     }
     
     public static void addStonecutterRecipes(ItemStack input, ItemStack... output)
     {
+        if (output.length == 0)
+            return;
+    
+        List<SimpleRecipe> recipes = StonecutterRecipes.INSTANCE.getRecipes(input);
+    
         for (ItemStack item : output)
-            StonecutterRecipes.INSTANCE.addRecipe(input, item);
+        {
+            if (recipes.stream().noneMatch(existing -> existing.getOutput().isItemEqualIgnoreDurability(input)))
+                StonecutterRecipes.INSTANCE.addRecipe(input, item);
+            else
+                Mia.LOGGER.warn("Tried to add existing FutureMc stonecutter recipe, input: " + input.toString() + " output: " + item.toString());
+        }
     }
     
     public static void addCampfireRecipe(ItemStack input, ItemStack output, int duration)
     {
-        CampfireRecipes.INSTANCE.addRecipe(input, output, duration);
+        if (CampfireRecipes.INSTANCE.getRecipe(input) != null)
+            CampfireRecipes.INSTANCE.addRecipe(input, output, duration);
+        else
+            Mia.LOGGER.warn("Tried to add existing FutureMc campfire recipe, input: " + input.toString() + " output: " + output.toString());
     }
     
     public static void addCampfireRecipe(ItemStack input, ItemStack output)

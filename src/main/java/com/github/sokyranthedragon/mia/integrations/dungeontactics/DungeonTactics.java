@@ -58,7 +58,7 @@ public class DungeonTactics implements IBaseMod
             modIntegration.accept(HATCHERY, new HatcheryDungeonTacticsIntegration(enableHatcheryIntegration));
         if (enableChiselIntegration && CHISEL.isLoaded)
             modIntegration.accept(CHISEL, new ChiselDungeonTacticsIntegration());
-        if (INDUSTRIAL_FOREGOING.isLoaded)
+        if (enableIFIntegration && INDUSTRIAL_FOREGOING.isLoaded)
             modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingDungeonTacticsIntegration());
     }
     

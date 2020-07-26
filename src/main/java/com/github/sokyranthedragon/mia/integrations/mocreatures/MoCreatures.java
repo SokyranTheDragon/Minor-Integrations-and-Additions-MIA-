@@ -44,7 +44,7 @@ public class MoCreatures implements IBaseMod
             modIntegration.accept(ModIds.FUTURE_MC, new FutureMcMoCreaturesIntegration());
         if (ModIds.HATCHERY.isLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryMoCreaturesIntegration(enableHatcheryIntegration));
-        if (ModIds.INDUSTRIAL_FOREGOING.isLoaded)
+        if (enableIFIntegration && ModIds.INDUSTRIAL_FOREGOING.isLoaded)
             modIntegration.accept(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoingMoCreaturesIntegration());
     }
     

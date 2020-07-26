@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.util.TriConsumer;
 import thedarkcolour.futuremc.registry.FBlocks;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
@@ -14,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 class IndustrialForegoingFutureMcIntegration implements IIndustrialForegoingIntegration
 {
     @Override
-    public void addFrosterRecipe(TriConsumer<String, ItemStack, Integer> frosterEntry)
+    public void addFrosterRecipe(@Nonnull TriConsumer<String, ItemStack, Integer> frosterEntry)
     {
         frosterEntry.accept("BLUE_ICE", new ItemStack(FBlocks.INSTANCE.getBLUE_ICE()), 8000);
     }

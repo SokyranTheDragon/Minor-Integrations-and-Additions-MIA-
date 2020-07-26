@@ -85,6 +85,7 @@ mia.config.shared.enable_future_mc_integration=Enable FutureMC integration
 mia.config.shared.enable_harvestcraft_integration=Enable Harvestcraft integration
 mia.config.shared.enable_botania_integration=Enable Botania integration
 mia.config.shared.enable_chisel_integration=Enable Chisel integration
+mia.config.shared.enable_if_integration=Enable Industrial Foregoing integration
 
 ## Additions text
 

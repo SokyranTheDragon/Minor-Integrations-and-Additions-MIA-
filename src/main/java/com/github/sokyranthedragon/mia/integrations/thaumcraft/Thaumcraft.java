@@ -54,7 +54,7 @@ public class Thaumcraft implements IBaseMod
             modIntegration.accept(FUTURE_MC, new FutureMcThaumcraftIntegration());
         if (enableChiselIntegration && CHISEL.isLoaded)
             modIntegration.accept(CHISEL, new ChiselThaumcraftIntegration());
-        if (INDUSTRIAL_FOREGOING.isLoaded)
+        if (enableIFIntegration && INDUSTRIAL_FOREGOING.isLoaded)
             modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingThaumcraftIntegration());
     }
     

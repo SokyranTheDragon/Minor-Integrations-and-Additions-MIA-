@@ -60,6 +60,12 @@ public class MoCreaturesConfiguration
     @Config.RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
     
+    @Config.Name("Enable Industrial Foregoing integration")
+    @Config.Comment("Set to false to completely disable integration with Industrial Foregoing")
+    @Config.LangKey("mia.config.shared.enable_if_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableIFIntegration = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.

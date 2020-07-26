@@ -16,6 +16,10 @@ public interface IIndustrialForegoingIntegration extends IModIntegration
     {
     }
     
+    default void addPostInitRecipes()
+    {
+    }
+    
     default void addFrosterRecipe(TriConsumer<String, ItemStack, Integer> frosterEntry)
     {
     }

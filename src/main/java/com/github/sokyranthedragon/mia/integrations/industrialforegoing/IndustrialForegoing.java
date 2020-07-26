@@ -17,6 +17,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.File;
@@ -113,6 +114,24 @@ public class IndustrialForegoing implements IBaseMod
                 }
                 
                 integration.addGenericIntegrations();
+            }
+            
+            ProgressManager.pop(progressBar);
+        }
+    }
+    
+    @Override
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        if (!modIntegrations.isEmpty())
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Industrial Foregoing postInit", modIntegrations.size());
+    
+    
+            for (IIndustrialForegoingIntegration integration : modIntegrations)
+            {
+                progressBar.step(integration.getModId().modId);
+                integration.addPostInitRecipes();
             }
             
             ProgressManager.pop(progressBar);

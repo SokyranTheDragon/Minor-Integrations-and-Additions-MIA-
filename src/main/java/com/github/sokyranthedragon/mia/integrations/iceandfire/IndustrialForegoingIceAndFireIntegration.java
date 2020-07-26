@@ -12,11 +12,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.util.TriConsumer;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 class IndustrialForegoingIceAndFireIntegration implements IIndustrialForegoingIntegration
 {
     @Override

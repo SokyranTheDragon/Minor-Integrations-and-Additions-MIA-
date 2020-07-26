@@ -58,4 +58,10 @@ public class BiomesOPlentyConfiguration
     @LangKey("mia.config.shared.enable_chisel_integration")
     @RequiresMcRestart
     public static boolean enableChiselIntegration = true;
+    
+    @Name("Enable Industrial Foregoing integration")
+    @Comment("Set to false to completely disable integration with Industrial Foregoing")
+    @LangKey("mia.config.shared.enable_if_integration")
+    @RequiresMcRestart
+    public static boolean enableIFIntegration = true;
 }

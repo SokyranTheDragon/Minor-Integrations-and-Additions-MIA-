@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.util.TriConsumer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 class IndustrialForegoingBopIntegration implements IIndustrialForegoingIntegration
 {
     @Override
-    public void addFrosterRecipe(TriConsumer<String, ItemStack, Integer> frosterEntry)
+    public void addFrosterRecipe(@Nonnull TriConsumer<String, ItemStack, Integer> frosterEntry)
     {
         frosterEntry.accept("HARDENED_ICE", new ItemStack(BOPBlocks.hard_ice), 1000);
     }
