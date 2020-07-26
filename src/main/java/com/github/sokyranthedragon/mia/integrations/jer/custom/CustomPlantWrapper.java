@@ -59,17 +59,14 @@ public class CustomPlantWrapper extends PlantWrapper
                 Optional<IProperty<?>> ageProperty = state.getPropertyKeys().stream().filter(property -> property.getName().equals("age")).findAny();
                 ageProperty.ifPresent(property -> this.ageProperty = property);
             }
+            if (ageProperty != null)
+                timer = System.currentTimeMillis() + TICKS;
         }
         
-        if (ageProperty != null)
+        if (timer != -1L && System.currentTimeMillis() > timer)
         {
-            if (timer == -1L)
-                timer = System.currentTimeMillis() + TICKS;
-            else if (System.currentTimeMillis() > timer)
-            {
-                state = state.cycleProperty(ageProperty);
-                timer = System.currentTimeMillis() + TICKS;
-            }
+            state = state.cycleProperty(ageProperty);
+            timer = System.currentTimeMillis() + TICKS;
         }
         
         return state;

@@ -1,6 +1,7 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/minor-integrations-and-additions-mia",
   "1.12.2": {
+    "1.12.2-0.1.8b": "Fixed another crash\nMusic Player and Kobold Ring can now be equipped in Aether accessory slots\nMore aether accessories\nMade smaller sizes in size module feel better\nA lot of fixes and minor improvements",
     "1.12.2-0.1.8a": "Added support for Aether and some of its addons\nFixed a bug with Thermal Expansion Ancient Tome crafting\nSome changes and fixes to size module",
     "1.12.2-0.1.7b": "Fixed crash without ArtemisLib installed\nImprovements to the size module\nFixed Harvestcraft squid drop",
     "1.12.2-0.1.7a": "Added support for more recent Future MC versions\nAdded and updated some Future MC integrations\nExperimental entity and player size change module (disabled by default)",

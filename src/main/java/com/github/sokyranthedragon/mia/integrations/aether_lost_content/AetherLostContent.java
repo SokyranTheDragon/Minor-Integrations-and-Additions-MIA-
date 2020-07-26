@@ -20,5 +20,7 @@ public class AetherLostContent implements IBaseMod
             modIntegration.accept(FUTURE_MC, new FutureMcAetherLostContentIntegration());
         if (THERMAL_EXPANSION.isLoaded && enableTeIntegration)
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionAetherLostContentIntegration());
+//        if (JER.isLoaded && enableJerIntegration)
+//            modIntegration.accept(JER, new JerAetherLostContentIntegration());
     }
 }
