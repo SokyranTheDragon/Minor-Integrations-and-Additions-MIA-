@@ -59,6 +59,6 @@ public class EnchantmentSizeSteal extends Enchantment
     @Override
     protected boolean canApplyTogether(Enchantment ench)
     {
-        return ench instanceof EnchantmentShrinking;
+        return !(ench instanceof EnchantmentShrinking);
     }
 }
