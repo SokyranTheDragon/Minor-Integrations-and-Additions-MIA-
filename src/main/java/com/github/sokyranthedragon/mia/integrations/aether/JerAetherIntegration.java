@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.integrations.aether;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.JerLightHelper;
+import com.legacy.aether.api.player.util.IAetherBoss;
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.entities.bosses.EntityValkyrie;
 import com.legacy.aether.entities.bosses.slider.EntitySlider;
@@ -23,8 +24,10 @@ import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
 import jeresources.api.conditionals.LightLevel;
+import jeresources.api.drop.LootDrop;
 import jeresources.api.drop.PlantDrop;
 import jeresources.entry.PlantEntry;
+import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityFlying;
@@ -37,6 +40,7 @@ import net.minecraft.world.storage.loot.LootTableManager;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -106,7 +110,20 @@ class JerAetherIntegration implements IJerIntegration
         LightLevel lightLevel = LightLevel.any;
         int experienceMin = 1;
         int experienceMax = 3;
+        List<LootDrop> loot = null;
         
+        if (entity instanceof IAetherBoss)
+        {
+            if (manager != null && entity instanceof EntitySunSpirit)
+            {
+                loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
+                loot.add(new LootDrop(new ItemStack(ItemsAether.dungeon_key, 1, 2)));
+                loot.add(new LootDrop(new ItemStack(BlocksAether.sun_altar)));
+            }
+            
+            experienceMin = 0;
+            experienceMax = 0;
+        }
         if (entity instanceof EntitySentry)
         {
             experienceMin = 0;
@@ -129,7 +146,10 @@ class JerAetherIntegration implements IJerIntegration
             experienceMax = 5;
         }
         
-        mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, new String[]{ AetherWorld.aether_biome.getBiomeName() }, resource);
+        if (loot == null)
+            mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, new String[]{ AetherWorld.aether_biome.getBiomeName() }, resource);
+        else
+            mobRegistry.register(entity, lightLevel, experienceMin, experienceMax, new String[]{ AetherWorld.aether_biome.getBiomeName() }, loot.toArray(new LootDrop[0]));
     }
     
     @Override
@@ -156,13 +176,12 @@ class JerAetherIntegration implements IJerIntegration
             AetherLootTables.silver_dungeon_chest_sub5);
         
         addDungeonLootCategory(dungeonRegistry, "aether_gold_dungeon_reward",
-            AetherLootTables.silver_dungeon_chest,
-            AetherLootTables.silver_dungeon_chest_sub0,
-            AetherLootTables.silver_dungeon_chest_sub1,
-            AetherLootTables.silver_dungeon_chest_sub2,
-            AetherLootTables.silver_dungeon_chest_sub3,
-            AetherLootTables.silver_dungeon_chest_sub4,
-            AetherLootTables.silver_dungeon_chest_sub5);
+            AetherLootTables.gold_dungeon_reward,
+            AetherLootTables.gold_dungeon_reward_sub0,
+            AetherLootTables.gold_dungeon_reward_sub1,
+            AetherLootTables.gold_dungeon_reward_sub2,
+            AetherLootTables.gold_dungeon_reward_sub3,
+            AetherLootTables.gold_dungeon_reward_sub4);
     }
     
     @Override
