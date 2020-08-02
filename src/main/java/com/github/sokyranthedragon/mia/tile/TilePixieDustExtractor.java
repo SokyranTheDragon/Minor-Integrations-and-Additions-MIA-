@@ -120,7 +120,7 @@ public class TilePixieDustExtractor extends TileBaseInventory implements ITickab
     @Override
     public int getInventoryStackLimit()
     {
-        return 1;
+        return 64;
     }
     
     @Override

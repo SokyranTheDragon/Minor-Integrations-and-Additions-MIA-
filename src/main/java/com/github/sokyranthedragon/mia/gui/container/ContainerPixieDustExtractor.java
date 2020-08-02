@@ -24,8 +24,14 @@ public class ContainerPixieDustExtractor extends Container
         this.pixieDustExtractor = pixieDustExtractor;
     
         for (int i = 0; i < 3; i++)
+        {
             for (int k = 0; k < 3; k++)
-                this.addSlotToContainer(new InventoryValidityCheckSlot(pixieDustExtractor, i * 3 + k, 30 + i * 18, 17 + k * 18));
+            {
+                InventoryValidityCheckSlot slot = new InventoryValidityCheckSlot(pixieDustExtractor, i * 3 + k, 30 + i * 18, 17 + k * 18);
+                slot.setMaxStackSize(1);
+                this.addSlotToContainer(slot);
+            }
+        }
         
         this.addSlotToContainer(new InventoryValidityCheckSlot(pixieDustExtractor, 10, 126, 35));
         
