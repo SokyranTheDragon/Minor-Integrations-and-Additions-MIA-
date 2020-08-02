@@ -5,18 +5,16 @@ buildscript {
         maven { url = "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath "com.wynprice.cursemaven:CurseMaven:2.1.1"
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: "com.wynprice.cursemaven"
+apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "com.matthewprenger.cursegradle"
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-parseConfig(file('private.properties'))
+parseConfig(file("private.properties"))
 
 @SuppressWarnings("GrMethodMayBeStatic")
 def parseConfig(File config) {
@@ -46,12 +44,11 @@ compileJava {
 
 repositories {
     maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
-    }
-    maven {
         name = "forge"
         url = "http://files.minecraftforge.net/maven"
+    }
+    maven {
+        url = "https://www.cursemaven.com"
     }
     maven {
         // Using CurseForge did not work for me, so I'm using this maven repo instead.
@@ -269,11 +266,11 @@ dependencies {
     }
 
     if (project.run_abysscalcraft.equals("true")) {
-        deobfProvided "curse.maven:AbyssalCraft-1.12.2-1.10.1:2984712"
+        deobfProvided "curse.maven:AbyssalCraft-1.12.2-1.10.2:3015275"
         deobfProvided "curse.maven:AbyssalCraft Integration-1.12.2-1.11.2:2959100"
     }
     else {
-        compileOnly "curse.maven:AbyssalCraft-1.12.2-1.10.1:2984712"
+        compileOnly "curse.maven:AbyssalCraft-1.12.2-1.10.2:3015275"
         compileOnly "curse.maven:AbyssalCraft Integration-1.12.2-1.11.2:2959100"
     }
 
