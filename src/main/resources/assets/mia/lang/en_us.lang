@@ -175,6 +175,7 @@ mia.config.thaumcraft.register_aspects=Register aspects for other mods
 mia.config.botania.orechid_vacuam_oredict=Orechid Vacuam ore dictionary
 
 mia.config.aether.laser_drill_blacklist_aether=Blacklist laser drill Aether biome for non-Aether ores
+mia.config.aether.allow_freezer_fuel=Allow new Freezer fuels
 
 ## JEI
 

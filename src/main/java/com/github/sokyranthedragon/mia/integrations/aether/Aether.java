@@ -30,6 +30,10 @@ public class Aether implements IBaseMod
             modIntegration.accept(JER, new JerAetherIntegration());
         if (INDUSTRIAL_FOREGOING.isLoaded)
             modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingAetherIntegration());
+        if (CHISEL.isLoaded && enableChiselIntegration)
+            modIntegration.accept(CHISEL, new ChiselAetherIntegration());
+        if (EXTRA_UTILITIES.isLoaded && enableXu2Integration)
+            modIntegration.accept(EXTRA_UTILITIES, new ExtraUtilsAetherIntegration());
     }
     
     @Override
