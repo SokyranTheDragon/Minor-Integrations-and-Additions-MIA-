@@ -227,4 +227,16 @@ public class TilePixieDustExtractor extends TileBaseInventory implements ITickab
     {
         return 24_000;
     }
+    
+    @Override
+    public Integer getProgressHexColor()
+    {
+        return 0xFFFC75D2;
+    }
+    
+    @Override
+    public Integer getProgressTintHexColor()
+    {
+        return 0xFFE269BD;
+    }
 }

@@ -197,6 +197,18 @@ public class TileVoidCreator extends TileBaseInventory implements ITickable, ITi
         return REQUIRED_PROGRESS;
     }
     
+    @Override
+    public Integer getProgressHexColor()
+    {
+        return 0xFF312537;
+    }
+    
+    @Override
+    public Integer getProgressTintHexColor()
+    {
+        return 0xFF2C2131;
+    }
+    
     @Nonnull
     @Override
     public String getName()

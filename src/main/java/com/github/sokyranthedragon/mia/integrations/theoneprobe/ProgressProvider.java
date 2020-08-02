@@ -133,7 +133,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
         if (tile instanceof ITileProbeProgress)
         {
             ITileProbeProgress progressTile = ((ITileProbeProgress) tile);
-            addProgressData(probeInfo, progressTile.getProgress(), progressTile.getProgressMax());
+            addProgressData(probeInfo, progressTile.getProgress(), progressTile.getProgressMax(), progressTile.getProgressHexColor(), progressTile.getProgressTintHexColor(), progressTile.getProgressMessage());
             return;
         }
         
@@ -147,7 +147,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             if (tile instanceof TileVoidSiphon)
             {
                 TileVoidSiphon siphon = ((TileVoidSiphon) tile);
-                addProgressData(probeInfo, siphon.progress, siphon.PROGREQ);
+                addProgressData(probeInfo, siphon.progress, siphon.PROGREQ, 0xFF312537, 0xFF2C2131);
                 return;
             }
             if (tile instanceof TileVisGenerator)
@@ -173,9 +173,9 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 if (jar.hasPixie)
                 {
                     if (jar.hasProduced)
-                        addProgressData(probeInfo, 1, 1);
+                        addProgressData(probeInfo, 1, 1, 0xFFFC75D2, 0xFFE269BD);
                     else
-                        addProgressData(probeInfo, jar.ticksExisted % 24_000, 24_000);
+                        addProgressData(probeInfo, jar.ticksExisted % 24_000, 24_000, 0xFFFC75D2, 0xFFE269BD);
                 }
                 return;
             }
@@ -197,7 +197,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                         if (capacity instanceof TileEntityDragonforge)
                         {
                             TileEntityDragonforge forge = (TileEntityDragonforge) capacity;
-                            addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime());
+                            addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime(), forge.isFire ? 0xFFFD9B38 : 0xFF21D3FE, forge.isFire ? 0xFFE38B32 : 0xFF1DBDE4);
                         }
                     } catch (IllegalAccessException | InvocationTargetException e)
                     {
@@ -215,7 +215,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                     {
                         TileEntityDragonforgeInput input = (TileEntityDragonforgeInput) tile;
                         TileEntityDragonforge forge = (TileEntityDragonforge) iceFireDragonforgeInputCore.get(input);
-                        addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime());
+                        addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime(), forge.isFire ? 0xFFFD9B38 : 0xFF21D3FE, forge.isFire ? 0xFFE38B32 : 0xFF1DBDE4);
                     } catch (IllegalAccessException e)
                     {
                         Mia.LOGGER.error("Cannot access TileEntityDragonforgeInput core, even though it was found");
@@ -227,7 +227,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             else if (tile instanceof TileEntityDragonforge)
             {
                 TileEntityDragonforge forge = (TileEntityDragonforge) tile;
-                addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime());
+                addProgressData(probeInfo, forge.getField(0), forge.getMaxCookTime(), forge.isFire ? 0xFFFD9B38 : 0xFF21D3FE, forge.isFire ? 0xFFE38B32 : 0xFF1DBDE4);
                 return;
             }
         }
@@ -243,7 +243,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                     try
                     {
                         int maxProgress = (int) harvestApiaryRunTime.invoke(apiary);
-                        addProgressData(probeInfo, apiary.produceTime, maxProgress);
+                        addProgressData(probeInfo, apiary.produceTime, maxProgress, 0xFFC98702, 0xFFB47901);
 //                        probeInfo.text(I18n.format("mia.top.progress_speed", (int) ((3500f / maxProgress) * 100f)) + "%");
                         probeInfo.text("Speed: " + (int) ((3500f / maxProgress) * 100f) + "%");
                     } catch (IllegalAccessException | InvocationTargetException e)
@@ -417,25 +417,32 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
     private void addProgressData(IProbeInfo probeInfo, int currentProgress, int maxProgress)
     {
 //        addProgressData(probeInfo, currentProgress, maxProgress, null, I18n.format("mia.top.progress"));
-        addProgressData(probeInfo, currentProgress, maxProgress, null, "Progress");
+        addProgressData(probeInfo, currentProgress, maxProgress, null, null, "Progress");
     }
     
+    private void addProgressData(IProbeInfo probeInfo, int currentProgress, int maxProgress, @Nullable Integer hexColor, @Nullable Integer altHexColor)
+    {
+        addProgressData(probeInfo, currentProgress, maxProgress, hexColor, altHexColor, null);
+    }
     
     private void addProgressData(IProbeInfo probeInfo, int currentProgress, int maxProgress, @SuppressWarnings("SameParameterValue") @Nullable String message)
     {
-        addProgressData(probeInfo, currentProgress, maxProgress, null, message);
+        addProgressData(probeInfo, currentProgress, maxProgress, null, null, message);
     }
     
-    private void addProgressData(IProbeInfo probeInfo, int currentProgress, int maxProgress, @SuppressWarnings("SameParameterValue") @Nullable String hexColor, @Nullable String message)
+    private void addProgressData(IProbeInfo probeInfo, int currentProgress, int maxProgress, @Nullable Integer hexColor, @Nullable Integer tintHexColor, @Nullable String message)
     {
         float progress = (float) currentProgress / maxProgress * 100;
         final IProgressStyle progressStyle = probeInfo.defaultProgressStyle().suffix("%");
         
         if (hexColor != null)
-            progressStyle.alternateFilledColor(0);
+            progressStyle.filledColor(hexColor).alternateFilledColor(tintHexColor != null ? tintHexColor : hexColor);
+        else if (tintHexColor != null)
+            progressStyle.filledColor(tintHexColor).alternateFilledColor(tintHexColor);
         
         if (message != null)
             probeInfo.text(message);
+        
         probeInfo.progress((int) progress, 100, progressStyle);
     }
     
