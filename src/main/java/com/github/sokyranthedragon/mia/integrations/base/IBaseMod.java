@@ -1,6 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.base;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.aspects.AspectRegistryEvent;
 
 import javax.annotation.Nullable;
@@ -68,6 +70,11 @@ public interface IBaseMod
     
     @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
     default void registerAspects(AspectRegistryEvent event)
+    {
+    }
+    
+    @Optional.Method(modid = ModIds.ConstantIds.AETHER)
+    default void registerFreezableFuel(IForgeRegistry<AetherFreezableFuel> event)
     {
     }
 }

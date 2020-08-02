@@ -17,6 +17,7 @@ import com.github.sokyranthedragon.mia.network.MessageExtendedReachAttack;
 import com.github.sokyranthedragon.mia.network.MessageSyncMusicPlayer;
 import com.github.sokyranthedragon.mia.utilities.size.SizeOreDictionaryUtils;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
+import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -146,5 +147,12 @@ public class CommonProxy
     public static void aspectRegistrationEvent(AspectRegistryEvent event)
     {
         modIntegrator.registerAspects(event);
+    }
+    
+    @SubscribeEvent
+    @Optional.Method(modid = ModIds.ConstantIds.AETHER)
+    public void registerFreezableFuel(RegistryEvent.Register<AetherFreezableFuel> event)
+    {
+        modIntegrator.registerFreezableFuel(event);
     }
 }

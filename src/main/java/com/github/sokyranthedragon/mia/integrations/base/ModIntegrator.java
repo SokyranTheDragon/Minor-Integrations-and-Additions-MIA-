@@ -3,6 +3,8 @@ package com.github.sokyranthedragon.mia.integrations.base;
 import com.gendeathrow.morechickens.core.ChickensMore;
 import com.gendeathrow.morechickens.core.ModItems;
 import com.github.sokyranthedragon.mia.Mia;
+import com.github.sokyranthedragon.mia.config.AetherConfig;
+import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.abyssalcraft.AbyssalCraft;
@@ -32,6 +34,7 @@ import com.github.sokyranthedragon.mia.integrations.theoneprobe.TheOneProbe;
 import com.github.sokyranthedragon.mia.integrations.thermalexpansion.ThermalExpansion;
 import com.github.sokyranthedragon.mia.integrations.thermalfoundation.ThermalFoundation;
 import com.github.sokyranthedragon.mia.integrations.xu2.ExtraUtilities2;
+import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import com.setycz.chickens.ChickensMod;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -47,6 +50,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
@@ -75,6 +79,7 @@ public class ModIntegrator
     private boolean registeredDispenserBehaviors = false;
     
     private boolean registeredAspects = false;
+    private boolean registeredAetherFreezable = false;
     
     
     public void registerMods()
@@ -301,12 +306,22 @@ public class ModIntegrator
             Mia.LOGGER.warn("ModIntegrator.registerAspects() was called more than once, this is not something that should happen.");
             return;
         }
-        if (!ThaumcraftConfiguration.registerAspects)
-            return;
+        
         registeredAspects = true;
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.registerAspects(event);
+        if (!ThaumcraftConfiguration.registerAspects)
+            return;
+        
+        if (modIntegrations.size() > 0)
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Thaumcraft registerAspects", modIntegrations.size());
+            for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+            {
+                progressBar.step(mod.getKey().modId);
+                mod.getValue().registerAspects(event);
+            }
+            ProgressManager.pop(progressBar);
+        }
         
         event.register.registerObjectTag("bookshelf", new AspectList().add(Aspect.PLANT, 20).add(Aspect.MIND, 8));
         
@@ -318,5 +333,33 @@ public class ModIntegrator
         }
         if (Loader.isModLoaded(ChickensMore.MODID))
             event.register.registerObjectTag(new ItemStack(ModItems.solidXp), new AspectList().add(Aspect.MIND, 20));
+    }
+    
+    @Optional.Method(modid = ConstantIds.AETHER)
+    public void registerFreezableFuel(RegistryEvent.Register<AetherFreezableFuel> event)
+    {
+        if (registeredAetherFreezable)
+        {
+            Mia.LOGGER.warn("ModIntegrator.registerFreezableFuel() was called more than once, this is not something that should happen.");
+            return;
+        }
+        
+        registeredAetherFreezable = true;
+        
+        if (MiaConfig.disableAllRecipes || !AetherConfig.allowNewFreezerFuel)
+            return;
+        
+        if (modIntegrations.size() > 0)
+        {
+            ProgressManager.ProgressBar progressBar = ProgressManager.push("Aether registerFreezableFuel", modIntegrations.size());
+            IForgeRegistry<AetherFreezableFuel> registry = event.getRegistry();
+            
+            for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+            {
+                progressBar.step(mod.getKey().modId);
+                mod.getValue().registerFreezableFuel(registry);
+            }
+            ProgressManager.pop(progressBar);
+        }
     }
 }
