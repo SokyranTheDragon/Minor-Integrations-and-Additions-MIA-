@@ -7,18 +7,23 @@ import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.items.ItemsAether;
 import net.minecraft.block.Block;
-import net.minecraft.init.Items;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import thaumcraft.api.aspects.*;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectEventProxy;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.AspectRegistryEvent;
 
-import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static com.github.sokyranthedragon.mia.config.AetherConfig.*;
 import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
+import static com.github.sokyranthedragon.mia.integrations.thaumcraft.ThaumcraftHelpers.addAspect;
+import static com.github.sokyranthedragon.mia.integrations.thaumcraft.ThaumcraftHelpers.transferAspects;
 import static net.minecraftforge.oredict.OreDictionary.registerOre;
 
 public class Aether implements IBaseMod
@@ -78,47 +83,38 @@ public class Aether implements IBaseMod
         register.registerObjectTag(new ItemStack(BlocksAether.icestone), new AspectList().add(Aspect.COLD, 5));
         
         register.registerObjectTag(new ItemStack(ItemsAether.zanite_gemstone), new AspectList().add(Aspect.DESIRE, 15).add(Aspect.CRYSTAL, 15).add(Aspect.MAGIC, 1));
+        register.registerObjectTag(new ItemStack(ItemsAether.ambrosium_shard), new AspectList().add(Aspect.AIR, 10).add(Aspect.MAGIC, 5));
+        register.registerObjectTag(new ItemStack(BlocksAether.enchanted_gravitite), new AspectList().add(Aspect.FLIGHT, 5).add(Aspect.AIR, 5).add(Aspect.MAGIC, 5).add(Aspect.METAL, 15));
         
         AspectList list = new AspectList().add(Aspect.PLANT, 5).add(Aspect.SENSES, 5).add(Aspect.LIFE, 1);
         register.registerObjectTag(new ItemStack(BlocksAether.purple_flower), list);
         register.registerObjectTag(new ItemStack(BlocksAether.white_flower), list);
         
-        AspectList tempList = AspectHelper.getObjectAspects(new ItemStack(Items.CHAINMAIL_CHESTPLATE));
-        list = new AspectList();
-        for (Map.Entry<Aspect, Integer> entries : tempList.aspects.entrySet())
-        {
-            if (entries.getValue() / 2 > 0)
-                list.add(entries.getKey(), entries.getValue());
-        }
-        register.registerObjectTag(new ItemStack(ItemsAether.chain_gloves), list);
+        ItemStack target = new ItemStack(Blocks.OBSIDIAN);
+        transferAspects(new ItemStack(ItemsAether.obsidian_helmet), target, register, 5);
+        transferAspects(new ItemStack(ItemsAether.obsidian_chestplate), target, register, 8);
+        transferAspects(new ItemStack(ItemsAether.obsidian_leggings), target, register, 7);
+        transferAspects(new ItemStack(ItemsAether.obsidian_boots), target, register, 4);
+        transferAspects(new ItemStack(ItemsAether.obsidian_gloves), target, register, 2);
         
         for (Item item : ItemsAether.itemRegistry)
         {
-            ItemStack stack = new ItemStack(item);
-            if (item.isDamageable() || item.getMaxDamage(stack) == 0)
-                addAirAspect(stack, register);
-            else
+            if (item.getRegistryName() != null && (item.getRegistryName().getNamespace().equals("aether_legacy") || item.getRegistryName().getNamespace().equals("lost_aether")))
             {
-                for (int i = 0; i < item.getMaxDamage(stack); i++)
-                    addAirAspect(stack, register);
+                NonNullList<ItemStack> stacks = NonNullList.create();
+                item.getSubItems(CreativeTabs.SEARCH, stacks);
+                addAspect(stacks, register, Aspect.AIR);
             }
         }
         
         for (Block block : BlocksAether.blockList)
         {
-            NonNullList<ItemStack> stacks = NonNullList.create();
-            block.getSubBlocks(null, stacks);
-            
-            for (ItemStack stack : stacks)
-                addAirAspect(stack, register);
+            if (block.getRegistryName() != null && (block.getRegistryName().getNamespace().equals("aether_legacy") || block.getRegistryName().getNamespace().equals("lost_aether")))
+            {
+                NonNullList<ItemStack> stacks = NonNullList.create();
+                block.getSubBlocks(null, stacks);
+                addAspect(stacks, register, Aspect.AIR);
+            }
         }
-    }
-    
-    private static void addAirAspect(ItemStack stack, AspectEventProxy register)
-    {
-        AspectList aspects = AspectHelper.getObjectAspects(stack);
-        
-        if (aspects.getAmount(Aspect.AIR) == 0)
-            register.registerObjectTag(stack, aspects.add(Aspect.AIR, 1));
     }
 }
