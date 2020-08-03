@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.integrations.thaumcraft;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.ExtraConditional;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.Conditional;
 import jeresources.api.conditionals.LightLevel;
@@ -40,6 +41,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.github.sokyranthedragon.mia.utilities.LootTableUtils.loadUniqueEmptyLootTable;
+
 @ParametersAreNonnullByDefault
 class JerThaumcraftIntegration implements IJerIntegration
 {
@@ -50,18 +53,18 @@ class JerThaumcraftIntegration implements IJerIntegration
         builder.add(LootTableList.ENTITIES_ZOMBIE, EntityBrainyZombie.class);
         builder.add(EntityPech.LOOT, EntityPech.class);
         builder.add(ModIds.MIA.loadSimple("thaumcraft/firebat"), EntityFireBat.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/mind_spider"), EntityMindSpider.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/wisp"), EntityWisp.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityMindSpider.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityWisp.class);
         // Eldritch bosses
         builder.add(ModIds.MIA.loadSimple("thaumcraft/eldritch_golem"), EntityEldritchGolem.class);
         builder.add(ModIds.MIA.loadSimple("thaumcraft/eldritch_warden"), EntityEldritchWarden.class);
         // Taint
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/taintancle"), EntityTaintacle.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/taintacle_giant"), EntityTaintacleGiant.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/taint_crawler"), EntityTaintCrawler.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/taint_swarm"), EntityTaintSwarm.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/taint_seed"), EntityTaintSeed.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/taint_prime"), EntityTaintSeedPrime.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityTaintacle.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityTaintacleGiant.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityTaintCrawler.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityTaintSwarm.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityTaintSeed.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityTaintSeedPrime.class);
         // Cultists
         builder.add(ModIds.MIA.loadSimple("thaumcraft/cultist_cleric"), EntityCultistCleric.class);
         builder.add(ModIds.MIA.loadSimple("thaumcraft/cultist_knight"), EntityCultistKnight.class);
