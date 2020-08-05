@@ -33,7 +33,7 @@ def parseConfig(File config) {
 }
 
 
-version = "1.12.2-0.1.8c"
+version = "1.12.2-0.1.9a"
 group = "com.github.sokyranthedragon.mia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mia"
 
