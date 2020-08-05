@@ -2,6 +2,8 @@ package com.github.sokyranthedragon.mia.integrations.thaumcraft.foci;
 
 import com.github.sokyranthedragon.mia.potions.ModPotions;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.casters.NodeSetting;
 import thaumcraft.client.fx.particles.FXGeneric;
 
@@ -10,8 +12,8 @@ public class FocusEffectSizeStabilization extends FocusEffectSizeChange
     @Override
     public NodeSetting[] createSettings()
     {
-        return new NodeSetting[] {
-            new NodeSetting("duration", "focus.common.duration", new NodeSetting.NodeSettingIntRange(1, 5))};
+        return new NodeSetting[]{
+            new NodeSetting("duration", "focus.common.duration", new NodeSetting.NodeSettingIntRange(1, 5)) };
     }
     
     @Override
@@ -39,6 +41,7 @@ public class FocusEffectSizeStabilization extends FocusEffectSizeChange
     }
     
     @Override
+    @SideOnly(Side.CLIENT)
     protected void setParticleRgb(FXGeneric fx)
     {
         fx.setRBGColorF(0.88f, 0.88f, 0.88f);

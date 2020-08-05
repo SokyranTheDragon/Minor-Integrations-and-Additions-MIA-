@@ -10,6 +10,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.casters.FocusEffect;
 import thaumcraft.api.casters.NodeSetting;
@@ -55,6 +57,7 @@ public class FocusEffectSizeSteal extends FocusEffect
     }
     
     @Override
+    @SideOnly(Side.CLIENT)
     public void renderParticleFX(World world, double x, double y, double z, double motionX, double motionY, double motionZ)
     {
         FXGeneric fx = new FXGeneric(world, x, y, z, motionX + world.rand.nextGaussian() * 0.01f, motionY + world.rand.nextGaussian() * 0.01f, motionZ + world.rand.nextGaussian() * 0.01f);

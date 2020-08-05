@@ -4,7 +4,6 @@ import com.github.sokyranthedragon.mia.potions.ModPotions;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.Potion;
@@ -13,6 +12,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.casters.FocusEffect;
 import thaumcraft.api.casters.NodeSetting;
@@ -55,6 +56,7 @@ public class FocusEffectSizeChange extends FocusEffect
     }
     
     @Override
+    @SideOnly(Side.CLIENT)
     public void renderParticleFX(World world, double x, double y, double z, double motionX, double motionY, double motionZ)
     {
         FXGeneric fx = new FXGeneric(world, x, y, z, motionX + world.rand.nextGaussian() * 0.01f, motionY + world.rand.nextGaussian() * 0.01f, motionZ + world.rand.nextGaussian() * 0.01f);
@@ -103,6 +105,7 @@ public class FocusEffectSizeChange extends FocusEffect
             return ModPotions.shrinkingPotion;
     }
     
+    @SideOnly(Side.CLIENT)
     protected void setParticleRgb(FXGeneric fx)
     {
         if (getSettingValue("type") == 0)
