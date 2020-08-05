@@ -28,10 +28,6 @@ class FutureMcDungeonTacticsIntegration implements IFutureMcIntegration
         addBlastFurnaceRecipe(new ItemStack(DTBlocks.END_LAPIS), new ItemStack(Items.DYE, 1, 4));
         
         // Same order as mod IDs
-        addBlastFurnaceRecipe(new ItemStack(DTItems.CLUSTER_IRON), new ItemStack(Items.IRON_INGOT));
-        addBlastFurnaceRecipe(new ItemStack(DTItems.CLUSTER_SILVER), new ItemStack(DTItems.INGOT_SILVER));
-        addBlastFurnaceRecipe(new ItemStack(DTItems.CLUSTER_GOLD), new ItemStack(Items.GOLD_INGOT));
-        addBlastFurnaceRecipe(new ItemStack(DTItems.CLUSTER_MITHRIL), new ItemStack(DTItems.INGOT_MITHRIL));
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_TIN, "ingotTin");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_COPPER, "ingotCopper");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_ALUMINIUM, "ingotAluminium", "ingotAluminum");
@@ -42,17 +38,17 @@ class FutureMcDungeonTacticsIntegration implements IFutureMcIntegration
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_TITANIUM, "ingotTitanium");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_OSMIUM, "ingotOsmium");
         
-        addFoodRecipe(new ItemStack(Items.BREAD), new ItemStack(DTItems.TOAST));
-        addFoodRecipe(new ItemStack(DTItems.BREADSLICE), new ItemStack(DTItems.TOASTSLICE), 120);
+        addSmokerRecipe(new ItemStack(Items.BREAD), new ItemStack(DTItems.TOAST));
+        addSmokerRecipe(new ItemStack(DTItems.BREADSLICE), new ItemStack(DTItems.TOASTSLICE));
         
         // Same order as mod IDs
-        addFoodRecipe(new ItemStack(DTItems.FISH_SWIFT), new ItemStack(DTItems.FISH_SWIFT_COOKED), 1200);
-        addFoodRecipe(new ItemStack(DTItems.FISH_FLYING), new ItemStack(DTItems.FISH_FLYING_COOKED), 1200);
-        addFoodRecipe(new ItemStack(DTItems.FISH_LAVA), new ItemStack(DTItems.FISH_LAVA_COOKED), 1200);
-        addFoodRecipe(new ItemStack(DTItems.FISH_MUSCLE), new ItemStack(DTItems.FISH_MUSCLE_COOKED), 1200);
-        addFoodRecipe(new ItemStack(DTItems.FISH_LUNG), new ItemStack(DTItems.FISH_LUNG_COOKED), 1200);
-        addFoodRecipe(new ItemStack(DTItems.FISH_OBSIDIAN), new ItemStack(DTItems.FISH_OBSIDIAN_COOKED), 1200);
-        addFoodRecipe(new ItemStack(DTItems.FISH_TUNNEL), new ItemStack(DTItems.FISH_TUNNEL_COOKED), 1200);
+        addSmokerRecipe(new ItemStack(DTItems.FISH_SWIFT), new ItemStack(DTItems.FISH_SWIFT_COOKED));
+        addSmokerRecipe(new ItemStack(DTItems.FISH_FLYING), new ItemStack(DTItems.FISH_FLYING_COOKED));
+        addSmokerRecipe(new ItemStack(DTItems.FISH_LAVA), new ItemStack(DTItems.FISH_LAVA_COOKED));
+        addSmokerRecipe(new ItemStack(DTItems.FISH_MUSCLE), new ItemStack(DTItems.FISH_MUSCLE_COOKED));
+        addSmokerRecipe(new ItemStack(DTItems.FISH_LUNG), new ItemStack(DTItems.FISH_LUNG_COOKED));
+        addSmokerRecipe(new ItemStack(DTItems.FISH_OBSIDIAN), new ItemStack(DTItems.FISH_OBSIDIAN_COOKED));
+        addSmokerRecipe(new ItemStack(DTItems.FISH_TUNNEL), new ItemStack(DTItems.FISH_TUNNEL_COOKED));
     
         GenericBeePollinationHandler berryHandler = new GenericBeePollinationHandler(DTBushIncindiberry.AGE, 3);
     

@@ -56,8 +56,7 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
         
         if (TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId))
         {
-            addCampfireRecipe(new ItemStack(TinkerGadgets.spaghetti, 1, 1), new ItemStack(TinkerGadgets.spaghetti, 1, 2), 20 * 60 * 15);
-            FutureMc.addFoodRecipe(new ItemStack(TinkerGadgets.spaghetti, 1, 2), new ItemStack(TinkerGadgets.momsSpaghetti));
+            addSmokerRecipe(new ItemStack(TinkerGadgets.spaghetti, 1, 2), new ItemStack(TinkerGadgets.momsSpaghetti));
             
             addStonecutterRecipes(new ItemStack(TinkerGadgets.driedClay, 1, 0),
                 new ItemStack(TinkerGadgets.driedClaySlab, 2, 0),

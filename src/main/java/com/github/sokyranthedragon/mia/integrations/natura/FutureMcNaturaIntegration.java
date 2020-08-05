@@ -17,6 +17,7 @@ import thedarkcolour.futuremc.api.BeePollinationHandler;
 import thedarkcolour.futuremc.api.BeePollinationHandlerJVM;
 
 import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addFoodRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addSmokerRecipe;
 import static com.progwml6.natura.Natura.pulseManager;
 
 @MethodsReturnNonnullByDefault
@@ -26,7 +27,7 @@ class FutureMcNaturaIntegration implements IFutureMcIntegration
     public void addRecipes()
     {
         if (pulseManager.isPulseLoaded(NaturaEntities.PulseId) && pulseManager.isPulseLoaded(NaturaCommons.PulseId))
-            addFoodRecipe(new ItemStack(NaturaCommons.edibles, 1, 0), new ItemStack(NaturaCommons.edibles, 1, 1));
+            addSmokerRecipe(new ItemStack(NaturaCommons.edibles, 1, 0), new ItemStack(NaturaCommons.edibles, 1, 1));
     
         BeePollinationHandler berryHandler = null;
         

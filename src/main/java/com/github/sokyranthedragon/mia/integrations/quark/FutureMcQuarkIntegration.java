@@ -25,12 +25,6 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
     {
         boolean soulSandstoneEnabled = QuarkUtils.isFeatureEnabled(SoulSandstone.class);
         
-        if (QuarkUtils.isFeatureEnabled(Frogs.class))
-            addFoodRecipe(new ItemStack(Frogs.frogLeg), new ItemStack(Frogs.cookedFrogLeg));
-        if (QuarkUtils.isFeatureEnabled(Crabs.class))
-            addFoodRecipe(new ItemStack(Crabs.crabLeg), new ItemStack(Crabs.cookedCrabLeg));
-        
-        
         if (soulSandstoneEnabled)
         {
             addStonecutterRecipes(new ItemStack(SoulSandstone.soul_sandstone),
@@ -136,8 +130,6 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         
         if (QuarkUtils.isFeatureEnabled(Biotite.class))
         {
-            addBlastFurnaceRecipe(new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite));
-            
             addStonecutterRecipes(new ItemStack(Biotite.biotite_block),
                 new ItemStack(Biotite.biotite_block, 1, 1),
                 new ItemStack(Biotite.biotite_block, 1, 2));
