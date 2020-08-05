@@ -1,6 +1,7 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/minor-integrations-and-additions-mia",
   "1.12.2": {
+    "1.12.2-0.1.9b": "Fixed server crash",
     "1.12.2-0.1.9a": "Yet again more integrations for aether\nMade several of the progress bars have a color\nAdded Thaumcraft foci for the size module\nAdded Thaumcraft aspects to a handful of items and blocks\nFixed a few broken config options\nFixed incorrect pixie dust count display in pixie dust collector\nFixed a small issue with Thaumcraft/JER integration\nRemoved several duplicate recipe registrations",
     "1.12.2-0.1.8c": "Fixed issue with enchantments",
     "1.12.2-0.1.8b": "Fixed another crash\nMusic Player and Kobold Ring can now be equipped in Aether accessory slots\nMore aether accessories\nMade smaller sizes in size module feel better\nA lot of fixes and minor improvements",
@@ -12,7 +13,7 @@
     "1.12.2-0.1.5c": "Added update checking\nFixed crafting bugs"
   },
   "promos": {
-    "1.12.2-latest": "1.12.2-0.1.9a",
-    "1.12.2-recommended": "1.12.2-0.1.9a"
+    "1.12.2-latest": "1.12.2-0.1.9b",
+    "1.12.2-recommended": "1.12.2-0.1.9b"
   }
 }
