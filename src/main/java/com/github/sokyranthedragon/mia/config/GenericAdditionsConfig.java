@@ -279,5 +279,11 @@ public class GenericAdditionsConfig
         @Comment("If this value is true and while player is gliding with paper over hot blocks, it will increase player's flight height")
         @LangKey("mia.config.base_additions.size_component.hot_blocks_lift")
         public boolean hotBlocksGiveLift = true;
+        
+        @Name("Thaumcraft integration")
+        @Comment("Set to true to add size change foci to Thaumcraft")
+        @LangKey("mia.config.base_additions.size_component.thaumcraft_integration")
+        @RequiresMcRestart
+        public boolean thaumcraftIntegration = true;
     }
 }

@@ -1,0 +1,56 @@
+{
+  "entries": [
+    {
+      "key": "MIA.FOCUS_SIZE_CHANGE",
+      "name": "research.focus_size_change.title",
+      "icons": [ "focus:mia.focus.size_change" ],
+      "category": "AUROMANCY",
+      "parents": [ "FOCUSPROJECTILE@2" ],
+      "location": [ 3, -2 ],
+      "stages": [
+        {
+          "text": "research.focus_size_change.stage.1",
+          "required_knowledge": [ "OBSERVATION;AUROMANCY;1", "THEORY;AUROMANCY;1" ],
+          "required_item": [ "mia:kobold_ring" ]
+        },
+        {
+          "text": "research.focus_size_change.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "MIA.FOCUS_SIZE_NEUTRAL",
+      "name": "research.focus_size_neutral.title",
+      "icons": [ "focus:mia.focus.size_stabilization" ],
+      "category": "AUROMANCY",
+      "parents": [ "MIA.FOCUS_SIZE_CHANGE@2" ],
+      "location": [ 2, -3 ],
+      "stages": [
+        {
+          "text": "research.focus_size_neutral.stage.1",
+          "required_knowledge": [ "OBSERVATION;AUROMANCY;2", "THEORY;AUROMANCY;2" ]
+        },
+        {
+          "text": "research.focus_size_neutral.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "MIA.FOCUS_SIZE_STEAL",
+      "name": "research.focus_size_steal.title",
+      "icons": [ "focus:mia.focus.size_steal" ],
+      "category": "AUROMANCY",
+      "parents": [ "MIA.FOCUS_SIZE_CHANGE@2" ],
+      "location": [ 4, -3 ],
+      "stages": [
+        {
+          "text": "research.focus_size_steal.stage.1",
+          "required_knowledge": [ "OBSERVATION;AUROMANCY;2", "THEORY;AUROMANCY;2" ]
+        },
+        {
+          "text": "research.focus_size_steal.stage.2"
+        }
+      ]
+    }
+  ]
+}

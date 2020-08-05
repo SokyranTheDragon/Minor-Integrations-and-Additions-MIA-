@@ -164,6 +164,7 @@ mia.config.base_additions.size_component.climb_some_blocks=Can small players cli
 mia.config.base_additions.size_component.climb_with_slime=Can small players climb any blocks while holding slime
 mia.config.base_additions.size_component.glide_with_paper=Can small players glide while holding paper
 mia.config.base_additions.size_component.hot_blocks_lift=Do small players get flight height boost while gliding over hot blocks
+mia.config.base_additions.size_component.thaumcraft_integration=Thaumcraft integration
 
 ## Mod specific
 
@@ -486,10 +487,33 @@ tile.void_creator.name=Void Creator
 
 # Thaumcraft research
 
-research.void_creator.title=Void creator
+research.void_creator.title=Void Creator
 research.void_creator.stage.1=I have a strange feeling that I'm missing something, or rather, the world I'm in is. It feels like it's too safe to access more... "advanced" research. I should try to to look deeper into that.
 research.void_creator.stage.2=That's it! Based on what I've gathered from the Crimson Cultists I managed to create a device that's going to create a rare and powerful material - Void Seeds - from the flux in the area it's placed in. It requires more Flux than Vis to be present, as well as enough of it to start the process.
 
+research.focus_size_change.title=Focus Effect: Size Change
+research.focus_size_change.stage.1=I'm fascinated by the potions capable of changing one's size. I'm going to start by analyzing the Kobold Ring, as it's connected to the concept of changing the size of a person.
+research.focus_size_change.stage.2=Now I have access to the effects of size changing. This could come in handy when trying to move through tight spaces, or when tryinng to weaken my foes.
+
+research.focus_size_neutral.title=Focus Effect: Size Stabilization
+research.focus_size_neutral.stage.1=Considering I've managed to gain the ability of changing size of creatures, I wonder if I could achieve an effect reverting the size back to original?
+research.focus_size_neutral.stage.2=It was slightly harder than changing the size itself, but I've achieved it. Being able to return back to my original size should be rather useful. It should at least stop me from hitting my head every time I'm going thorough the doors...
+
+research.focus_size_steal.title=Focus Effect: Size Stealing
+research.focus_size_steal.stage.1=Changing the size of others or myself is useful, but I wonder if I'll be able to use for more combat focused situations?
+research.focus_size_steal.stage.2=I've achieved an effect of stealing the size of my foes, which will both weaken them and strengthen me in the process.
+
+
+mia.focus.size_change.name=Size change
+mia.focus.size_change.text=Allows you to change size of the target
+mia.focus.size_steal.name=Size steal
+mia.focus.size_steal.text=Allows you to steal the size of the target
+mia.focus.size_stabilization.name=Size stabilization
+mia.focus.size_stabilization.text=Stabilizes the target to their original size
+
+mia.focus.size=Change type
+mia.focus.size_growth=Growth
+mia.focus.size_shrinking=Shrinking
 
 
 #########################

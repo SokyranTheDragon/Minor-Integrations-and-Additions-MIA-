@@ -164,4 +164,20 @@ public class SizeUtils
     {
         setEntitySize(entity, getEntitySize(entity), true);
     }
+    
+    public static boolean canEntityBeScaled(EntityLivingBase entity)
+    {
+        if (entity instanceof FakePlayer)
+            return false;
+        if (entity instanceof EntityPlayer)
+            return true;
+        if (!GenericAdditionsConfig.sizeModule.canScaleMobs)
+            return false;
+        return Arrays.stream(GenericAdditionsConfig.sizeModule.bannedEntitiesSize).noneMatch(x ->
+            {
+                ResourceLocation e = EntityList.getKey(entity);
+                return e == null || x.equals(e.toString());
+            });
+    
+    }
 }

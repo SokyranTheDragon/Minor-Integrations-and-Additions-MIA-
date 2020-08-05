@@ -1,27 +1,32 @@
 package com.github.sokyranthedragon.mia.integrations.thaumcraft;
 
-import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.block.BlockVoidCreator;
+import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.dispenserbehavior.DispenserLootBag;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
+import com.github.sokyranthedragon.mia.integrations.thaumcraft.foci.FocusEffectSizeChange;
+import com.github.sokyranthedragon.mia.integrations.thaumcraft.foci.FocusEffectSizeStabilization;
+import com.github.sokyranthedragon.mia.integrations.thaumcraft.foci.FocusEffectSizeSteal;
 import com.github.sokyranthedragon.mia.tile.TileVoidCreator;
+import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.blocks.BlocksTC;
+import thaumcraft.api.casters.FocusEngine;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.items.ItemsTC;
 import thaumcraft.common.blocks.world.BlockLoot;
@@ -64,7 +69,24 @@ public class Thaumcraft implements IBaseMod
         if (!thaumcraftAdditionsEnabled)
             return;
         
-        ThaumcraftApi.registerResearchLocation(new ResourceLocation(Mia.MODID, "research/basics.json"));
+        ThaumcraftApi.registerResearchLocation(MIA.loadSimple("research/basics.json"));
+        
+        if (SizeUtils.isSizeComponentEnabled && GenericAdditionsConfig.sizeModule.thaumcraftIntegration)
+            ThaumcraftApi.registerResearchLocation(MIA.loadSimple("research/auromancy_size.json"));
+    }
+    
+    @Override
+    public void init(FMLInitializationEvent event)
+    {
+        if (!thaumcraftAdditionsEnabled)
+            return;
+        
+        if (SizeUtils.isSizeComponentEnabled && GenericAdditionsConfig.sizeModule.thaumcraftIntegration)
+        {
+            FocusEngine.registerElement(FocusEffectSizeChange.class, MIA.loadSimple("textures/foci/size_change.png"), 0xFF9999);
+            FocusEngine.registerElement(FocusEffectSizeSteal.class, MIA.loadSimple("textures/foci/size_steal.png"), 0xFF9999);
+            FocusEngine.registerElement(FocusEffectSizeStabilization.class, MIA.loadSimple("textures/foci/size_neutral.png"), 0xFF9999);
+        }
     }
     
     @Override
@@ -75,7 +97,7 @@ public class Thaumcraft implements IBaseMod
         
         MiaBlocks.voidCreator = MiaBlocks.registerBlock(new BlockVoidCreator());
         
-        GameRegistry.registerTileEntity(TileVoidCreator.class, new ResourceLocation("mia", "void_creator"));
+        GameRegistry.registerTileEntity(TileVoidCreator.class, MIA.loadSimple("void_creator"));
     }
     
     @SuppressWarnings("ConstantConditions")
@@ -85,7 +107,7 @@ public class Thaumcraft implements IBaseMod
         if (!thaumcraftAdditionsEnabled)
             return;
         
-        ThaumcraftApi.addInfusionCraftingRecipe(new ResourceLocation(Mia.MODID, "void_creator"),
+        ThaumcraftApi.addInfusionCraftingRecipe(MIA.loadSimple("void_creator"),
             new InfusionRecipe(
                 "MIA.VOID_CREATOR",
                 new ItemStack(MiaBlocks.voidCreator),
