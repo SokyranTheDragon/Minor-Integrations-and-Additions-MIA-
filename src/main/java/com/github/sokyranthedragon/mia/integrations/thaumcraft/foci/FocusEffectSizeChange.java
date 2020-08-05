@@ -2,7 +2,6 @@ package com.github.sokyranthedragon.mia.integrations.thaumcraft.foci;
 
 import com.github.sokyranthedragon.mia.potions.ModPotions;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
@@ -46,7 +45,7 @@ public class FocusEffectSizeChange extends FocusEffect
         return new NodeSetting[]{
             new NodeSetting("power", "focus.common.power", new NodeSetting.NodeSettingIntRange(1, 4)),
             new NodeSetting("duration", "focus.common.duration", new NodeSetting.NodeSettingIntRange(2, 10)),
-            new NodeSetting("type", "mia.focus.size", new NodeSetting.NodeSettingIntList(new int[]{ 0, 1 }, new String[]{ I18n.format("mia.focus.size_growth"), I18n.format("mia.focus.size_shrinking") })) };
+            new NodeSetting("type", "mia.focus.size", new NodeSetting.NodeSettingIntList(new int[]{ 0, 1 }, new String[]{ "mia.focus.size_growth", "mia.focus.size_shrinking" })) };
     }
     
     @Override
