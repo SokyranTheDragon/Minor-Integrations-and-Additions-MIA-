@@ -6,8 +6,8 @@ import com.github.sokyranthedragon.mia.capabilities.MusicPlayerCapabilityProvide
 import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
-import com.github.sokyranthedragon.mia.core.MiaGenerators;
 import com.github.sokyranthedragon.mia.core.MiaItems;
+import com.github.sokyranthedragon.mia.events.WorldEvents;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.LootTableIntegrator;
 import com.github.sokyranthedragon.mia.integrations.base.ModIntegrator;
@@ -23,6 +23,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -51,6 +52,9 @@ public class CommonProxy
             SizeOreDictionaryUtils.setupOreDictUtils();
         if (GenericAdditionsConfig.enableSizeComponent && !ModIds.ARTEMISLIB.isLoaded)
             Mia.LOGGER.warn("Size component is enabled, but ArtemisLib is not installed! It won't work!");
+        
+        if (GenericAdditionsConfig.enableEvtp && GenericAdditionsConfig.evtp.deadFlowerEnabled)
+            MinecraftForge.TERRAIN_GEN_BUS.register(WorldEvents.class);
         
         MusicPlayerCapabilityProvider.register();
         
@@ -108,7 +112,6 @@ public class CommonProxy
     
     public void postInit(FMLPostInitializationEvent event)
     {
-        MiaGenerators.postInit();
         modIntegrator.postInit(event);
     }
     
