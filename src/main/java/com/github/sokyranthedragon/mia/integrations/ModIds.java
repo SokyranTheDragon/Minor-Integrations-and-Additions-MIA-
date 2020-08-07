@@ -23,6 +23,7 @@ import mcjty.theoneprobe.TheOneProbe;
 import mezz.jei.config.Constants;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
 import pegbeard.dungeontactics.reference.Reference;
 import slimeknights.tconstruct.TConstruct;
 import team.chisel.Chisel;
@@ -86,6 +87,11 @@ public enum ModIds
     public ResourceLocationWrapper loadResource(String path, int id)
     {
         return new ResourceLocationWrapper(modId, path, id);
+    }
+    
+    public ModContainer getModContainer()
+    {
+        return Loader.instance().getIndexedModList().get(modId);
     }
     
     @Override

@@ -32,7 +32,7 @@ import java.util.List;
     version = Mia.VERSION,
     updateJSON = "https://raw.githubusercontent.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-/master/update.json",
     dependencies =
-        "after:" + ModIds.ConstantIds.ARTEMISLIB + "@[1.0.6,)" +
+        "after:" + ModIds.ConstantIds.ARTEMISLIB + "@[1.0.6,]" +
             ";after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
             ";after:" + ModIds.ConstantIds.COFH_CORE +
             ";after:" + ModIds.ConstantIds.THERMAL_FOUNDATION +
