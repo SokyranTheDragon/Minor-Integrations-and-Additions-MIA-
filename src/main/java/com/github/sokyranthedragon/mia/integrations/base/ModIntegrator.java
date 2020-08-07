@@ -6,6 +6,7 @@ import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.AetherConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration;
+import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.abyssalcraft.AbyssalCraft;
 import com.github.sokyranthedragon.mia.integrations.aether.Aether;
@@ -30,6 +31,7 @@ import com.github.sokyranthedragon.mia.integrations.natura.Natura;
 import com.github.sokyranthedragon.mia.integrations.quark.Quark;
 import com.github.sokyranthedragon.mia.integrations.tconstruct.TinkersConstruct;
 import com.github.sokyranthedragon.mia.integrations.thaumcraft.Thaumcraft;
+import com.github.sokyranthedragon.mia.integrations.thaumcraft.ThaumcraftHelpers;
 import com.github.sokyranthedragon.mia.integrations.theoneprobe.TheOneProbe;
 import com.github.sokyranthedragon.mia.integrations.thermalexpansion.ThermalExpansion;
 import com.github.sokyranthedragon.mia.integrations.thermalfoundation.ThermalFoundation;
@@ -37,6 +39,7 @@ import com.github.sokyranthedragon.mia.integrations.xu2.ExtraUtilities2;
 import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import com.setycz.chickens.ChickensMod;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -50,8 +53,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectEventProxy;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.AspectRegistryEvent;
 
@@ -323,16 +328,19 @@ public class ModIntegrator
             ProgressManager.pop(progressBar);
         }
         
-        event.register.registerObjectTag("bookshelf", new AspectList().add(Aspect.PLANT, 20).add(Aspect.MIND, 8));
+        AspectEventProxy register = event.register;
+        
+        for (ItemStack bookshelf : OreDictionary.getOres("bookshelf", false))
+            ThaumcraftHelpers.transferAspects(bookshelf, new AspectList().add(Aspect.MIND, 8), register);
         
         // If those mods are added as full integration then these should be moved there
         if (Loader.isModLoaded(ChickensMod.MODID))
         {
-            event.register.registerObjectTag(new ItemStack(ChickensMod.liquidEgg, 1, 0), new AspectList().add(Aspect.WATER, 20));
-            event.register.registerObjectTag(new ItemStack(ChickensMod.liquidEgg, 1, 1), new AspectList().add(Aspect.FIRE, 20));
+            register.registerObjectTag(new ItemStack(ChickensMod.liquidEgg, 1, 0), new AspectList().add(Aspect.WATER, 20));
+            register.registerObjectTag(new ItemStack(ChickensMod.liquidEgg, 1, 1), new AspectList().add(Aspect.FIRE, 20));
         }
         if (Loader.isModLoaded(ChickensMore.MODID))
-            event.register.registerObjectTag(new ItemStack(ModItems.solidXp), new AspectList().add(Aspect.MIND, 20));
+            register.registerObjectTag(new ItemStack(ModItems.solidXp), new AspectList().add(Aspect.MIND, 20));
     }
     
     @Optional.Method(modid = ConstantIds.AETHER)

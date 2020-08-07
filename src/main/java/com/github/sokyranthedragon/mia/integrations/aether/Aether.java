@@ -9,14 +9,12 @@ import com.legacy.aether.items.ItemsAether;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectEventProxy;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.AspectRegistryEvent;
+import thaumcraft.api.aspects.*;
 
 import java.util.function.BiConsumer;
 
@@ -77,25 +75,46 @@ public class Aether implements IBaseMod
     {
         AspectEventProxy register = event.register;
         
-        register.registerObjectTag(new ItemStack(BlocksAether.enchanted_aether_grass), new AspectList().add(Aspect.EARTH, 5).add(Aspect.PLANT, 2).add(Aspect.MAGIC, 2));
-        register.registerObjectTag(new ItemStack(BlocksAether.holystone), new AspectList().add(Aspect.EARTH, 5));
-        register.registerObjectTag(new ItemStack(BlocksAether.holystone), new AspectList().add(Aspect.EARTH, 5).add(Aspect.PLANT, 3).add(Aspect.ENTROPY, 1));
-        register.registerObjectTag(new ItemStack(BlocksAether.icestone), new AspectList().add(Aspect.COLD, 5));
+        transferAspects(new ItemStack(BlocksAether.holystone), new ItemStack(Blocks.COBBLESTONE), register, false);
+        transferAspects(new ItemStack(BlocksAether.mossy_holystone), new ItemStack(Blocks.MOSSY_COBBLESTONE), register, false);
+        transferAspects(new ItemStack(BlocksAether.enchanted_aether_grass), new AspectList().add(Aspect.EARTH, 5).add(Aspect.PLANT, 2).add(Aspect.MAGIC, 2), register);
+        transferAspects(new ItemStack(BlocksAether.icestone), new AspectList().add(Aspect.COLD, 5), register);
+        transferAspects(new ItemStack(BlocksAether.quicksoil), new AspectList().add(Aspect.EARTH, 3).add(Aspect.MOTION, 5), register);
         
-        register.registerObjectTag(new ItemStack(ItemsAether.zanite_gemstone), new AspectList().add(Aspect.DESIRE, 15).add(Aspect.CRYSTAL, 15).add(Aspect.MAGIC, 1));
-        register.registerObjectTag(new ItemStack(ItemsAether.ambrosium_shard), new AspectList().add(Aspect.AIR, 10).add(Aspect.MAGIC, 5));
-        register.registerObjectTag(new ItemStack(BlocksAether.enchanted_gravitite), new AspectList().add(Aspect.FLIGHT, 5).add(Aspect.AIR, 5).add(Aspect.MAGIC, 5).add(Aspect.METAL, 15));
+        transferAspects(new ItemStack(ItemsAether.zanite_gemstone), new AspectList().add(Aspect.DESIRE, 15).add(Aspect.CRYSTAL, 15).add(Aspect.MAGIC, 1), register);
+        transferAspects(new ItemStack(ItemsAether.ambrosium_shard), new AspectList().add(Aspect.AIR, 10).add(Aspect.MAGIC, 5), register);
+        transferAspects(new ItemStack(BlocksAether.enchanted_gravitite), new AspectList().add(Aspect.FLIGHT, 5).add(Aspect.AIR, 5).add(Aspect.MAGIC, 5).add(Aspect.METAL, 15), register);
         
         AspectList list = new AspectList().add(Aspect.PLANT, 5).add(Aspect.SENSES, 5).add(Aspect.LIFE, 1);
-        register.registerObjectTag(new ItemStack(BlocksAether.purple_flower), list);
-        register.registerObjectTag(new ItemStack(BlocksAether.white_flower), list);
+        transferAspects(new ItemStack(BlocksAether.purple_flower), list, register);
+        transferAspects(new ItemStack(BlocksAether.white_flower), list, register);
+        transferAspects(new ItemStack(BlocksAether.berry_bush_stem), list, register);
         
-        ItemStack target = new ItemStack(Blocks.OBSIDIAN);
+        AspectList target = AspectHelper.getObjectAspects(new ItemStack(Blocks.OBSIDIAN));
         transferAspects(new ItemStack(ItemsAether.obsidian_helmet), target, register, 5);
         transferAspects(new ItemStack(ItemsAether.obsidian_chestplate), target, register, 8);
         transferAspects(new ItemStack(ItemsAether.obsidian_leggings), target, register, 7);
         transferAspects(new ItemStack(ItemsAether.obsidian_boots), target, register, 4);
         transferAspects(new ItemStack(ItemsAether.obsidian_gloves), target, register, 2);
+        
+        target = AspectHelper.getObjectAspects(new ItemStack(Items.APPLE));
+        transferAspects(new ItemStack(ItemsAether.blue_berry), target, register, false);
+        transferAspects(new ItemStack(ItemsAether.enchanted_blueberry), target, register, 3, new AspectList().add(Aspect.MAGIC, 5));
+        transferAspects(new ItemStack(ItemsAether.white_apple), target, register, false);
+        
+        transferAspects(new ItemStack(BlocksAether.ambrosium_torch), new AspectList().add(Aspect.LIGHT, 5).add(Aspect.ENERGY, 1), register);
+    
+        transferAspects(new ItemStack(ItemsAether.skyroot_bucket, 1, 0), new AspectList().add(Aspect.VOID, 5), register);
+        transferAspects(new ItemStack(ItemsAether.skyroot_bucket, 1, 1), new AspectList().add(Aspect.VOID, 5).add(Aspect.WATER, 20), register);
+        transferAspects(new ItemStack(ItemsAether.skyroot_bucket, 1, 2), new AspectList().add(Aspect.VOID, 5).add(Aspect.DEATH, 10).add(Aspect.MAGIC, 5), register);
+        transferAspects(new ItemStack(ItemsAether.skyroot_bucket, 1, 3), new AspectList().add(Aspect.VOID, 5).add(Aspect.LIFE, 10).add(Aspect.MAGIC, 15), register);
+        transferAspects(new ItemStack(ItemsAether.skyroot_bucket, 1, 4), new AspectList().add(Aspect.VOID, 5).add(Aspect.LIFE, 10).add(Aspect.BEAST, 5).add(Aspect.WATER, 5), register);
+        
+        transferAspects(new ItemStack(ItemsAether.healing_stone), new AspectList().add(Aspect.LIFE, 10).add(Aspect.MAGIC, 10), register);
+        transferAspects(new ItemStack(ItemsAether.golden_amber), new AspectList().add(Aspect.PLANT, 1).add(Aspect.DESIRE, 1), register);
+        transferAspects(new ItemStack(ItemsAether.aechor_petal), new AspectList().add(Aspect.PLANT, 5).add(Aspect.SENSES, 5), register);
+        transferAspects(new ItemStack(BlocksAether.aerogel), new AspectList().add(Aspect.COLD, 5).add(Aspect.FIRE, 5), register);
+        transferAspects(new ItemStack(BlocksAether.sun_altar), new AspectList().add(Aspect.MAGIC, 50).add(Aspect.LIGHT, 15).add(Aspect.FIRE, 30), register);
         
         for (Item item : ItemsAether.itemRegistry)
         {

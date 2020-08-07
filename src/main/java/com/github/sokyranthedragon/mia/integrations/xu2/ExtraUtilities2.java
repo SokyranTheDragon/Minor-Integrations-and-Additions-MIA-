@@ -6,6 +6,7 @@ import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
+import com.github.sokyranthedragon.mia.integrations.thaumcraft.ThaumcraftHelpers;
 import com.rwtema.extrautils2.api.machine.MachineSlotItem;
 import com.rwtema.extrautils2.api.machine.RecipeBuilder;
 import com.rwtema.extrautils2.api.machine.XUMachineCrusher;
@@ -17,6 +18,7 @@ import com.rwtema.extrautils2.utils.datastructures.ItemRef;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -136,74 +138,72 @@ public class ExtraUtilities2 implements IBaseMod
     @Optional.Method(modid = ConstantIds.THAUMCRAFT)
     public void registerAspects(AspectRegistryEvent event)
     {
-        event.register.registerObjectTag(XU2Entries.miniChest.newStack(), new AspectList().add(Aspect.PLANT, 2));
-        event.register.registerObjectTag(XU2Entries.blockEnderLilly.newStack(), new AspectList().add(Aspect.MOTION, 5).add(Aspect.ELDRITCH, 3).add(Aspect.PLANT, 5).add(Aspect.SENSES, 5).add(Aspect.LIFE, 1));
-        event.register.registerObjectTag(XU2Entries.blockRedOrchid.newStack(), new AspectList().add(Aspect.PLANT, 5).add(Aspect.SENSES, 5).add(Aspect.ENERGY, 5).add(Aspect.LIFE, 1));
-        event.register.registerObjectTag(XU2Entries.wateringCan.newStackMeta(OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.TOOL, 16).add(Aspect.VOID, 3).add(Aspect.EARTH, 15));
-        event.register.registerObjectTag(XU2Entries.goldenLasso.newStack(), new AspectList().add(Aspect.BEAST, 15).add(Aspect.CRAFT, 3).add(Aspect.METAL, 3).add(Aspect.DESIRE, 3));
-        event.register.registerObjectTag(XU2Entries.cursedEarth.newStack(), new AspectList().add(Aspect.EARTH, 4).add(Aspect.PLANT, 1).add(Aspect.METAL, 2).add(Aspect.FIRE, 2));
-        event.register.registerObjectTag(XU2Entries.pipe.newStack(), new AspectList().add(Aspect.EARTH, 4).add(Aspect.CRYSTAL, 7).add(Aspect.ENERGY, 7));
-        event.register.registerObjectTag(XU2Entries.sunCrystal.newStack(), new AspectList().add(Aspect.LIGHT, 100).add(Aspect.SENSES, 25).add(Aspect.CRYSTAL, 25).add(Aspect.DESIRE, 25));
+        AspectEventProxy register = event.register;
+    
+        register.registerObjectTag(XU2Entries.miniChest.newStack(), new AspectList().add(Aspect.PLANT, 2));
+        register.registerObjectTag(XU2Entries.blockEnderLilly.newStack(), new AspectList().add(Aspect.MOTION, 5).add(Aspect.ELDRITCH, 3).add(Aspect.PLANT, 5).add(Aspect.SENSES, 5).add(Aspect.LIFE, 1));
+        register.registerObjectTag(XU2Entries.blockRedOrchid.newStack(), new AspectList().add(Aspect.PLANT, 5).add(Aspect.SENSES, 5).add(Aspect.ENERGY, 5).add(Aspect.LIFE, 1));
+        register.registerObjectTag(XU2Entries.wateringCan.newStackMeta(OreDictionary.WILDCARD_VALUE), new AspectList().add(Aspect.TOOL, 16).add(Aspect.VOID, 3).add(Aspect.EARTH, 15));
+        register.registerObjectTag(XU2Entries.goldenLasso.newStack(), new AspectList().add(Aspect.BEAST, 15).add(Aspect.CRAFT, 3).add(Aspect.METAL, 3).add(Aspect.DESIRE, 3));
+        register.registerObjectTag(XU2Entries.cursedEarth.newStack(), new AspectList().add(Aspect.EARTH, 4).add(Aspect.PLANT, 1).add(Aspect.METAL, 2).add(Aspect.FIRE, 2));
+        register.registerObjectTag(XU2Entries.pipe.newStack(), new AspectList().add(Aspect.EARTH, 4).add(Aspect.CRYSTAL, 7).add(Aspect.ENERGY, 7));
+        register.registerObjectTag(XU2Entries.sunCrystal.newStack(), new AspectList().add(Aspect.LIGHT, 100).add(Aspect.SENSES, 25).add(Aspect.CRYSTAL, 25).add(Aspect.DESIRE, 25));
         
-        event.register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(3), new AspectList().add(Aspect.SENSES, 5).add(Aspect.EARTH, 2).add(Aspect.DESIRE, 2).add(Aspect.DARKNESS, 2));
-        event.register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(4), new AspectList().add(Aspect.ENERGY, 13).add(Aspect.FIRE, 13));
-        event.register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(9), new AspectList().add(AspectHelper.getObjectAspects(new ItemStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE))).add(Aspect.FIRE, 3));
-        event.register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(10), new AspectList().add(Aspect.METAL, 3).add(Aspect.FIRE, 3));
-        event.register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(11), new AspectList().add(Aspect.METAL, 10).add(Aspect.DESIRE, 10).add(Aspect.FIRE, 10));
-        event.register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(12), new AspectList().add(Aspect.METAL, 10).add(Aspect.DESIRE, 10).add(Aspect.MAGIC, 5));
-        event.register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(13), new AspectList().add(Aspect.METAL, 3).add(Aspect.ENERGY, 5).add(Aspect.FIRE, 1));
-        event.register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(17), new AspectList().add(Aspect.MAGIC, 2).add(Aspect.ORDER, 2).add(Aspect.ELDRITCH, 1).add(Aspect.AURA, 1).add(Aspect.METAL, 10).add(Aspect.DARKNESS, 2));
+        register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(3), new AspectList().add(Aspect.SENSES, 5).add(Aspect.EARTH, 2).add(Aspect.DESIRE, 2).add(Aspect.DARKNESS, 2));
+        register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(4), new AspectList().add(Aspect.ENERGY, 13).add(Aspect.FIRE, 13));
+        register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(9), new AspectList().add(AspectHelper.getObjectAspects(new ItemStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE))).add(Aspect.FIRE, 3));
+        register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(10), new AspectList().add(Aspect.METAL, 3).add(Aspect.FIRE, 3));
+        register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(11), new AspectList().add(Aspect.METAL, 10).add(Aspect.DESIRE, 10).add(Aspect.FIRE, 10));
+        register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(12), new AspectList().add(Aspect.METAL, 10).add(Aspect.DESIRE, 10).add(Aspect.MAGIC, 5));
+        register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(13), new AspectList().add(Aspect.METAL, 3).add(Aspect.ENERGY, 5).add(Aspect.FIRE, 1));
+        register.registerObjectTag(XU2Entries.itemIngredients.newStackMeta(17), new AspectList().add(Aspect.MAGIC, 2).add(Aspect.ORDER, 2).add(Aspect.ELDRITCH, 1).add(Aspect.AURA, 1).add(Aspect.METAL, 10).add(Aspect.DARKNESS, 2));
         
-        event.register.registerObjectTag(XU2Entries.unstableIngots.newStackMeta(0), new AspectList().add(Aspect.ENTROPY, 250).add(Aspect.CRYSTAL, 150).add(Aspect.DESIRE, 150).add(Aspect.METAL, 100));
-        event.register.registerObjectTag(XU2Entries.unstableIngots.newStackMeta(1), new AspectList().add(Aspect.ENTROPY, 10).add(Aspect.CRYSTAL, 5).add(Aspect.DESIRE, 5).add(Aspect.METAL, 3));
-        event.register.registerObjectTag(XU2Entries.unstableIngots.newStackMeta(2), new AspectList().add(Aspect.ENTROPY, 90).add(Aspect.CRYSTAL, 45).add(Aspect.DESIRE, 45).add(Aspect.METAL, 27));
+        register.registerObjectTag(XU2Entries.unstableIngots.newStackMeta(0), new AspectList().add(Aspect.ENTROPY, 250).add(Aspect.CRYSTAL, 150).add(Aspect.DESIRE, 150).add(Aspect.METAL, 100));
+        register.registerObjectTag(XU2Entries.unstableIngots.newStackMeta(1), new AspectList().add(Aspect.ENTROPY, 10).add(Aspect.CRYSTAL, 5).add(Aspect.DESIRE, 5).add(Aspect.METAL, 3));
+        register.registerObjectTag(XU2Entries.unstableIngots.newStackMeta(2), new AspectList().add(Aspect.ENTROPY, 90).add(Aspect.CRYSTAL, 45).add(Aspect.DESIRE, 45).add(Aspect.METAL, 27));
         
         for (int meta = 0; meta <= 1; meta++)
-            event.register.registerObjectTag(XU2Entries.decorativeSolidWood.newStackMeta(meta), new AspectList().add(Aspect.MAGIC, 20).add(Aspect.PLANT, 20).add(Aspect.MIND, 8));
+            register.registerObjectTag(XU2Entries.decorativeSolidWood.newStackMeta(meta), new AspectList().add(Aspect.MAGIC, 20).add(Aspect.PLANT, 20).add(Aspect.MIND, 8));
         
         for (int meta = 0; meta <= 2; meta++)
-            event.register.registerObjectTag(XU2Entries.decorativeGlass.newStackMeta(meta), new AspectList().add(Aspect.CRYSTAL, 6));
-        event.register.registerObjectTag(XU2Entries.decorativeGlass.newStackMeta(3), new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.SENSES, 1));
-        event.register.registerObjectTag(XU2Entries.decorativeGlass.newStackMeta(4), new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.LIGHT, 3).add(Aspect.SENSES, 1));
-        event.register.registerObjectTag(XU2Entries.decorativeGlass.newStackMeta(5), new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.ENERGY, 3));
+            register.registerObjectTag(XU2Entries.decorativeGlass.newStackMeta(meta), new AspectList().add(Aspect.CRYSTAL, 6));
+        register.registerObjectTag(XU2Entries.decorativeGlass.newStackMeta(3), new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.SENSES, 1));
+        register.registerObjectTag(XU2Entries.decorativeGlass.newStackMeta(4), new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.LIGHT, 3).add(Aspect.SENSES, 1));
+        register.registerObjectTag(XU2Entries.decorativeGlass.newStackMeta(5), new AspectList().add(Aspect.CRYSTAL, 6).add(Aspect.ENERGY, 3));
         
         for (int meta = 0; meta <= 2; meta++)
-            event.register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(meta), new AspectList().add(Aspect.EARTH, 3));
-        event.register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(3), new AspectList().add(Aspect.EARTH, 3).add(Aspect.FIRE, 2));
-        event.register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(5), new AspectList().add(Aspect.EARTH, 3));
-        event.register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(7), new AspectList().add(Aspect.CRYSTAL, 15).add(Aspect.FIRE, 2));
-        event.register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(8), new AspectList().add(Aspect.CRYSTAL, 15).add(Aspect.MAGIC, 15).add(Aspect.ENERGY, 1).add(Aspect.ELDRITCH, 15));
-        
-        for (int meta = 0; meta <= 7; meta++)
+            register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(meta), new AspectList().add(Aspect.EARTH, 3));
+        register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(3), new AspectList().add(Aspect.EARTH, 3).add(Aspect.FIRE, 2));
+        register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(5), new AspectList().add(Aspect.EARTH, 3));
+        register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(7), new AspectList().add(Aspect.CRYSTAL, 15).add(Aspect.FIRE, 2));
+        register.registerObjectTag(XU2Entries.decorativeSolid.newStackMeta(8), new AspectList().add(Aspect.CRYSTAL, 15).add(Aspect.MAGIC, 15).add(Aspect.ENERGY, 1).add(Aspect.ELDRITCH, 15));
+    
+        AspectList cobblestone = AspectHelper.getObjectAspects(new ItemStack(Blocks.COBBLESTONE));
+        AspectList netherrack = AspectHelper.getObjectAspects(new ItemStack(Blocks.NETHERRACK));
+        AspectList dirt = AspectHelper.getObjectAspects(new ItemStack(Blocks.DIRT));
+        AspectList sand = AspectHelper.getObjectAspects(new ItemStack(Blocks.SAND));
+        AspectList gravel = AspectHelper.getObjectAspects(new ItemStack(Blocks.GRAVEL));
+        for (int meta = 0, power = MathHelper.ceil(5 * 9 * 0.75f); meta <= 7; meta++, power = MathHelper.ceil(power * 9 * 0.75f))
         {
-            int aspectPower = 500;
-            if (meta == 2) aspectPower = 270;
-            else if (meta == 1) aspectPower = 40;
-            else if (meta == 0) aspectPower = 6;
-            
-            int aspectPower2 = Math.min(500, aspectPower * 3);
-            int aspectPower5 = Math.min(500, aspectPower * 5);
-            
-            // This could be optimized more, but I decided to go for readability since it's during initialization phase and the loop is called only once
-            event.register.registerObjectTag(XU2Entries.compressedCobblestone.newStackMeta(meta), new AspectList().add(Aspect.EARTH, aspectPower5).add(Aspect.ENTROPY, aspectPower));
+            ThaumcraftHelpers.transferAspects(XU2Entries.compressedCobblestone.newStack(meta), cobblestone, register, power, false);
             if (meta <= 5)
-                event.register.registerObjectTag(XU2Entries.compressedNetherack.newStackMeta(meta), new AspectList().add(Aspect.EARTH, aspectPower5).add(Aspect.FIRE, aspectPower2));
+                ThaumcraftHelpers.transferAspects(XU2Entries.compressedNetherack.newStackMeta(meta), netherrack, register, power, false);
             if (meta <= 3)
-                event.register.registerObjectTag(XU2Entries.compressedDirt.newStackMeta(meta), new AspectList().add(Aspect.EARTH, aspectPower5));
+                ThaumcraftHelpers.transferAspects(XU2Entries.compressedDirt.newStackMeta(meta), dirt, register, power, false);
             if (meta <= 2)
             {
-                event.register.registerObjectTag(XU2Entries.compressedGravel.newStackMeta(meta), new AspectList().add(Aspect.EARTH, aspectPower5).add(Aspect.ENTROPY, aspectPower2));
-                event.register.registerObjectTag(XU2Entries.compressedSand.newStackMeta(meta), new AspectList().add(Aspect.EARTH, aspectPower5).add(Aspect.ENTROPY, aspectPower5));
+                ThaumcraftHelpers.transferAspects(XU2Entries.compressedGravel.newStackMeta(meta), gravel, register, power, false);
+                ThaumcraftHelpers.transferAspects(XU2Entries.compressedSand.newStackMeta(meta), sand, register, power, false);
             }
         }
         
         AspectList bedrockAspects = AspectHelper.getObjectAspects(new ItemStack(Blocks.BEDROCK));
         for (int meta = 0; meta <= 2; meta++)
-            event.register.registerObjectTag(XU2Entries.decorativeBedrock.newStackMeta(meta), bedrockAspects);
+            register.registerObjectTag(XU2Entries.decorativeBedrock.newStackMeta(meta), bedrockAspects);
         
-        appendToolAspect(event.register, XU2Entries.itemGlassCutter.newWildcardStack());
-        appendToolAspect(event.register, XU2Entries.trowel.newWildcardStack());
-        appendToolAspect(event.register, XU2Entries.wrench.newWildcardStack());
+        appendToolAspect(register, XU2Entries.itemGlassCutter.newWildcardStack());
+        appendToolAspect(register, XU2Entries.trowel.newWildcardStack());
+        appendToolAspect(register, XU2Entries.wrench.newWildcardStack());
         
         List<ItemStack> angelRingStacks = XU2Entries.angelRing.getCreativeStacks();
         AspectList squidRingAspects = AspectHelper.getObjectAspects(XU2Entries.chickenRing.newStackMeta(1));
@@ -213,8 +213,10 @@ public class ExtraUtilities2 implements IBaseMod
             AspectList angelAspects = AspectHelper.getObjectAspects(angelRing);
             for (Map.Entry<Aspect, Integer> aspects : squidRingAspects.aspects.entrySet())
                 angelAspects.merge(aspects.getKey(), (int) (aspects.getValue() * 0.75f));
-            event.register.registerObjectTag(angelRing, angelAspects);
+            register.registerObjectTag(angelRing, angelAspects);
         }
+        
+        ThaumcraftHelpers.transferAspects(XU2Entries.snowGlobe.newStackMeta(1), XU2Entries.snowGlobe.newStackMeta(0), register, new AspectList().add(Aspect.MAGIC, 25).add(Aspect.PLANT, 50));
     }
     
     @Optional.Method(modid = ConstantIds.THAUMCRAFT)
