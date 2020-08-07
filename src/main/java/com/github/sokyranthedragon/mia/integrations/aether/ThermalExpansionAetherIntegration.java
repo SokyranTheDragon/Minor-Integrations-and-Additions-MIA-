@@ -28,8 +28,8 @@ class ThermalExpansionAetherIntegration implements IThermalExpansionIntegration
         int energy = 6_000;
         
         // Vanilla
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.leather_gloves), new ItemStack(Items.LEATHER), 1);
-        SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.diamond_gloves), new ItemStack(Items.DIAMOND), 1);
+        SawmillManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.leather_gloves), new ItemStack(Items.LEATHER), 1);
+        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.diamond_gloves), new ItemStack(Items.DIAMOND), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.iron_gloves), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.chain_gloves), new ItemStack(Items.IRON_INGOT), 1);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.golden_gloves), new ItemStack(Items.GOLD_INGOT), 1);
@@ -55,10 +55,10 @@ class ThermalExpansionAetherIntegration implements IThermalExpansionIntegration
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_boots), new ItemStack(BlocksAether.enchanted_gravitite), 3);
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_gloves), new ItemStack(BlocksAether.enchanted_gravitite), 1);
 //
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_pickaxe), new ItemStack(BlocksAether.enchanted_gravitite), 1);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_axe), new ItemStack(BlocksAether.enchanted_gravitite), 1);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_shovel), new ItemStack(BlocksAether.enchanted_gravitite), 1);
-        PulverizerManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_sword), new ItemStack(BlocksAether.enchanted_gravitite), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_pickaxe), new ItemStack(BlocksAether.enchanted_gravitite), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_axe), new ItemStack(BlocksAether.enchanted_gravitite), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_shovel), new ItemStack(BlocksAether.enchanted_gravitite), 1);
+        SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.gravitite_sword), new ItemStack(BlocksAether.enchanted_gravitite), 1);
         
         // Skyroot
         energy = 3_000;
@@ -79,7 +79,13 @@ class ThermalExpansionAetherIntegration implements IThermalExpansionIntegration
         SmelterManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.golden_pendant), new ItemStack(Items.GOLD_INGOT), 1);
         PulverizerManager.addRecycleRecipe(energy, new ItemStack(ItemsAether.zanite_pendant), new ItemStack(ItemsAether.zanite_gemstone), 1);
         
-        // Trees
+        // Tree sawmilling/pulverizing
+        SawmillManager.addLogRecipe(new ItemStack(BlocksAether.aether_log, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(BlocksAether.skyroot_plank));
+        PulverizerManager.PulverizerRecipe toReplace = PulverizerManager.getRecipe(new ItemStack(BlocksAether.aether_log, 1, 1));
+        PulverizerManager.removeRecipe(toReplace.getInput());
+        PulverizerManager.addRecipe(toReplace.getEnergy(), toReplace.getInput(), toReplace.getPrimaryOutput(), new ItemStack(ItemsAether.golden_amber), 15);
+        
+        // Tree growing
         TapperManager.addStandardMapping(new ItemStack(BlocksAether.aether_log), new FluidStack(TFFluids.fluidResin, 50));
         
         InsolatorManager.addDefaultTreeRecipe(new ItemStack(BlocksAether.skyroot_sapling), new ItemStack(BlocksAether.aether_log, 6, 1), new ItemStack(BlocksAether.skyroot_sapling));
