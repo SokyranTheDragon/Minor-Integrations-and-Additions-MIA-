@@ -1,6 +1,7 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/minor-integrations-and-additions-mia",
   "1.12.2": {
+    "1.12.2-0.1.9d": "Significantly improved and fixed EVTP/dead flower generation code\nAdded more Thaumcraft aspects\nAdded and fixed some Aether recipes\nUpdated Dungeon Tactics dispenser behavior to support mystery and starter bags\nDisable some integrations for outdated mods (instead of requiring most recent versions)\nFixed the issue with Aether obsidian set having 500 Thaumcraft aspects\nFixed unintentionally overpriced recipe",
     "1.12.2-0.1.9c": "Fixed another server crash",
     "1.12.2-0.1.9b": "Fixed server crash",
     "1.12.2-0.1.9a": "Yet again more integrations for aether\nMade several of the progress bars have a color\nAdded Thaumcraft foci for the size module\nAdded Thaumcraft aspects to a handful of items and blocks\nFixed a few broken config options\nFixed incorrect pixie dust count display in pixie dust collector\nFixed a small issue with Thaumcraft/JER integration\nRemoved several duplicate recipe registrations",
@@ -14,7 +15,7 @@
     "1.12.2-0.1.5c": "Added update checking\nFixed crafting bugs"
   },
   "promos": {
-    "1.12.2-latest": "1.12.2-0.1.9c",
-    "1.12.2-recommended": "1.12.2-0.1.9c"
+    "1.12.2-latest": "1.12.2-0.1.9d",
+    "1.12.2-recommended": "1.12.2-0.1.9d"
   }
 }
