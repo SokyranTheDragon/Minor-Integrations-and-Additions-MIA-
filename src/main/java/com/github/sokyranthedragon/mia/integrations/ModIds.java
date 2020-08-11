@@ -23,7 +23,10 @@ import mcjty.theoneprobe.TheOneProbe;
 import mezz.jei.config.Constants;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderException;
 import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.versioning.VersionParser;
+import net.minecraftforge.fml.common.versioning.VersionRange;
 import pegbeard.dungeontactics.reference.Reference;
 import slimeknights.tconstruct.TConstruct;
 import team.chisel.Chisel;
@@ -31,18 +34,22 @@ import team.chisel.ctm.CTM;
 import thaumcraft.Thaumcraft;
 import thedarkcolour.futuremc.FutureMC;
 
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public enum ModIds
 {
     MIA(Mia.MODID),
-    ARTEMISLIB(ConstantIds.ARTEMISLIB),
+    ARTEMISLIB(ConstantIds.ARTEMISLIB, "[1.0.6,]"),
     EXTRA_UTILITIES(ConstantIds.EXTRA_UTILITIES),
     COFH_CORE(ConstantIds.COFH_CORE),
     THERMAL_FOUNDATION(ConstantIds.THERMAL_FOUNDATION),
     THERMAL_EXPANSION(ConstantIds.THERMAL_EXPANSION),
     TINKERS_CONSTRUCT(ConstantIds.TINKERS_CONSTRUCT),
     JEI(ConstantIds.JEI),
-    JER(ConstantIds.JER),
-    ICE_AND_FIRE(ConstantIds.ICE_AND_FIRE),
+    JER(ConstantIds.JER, "[0.9.1.56,]"),
+    ICE_AND_FIRE(ConstantIds.ICE_AND_FIRE, "[1.9.0,]"),
     HATCHERY(ConstantIds.HATCHERY),
     BAUBLES(ConstantIds.BAUBLES),
     THAUMCRAFT(ConstantIds.THAUMCRAFT),
@@ -54,7 +61,7 @@ public enum ModIds
     EXTRABOTANY(ConstantIds.EXTRABOTANY),
     QUARK(ConstantIds.QUARK),
     CRAFT_TWEAKER(ConstantIds.CRAFT_TWEAKER),
-    FUTURE_MC(ConstantIds.FUTURE_MC),
+    FUTURE_MC(ConstantIds.FUTURE_MC, "[0.2.0.0,]"),
     NATURA(ConstantIds.NATURA),
     BIOMES_O_PLENTY(ConstantIds.BIOMES_O_PLENTY),
     CONNECTED_TEXTURES(ConstantIds.CONNECTED_TEXTURES),
@@ -70,8 +77,13 @@ public enum ModIds
     
     ModIds(String modId)
     {
+        this(modId, null);
+    }
+    
+    ModIds(String modId, @Nullable String supportedVersion)
+    {
         this.modId = modId;
-        isLoaded = Loader.isModLoaded(modId);
+        isLoaded = Loader.isModLoaded(modId) && isSpecifiedVersion(supportedVersion);
     }
     
     public ResourceLocation loadSimple(String path)
@@ -92,6 +104,28 @@ public enum ModIds
     public ModContainer getModContainer()
     {
         return Loader.instance().getIndexedModList().get(modId);
+    }
+    
+    public boolean isSpecifiedVersion(@Nullable String string)
+    {
+        if (string == null)
+            return true;
+        
+        boolean match = true; // We assume match just in case we fail the check
+        ModContainer container = getModContainer();
+        
+        if (container != null)
+        {
+            try
+            {
+                VersionRange versionRange = VersionParser.parseRange(string);
+                match = versionRange.containsVersion(container.getProcessedVersion());
+            } catch (LoaderException ignored)
+            {
+            }
+        }
+        
+        return match;
     }
     
     @Override

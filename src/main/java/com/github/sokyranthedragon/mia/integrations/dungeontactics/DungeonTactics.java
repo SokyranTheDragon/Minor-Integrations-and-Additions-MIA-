@@ -17,12 +17,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.fml.common.LoaderException;
-import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.versioning.VersionParser;
-import net.minecraftforge.fml.common.versioning.VersionRange;
 import net.minecraftforge.oredict.OreDictionary;
 import pegbeard.dungeontactics.handlers.DTBlocks;
 import pegbeard.dungeontactics.handlers.DTFireworkHelper;
@@ -46,18 +42,7 @@ public class DungeonTactics implements IBaseMod
     @Override
     public void register(BiConsumer<ModIds, IModIntegration> modIntegration)
     {
-        ModContainer container = DUNGEON_TACTICS.getModContainer();
-        boolean recent = true; // just in case we can't access this, we assume it's recent
-        if (container != null)
-        {
-            try
-            {
-                VersionRange versionRange = VersionParser.parseRange("[DT-0.16.7,]");
-                recent = versionRange.containsVersion(container.getProcessedVersion());
-            } catch (LoaderException ignored)
-            {
-            }
-        }
+        boolean recent = DUNGEON_TACTICS.isSpecifiedVersion("[DT-0.16.7,]");
         
         if (enableTConstructIntegration && TINKERS_CONSTRUCT.isLoaded)
             modIntegration.accept(TINKERS_CONSTRUCT, new TConstructDungeonTacticsIntegration());

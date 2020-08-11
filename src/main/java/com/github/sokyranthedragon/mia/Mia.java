@@ -32,15 +32,15 @@ import java.util.List;
     version = Mia.VERSION,
     updateJSON = "https://raw.githubusercontent.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-/master/update.json",
     dependencies =
-        "after:" + ModIds.ConstantIds.ARTEMISLIB + "@[1.0.6,]" +
+        "after:" + ModIds.ConstantIds.ARTEMISLIB +
             ";after:" + ModIds.ConstantIds.EXTRA_UTILITIES +
             ";after:" + ModIds.ConstantIds.COFH_CORE +
             ";after:" + ModIds.ConstantIds.THERMAL_FOUNDATION +
             ";after:" + ModIds.ConstantIds.THERMAL_EXPANSION +
             ";after:" + ModIds.ConstantIds.TINKERS_CONSTRUCT +
             ";after:" + ModIds.ConstantIds.JEI +
-            ";after:" + ModIds.ConstantIds.JER + "@[0.9.1.56,]" +
-            ";after:" + ModIds.ConstantIds.ICE_AND_FIRE + "@[1.9.0,]" +
+            ";after:" + ModIds.ConstantIds.JER +
+            ";after:" + ModIds.ConstantIds.ICE_AND_FIRE +
             ";after:" + ModIds.ConstantIds.HATCHERY +
             ";after:" + ModIds.ConstantIds.THAUMCRAFT +
             ";after:" + ModIds.ConstantIds.MO_CREATURES +
@@ -50,7 +50,7 @@ import java.util.List;
             ";after:" + ModIds.ConstantIds.EXTRABOTANY +
             ";after:" + ModIds.ConstantIds.QUARK +
             ";after:" + ModIds.ConstantIds.CRAFT_TWEAKER +
-            ";after:" + ModIds.ConstantIds.FUTURE_MC + "@[0.2.0.0,]" +
+            ";after:" + ModIds.ConstantIds.FUTURE_MC +
             ";after:" + ModIds.ConstantIds.THE_ONE_PROBE +
             ";after:" + ModIds.ConstantIds.NATURA +
             ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +
