@@ -174,6 +174,8 @@ public class DungeonTactics implements IBaseMod
             else if (item == DTItems.BAG_MAGIC) drop = DTLoots.MAGIC_LOOT;
             else if (item == DTItems.BAG_POTION) drop = DTLoots.POTION_LOOT;
             else if (item == DTItems.BAG_RECORD) drop = DTLoots.RECORD_LOOT;
+            else if (item == DTItems.BAG_MYSTERY) drop = DTLoots.MYSTERY_LOOT;
+            else if (item == DTItems.BAG_STARTER) drop = DTLoots.STARTER_LOOT;
             else if (item == DTItems.BAG_SAMHAIN)
             {
                 int rand = source.getWorld().rand.nextInt(6);
@@ -229,7 +231,7 @@ public class DungeonTactics implements IBaseMod
             
             stack.shrink(1);
             return true;
-        }, DTItems.BAG_ARBOUR, DTItems.BAG_ORE, DTItems.BAG_TOOL, DTItems.BAG_BOOK, DTItems.BAG_QUIVER, DTItems.BAG_MAGIC, DTItems.BAG_POTION, DTItems.BAG_RECORD, DTItems.BAG_SAMHAIN, DTItems.BAG_SOLSTICE);
+        }, DTItems.BAG_ARBOUR, DTItems.BAG_ORE, DTItems.BAG_TOOL, DTItems.BAG_BOOK, DTItems.BAG_QUIVER, DTItems.BAG_MAGIC, DTItems.BAG_POTION, DTItems.BAG_RECORD, DTItems.BAG_SAMHAIN, DTItems.BAG_SOLSTICE, DTItems.BAG_MYSTERY, DTItems.BAG_STARTER);
     }
     
     @FunctionalInterface
