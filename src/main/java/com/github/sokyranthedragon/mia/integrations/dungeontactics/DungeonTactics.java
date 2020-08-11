@@ -141,6 +141,12 @@ public class DungeonTactics implements IBaseMod
     @Override
     public void registerDispenserBehaviors()
     {
+        if (DUNGEON_TACTICS.isSpecifiedVersion("[DT-0.16.9,]"))
+            registerDispenser();
+    }
+    
+    private static void registerDispenser()
+    {
         DispenserLootBag.getInstance().addListener((source, stack) ->
         {
             if (!(stack.getItem() instanceof DTLootBagGeneric))

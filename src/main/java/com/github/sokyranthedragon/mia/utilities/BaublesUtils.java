@@ -8,7 +8,6 @@ import com.meteor.extrabotany.common.item.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.item.ItemBaubleBox;
@@ -19,8 +18,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class BaublesUtils
 {
-    private static final boolean isLoaded = Loader.isModLoaded(ModIds.EXTRABOTANY.modId) && Loader.isModLoaded(ModIds.BOTANIA.modId); // Just in case check for Botania as well
-    
     private BaublesUtils()
     {
     }
@@ -31,7 +28,7 @@ public class BaublesUtils
             return false;
         if (ModIds.BAUBLES.isLoaded)
         {
-            if (isLoaded)
+            if (ModIds.EXTRABOTANY.isLoaded && ModIds.BOTANIA.isLoaded)
             {
                 if (baublesCheck(player, item))
                     return true;

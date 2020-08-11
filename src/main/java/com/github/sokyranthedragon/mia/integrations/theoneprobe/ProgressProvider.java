@@ -20,7 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.common.Loader;
 import thaumcraft.common.blocks.devices.BlockVisBattery;
 import thaumcraft.common.tiles.crafting.TileVoidSiphon;
 import thaumcraft.common.tiles.devices.TileJarBrain;
@@ -52,7 +51,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
         Method harvestWaterTrapMethod = null;
         Method iceFireDragonforgeBrick = null;
         
-        if (Loader.isModLoaded(ModIds.MO_CREATURES.modId))
+        if (ModIds.MO_CREATURES.isLoaded)
         {
             try
             {
@@ -63,7 +62,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 Mia.LOGGER.error("Cannot access MoCEntityEgg tCounter field, no hatching progress will be displayed");
             }
         }
-        if (Loader.isModLoaded(ModIds.ICE_AND_FIRE.modId))
+        if (ModIds.ICE_AND_FIRE.isLoaded)
         {
             try
             {
@@ -82,7 +81,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 Mia.LOGGER.error("Cannot access TileEntityDragonforgeBrick getConnectedTileEntity() method, no smelting progress will be displayed");
             }
         }
-        if (Loader.isModLoaded(ModIds.HARVESTCRAFT.modId))
+        if (ModIds.HARVESTCRAFT.isLoaded)
         {
             try
             {
