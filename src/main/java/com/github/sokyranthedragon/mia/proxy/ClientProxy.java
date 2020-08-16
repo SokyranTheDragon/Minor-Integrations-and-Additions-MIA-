@@ -134,4 +134,10 @@ public class ClientProxy extends CommonProxy
             GlStateManager.popMatrix();
         }
     }
+    
+    @Override
+    protected Side getSide()
+    {
+        return Side.CLIENT;
+    }
 }
