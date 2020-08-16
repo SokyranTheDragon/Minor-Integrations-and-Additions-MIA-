@@ -1,6 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.base;
 
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.HashSet;
 
@@ -8,9 +9,9 @@ public class LootTableIntegrator
 {
     private HashSet<LootTableListener> integrations = new HashSet<>();
     
-    public void registerLootTableIntegration(ModIntegrator integrator)
+    public void registerLootTableIntegration(ModIntegrator integrator, Side side)
     {
-        integrator.registerLootTableListeners(integrations);
+        integrator.registerLootTableListeners(integrations, side);
     }
     
     public void lootTableLoad(LootTableLoadEvent event)

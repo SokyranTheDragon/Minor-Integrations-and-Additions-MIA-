@@ -6,7 +6,7 @@ import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.AetherConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration;
-import com.github.sokyranthedragon.mia.core.MiaBlocks;
+import com.github.sokyranthedragon.mia.gui.client.ErrorToast;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.abyssalcraft.AbyssalCraft;
 import com.github.sokyranthedragon.mia.integrations.aether.Aether;
@@ -39,7 +39,7 @@ import com.github.sokyranthedragon.mia.integrations.xu2.ExtraUtilities2;
 import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import com.setycz.chickens.ChickensMod;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -182,8 +182,17 @@ public class ModIntegrator
         }
         modsPreInitialized = true;
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.preInit(event);
+        for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+        {
+            try
+            {
+                mod.getValue().preInit(event);
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("An exception occurred in preInit phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                if (event.getSide() == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+            }
+        }
     }
     
     public void init(FMLInitializationEvent event)
@@ -195,8 +204,17 @@ public class ModIntegrator
         }
         modsInitialized = true;
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.init(event);
+        for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+        {
+            try
+            {
+                mod.getValue().init(event);
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("An exception occurred in init phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                if (event.getSide() == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+            }
+        }
     }
     
     public void postInit(FMLPostInitializationEvent event)
@@ -208,8 +226,17 @@ public class ModIntegrator
         }
         modsPostInitialized = true;
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.postInit(event);
+        for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+        {
+            try
+            {
+                mod.getValue().postInit(event);
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("An exception occurred in postInit phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                if (event.getSide() == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+            }
+        }
     }
     
     public void loadCompleted(FMLLoadCompleteEvent event)
@@ -221,11 +248,20 @@ public class ModIntegrator
         }
         modsLoadCompleted = true;
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.loadCompleted(event);
+        for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+        {
+            try
+            {
+                mod.getValue().loadCompleted(event);
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("An exception occurred in loadCompleted phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                if (event.getSide() == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+            }
+        }
     }
     
-    public void registerBlocks(RegistryEvent.Register<Block> event)
+    public void registerBlocks(RegistryEvent.Register<Block> event, Side side)
     {
         if (registeredBlocks)
         {
@@ -234,11 +270,20 @@ public class ModIntegrator
         }
         registeredBlocks = true;
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.registerBlocks(event);
+        for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+        {
+            try
+            {
+                mod.getValue().registerBlocks(event);
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("An exception occurred in registerBlocks phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                if (side == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+            }
+        }
     }
     
-    public void registerItems(RegistryEvent.Register<Item> event)
+    public void registerItems(RegistryEvent.Register<Item> event, Side side)
     {
         if (registeredItems)
         {
@@ -247,8 +292,17 @@ public class ModIntegrator
         }
         registeredItems = true;
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.registerItems(event);
+        for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+        {
+            try
+            {
+                mod.getValue().registerItems(event);
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("An exception occurred in registerItems phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                if (side == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+            }
+        }
     }
     
     @SideOnly(Side.CLIENT)
@@ -261,11 +315,20 @@ public class ModIntegrator
         }
         registeredRenders = true;
         
-        for (IBaseMod mod : modIntegrations.values())
-            mod.registerRenders(event);
+        for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
+        {
+            try
+            {
+                mod.getValue().registerRenders(event);
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("An exception occurred in registerRenders phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+            }
+        }
     }
     
-    public void registerLootTableListeners(HashSet<LootTableIntegrator.LootTableListener> integrations)
+    public void registerLootTableListeners(HashSet<LootTableIntegrator.LootTableListener> integrations, Side side)
     {
         if (registeredLootTableListeners)
         {
@@ -274,15 +337,22 @@ public class ModIntegrator
         }
         registeredLootTableListeners = true;
         
-        for (IBaseMod mod : modIntegrations.values())
+        for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
         {
-            LootTableIntegrator.LootTableListener listener = mod.registerLootListener();
-            if (listener != null)
-                integrations.add(listener);
+            try
+            {
+                LootTableIntegrator.LootTableListener listener = mod.getValue().registerLootListener();
+                if (listener != null)
+                    integrations.add(listener);
+            } catch (Exception e)
+            {
+                Mia.LOGGER.error("An exception occurred in registerLootTableListeners phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                if (side == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+            }
         }
     }
     
-    public void registerDispenserBehaviors()
+    public void registerDispenserBehaviors(Side side)
     {
         if (registeredDispenserBehaviors)
         {
@@ -296,15 +366,23 @@ public class ModIntegrator
             ProgressManager.ProgressBar progressBar = ProgressManager.push("Registering dispenser behaviors", modIntegrations.size());
             for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
             {
-                progressBar.step(mod.getKey().modId);
-                mod.getValue().registerDispenserBehaviors();
+                try
+                {
+                    progressBar.step(mod.getKey().modId);
+                    mod.getValue().registerDispenserBehaviors();
+                } catch (Exception e)
+                {
+                    Mia.LOGGER.error("An exception occurred in registerDispenserBehaviors phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                    if (side == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+                }
             }
             ProgressManager.pop(progressBar);
         }
+        
     }
     
     @Optional.Method(modid = ConstantIds.THAUMCRAFT)
-    public void registerAspects(AspectRegistryEvent event)
+    public void registerAspects(AspectRegistryEvent event, Side side)
     {
         if (registeredAspects)
         {
@@ -322,8 +400,15 @@ public class ModIntegrator
             ProgressManager.ProgressBar progressBar = ProgressManager.push("Thaumcraft registerAspects", modIntegrations.size());
             for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
             {
-                progressBar.step(mod.getKey().modId);
-                mod.getValue().registerAspects(event);
+                try
+                {
+                    progressBar.step(mod.getKey().modId);
+                    mod.getValue().registerAspects(event);
+                } catch (Exception e)
+                {
+                    Mia.LOGGER.error("An exception occurred in registerAspects phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                    if (side == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+                }
             }
             ProgressManager.pop(progressBar);
         }
@@ -344,7 +429,7 @@ public class ModIntegrator
     }
     
     @Optional.Method(modid = ConstantIds.AETHER)
-    public void registerFreezableFuel(RegistryEvent.Register<AetherFreezableFuel> event)
+    public void registerFreezableFuel(RegistryEvent.Register<AetherFreezableFuel> event, Side side)
     {
         if (registeredAetherFreezable)
         {
@@ -364,8 +449,15 @@ public class ModIntegrator
             
             for (Map.Entry<ModIds, IBaseMod> mod : modIntegrations.entrySet())
             {
-                progressBar.step(mod.getKey().modId);
-                mod.getValue().registerFreezableFuel(registry);
+                try
+                {
+                    progressBar.step(mod.getKey().modId);
+                    mod.getValue().registerFreezableFuel(registry);
+                } catch (Exception e)
+                {
+                    Mia.LOGGER.error("An exception occurred in registerFreezableFuel phase of " + mod.getKey().modId + ", this is not really good... Please let the MIA developer know about this.", e);
+                    if (side == Side.CLIENT) ErrorToast.tryAddToast(Minecraft.getMinecraft().getToastGui());
+                }
             }
             ProgressManager.pop(progressBar);
         }

@@ -26,7 +26,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
@@ -39,7 +38,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.aspects.AspectRegistryEvent;
 
 @SuppressWarnings("WeakerAccess")
-@Mod.EventBusSubscriber(modid = Mia.MODID)
 public class CommonProxy
 {
     protected static ModIntegrator modIntegrator;
@@ -47,6 +45,8 @@ public class CommonProxy
     
     public void preInit(FMLPreInitializationEvent event)
     {
+        MinecraftForge.EVENT_BUS.register(this);
+        
         SizeUtils.isSizeComponentEnabled = GenericAdditionsConfig.enableSizeComponent && ModIds.ARTEMISLIB.isLoaded;
         if (SizeUtils.isSizeComponentEnabled)
             SizeOreDictionaryUtils.setupOreDictUtils();
@@ -62,7 +62,7 @@ public class CommonProxy
         modIntegrator.registerMods();
         
         lootTableIntegrator = new LootTableIntegrator();
-        lootTableIntegrator.registerLootTableIntegration(modIntegrator);
+        lootTableIntegrator.registerLootTableIntegration(modIntegrator, event.getSide());
         
         modIntegrator.preInit(event);
     }
@@ -103,7 +103,7 @@ public class CommonProxy
             }
         }
         
-        modIntegrator.registerDispenserBehaviors();
+        modIntegrator.registerDispenserBehaviors(event.getSide());
         modIntegrator.init(event);
         
         if (ModIds.HARVESTCRAFT.isLoaded && ModIds.CRAFT_TWEAKER.isLoaded)
@@ -124,38 +124,43 @@ public class CommonProxy
     }
     
     @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event)
+    public void registerBlocks(RegistryEvent.Register<Block> event)
     {
         MiaBlocks.initMiaBlocks();
-        modIntegrator.registerBlocks(event);
+        modIntegrator.registerBlocks(event, getSide());
         MiaBlocks.registerMiaBlocks(event);
     }
     
     @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event)
+    public void registerItems(RegistryEvent.Register<Item> event)
     {
         MiaItems.registerMiaItems(event);
         MiaBlocks.registerMiaItemblocks(event);
-        modIntegrator.registerItems(event);
+        modIntegrator.registerItems(event, getSide());
     }
     
     @SubscribeEvent
-    public static void lootTableLoad(LootTableLoadEvent event)
+    public void lootTableLoad(LootTableLoadEvent event)
     {
         lootTableIntegrator.lootTableLoad(event);
     }
     
     @SubscribeEvent
     @Optional.Method(modid = ModIds.ConstantIds.THAUMCRAFT)
-    public static void aspectRegistrationEvent(AspectRegistryEvent event)
+    public void aspectRegistrationEvent(AspectRegistryEvent event)
     {
-        modIntegrator.registerAspects(event);
+        modIntegrator.registerAspects(event, getSide());
     }
     
     @SubscribeEvent
     @Optional.Method(modid = ModIds.ConstantIds.AETHER)
     public void registerFreezableFuel(RegistryEvent.Register<AetherFreezableFuel> event)
     {
-        modIntegrator.registerFreezableFuel(event);
+        modIntegrator.registerFreezableFuel(event, getSide());
+    }
+    
+    protected Side getSide()
+    {
+        return Side.SERVER;
     }
 }

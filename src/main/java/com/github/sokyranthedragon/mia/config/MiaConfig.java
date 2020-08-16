@@ -49,6 +49,11 @@ public class MiaConfig
     @LangKey("mia.config.base.mia_creative_tab")
     public static boolean miaCreativeTab = true;
     
+    @Name("Show error toasts")
+    @Comment("If enabled all non-crashing MIA related errors will be notified by a toast message")
+    @LangKey("mia.config.base.mia_error_toasts")
+    public static boolean showErrorToasts = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.
