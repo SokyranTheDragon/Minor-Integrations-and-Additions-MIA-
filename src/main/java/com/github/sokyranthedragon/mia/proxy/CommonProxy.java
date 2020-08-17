@@ -7,6 +7,9 @@ import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.core.MiaItems;
+import com.github.sokyranthedragon.mia.events.Size_BaseEvents;
+import com.github.sokyranthedragon.mia.events.Size_ExtendedEvents;
+import com.github.sokyranthedragon.mia.events.Size_ItemEvents;
 import com.github.sokyranthedragon.mia.events.WorldEvents;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.LootTableIntegrator;
@@ -49,7 +52,12 @@ public class CommonProxy
         
         SizeUtils.isSizeComponentEnabled = GenericAdditionsConfig.enableSizeComponent && ModIds.ARTEMISLIB.isLoaded;
         if (SizeUtils.isSizeComponentEnabled)
+        {
             SizeOreDictionaryUtils.setupOreDictUtils();
+            MinecraftForge.EVENT_BUS.register(Size_BaseEvents.class);
+            MinecraftForge.EVENT_BUS.register(Size_ExtendedEvents.class);
+            MinecraftForge.EVENT_BUS.register(Size_ItemEvents.class);
+        }
         if (GenericAdditionsConfig.enableSizeComponent && !ModIds.ARTEMISLIB.isLoaded)
             Mia.LOGGER.warn("Size component is enabled, but ArtemisLib is not installed! It won't work!");
         

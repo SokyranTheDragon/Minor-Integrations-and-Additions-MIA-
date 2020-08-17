@@ -26,7 +26,6 @@ import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -35,7 +34,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
 
-@Mod.EventBusSubscriber(modid = Mia.MODID)
 public class Size_ExtendedEvents
 {
     private static final Field arrowPotionTypeField = ObfuscationReflectionHelper.findField(EntityTippedArrow.class, "field_184560_g"); // Field called 'potion'
@@ -98,7 +96,7 @@ public class Size_ExtendedEvents
     {
         if (!SizeUtils.isSizeComponentEnabled)
             return;
-    
+        
         final WorldServer[] worlds = FMLCommonHandler.instance().getMinecraftServerInstance().worlds;
         
         for (WorldServer world : worlds)
@@ -137,14 +135,14 @@ public class Size_ExtendedEvents
                 PotionType potion = (PotionType) arrowPotionTypeField.get(arrow);
                 
                 PotionType newPotion = new PotionType(potion.getEffects()
-                                                            .stream()
-                                                            .map((e) ->
-                                                            {
-                                                                if (e.getPotion() instanceof BasePotion)
-                                                                    return new PotionEffect(e.getPotion(), e.getDuration() * 4, e.getAmplifier(), e.getIsAmbient(), e.doesShowParticles());
-                                                                return e;
-                                                            })
-                                                            .toArray(PotionEffect[]::new));
+                    .stream()
+                    .map((e) ->
+                    {
+                        if (e.getPotion() instanceof BasePotion)
+                            return new PotionEffect(e.getPotion(), e.getDuration() * 4, e.getAmplifier(), e.getIsAmbient(), e.doesShowParticles());
+                        return e;
+                    })
+                    .toArray(PotionEffect[]::new));
                 
                 arrowPotionTypeField.set(arrow, newPotion);
             } catch (IllegalAccessException e)
@@ -159,7 +157,7 @@ public class Size_ExtendedEvents
     {
         if (!SizeUtils.isSizeComponentEnabled)
             return;
-    
+        
         if (event.player != null)
         {
             if (!EnchantmentKobold.checkKoboldEnchantment(event.player))

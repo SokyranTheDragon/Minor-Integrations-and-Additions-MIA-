@@ -1,6 +1,5 @@
 package com.github.sokyranthedragon.mia.events;
 
-import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.core.MiaItems;
 import com.github.sokyranthedragon.mia.potions.ModPotions;
 import com.github.sokyranthedragon.mia.utilities.PotionUtils;
@@ -11,14 +10,12 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = Mia.MODID)
 public class Size_ItemEvents
 {
     @SubscribeEvent
@@ -42,7 +39,7 @@ public class Size_ItemEvents
                 tooltip.set(1, text.substring(0, text.lastIndexOf('(')));
                 return;
             }
-            
+
 //            if (PotionUtils.isPotionAnyOf(stack, ModPotions.growthVenom, ModPotions.shrinkingVenom))
 //                tooltip.set(0, EnumRarity.RARE.color + tooltip.get(0));
             if (stack.getItem() != Items.TIPPED_ARROW)
