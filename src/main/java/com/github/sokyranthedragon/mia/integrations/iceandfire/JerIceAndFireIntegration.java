@@ -6,7 +6,9 @@ import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.world.gen.*;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.integrations.iceandfire.client.EntityCustomSnowVillager;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomVillagerEntry;
 import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
@@ -14,11 +16,14 @@ import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
 import jeresources.api.render.IMobRenderHook;
 import jeresources.entry.MobEntry;
+import jeresources.registry.VillagerRegistry;
 import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,12 +31,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
+import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -431,6 +440,30 @@ class JerIceAndFireIntegration implements IJerIntegration
         dungeonRegistry.registerChest(hydraCave, WorldGenHydraCave.HYDRA_CHEST);
     }
     
+    @Override
+    public void addVillagerTrades(VillagerRegistry villagerRegistry, boolean acceptsCustomEntries)
+    {
+        if (acceptsCustomEntries)
+        {
+            try
+            {
+                Field tradesField = VillagerCareer.class.getDeclaredField("trades");
+                tradesField.setAccessible(true);
+                
+                for (Map.Entry<Integer, VillagerProfession> entry : IafVillagerRegistry.INSTANCE.professions.entrySet())
+                {
+                    VillagerCareer career = entry.getValue().getCareer(0);
+                    //noinspection unchecked
+                    List<List<EntityVillager.ITradeList>> trades = (List<List<EntityVillager.ITradeList>>) tradesField.get(career);
+                    villagerRegistry.addVillagerEntry(new SnowVillagerEntry(career.getName(), entry.getKey(), trades));
+                }
+            } catch (NoSuchFieldException | IllegalAccessException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     @Nonnull
     @Override
     public ModIds getModId()
@@ -555,4 +588,24 @@ class JerIceAndFireIntegration implements IJerIntegration
         GlStateManager.translate(0f, -2f, 0f);
         return renderInfo;
     }));
+    
+    private static class SnowVillagerEntry extends CustomVillagerEntry
+    {
+        public SnowVillagerEntry(String name, int profession, List<List<EntityVillager.ITradeList>> tradesLists)
+        {
+            super(name, profession, 0, tradesLists);
+        }
+        
+        @Override
+        public EntityLivingBase getEntity(@Nonnull Minecraft minecraft)
+        {
+            try
+            {
+                return new EntityCustomSnowVillager(minecraft.world, getProfession());
+            } catch (RuntimeException var11)
+            {
+                return new EntityCustomSnowVillager(minecraft.world);
+            }
+        }
+    }
 }
