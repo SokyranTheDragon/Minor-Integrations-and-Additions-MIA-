@@ -12,7 +12,9 @@ import jeresources.api.drop.PlantDrop;
 import jeresources.compatibility.JERAPI;
 import jeresources.entry.MobEntry;
 import jeresources.entry.PlantEntry;
+import jeresources.entry.VillagerEntry;
 import jeresources.registry.MobRegistry;
+import jeresources.registry.VillagerRegistry;
 import jeresources.util.FakeClientWorld;
 import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
@@ -42,7 +44,8 @@ public class JustEnoughResources implements IBaseMod
 {
     private final Map<ModIds, IJerIntegration> modIntegrations = new HashMap<>();
     private final Set<Class<? extends EntityLivingBase>> ignoreMobOverrides = new HashSet<>();
-    private CustomLinkedHashSet<MobEntry> set;
+    private CustomLinkedHashSet<MobEntry> mobOverrideSet;
+    private CustomLinkedList<MobEntry> villagerOverrideList;
     private JeiJerIntegration jeiIntegration;
     private boolean insertedEarly;
     
@@ -53,10 +56,24 @@ public class JustEnoughResources implements IBaseMod
             Field field = MobRegistry.getInstance().getClass().getDeclaredField("registry");
             field.setAccessible(true);
             
-            set = new CustomLinkedHashSet<>();
-            set.jer = this;
+            mobOverrideSet = new CustomLinkedHashSet<>();
+            mobOverrideSet.jer = this;
             
-            field.set(MobRegistry.getInstance(), set);
+            field.set(MobRegistry.getInstance(), mobOverrideSet);
+        } catch (NoSuchFieldException | IllegalAccessException e)
+        {
+            Mia.LOGGER.error("Could not access MobRegistry.registry, mob loot overrides won't work.");
+        }
+        
+        try
+        {
+            Field field = VillagerRegistry.getInstance().getClass().getDeclaredField("villagers");
+            field.setAccessible(true);
+    
+            villagerOverrideList = new CustomLinkedList<>();
+            villagerOverrideList.jer = this;
+    
+            field.set(VillagerRegistry.getInstance(), villagerOverrideList);
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
             Mia.LOGGER.error("Could not access MobRegistry.registry, mob loot overrides won't work.");
@@ -127,7 +144,7 @@ public class JustEnoughResources implements IBaseMod
         IPlantRegistry plantRegistry = JERAPI.getInstance().getPlantRegistry();
         Collection<PlantEntry> registers = null;
         
-        if (jeiIntegration.registered)
+        if (jeiIntegration.registeredPlants)
         {
             try
             {
@@ -186,6 +203,7 @@ public class JustEnoughResources implements IBaseMod
             
             mod.addPlantDrops(plantRegistry, registers);
             mod.addDungeonLoot(dungeonRegistry);
+            mod.addVillagerTrades(VillagerRegistry.getInstance(), jeiIntegration.registeredVillagers);
         }
         
         ProgressManager.pop(progressBar);
@@ -210,7 +228,8 @@ public class JustEnoughResources implements IBaseMod
     @Override
     public void loadCompleted(FMLLoadCompleteEvent event)
     {
-        set.jer = null;
+        mobOverrideSet.jer = null;
+        villagerOverrideList.jer = null;
     }
 
 //    @Override
@@ -238,5 +257,11 @@ public class JustEnoughResources implements IBaseMod
         
         for (IJerIntegration mod : modIntegrations.values())
             mod.overrideExistingMobDrops(entry);
+    }
+    
+    void overrideVillagerTrades(VillagerEntry entry)
+    {
+        for (IJerIntegration mod : modIntegrations.values())
+            mod.overrideExistingVillagerTrades(entry);
     }
 }

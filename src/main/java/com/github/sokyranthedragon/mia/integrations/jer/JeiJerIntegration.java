@@ -4,9 +4,12 @@ import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jei.IJeiIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomPlantWrapper;
+import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomVillagerWrapper;
 import jeresources.entry.PlantEntry;
+import jeresources.entry.VillagerEntry;
 import jeresources.jei.JEIConfig;
 import jeresources.jei.plant.PlantWrapper;
+import jeresources.jei.villager.VillagerWrapper;
 import mcp.MethodsReturnNonnullByDefault;
 import mezz.jei.JustEnoughItems;
 import mezz.jei.api.IModPlugin;
@@ -28,7 +31,8 @@ import java.util.List;
 @ParametersAreNonnullByDefault
 class JeiJerIntegration implements IJeiIntegration
 {
-    boolean registered = false;
+    boolean registeredPlants = false;
+    boolean registeredVillagers = false;
     
     @SuppressWarnings("unchecked")
     public boolean initializePlugins(JustEnoughResources jer)
@@ -59,8 +63,10 @@ class JeiJerIntegration implements IJeiIntegration
                     {
                         try
                         {
-                            if (!registered)
-                                registered = registerCustomPlants(registry);
+                            if (!registeredPlants)
+                                registeredPlants = registerCustomPlants(registry);
+                            if (!registeredVillagers)
+                                registeredVillagers = registerCustomVillagers(registry);
                             jer.initJerIntegration();
                         } catch (Exception e)
                         {
@@ -83,8 +89,10 @@ class JeiJerIntegration implements IJeiIntegration
     @Override
     public void register(IModRegistry registry, Collection<String> registeredCategories)
     {
-        if (!registered)
-            registered = registerCustomPlants(registry);
+        if (!registeredPlants)
+            registeredPlants = registerCustomPlants(registry);
+        if (!registeredVillagers)
+            registeredVillagers = registerCustomVillagers(registry);
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
@@ -144,6 +152,68 @@ class JeiJerIntegration implements IJeiIntegration
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
             Mia.LOGGER.error("Could not access ModRegistry, custom plant drops won't work properly.");
+        }
+        
+        return false;
+    }
+    
+    @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
+    public static boolean registerCustomVillagers(IModRegistry registry)
+    {
+        try
+        {
+            Field recipeHandlerClassesField = registry.getClass().getDeclaredField("recipeHandlerClasses");
+            Field recipeHandlersField = registry.getClass().getDeclaredField("recipeHandlers");
+            
+            recipeHandlerClassesField.setAccessible(true);
+            recipeHandlersField.setAccessible(true);
+            
+            SetMultiMap<String, Class> recipeHandlerClasses = (SetMultiMap<String, Class>) recipeHandlerClassesField.get(registry);
+            ListMultiMap<String, IRecipeHandler> recipeHandlers = (ListMultiMap<String, IRecipeHandler>) recipeHandlersField.get(registry);
+            
+            if (!recipeHandlerClasses.contains(JEIConfig.VILLAGER, VillagerEntry.class))
+                recipeHandlerClasses.put(JEIConfig.VILLAGER, VillagerEntry.class);
+            
+            @MethodsReturnNonnullByDefault
+            @ParametersAreNonnullByDefault
+            IRecipeHandler<VillagerEntry> recipeHandler = new IRecipeHandler<VillagerEntry>()
+            {
+                @Override
+                public Class<VillagerEntry> getRecipeClass()
+                {
+                    return VillagerEntry.class;
+                }
+                
+                @Override
+                public String getRecipeCategoryUid(VillagerEntry villagerEntry)
+                {
+                    return JEIConfig.VILLAGER;
+                }
+                
+                @Override
+                public IRecipeWrapper getRecipeWrapper(VillagerEntry villagerEntry)
+                {
+                    return new CustomVillagerWrapper(villagerEntry);
+                }
+                
+                @Override
+                public boolean isRecipeValid(VillagerEntry villagerEntry)
+                {
+                    return true;
+                }
+            };
+            
+            List<IRecipeHandler> villagerHandlers = recipeHandlers.get(JEIConfig.VILLAGER);
+            
+            if (villagerHandlers.size() > 0)
+                //noinspection ConstantConditions
+                villagerHandlers.removeIf(handler -> handler.getRecipeWrapper(null) instanceof VillagerWrapper);
+            villagerHandlers.add(recipeHandler);
+            
+            return true;
+        } catch (NoSuchFieldException | IllegalAccessException e)
+        {
+            Mia.LOGGER.error("Could not access ModRegistry, custom villager drops won't work properly.");
         }
         
         return false;

@@ -6,6 +6,8 @@ import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
 import jeresources.entry.MobEntry;
 import jeresources.entry.PlantEntry;
+import jeresources.entry.VillagerEntry;
+import jeresources.registry.VillagerRegistry;
 import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
@@ -44,6 +46,14 @@ public interface IJerIntegration extends IModIntegration
     }
     
     default void addPlantDrops(IPlantRegistry plantRegistry, @Nullable Collection<PlantEntry> registers)
+    {
+    }
+    
+    default void addVillagerTrades(VillagerRegistry villagerRegistry, boolean acceptsCustomEntries)
+    {
+    }
+    
+    default void overrideExistingVillagerTrades(VillagerEntry villagerEntry)
     {
     }
 }
