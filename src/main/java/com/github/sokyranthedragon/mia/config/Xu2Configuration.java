@@ -2,63 +2,72 @@ package com.github.sokyranthedragon.mia.config;
 
 import com.github.sokyranthedragon.mia.Mia;
 import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.Config.*;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import static net.minecraftforge.common.config.Config.*;
+
 @Config(modid = Mia.MODID, name = "mia/xu2")
-@Config.LangKey("mia.config.xu2.title")
+@LangKey("mia.config.xu2.title")
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class Xu2Configuration
 {
-    @Config.Name("Enable Extra Utilities 2 additions")
-    @Config.Comment("Set to false to completely disable new Extra Utilities 2 additions")
-    @Config.LangKey("mia.config.xu2.additions_enabled")
-    @Config.RequiresMcRestart
+    @Name("Enable Extra Utilities 2 additions")
+    @Comment("Set to false to completely disable new Extra Utilities 2 additions")
+    @LangKey("mia.config.xu2.additions_enabled")
+    @RequiresMcRestart
     public static boolean xu2AdditionsEnabled = true;
     
-    @Config.Name("Enable external integrations")
-    @Config.Comment("Set to false to prevent other mods from integrating with XU2")
-    @Config.LangKey("mia.config.shared.enable_external_integrations")
-    @Config.RequiresMcRestart
+    @Name("Enable external integrations")
+    @Comment("Set to false to prevent other mods from integrating with XU2")
+    @LangKey("mia.config.shared.enable_external_integrations")
+    @RequiresMcRestart
     public static boolean externalIntegrationsEnabled = true;
     
-    @Config.Name("Enable Hatchery integration")
-    @Config.Comment("Set to false to completely disable integration with Hatchery")
-    @Config.LangKey("mia.config.shared.enable_hatchery_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Hatchery integration")
+    @Comment("Set to false to completely disable integration with Hatchery")
+    @LangKey("mia.config.shared.enable_hatchery_integration")
+    @RequiresMcRestart
     public static boolean enableHatcheryIntegration = true;
     
-    @Config.Name("Enable JER integration")
-    @Config.Comment("Set to false to completely disable integration with JER")
-    @Config.LangKey("mia.config.shared.enable_jer_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable JER integration")
+    @Comment("Set to false to completely disable integration with JER")
+    @LangKey("mia.config.shared.enable_jer_integration")
+    @RequiresMcRestart
     public static boolean enableJerIntegration = true;
     
-    @Config.Name("Enable Thermal Expansion integration")
-    @Config.Comment("Set to false to completely disable integration with Thermal Expansion")
-    @Config.LangKey("mia.config.shared.enable_thermal_expansion_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Thermal Expansion integration")
+    @Comment("Set to false to completely disable integration with Thermal Expansion")
+    @LangKey("mia.config.shared.enable_thermal_expansion_integration")
+    @RequiresMcRestart
     public static boolean enableTeIntegration = true;
     
-    @Config.Name("Enable Quark integration")
-    @Config.Comment("Set to false to completely disable integration with Quark")
-    @Config.LangKey("mia.config.shared.enable_quark_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Quark integration")
+    @Comment("Set to false to completely disable integration with Quark")
+    @LangKey("mia.config.shared.enable_quark_integration")
+    @RequiresMcRestart
     public static boolean enableQuarkIntegration = true;
     
-    @Config.Name("Enable FutureMC integration")
-    @Config.Comment("Set to false to completely disable integration with FutureMC")
-    @Config.LangKey("mia.config.shared.enable_future_mc_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable FutureMC integration")
+    @Comment("Set to false to completely disable integration with FutureMC")
+    @LangKey("mia.config.shared.enable_future_mc_integration")
+    @RequiresMcRestart
     public static boolean enableFutureMcIntegration = true;
     
-    @Config.Name("Enable Chisel integration")
-    @Config.Comment("Set to false to completely disable integration with Chisel")
-    @Config.LangKey("mia.config.shared.enable_chisel_integration")
-    @Config.RequiresMcRestart
+    @Name("Enable Chisel integration")
+    @Comment("Set to false to completely disable integration with Chisel")
+    @LangKey("mia.config.shared.enable_chisel_integration")
+    @RequiresMcRestart
     public static boolean enableChiselIntegration = true;
+    
+    @Name("Register shady merchant trades in JER")
+    @Comment("Set to false to prevent the completely legitimate trades from appearing in JER")
+    @LangKey("mia.config.xu2.register_shady_merchant_jer")
+    @RequiresMcRestart
+    public static boolean enableShadyMerchantJer = true;
     
     
     /**
@@ -69,7 +78,7 @@ public class Xu2Configuration
     @SubscribeEvent
     public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(Mia.MODID)) {
-            ConfigManager.sync(Mia.MODID, Config.Type.INSTANCE);
+            ConfigManager.sync(Mia.MODID, Type.INSTANCE);
         }
     }
 }
