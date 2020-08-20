@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityVillager;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public abstract class CustomVillagerEntry extends VillagerEntry
@@ -20,5 +21,10 @@ public abstract class CustomVillagerEntry extends VillagerEntry
         super(name, profession, career, tradesLists);
     }
     
-    public abstract EntityLivingBase getEntity(@Nonnull Minecraft minecraft);
+    public abstract EntityLivingBase getEntity(@Nonnull Minecraft minecraft) throws IllegalAccessException, InvocationTargetException, InstantiationException;
+    
+    public float getRenderScale()
+    {
+        return 36f;
+    }
 }

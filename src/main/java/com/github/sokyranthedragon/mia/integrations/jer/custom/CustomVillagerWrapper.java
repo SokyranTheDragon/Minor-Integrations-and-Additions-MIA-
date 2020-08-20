@@ -8,9 +8,11 @@ import jeresources.util.RenderHelper;
 import jeresources.util.TranslationHelper;
 import mezz.jei.api.recipe.IFocus;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.InvocationTargetException;
 
 public class CustomVillagerWrapper extends VillagerWrapper
 {
@@ -39,9 +41,19 @@ public class CustomVillagerWrapper extends VillagerWrapper
             return;
         }
         
+        CustomVillagerEntry entry = ((CustomVillagerEntry) this.entry);
+        EntityLivingBase entity;
+        try
+        {
+            entity = entry.getEntity(minecraft);
+        } catch (IllegalAccessException | InvocationTargetException | InstantiationException ignored)
+        {
+            return;
+        }
+        
         RenderHelper.scissor(minecraft, 7, 43, 59, 79);
         
-        RenderHelper.renderEntity(37, 118, 36.0F, (float) (38 - mouseX), (float) (80 - mouseY), ((CustomVillagerEntry)entry).getEntity(minecraft));
+        RenderHelper.renderEntity(37, 118, entry.getRenderScale(), (float) (38 - mouseX), (float) (80 - mouseY), entity);
         RenderHelper.stopScissor();
         int y = 22 * (6 - this.getPossibleLevels(this.focus).size()) / 2;
         

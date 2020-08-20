@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.world.gen.*;
+import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.iceandfire.client.EntityCustomSnowVillager;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
@@ -28,6 +29,8 @@ import net.minecraft.init.Biomes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
@@ -37,7 +40,9 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfessio
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -440,6 +445,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         dungeonRegistry.registerChest(hydraCave, WorldGenHydraCave.HYDRA_CHEST);
     }
     
+    @SuppressWarnings("unchecked")
     @Override
     public void addVillagerTrades(VillagerRegistry villagerRegistry, boolean acceptsCustomEntries)
     {
@@ -449,17 +455,41 @@ class JerIceAndFireIntegration implements IJerIntegration
             {
                 Field tradesField = VillagerCareer.class.getDeclaredField("trades");
                 tradesField.setAccessible(true);
+                IafVillagerRegistry iafRegistry = IafVillagerRegistry.INSTANCE;
                 
-                for (Map.Entry<Integer, VillagerProfession> entry : IafVillagerRegistry.INSTANCE.professions.entrySet())
+                for (Map.Entry<Integer, VillagerProfession> entry : iafRegistry.professions.entrySet())
                 {
                     VillagerCareer career = entry.getValue().getCareer(0);
-                    //noinspection unchecked
                     List<List<EntityVillager.ITradeList>> trades = (List<List<EntityVillager.ITradeList>>) tradesField.get(career);
                     villagerRegistry.addVillagerEntry(new SnowVillagerEntry(career.getName(), entry.getKey(), trades));
                 }
-            } catch (NoSuchFieldException | IllegalAccessException e)
+                
+                for (Tuple<VillagerProfession, Class<? extends EntityMyrmexBase>> desertMyrmex : new Tuple[]{
+                    new Tuple<>(iafRegistry.desertMyrmexWorker, EntityMyrmexWorker.class),
+                    new Tuple<>(iafRegistry.desertMyrmexSoldier, EntityMyrmexSoldier.class),
+                    new Tuple<>(iafRegistry.desertMyrmexSentinel, EntityMyrmexSentinel.class),
+                    new Tuple<>(iafRegistry.desertMyrmexRoyal, EntityMyrmexRoyal.class),
+                    new Tuple<>(iafRegistry.desertMyrmexQueen, EntityMyrmexQueen.class) })
+                {
+                    VillagerCareer career = desertMyrmex.getFirst().getCareer(0);
+                    List<List<EntityVillager.ITradeList>> trades = (List<List<EntityVillager.ITradeList>>) tradesField.get(career);
+                    villagerRegistry.addVillagerEntry(new MyrmexVillagerEntry(career.getName().substring("desert_".length()), trades, desertMyrmex.getSecond(), false));
+                }
+                
+                for (Tuple<VillagerProfession, Class<? extends EntityMyrmexBase>> desertMyrmex : new Tuple[]{
+                    new Tuple<>(iafRegistry.jungleMyrmexWorker, EntityMyrmexWorker.class),
+                    new Tuple<>(iafRegistry.jungleMyrmexSoldier, EntityMyrmexSoldier.class),
+                    new Tuple<>(iafRegistry.jungleMyrmexSentinel, EntityMyrmexSentinel.class),
+                    new Tuple<>(iafRegistry.jungleMyrmexRoyal, EntityMyrmexRoyal.class),
+                    new Tuple<>(iafRegistry.jungleMyrmexQueen, EntityMyrmexQueen.class) })
+                {
+                    VillagerCareer career = desertMyrmex.getFirst().getCareer(0);
+                    List<List<EntityVillager.ITradeList>> trades = (List<List<EntityVillager.ITradeList>>) tradesField.get(career);
+                    villagerRegistry.addVillagerEntry(new MyrmexVillagerEntry(career.getName().substring("jungle_".length()), trades, desertMyrmex.getSecond(), true));
+                }
+            } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException e)
             {
-                e.printStackTrace();
+                Mia.LOGGER.error("Could not add villager trades for Ice and Fire", e);
             }
         }
     }
@@ -606,6 +636,39 @@ class JerIceAndFireIntegration implements IJerIntegration
             {
                 return new EntityCustomSnowVillager(minecraft.world);
             }
+        }
+    }
+    
+    private static class MyrmexVillagerEntry extends CustomVillagerEntry
+    {
+        private final Constructor<? extends EntityMyrmexBase> myrmexConstructor;
+        private final boolean jungleVariant;
+        
+        public MyrmexVillagerEntry(String name, List<List<EntityVillager.ITradeList>> tradesLists, Class<? extends EntityMyrmexBase> entityMyrmex, boolean jungleVariant) throws NoSuchMethodException
+        {
+            super(name, tradesLists);
+            this.jungleVariant = jungleVariant;
+            myrmexConstructor = entityMyrmex.getConstructor(World.class);
+        }
+        
+        @Override
+        public EntityLivingBase getEntity(@Nonnull Minecraft minecraft) throws IllegalAccessException, InvocationTargetException, InstantiationException
+        {
+            EntityMyrmexBase myrmex = myrmexConstructor.newInstance(minecraft.world);
+            myrmex.setJungleVariant(jungleVariant);
+            return myrmex;
+        }
+        
+        @Override
+        public String getDisplayName()
+        {
+            return "entity." + getName() + ".name";
+        }
+        
+        @Override
+        public float getRenderScale()
+        {
+            return 20f;
         }
     }
 }
