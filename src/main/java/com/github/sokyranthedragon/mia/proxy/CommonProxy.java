@@ -105,7 +105,7 @@ public class CommonProxy
                 OreDictionary.registerOre("blockPaper", new ItemStack(MiaBlocks.packedPaper, 1, OreDictionary.WILDCARD_VALUE));
                 if (ModIds.CHISEL.isLoaded)
                 {
-                    for (int meta = 0; meta <= ((BlockPackedPaper)MiaBlocks.packedPaper).getMaxMeta(); meta++)
+                    for (int meta = 0; meta <= ((BlockPackedPaper) MiaBlocks.packedPaper).getMaxMeta(); meta++)
                         Chisel.sendChiselMessage("block_paper", MiaBlocks.packedPaper, meta);
                 }
             }
