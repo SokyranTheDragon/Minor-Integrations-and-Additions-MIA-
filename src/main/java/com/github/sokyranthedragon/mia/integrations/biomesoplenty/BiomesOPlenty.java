@@ -62,6 +62,9 @@ public class BiomesOPlenty implements IBaseMod
                 registerOre("foodHoneydrop", new ItemStack(BOPItems.filled_honeycomb));
                 registerOre("dropHoney", new ItemStack(BOPItems.filled_honeycomb));
                 registerOre("listAllsugar", new ItemStack(BOPItems.filled_honeycomb));
+                
+                for (Item item : new Item[]{ BOPItems.sacred_oak_door, BOPItems.cherry_door, BOPItems.umbran_door, BOPItems.fir_door, BOPItems.ethereal_door, BOPItems.magic_door, BOPItems.mangrove_door, BOPItems.palm_door, BOPItems.redwood_door, BOPItems.willow_door, BOPItems.pine_door, BOPItems.hellbark_door, BOPItems.jacaranda_door, BOPItems.mahogany_door, BOPItems.ebony_door, BOPItems.eucalyptus_door })
+                    registerOre("doorWood", item);
             }
         }
     }
@@ -73,11 +76,11 @@ public class BiomesOPlenty implements IBaseMod
             return;
         if (GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneEnabled)
             MiaBlocks.whiteSandstone = SandstoneEntry.init(BOPBlocks.white_sandstone,
-                    "white",
-                    CreativeTabs.BUILDING_BLOCKS,
+                "white",
+                CreativeTabs.BUILDING_BLOCKS,
 //                    Material.ROCK,
-                    MapColor.WHITE_STAINED_HARDENED_CLAY,
-                    GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneQuarkWallsEnabled);
+                MapColor.WHITE_STAINED_HARDENED_CLAY,
+                GenericAdditionsConfig.moreSandstone.bopWhiteSandstoneQuarkWallsEnabled);
     }
     
     @Override
