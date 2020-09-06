@@ -4,33 +4,43 @@ import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.ExtraConditional;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
+import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomVillagerEntry;
 import com.github.sokyranthedragon.mia.utilities.QuarkUtils;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
+import jeresources.api.conditionals.Conditional;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
+import jeresources.entry.MobEntry;
+import jeresources.registry.VillagerRegistry;
 import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.village.MerchantRecipe;
+import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
+import vazkii.quark.vanity.feature.WitchHat;
 import vazkii.quark.world.entity.*;
 import vazkii.quark.world.feature.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @ParametersAreNonnullByDefault
 class JerQuarkIntegration implements IJerIntegration
@@ -152,6 +162,26 @@ class JerQuarkIntegration implements IJerIntegration
     }
     
     @Override
+    public void overrideExistingMobDrops(MobEntry mobEntry)
+    {
+        if (mobEntry.getEntity() instanceof EntityWitch && QuarkUtils.isFeatureEnabled(WitchHat.class) && WitchHat.dropRate > 0)
+        {
+            Conditional[] conditionals;
+            
+            if (WitchHat.verifyTruePlayer && WitchHat.lootingBoost > 0)
+                conditionals = new Conditional[]{ Conditional.affectedByLooting, Conditional.playerKill };
+            else if (WitchHat.verifyTruePlayer)
+                conditionals = new Conditional[]{ Conditional.playerKill };
+            else if (WitchHat.lootingBoost > 0)
+                conditionals = new Conditional[]{ Conditional.affectedByLooting };
+            else
+                conditionals = new Conditional[0];
+            
+            mobEntry.addDrop(new LootDrop(new ItemStack(WitchHat.witch_hat), 0, 1, (float) WitchHat.dropRate, 0, conditionals));
+        }
+    }
+    
+    @Override
     public void addDungeonLoot(IDungeonRegistry dungeonRegistry)
     {
         if (QuarkUtils.isFeatureEnabled(PirateShips.class) && !PirateShips.onlyHat)
@@ -179,10 +209,64 @@ class JerQuarkIntegration implements IJerIntegration
             dungeonRegistry.registerChest("chests/quark_simple_dungeon", new ResourceLocationWrapper(VariedDungeons.lootTable, -1));
     }
     
+    @Override
+    public void addVillagerTrades(VillagerRegistry villagerRegistry, boolean acceptsCustomEntries)
+    {
+        if (acceptsCustomEntries && QuarkUtils.isFeatureEnabled(Archaeologist.class))
+        {
+            ArrayList<List<EntityVillager.ITradeList>> allTrades = new ArrayList<>();
+            ArrayList<EntityVillager.ITradeList> trades = new ArrayList<>();
+            allTrades.add(trades);
+            
+            trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 2), new ItemStack(Items.BONE, 3)));
+            trades.add(new BasicTrade(new ItemStack(Items.BONE, 10), new ItemStack(Items.EMERALD, 1)));
+            trades.add(new BasicTrade(new ItemStack(Items.GUNPOWDER, 7), new ItemStack(Items.EMERALD, 1)));
+            trades.add(new BasicTrade(new ItemStack(Items.COAL, 16), new ItemStack(Items.EMERALD, 1)));
+            trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 12), new ItemStack(Items.DIAMOND, 1)));
+            trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 8), new ItemStack(Items.IRON_PICKAXE, 1)));
+            trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 6), new ItemStack(Items.IRON_SHOVEL, 1)));
+            if (Archaeologist.enableHat && Archaeologist.sellHat)
+                trades.add(new BasicTrade(new ItemStack(Items.EMERALD, 9), new ItemStack(Archaeologist.archaeologist_hat, 1)));
+            
+            villagerRegistry.addVillagerEntry(new CustomVillagerEntry("quark:archaeologist", allTrades)
+            {
+                @Override
+                public EntityLivingBase getEntity(@Nonnull Minecraft minecraft)
+                {
+                    return new EntityArchaeologist(minecraft.world);
+                }
+                
+                @Override
+                public String getDisplayName()
+                {
+                    return "entity." + getName() + ".name";
+                }
+            });
+        }
+    }
+    
     @Nonnull
     @Override
     public ModIds getModId()
     {
         return ModIds.QUARK;
+    }
+    
+    private static class BasicTrade implements EntityVillager.ITradeList
+    {
+        private ItemStack input;
+        private ItemStack output;
+        
+        public BasicTrade(ItemStack input, ItemStack output)
+        {
+            this.input = input;
+            this.output = output;
+        }
+        
+        @Override
+        public void addMerchantRecipe(IMerchant iMerchant, MerchantRecipeList merchantRecipeList, Random random)
+        {
+            merchantRecipeList.add(new MerchantRecipe(input, output));
+        }
     }
 }

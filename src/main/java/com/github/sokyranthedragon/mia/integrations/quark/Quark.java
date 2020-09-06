@@ -56,6 +56,8 @@ public class Quark implements IBaseMod
             modIntegration.accept(CHISEL, new ChiselQuarkIntegration());
         if (enableIFIntegration && INDUSTRIAL_FOREGOING.isLoaded)
             modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingQuarkIntegration());
+        if (enableTConstructIntegration && TINKERS_CONSTRUCT.isLoaded)
+            modIntegration.accept(TINKERS_CONSTRUCT, new TConstructQuarkIntegration());
     }
     
     @Override

@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import vazkii.quark.automation.feature.ChainLinkage;
 import vazkii.quark.automation.feature.MetalButtons;
 import vazkii.quark.automation.feature.PistonSpikes;
 import vazkii.quark.building.feature.SoulSandstone;
@@ -41,7 +42,9 @@ class ThermalExpansionQuarkIntegration implements IThermalExpansionIntegration
         if (QuarkUtils.isFeatureEnabled(Trowel.class))
             SmelterManager.addRecycleRecipe(8_000, new ItemStack(Trowel.trowel), new ItemStack(Items.IRON_INGOT), 1);
         if (QuarkUtils.isFeatureEnabled(Grate.class))
-            SmelterManager.addRecycleRecipe(8_000, new ItemStack(Grate.grate), new ItemStack(Items.IRON_NUGGET), 12);
+            SmelterManager.addRecycleRecipe(8_000, new ItemStack(Grate.grate), new ItemStack(Items.IRON_NUGGET), (9 * 6 / 16) * 4); // 12
+        if (QuarkUtils.isFeatureEnabled(ChainLinkage.class))
+            SmelterManager.addRecycleRecipe(8_000, new ItemStack(ChainLinkage.chain), new ItemStack(Items.IRON_NUGGET), (9 * 2 + 3) / 3); // 7
         if (QuarkUtils.isFeatureEnabled(MetalButtons.class))
         {
             if (MetalButtons.enableGold)

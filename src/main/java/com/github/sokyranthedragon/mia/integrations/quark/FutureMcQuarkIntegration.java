@@ -10,13 +10,16 @@ import vazkii.quark.building.block.BlockWorldStoneBricks;
 import vazkii.quark.building.block.BlockWorldStonePavement;
 import vazkii.quark.building.feature.*;
 import vazkii.quark.world.block.BlockElderPrismarine;
-import vazkii.quark.world.feature.*;
+import vazkii.quark.world.feature.Basalt;
+import vazkii.quark.world.feature.Biotite;
+import vazkii.quark.world.feature.RevampStoneGen;
+import vazkii.quark.world.feature.UndergroundBiomes;
 
 import javax.annotation.Nonnull;
 
 import static com.github.sokyranthedragon.mia.integrations.ModIds.FUTURE_MC;
 import static com.github.sokyranthedragon.mia.integrations.ModIds.QUARK;
-import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.*;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
 
 class FutureMcQuarkIntegration implements IFutureMcIntegration
 {
@@ -142,7 +145,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         if (QuarkUtils.isFeatureEnabled(PolishedStone.class))
         {
             addStonecutterRecipes(new ItemStack(Blocks.STONE), new ItemStack(PolishedStone.polished_stone));
-            addStonecutterRecipes(new ItemStack(PolishedStone.polished_stone), new ItemStack(Blocks.STONE_SLAB));
+            addStonecutterRecipes(new ItemStack(PolishedStone.polished_stone), new ItemStack(Blocks.STONE_SLAB, 2));
         }
         
         if (QuarkUtils.isFeatureEnabled(PolishedNetherrack.class))

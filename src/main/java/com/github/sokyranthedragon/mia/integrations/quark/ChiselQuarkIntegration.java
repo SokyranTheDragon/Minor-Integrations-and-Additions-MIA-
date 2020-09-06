@@ -11,6 +11,7 @@ import org.apache.logging.log4j.util.TriConsumer;
 import team.chisel.common.config.Configurations;
 import vazkii.quark.building.block.BlockWorldStoneBricks;
 import vazkii.quark.building.feature.*;
+import vazkii.quark.decoration.feature.VariedBookshelves;
 import vazkii.quark.world.feature.Biotite;
 import vazkii.quark.world.feature.UndergroundBiomes;
 
@@ -35,8 +36,8 @@ class ChiselQuarkIntegration implements IChiselIntegration
         {
             if (UndergroundBiomes.firestoneEnabled)
             {
-                messageBlockSender.accept("permafrost", UndergroundBiomes.biome_cobblestone, 0);
-                messageBlockSender.accept("permafrost", UndergroundBiomes.biome_brick, 0);
+                messageBlockSender.accept("brimstone", UndergroundBiomes.biome_cobblestone, 0);
+                messageBlockSender.accept("brimstone", UndergroundBiomes.biome_brick, 0);
             }
             if (UndergroundBiomes.icystoneEnabled)
             {
@@ -97,13 +98,25 @@ class ChiselQuarkIntegration implements IChiselIntegration
         if (isFeatureEnabled(PolishedNetherrack.class))
         {
             for (int meta = 0; meta <= 1; meta++)
-                messageBlockSender.accept("netherwrought", PolishedNetherrack.polished_netherrack, meta);
+                messageBlockSender.accept("netherrack", PolishedNetherrack.polished_netherrack, meta);
         }
         if (isFeatureEnabled(VerticalWoodPlanks.class))
         {
             String[] types = new String[]{ "oak", "spruce", "birch", "jungle", "acacia", "dark-oak" };
             for (int meta = 0; meta < types.length; meta++)
                 messageBlockSender.accept("planks-" + types[meta], VerticalWoodPlanks.vertical_planks, meta);
+        }
+        if (isFeatureEnabled(CarvedWood.class))
+        {
+            String[] types = new String[]{ "oak", "spruce", "birch", "jungle", "acacia", "dark-oak" };
+            for (int meta = 0; meta < types.length; meta++)
+                messageBlockSender.accept("planks-" + types[meta], CarvedWood.carvedWood, meta);
+        }
+        if (isFeatureEnabled(VariedBookshelves.class))
+        {
+            String[] types = new String[]{ "spruce", "birch", "jungle", "acacia", "darkoak" };
+            for (int meta = 0; meta < types.length; meta++)
+                messageBlockSender.accept("bookshelf_" + types[meta], VariedBookshelves.custom_bookshelf, meta);
         }
     }
     
