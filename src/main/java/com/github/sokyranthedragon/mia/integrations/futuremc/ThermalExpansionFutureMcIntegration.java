@@ -4,6 +4,7 @@ import cofh.thermalexpansion.util.managers.device.FactorizerManager;
 import cofh.thermalexpansion.util.managers.machine.EnchanterManager;
 import cofh.thermalexpansion.util.managers.machine.InsolatorManager;
 import cofh.thermalexpansion.util.managers.machine.PrecipitatorManager;
+import cofh.thermalexpansion.util.managers.machine.PulverizerManager;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.thermalexpansion.IThermalExpansionIntegration;
 import net.minecraft.item.ItemStack;
@@ -37,6 +38,11 @@ class ThermalExpansionFutureMcIntegration implements IThermalExpansionIntegratio
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE(), 32), "futuremc:channeling", 3);
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getHONEY_BLOCK(), 8), "futuremc:loyalty", 2);
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getBLUE_ICE(), 1), "futuremc:riptide", 3);
+    
+        // Pulverizer
+        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.INSTANCE.getLILY_OF_THE_VALLEY()), new ItemStack(FItems.INSTANCE.getDYES(), 4, 0));
+        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.INSTANCE.getCORNFLOWER()), new ItemStack(FItems.INSTANCE.getDYES(), 4, 1));
+        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE()), new ItemStack(FItems.INSTANCE.getDYES(), 4, 2));
     }
     
     @Nonnull

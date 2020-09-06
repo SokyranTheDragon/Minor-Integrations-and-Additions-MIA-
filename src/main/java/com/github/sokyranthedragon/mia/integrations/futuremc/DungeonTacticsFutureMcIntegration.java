@@ -28,8 +28,10 @@ class DungeonTacticsFutureMcIntegration implements IDungeonTacticsIntegration
                     LootUtils.addDtLoot(loot, FItems.INSTANCE.getHONEY_BOTTLE(), 1);
                     break;
                 case ORE:
-                    LootUtils.addDtLoot(loot, FItems.INSTANCE.getNETHERITE_INGOT(), 1);
-                    LootUtils.addDtLoot(loot, FItems.INSTANCE.getNETHERITE_SCRAP());
+                    LootUtils.addDtLoot(loot, FItems.INSTANCE.getNETHERITE_SCRAP(), 3);
+                    break;
+                case RECORD:
+                    LootUtils.addDtLoot(loot, FItems.INSTANCE.getRECORD_PIGSTEP());
                     break;
             }
         };
