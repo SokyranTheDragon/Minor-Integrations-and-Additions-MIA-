@@ -1,6 +1,7 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/minor-integrations-and-additions-mia",
   "1.12.2": {
+    "1.12.2-0.2.0c": "Updated FutureMC to most recent version, updated integrations to match changes\nAdded Quark's Archaeologist to JER villager trades\nAdded Quark's Witch Hat to JER mob drops\nAdded more Chisel recipes for Quark's blocks\nAdded some Quark items/blocks for Tinker's Construct smelting\nAdded more ore dictionary entries for Natura and Biomes O' Plenty\nFixed Chisel recipes for Quark's brimstone\nFixed ExtraUtilities ore dictionary entries",
     "1.12.2-0.2.0b": "Added Myrmex to JER villager trades",
     "1.12.2-0.2.0a": "Added more crash prevention\nNew villagers from Extra Utilities 2 will have their trades displayed in JER\nSnow villagers from Ice and Fire will be displayed in JER\nSome boring technical stuff that will make the mod better",
     "1.12.2-0.1.9d": "Significantly improved and fixed EVTP/dead flower generation code\nAdded more Thaumcraft aspects\nAdded and fixed some Aether recipes\nUpdated Dungeon Tactics dispenser behavior to support mystery and starter bags\nDisable some integrations for outdated mods (instead of requiring most recent versions)\nFixed the issue with Aether obsidian set having 500 Thaumcraft aspects\nFixed unintentionally overpriced recipe",
@@ -17,7 +18,7 @@
     "1.12.2-0.1.5c": "Added update checking\nFixed crafting bugs"
   },
   "promos": {
-    "1.12.2-latest": "1.12.2-0.2.0b",
-    "1.12.2-recommended": "1.12.2-0.2.0b"
+    "1.12.2-latest": "1.12.2-0.2.0c",
+    "1.12.2-recommended": "1.12.2-0.2.0c"
   }
 }
