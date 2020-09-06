@@ -93,10 +93,15 @@ public class ExtraUtilities2 implements IBaseMod
         if (xu2AdditionsEnabled && !MiaConfig.disableOreDict)
         {
             for (int meta = 0; meta <= 5; meta++)
-                OreDictionary.registerOre("blockGlass", XU2Entries.decorativeGlass.newStackMeta(meta));
-            OreDictionary.registerOre("blockGlassBlack", XU2Entries.decorativeSolid.newStackMeta(3));
-            OreDictionary.registerOre("blockGlassYellow", XU2Entries.decorativeSolid.newStackMeta(4));
-            OreDictionary.registerOre("blockGlassRed", XU2Entries.decorativeSolid.newStackMeta(5));
+            {
+                if (meta <= 2)
+                    OreDictionary.registerOre("blockGlassColorless", XU2Entries.decorativeGlass.newStackMeta(meta));
+                if (meta != 0 && meta != 3)
+                    OreDictionary.registerOre("blockGlass", XU2Entries.decorativeGlass.newStackMeta(meta));
+            }
+            OreDictionary.registerOre("blockGlassBlack", XU2Entries.decorativeGlass.newStackMeta(3));
+            OreDictionary.registerOre("blockGlassYellow", XU2Entries.decorativeGlass.newStackMeta(4));
+            OreDictionary.registerOre("blockGlassRed", XU2Entries.decorativeGlass.newStackMeta(5));
         }
         
         if (!modIntegrations.isEmpty() && !MiaConfig.disableAllRecipes)
