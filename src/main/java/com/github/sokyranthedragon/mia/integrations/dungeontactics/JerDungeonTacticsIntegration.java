@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.integrations.dungeontactics;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
@@ -10,7 +11,7 @@ import jeresources.api.drop.LootDrop;
 import jeresources.api.drop.PlantDrop;
 import jeresources.entry.MobEntry;
 import jeresources.entry.PlantEntry;
-import jeresources.util.MobTableBuilder;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -26,25 +27,18 @@ import pegbeard.dungeontactics.handlers.DTConfigHandler;
 import pegbeard.dungeontactics.handlers.DTItems;
 import pegbeard.dungeontactics.handlers.DTLoots;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 class JerDungeonTacticsIntegration implements IJerIntegration
 {
-    @Nonnull
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
         builder.add(DTLoots.TOWERGUARDIAN_LOOT, DTEntityTowerGuardian.class);
-        
-        return Collections.singleton(
-                DTEntityTowerGuardian.class
-        );
     }
     
     @Override
@@ -151,7 +145,6 @@ class JerDungeonTacticsIntegration implements IJerIntegration
                 new PlantDrop(new ItemStack(DTItems.GLOWCURRENT), 1, 3));
     }
     
-    @Nonnull
     @Override
     public ModIds getModId()
     {

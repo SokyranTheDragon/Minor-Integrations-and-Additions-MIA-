@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.integrations.quark;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.ExtraConditional;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
 import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomVillagerEntry;
 import com.github.sokyranthedragon.mia.utilities.QuarkUtils;
@@ -14,7 +15,6 @@ import jeresources.api.drop.LootDrop;
 import jeresources.entry.MobEntry;
 import jeresources.registry.VillagerRegistry;
 import jeresources.util.LootTableHelper;
-import jeresources.util.MobTableBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IMerchant;
@@ -45,57 +45,28 @@ import java.util.*;
 @ParametersAreNonnullByDefault
 class JerQuarkIntegration implements IJerIntegration
 {
-    @Nonnull
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
-        Set<Class<? extends EntityLivingBase>> entries = new HashSet<>();
-        
         if (QuarkUtils.isFeatureEnabled(DepthMobs.class))
         {
             if (DepthMobs.enableAshen)
-            {
                 builder.add(new ResourceLocationWrapper(LootTableList.ENTITIES_SKELETON, 0), EntityAshen.class);
-                entries.add(EntityAshen.class);
-            }
             if (DepthMobs.enableDweller)
-            {
                 builder.add(new ResourceLocationWrapper(LootTableList.ENTITIES_ZOMBIE), EntityDweller.class);
-                entries.add(EntityDweller.class);
-            }
         }
         if (QuarkUtils.isFeatureEnabled(PirateShips.class) && !PirateShips.onlyHat)
-        {
             builder.add(new ResourceLocationWrapper(LootTableList.ENTITIES_SKELETON, 1), EntityPirate.class);
-            entries.add(EntityPirate.class);
-        }
         if (QuarkUtils.isFeatureEnabled(Crabs.class))
-        {
             builder.add(EntityCrab.CRAB_LOOT_TABLE, EntityCrab.class);
-            entries.add(EntityCrab.class);
-        }
         if (QuarkUtils.isFeatureEnabled(Foxhounds.class))
-        {
             builder.add(EntityFoxhound.FOXHOUND_LOOT_TABLE, EntityFoxhound.class);
-            entries.add(EntityFoxhound.class);
-        }
         if (QuarkUtils.isFeatureEnabled(Frogs.class))
-        {
             builder.add(EntityFrog.FROG_LOOT_TABLE, EntityFrog.class);
-            entries.add(EntityFrog.class);
-        }
         if (QuarkUtils.isFeatureEnabled(Stonelings.class))
-        {
             builder.add(EntityStoneling.LOOT_TABLE, EntityStoneling.class);
-            entries.add(EntityStoneling.class);
-        }
         if (QuarkUtils.isFeatureEnabled(Wraiths.class))
-        {
             builder.add(EntityWraith.LOOT_TABLE, EntityWraith.class);
-            entries.add(EntityWraith.class);
-        }
-        
-        return entries;
     }
     
     @Override

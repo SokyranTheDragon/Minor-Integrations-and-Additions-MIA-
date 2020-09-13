@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.integrations.natura;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomPlantEntry;
 import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import com.progwml6.natura.common.config.Config;
@@ -17,7 +18,6 @@ import jeresources.api.IPlantRegistry;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.PlantDrop;
 import jeresources.entry.PlantEntry;
-import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -38,26 +38,16 @@ import static com.progwml6.natura.Natura.pulseManager;
 class JerNaturaIntegration implements IJerIntegration
 {
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
-        Set<Class<? extends EntityLivingBase>> entries = new HashSet<>();
-        
         if (pulseManager.isPulseLoaded(NaturaEntities.PulseId))
         {
-            entries.add(EntityImp.class);
-            entries.add(EntityNitroCreeper.class);
-            
             builder.add(EntityImp.LOOT_TABLE, EntityImp.class);
             builder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntityNitroCreeper.class);
             
             if (Config.enableHeatscarSpider)
-            {
-                entries.add(EntityHeatscarSpider.class);
                 builder.add(EntityHeatscarSpider.LOOT_TABLE, EntityHeatscarSpider.class);
-            }
         }
-        
-        return entries;
     }
     
     @Override
@@ -94,31 +84,31 @@ class JerNaturaIntegration implements IJerIntegration
             if (pulseManager.isPulseLoaded(NaturaOverworld.PulseId))
             {
                 registers.add(new CustomPlantEntry(NaturaOverworld.barley_seeds, NaturaOverworld.barleyCrop.getDefaultState(),
-                        new PlantDrop(NaturaCommons.barley, 1, 1),
-                        new PlantDrop(NaturaOverworld.barley_seeds, 0, 3)));
+                    new PlantDrop(NaturaCommons.barley, 1, 1),
+                    new PlantDrop(NaturaOverworld.barley_seeds, 0, 3)));
                 registers.add(new CustomPlantEntry(NaturaOverworld.cotton_seeds, NaturaOverworld.cottonCrop.getDefaultState(),
-                        new PlantDrop(NaturaCommons.cotton, 1, 1),
-                        new PlantDrop(NaturaOverworld.cotton_seeds, 0, 3)));
+                    new PlantDrop(NaturaCommons.cotton, 1, 1),
+                    new PlantDrop(NaturaOverworld.cotton_seeds, 0, 3)));
                 
                 entries.add(new CustomPlantEntry(new ItemStack(NaturaOverworld.overworldBerryBushRaspberry), NaturaOverworld.overworldBerryBushRaspberry.getDefaultState(),
-                        new PlantDrop(NaturaCommons.raspberry, 1, 1)));
+                    new PlantDrop(NaturaCommons.raspberry, 1, 1)));
                 entries.add(new CustomPlantEntry(new ItemStack(NaturaOverworld.overworldBerryBushBlueberry), NaturaOverworld.overworldBerryBushBlueberry.getDefaultState(),
-                        new PlantDrop(NaturaCommons.blueberry, 1, 1)));
+                    new PlantDrop(NaturaCommons.blueberry, 1, 1)));
                 entries.add(new CustomPlantEntry(new ItemStack(NaturaOverworld.overworldBerryBushBlackberry), NaturaOverworld.overworldBerryBushBlackberry.getDefaultState(),
-                        new PlantDrop(NaturaCommons.blackberry, 1, 1)));
+                    new PlantDrop(NaturaCommons.blackberry, 1, 1)));
                 entries.add(new CustomPlantEntry(new ItemStack(NaturaOverworld.overworldBerryBushMaloberry), NaturaOverworld.overworldBerryBushMaloberry.getDefaultState(),
-                        new PlantDrop(NaturaCommons.maloberry, 1, 1)));
+                    new PlantDrop(NaturaCommons.maloberry, 1, 1)));
             }
             if (pulseManager.isPulseLoaded(NaturaNether.PulseId))
             {
                 entries.add(new CustomPlantEntry(new ItemStack(NaturaNether.netherBerryBushBlightberry), NaturaNether.netherBerryBushBlightberry.getDefaultState(),
-                        new PlantDrop(NaturaCommons.blightberry, 1, 1)));
+                    new PlantDrop(NaturaCommons.blightberry, 1, 1)));
                 entries.add(new CustomPlantEntry(new ItemStack(NaturaNether.netherBerryBushDuskberry), NaturaNether.netherBerryBushDuskberry.getDefaultState(),
-                        new PlantDrop(NaturaCommons.duskberry, 1, 1)));
+                    new PlantDrop(NaturaCommons.duskberry, 1, 1)));
                 entries.add(new CustomPlantEntry(new ItemStack(NaturaNether.netherBerryBushSkyberry), NaturaNether.netherBerryBushSkyberry.getDefaultState(),
-                        new PlantDrop(NaturaCommons.skyberry, 1, 1)));
+                    new PlantDrop(NaturaCommons.skyberry, 1, 1)));
                 entries.add(new CustomPlantEntry(new ItemStack(NaturaNether.netherBerryBushStingberry), NaturaNether.netherBerryBushStingberry.getDefaultState(),
-                        new PlantDrop(NaturaCommons.stingberry, 1, 1)));
+                    new PlantDrop(NaturaCommons.stingberry, 1, 1)));
             }
             
             for (CustomPlantEntry entry : entries)
@@ -132,33 +122,33 @@ class JerNaturaIntegration implements IJerIntegration
             if (pulseManager.isPulseLoaded(NaturaOverworld.PulseId))
             {
                 plantRegistry.register(NaturaOverworld.barley_seeds,
-                        NaturaOverworld.barleyCrop,
-                        new PlantDrop(NaturaCommons.barley, 1, 1),
-                        new PlantDrop(NaturaOverworld.barley_seeds, 0, 3));
+                    NaturaOverworld.barleyCrop,
+                    new PlantDrop(NaturaCommons.barley, 1, 1),
+                    new PlantDrop(NaturaOverworld.barley_seeds, 0, 3));
                 plantRegistry.register(NaturaOverworld.cotton_seeds,
-                        NaturaOverworld.cottonCrop,
-                        new PlantDrop(NaturaCommons.cotton, 1, 1),
-                        new PlantDrop(NaturaOverworld.cotton_seeds, 0, 3));
+                    NaturaOverworld.cottonCrop,
+                    new PlantDrop(NaturaCommons.cotton, 1, 1),
+                    new PlantDrop(NaturaOverworld.cotton_seeds, 0, 3));
                 
                 plantRegistry.register(new ItemStack(NaturaOverworld.overworldBerryBushRaspberry),
-                        new PlantDrop(NaturaCommons.raspberry, 1, 1));
+                    new PlantDrop(NaturaCommons.raspberry, 1, 1));
                 plantRegistry.register(new ItemStack(NaturaOverworld.overworldBerryBushBlueberry),
-                        new PlantDrop(NaturaCommons.blueberry, 1, 1));
+                    new PlantDrop(NaturaCommons.blueberry, 1, 1));
                 plantRegistry.register(new ItemStack(NaturaOverworld.overworldBerryBushBlackberry),
-                        new PlantDrop(NaturaCommons.blackberry, 1, 1));
+                    new PlantDrop(NaturaCommons.blackberry, 1, 1));
                 plantRegistry.register(new ItemStack(NaturaOverworld.overworldBerryBushMaloberry),
-                        new PlantDrop(NaturaCommons.maloberry, 1, 1));
+                    new PlantDrop(NaturaCommons.maloberry, 1, 1));
             }
             if (pulseManager.isPulseLoaded(NaturaNether.PulseId))
             {
                 plantRegistry.register(new ItemStack(NaturaNether.netherBerryBushBlightberry),
-                        new PlantDrop(NaturaCommons.blightberry, 1, 1));
+                    new PlantDrop(NaturaCommons.blightberry, 1, 1));
                 plantRegistry.register(new ItemStack(NaturaNether.netherBerryBushDuskberry),
-                        new PlantDrop(NaturaCommons.duskberry, 1, 1));
+                    new PlantDrop(NaturaCommons.duskberry, 1, 1));
                 plantRegistry.register(new ItemStack(NaturaNether.netherBerryBushSkyberry),
-                        new PlantDrop(NaturaCommons.skyberry, 1, 1));
+                    new PlantDrop(NaturaCommons.skyberry, 1, 1));
                 plantRegistry.register(new ItemStack(NaturaNether.netherBerryBushStingberry),
-                        new PlantDrop(NaturaCommons.stingberry, 1, 1));
+                    new PlantDrop(NaturaCommons.stingberry, 1, 1));
             }
         }
     }

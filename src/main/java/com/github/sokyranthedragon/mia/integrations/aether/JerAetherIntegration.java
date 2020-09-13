@@ -3,6 +3,7 @@ package com.github.sokyranthedragon.mia.integrations.aether;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.JerLightHelper;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.legacy.aether.api.player.util.IAetherBoss;
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.entities.bosses.EntityValkyrie;
@@ -28,8 +29,8 @@ import jeresources.api.drop.LootDrop;
 import jeresources.api.drop.PlantDrop;
 import jeresources.entry.PlantEntry;
 import jeresources.util.LootTableHelper;
-import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -41,9 +42,6 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.github.sokyranthedragon.mia.integrations.jer.JerHelpers.addDungeonLootCategory;
 
@@ -52,7 +50,7 @@ import static com.github.sokyranthedragon.mia.integrations.jer.JerHelpers.addDun
 class JerAetherIntegration implements IJerIntegration
 {
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
         // Passive
         builder.add(AetherLootTables.aerwhale, EntityAerwhale.class);
@@ -75,33 +73,6 @@ class JerAetherIntegration implements IJerIntegration
         builder.add(AetherLootTables.sun_spirit, EntitySunSpirit.class);
         builder.add(AetherLootTables.valkyrie, EntityValkyrie.class);
         builder.add(AetherLootTables.valkyrie_queen, EntityValkyrieQueen.class);
-        
-        return Stream.of(
-            // Passive
-            EntityAerwhale.class,
-            EntitySheepuff.class,
-            // Passive mountable
-            EntityAerbunny.class,
-            EntityMoa.class,
-            EntityPhyg.class,
-            EntitySwet.class,
-            
-            // Hostile
-            EntityAechorPlant.class,
-            EntityCockatrice.class,
-            EntityMimic.class,
-            EntitySentry.class,
-            EntityZephyr.class,
-            
-            // Bosses
-            EntitySlider.class,
-            EntitySunSpirit.class,
-            EntityValkyrie.class,
-            EntityValkyrieQueen.class,
-            
-            // Special cases
-            EntityWhirlwind.class
-        ).collect(Collectors.toSet());
     }
     
     @Override
@@ -182,6 +153,16 @@ class JerAetherIntegration implements IJerIntegration
             AetherLootTables.gold_dungeon_reward_sub2,
             AetherLootTables.gold_dungeon_reward_sub3,
             AetherLootTables.gold_dungeon_reward_sub4);
+    }
+    
+    @Override
+    public void addMobRenderHooks(IMobRegistry mobRegistry)
+    {
+        mobRegistry.registerRenderHook(EntitySunSpirit.class, (renderInfo, entityLivingBase) ->
+        {
+            GlStateManager.scale(0.75f, 0.75f, 0.75f);
+            return renderInfo;
+        });
     }
     
     @Override

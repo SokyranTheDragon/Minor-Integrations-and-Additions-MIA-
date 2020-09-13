@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.integrations.futuremc;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomPlantEntry;
 import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import jeresources.api.IMobRegistry;
@@ -9,7 +10,6 @@ import jeresources.api.IPlantRegistry;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.PlantDrop;
 import jeresources.entry.PlantEntry;
-import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Biomes;
@@ -33,8 +33,6 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Stream;
 
 @MethodsReturnNonnullByDefault
@@ -63,42 +61,20 @@ class JerFutureMcIntegration implements IJerIntegration
     }
     
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
-        Set<Class<? extends EntityLivingBase>> enabledEntities = new HashSet<>();
-        
         if (FConfig.INSTANCE.getVillageAndPillage().panda && FConfig.INSTANCE.getVillageAndPillage().bamboo.enabled)
-        {
-            enabledEntities.add(EntityPanda.class);
             builder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntityPanda.class);
-        }
         if (FConfig.INSTANCE.getBuzzyBees().bee.enabled)
-        {
-            enabledEntities.add(EntityBee.class);
             builder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntityBee.class);
-        }
         if (FConfig.INSTANCE.getUpdateAquatic().fish.cod.enabled)
-        {
-            enabledEntities.add(EntityCod.class);
             builder.add(EntityCod.Companion.getLOOT_TABLE(), EntityCod.class);
-        }
         if (FConfig.INSTANCE.getUpdateAquatic().fish.pufferfish.enabled)
-        {
-            enabledEntities.add(EntityPufferfish.class);
             builder.add(EntityPufferfish.Companion.getLOOT_TABLE(), EntityPufferfish.class);
-        }
         if (FConfig.INSTANCE.getUpdateAquatic().fish.salmon.enabled)
-        {
-            enabledEntities.add(EntitySalmon.class);
             builder.add(EntitySalmon.Companion.getLOOT_TABLE(), EntitySalmon.class);
-        }
         if (FConfig.INSTANCE.getUpdateAquatic().fish.tropicalFish.enabled)
-        {
-            enabledEntities.add(EntityTropicalFish.class);
             builder.add(EntityTropicalFish.Companion.getLOOT_TABLE(), EntityTropicalFish.class);
-        }
-        
-        return enabledEntities;
     }
     
     @Override
@@ -128,12 +104,12 @@ class JerFutureMcIntegration implements IJerIntegration
             
             if (validBiomes != null)
                 validBiomes = Arrays.stream(validBiomes)
-                                    .map(s ->
-                                    {
-                                        String[] split = s.split(":", 3);
-                                        return split[0] + ":" + split[1];
-                                    })
-                                    .toArray(String[]::new);
+                    .map(s ->
+                    {
+                        String[] split = s.split(":", 3);
+                        return split[0] + ":" + split[1];
+                    })
+                    .toArray(String[]::new);
         }
         
         if (validBiomes == null)

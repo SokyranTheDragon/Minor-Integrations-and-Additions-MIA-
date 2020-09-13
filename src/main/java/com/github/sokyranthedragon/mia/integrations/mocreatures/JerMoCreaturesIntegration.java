@@ -4,6 +4,7 @@ import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.ExtraConditional;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.pam.harvestcraft.item.ItemRegistry;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.IMoCEntity;
@@ -22,6 +23,7 @@ import jeresources.api.drop.LootDrop;
 import jeresources.api.render.IMobRenderHook;
 import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,24 +37,21 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.github.sokyranthedragon.mia.config.MoCreaturesConfiguration.replaceFishDrops;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 class JerMoCreaturesIntegration implements IJerIntegration
 {
     @SuppressWarnings("unchecked")
-    @Nonnull
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
         // Horses
         for (int i = 21; i <= 26; i++)
@@ -146,84 +145,6 @@ class JerMoCreaturesIntegration implements IJerIntegration
         builder.add(ModIds.MIA.loadSimple("mocreatures/aquatic/fish_small/hippo_tang"), MoCEntityHippoTang.class);
         builder.add(ModIds.MIA.loadSimple("mocreatures/aquatic/fish_small/manderin"), MoCEntityManderin.class);
         builder.add(ModIds.MIA.loadSimple("mocreatures/aquatic/fish_small/piranha"), MoCEntityPiranha.class);
-        
-        
-        return Stream.of(
-                // Horses
-                MoCEntityHorse.class,
-                // Passive entities
-                MoCEntityBird.class,
-                MoCEntityBoar.class,
-                MoCEntityCrocodile.class,
-                MoCEntityDeer.class,
-                MoCEntityDuck.class,
-                MoCEntityEnt.class,
-                MoCEntityFox.class,
-                MoCEntityGoat.class,
-                MoCEntityKomodo.class,
-                MoCEntityMole.class,
-                MoCEntityMouse.class,
-                MoCEntityRaccoon.class,
-                MoCEntityTurkey.class,
-                MoCEntityTurtle.class,
-                MoCEntityOstrich.class,
-                MoCEntityPetScorpion.class,
-                MoCEntitySnake.class,
-                // Bears
-                MoCEntityBlackBear.class,
-                MoCEntityGrizzlyBear.class,
-                MoCEntityPandaBear.class,
-                MoCEntityPolarBear.class,
-                // Big cats
-                MoCEntityLeopard.class,
-                MoCEntityLion.class,
-                MoCEntityPanther.class,
-                MoCEntityTiger.class,
-                // Hostile entities
-                // Ogres
-                MoCEntityCaveOgre.class,
-                MoCEntityFireOgre.class,
-                MoCEntityGreenOgre.class,
-                // Wraiths
-                MoCEntityWraith.class,
-                MoCEntityFlameWraith.class,
-                // Manticores
-                MoCEntityManticore.class,
-                // Hell rat
-                MoCEntityRat.class,
-                MoCEntityHellRat.class,
-                // Scorpions
-                MoCEntityScorpion.class,
-                // Silver skeleton
-                MoCEntitySilverSkeleton.class,
-                // Werewolf
-                MoCEntityWerewolf.class,
-                // Wild wolf
-                MoCEntityWWolf.class,
-                
-                // Ambient
-                MoCEntityCrab.class,
-                MoCEntitySnail.class,
-                MoCEntityMaggot.class,
-                
-                // Aquatic
-                MoCEntityDolphin.class,
-                MoCEntityJellyFish.class,
-                MoCEntityShark.class,
-                // Medium fish
-                MoCEntityBass.class,
-                MoCEntityCod.class,
-                MoCEntitySalmon.class,
-                // Small fish
-                MoCEntityAnchovy.class,
-                MoCEntityAngelFish.class,
-                MoCEntityAngler.class,
-                MoCEntityClownFish.class,
-                MoCEntityGoldFish.class,
-                MoCEntityHippoTang.class,
-                MoCEntityManderin.class,
-                MoCEntityPiranha.class
-        ).collect(Collectors.toSet());
     }
     
     @Override
@@ -306,13 +227,13 @@ class JerMoCreaturesIntegration implements IJerIntegration
                     lootDrop.addConditional(ExtraConditional.isAdult);
                 }
                 else if (item == MoCItems.heartdarkness ||
-                        item == MoCItems.heartfire ||
-                        item == MoCItems.heartundead ||
-                        item == MoCItems.scorpStingNether ||
-                        item == MoCItems.scorpStingCave ||
-                        item == MoCItems.scorpStingFrost ||
-                        item == MoCItems.scorpStingDirt ||
-                        block == Blocks.FIRE)
+                    item == MoCItems.heartfire ||
+                    item == MoCItems.heartundead ||
+                    item == MoCItems.scorpStingNether ||
+                    item == MoCItems.scorpStingCave ||
+                    item == MoCItems.scorpStingFrost ||
+                    item == MoCItems.scorpStingDirt ||
+                    block == Blocks.FIRE)
                     lootDrop.chance = MoCreatures.proxy.rareItemDropChance / 100f;
             });
             
@@ -388,17 +309,17 @@ class JerMoCreaturesIntegration implements IJerIntegration
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.WASTELAND));
             
             if (entity instanceof MoCEntityHorseMob
-                    || fireOgre
-                    || manticore)
+                || fireOgre
+                || manticore)
             {
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER));
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.DEAD));
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.SPOOKY));
             }
             else if (entity instanceof MoCEntityCaveOgre
-                    || entity instanceof MoCEntitySilverSkeleton
-                    || entity instanceof MoCEntityWraith
-                    || greenOgre)
+                || entity instanceof MoCEntitySilverSkeleton
+                || entity instanceof MoCEntityWraith
+                || greenOgre)
             {
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.DEAD));
                 validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.SPOOKY));
@@ -481,7 +402,6 @@ class JerMoCreaturesIntegration implements IJerIntegration
         mobRegistry.registerRenderHook(MoCEntityKomodo.class, RENDER_HOOK_GENERIC_HIGHER);
     }
     
-    @Nonnull
     @Override
     public ModIds getModId()
     {

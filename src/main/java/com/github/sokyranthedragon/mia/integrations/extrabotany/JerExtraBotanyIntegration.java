@@ -2,10 +2,10 @@ package com.github.sokyranthedragon.mia.integrations.extrabotany;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.meteor.extrabotany.common.entity.gaia.EntityVoidHerrscher;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
-import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,20 +15,16 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Collections;
-import java.util.Set;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 class JerExtraBotanyIntegration implements IJerIntegration
 {
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
-        builder.add(ModIds.EXTRABOTANY.loadResource("gaia_guardian_3", 0), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " III"));
+        builder.addNoConfigure(ModIds.EXTRABOTANY.loadResource("gaia_guardian_3", 0), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " III"));
         builder.add(ModIds.EXTRABOTANY.loadResource("gaia_guardian_3", 1), EntityVoidHerrscher.class);
-        
-        return Collections.singleton(EntityVoidHerrscher.class);
     }
     
     @Override

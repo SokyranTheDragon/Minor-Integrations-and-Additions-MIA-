@@ -9,11 +9,12 @@ import cofh.thermalfoundation.item.ItemMaterial;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.JerLightHelper;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
 import jeresources.entry.MobEntry;
-import jeresources.util.MobTableBuilder;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.ResourceLocation;
@@ -23,26 +24,21 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 class JerTFIntegration implements IJerIntegration
 {
-    @Nonnull
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder mobTableBuilder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
-        mobTableBuilder.add(ModIds.THERMAL_FOUNDATION.loadResource("entities/basalz"), EntityBasalz.class);
-        mobTableBuilder.add(ModIds.THERMAL_FOUNDATION.loadResource("entities/blitz"), EntityBlitz.class);
-        mobTableBuilder.add(ModIds.THERMAL_FOUNDATION.loadResource("entities/blizz"), EntityBlizz.class);
-        
-        return Stream.of(EntityBasalz.class, EntityBlitz.class, EntityBlizz.class).collect(Collectors.toSet());
+        builder.add(ModIds.THERMAL_FOUNDATION.loadResource("entities/basalz"), EntityBasalz.class);
+        builder.add(ModIds.THERMAL_FOUNDATION.loadResource("entities/blitz"), EntityBlitz.class);
+        builder.add(ModIds.THERMAL_FOUNDATION.loadResource("entities/blizz"), EntityBlizz.class);
     }
     
     @Override
@@ -99,7 +95,6 @@ class JerTFIntegration implements IJerIntegration
         }
     }
     
-    @Nonnull
     @Override
     public ModIds getModId()
     {

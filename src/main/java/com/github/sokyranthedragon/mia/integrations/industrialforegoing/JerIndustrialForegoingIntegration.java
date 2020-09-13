@@ -4,9 +4,9 @@ import com.buuz135.industrial.entity.EntityPinkSlime;
 import com.buuz135.industrial.proxy.CommonProxy;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
-import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
@@ -14,19 +14,15 @@ import net.minecraft.world.storage.loot.LootTableManager;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Collections;
-import java.util.Set;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 class JerIndustrialForegoingIntegration implements IJerIntegration
 {
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
         builder.add(CommonProxy.PINK_SLIME_LOOT, EntityPinkSlime.class);
-        
-        return Collections.singleton(EntityPinkSlime.class);
     }
     
     @Override

@@ -71,7 +71,7 @@ class JeiJerIntegration implements IJeiIntegration
                         } catch (Exception e)
                         {
                             Mia.LOGGER.error("Encountered an issue registering JER entries! (Early-insertion registration)");
-                            Mia.LOGGER.error(e);
+                            e.printStackTrace();
                         }
                     }
                 });

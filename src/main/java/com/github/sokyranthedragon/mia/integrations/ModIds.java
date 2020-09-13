@@ -18,6 +18,8 @@ import com.progwml6.natura.Natura;
 import com.rwtema.extrautils2.ExtraUtils2;
 import com.shinoow.abyssalcraft.AbyssalCraft;
 import crafttweaker.mc1120.CraftTweaker;
+import crazypants.enderio.base.EnderIO;
+import crazypants.enderio.zoo.EnderIOZoo;
 import drzhark.mocreatures.MoCConstants;
 import mcjty.theoneprobe.TheOneProbe;
 import mezz.jei.config.Constants;
@@ -70,7 +72,9 @@ public enum ModIds
     ABYSSALCRAFT(ConstantIds.ABYSSALCRAFT),
     AETHER(ConstantIds.AETHER),
     AETHER_CONTINUATION(ConstantIds.AETHER_CONTINUATION),
-    AETHER_LOST_CONTENT(ConstantIds.AETHER_LOST_CONTENT);
+    AETHER_LOST_CONTENT(ConstantIds.AETHER_LOST_CONTENT),
+    ENDER_IO(ConstantIds.ENDER_IO),
+    ENDER_IO_ZOO(ConstantIds.ENDER_IO_ZOO);
     
     public final String modId;
     public final boolean isLoaded;
@@ -170,5 +174,7 @@ public enum ModIds
         public static final String AETHER = Aether.modid;
         public static final String AETHER_CONTINUATION = AetherAddon.modid;
         public static final String AETHER_LOST_CONTENT = LostAetherContent.MODID;
+        public static final String ENDER_IO = EnderIO.MODID;
+        public static final String ENDER_IO_ZOO = EnderIOZoo.MODID;
     }
 }

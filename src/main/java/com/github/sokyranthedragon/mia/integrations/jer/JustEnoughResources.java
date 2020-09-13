@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -138,7 +139,7 @@ public class JustEnoughResources implements IBaseMod
         
         if (world == null)
             world = new FakeClientWorld();
-        MobTableBuilder mobTableBuilder = new MobTableBuilder(world);
+        MobTableBuilder vanillaMobTableBuilder = new MobTableBuilder(world);
         IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
         
         IPlantRegistry plantRegistry = JERAPI.getInstance().getPlantRegistry();
@@ -174,8 +175,8 @@ public class JustEnoughResources implements IBaseMod
                     new PlantDrop(new ItemStack(Items.NETHER_WART), 2, 4));
         }
         
-        mobTableBuilder.add(loadResource("minecraft/wither"), EntityWither.class);
-        Optional<Map.Entry<ResourceLocation, EntityLivingBase>> wither = mobTableBuilder.getMobTables().entrySet().stream().findAny();
+        vanillaMobTableBuilder.add(loadResource("minecraft/wither"), EntityWither.class);
+        Optional<Map.Entry<ResourceLocation, EntityLivingBase>> wither = vanillaMobTableBuilder.getMobTables().entrySet().stream().findAny();
         wither.ifPresent(entry -> mobRegistry.register(entry.getValue(), LightLevel.any, 50, entry.getKey()));
         
         LootTableManager manager = null;
@@ -189,16 +190,16 @@ public class JustEnoughResources implements IBaseMod
             Mia.LOGGER.error(e);
         }
         IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
-        mobTableBuilder = new MobTableBuilder(world);
-        
+    
         Map<Object, ModIds> allMobs = new HashMap<>();
+        CustomMobTableBuilder mobTableBuilder = new CustomMobTableBuilder(world, allMobs, ignoreMobOverrides);
+        
         for (IJerIntegration mod : modIntegrations.values())
         {
             progressBar.step(mod.getModId().modId);
             
-            Set<Class<? extends EntityLivingBase>> modMobs = mod.addMobs(mobTableBuilder, ignoreMobOverrides);
-            for (Object modMob : modMobs)
-                allMobs.put(modMob, mod.getModId());
+            mobTableBuilder.currentId = mod.getModId();
+            mod.addMobs(mobTableBuilder);
             mod.addMobRenderHooks(mobRegistry);
             
             mod.addPlantDrops(plantRegistry, registers);
@@ -263,5 +264,57 @@ public class JustEnoughResources implements IBaseMod
     {
         for (IJerIntegration mod : modIntegrations.values())
             mod.overrideExistingVillagerTrades(entry);
+    }
+    
+    public static class CustomMobTableBuilder extends MobTableBuilder
+    {
+        ModIds currentId = null;
+        private Map<Object, ModIds> allMobs;
+        private Set<Class<? extends EntityLivingBase>> ignoreMobOverrides;
+        
+        public CustomMobTableBuilder(World world, Map<Object, ModIds> allMobs, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+        {
+            super(world);
+            this.allMobs = allMobs;
+            this.ignoreMobOverrides = ignoreMobOverrides;
+        }
+    
+        @Override
+        public <T extends EntityLivingBase> void add(ResourceLocation resourceLocation, Class<T> entityClass)
+        {
+            assert currentId != null;
+            allMobs.put(entityClass, currentId);
+            super.add(resourceLocation, entityClass);
+        }
+    
+        @Override
+        public <T extends EntityLivingBase> void add(ResourceLocation resourceLocation, Class<T> entityClass, @Nullable EntityPropertySetter<T> entityPropertySetter)
+        {
+            assert currentId != null;
+            allMobs.put(entityClass, currentId);
+            super.add(resourceLocation, entityClass, entityPropertySetter);
+        }
+    
+        public <T extends EntityLivingBase> void addWithIgnore(ResourceLocation resourceLocation, Class<T> entityClass)
+        {
+            ignoreMobOverrides.add(entityClass);
+            add(resourceLocation, entityClass);
+        }
+    
+        public <T extends EntityLivingBase> void addWithIgnore(ResourceLocation resourceLocation, Class<T> entityClass, @Nullable EntityPropertySetter<T> entityPropertySetter)
+        {
+            ignoreMobOverrides.add(entityClass);
+            add(resourceLocation, entityClass, entityPropertySetter);
+        }
+    
+        public <T extends EntityLivingBase> void addNoConfigure(ResourceLocation resourceLocation, Class<T> entityClass)
+        {
+            super.add(resourceLocation, entityClass);
+        }
+    
+        public <T extends EntityLivingBase> void addNoConfigure(ResourceLocation resourceLocation, Class<T> entityClass, @Nullable EntityPropertySetter<T> entityPropertySetter)
+        {
+            super.add(resourceLocation, entityClass, entityPropertySetter);
+        }
     }
 }

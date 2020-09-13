@@ -2,9 +2,9 @@ package com.github.sokyranthedragon.mia.integrations.botania;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.LightLevel;
-import jeresources.util.MobTableBuilder;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,20 +14,16 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Collections;
-import java.util.Set;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 class JerBotaniaIntegration implements IJerIntegration
 {
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
         builder.add(ModIds.BOTANIA.loadResource("gaia_guardian"), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " I"));
         builder.add(ModIds.BOTANIA.loadResource("gaia_guardian_2"), EntityDoppleganger.class, entity -> entity.setCustomNameTag(I18n.format("entity.botania:doppleganger.name") + " II"));
-        
-        return Collections.singleton(EntityDoppleganger.class);
     }
     
     @Override

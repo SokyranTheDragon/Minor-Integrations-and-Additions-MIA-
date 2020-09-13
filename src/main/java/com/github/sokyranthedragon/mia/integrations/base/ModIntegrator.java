@@ -17,6 +17,8 @@ import com.github.sokyranthedragon.mia.integrations.botania.Botania;
 import com.github.sokyranthedragon.mia.integrations.chisel.Chisel;
 import com.github.sokyranthedragon.mia.integrations.cofhcore.CofhCore;
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.DungeonTactics;
+import com.github.sokyranthedragon.mia.integrations.ender_io.EnderIo;
+import com.github.sokyranthedragon.mia.integrations.ender_io_zoo.EnderIoZoo;
 import com.github.sokyranthedragon.mia.integrations.extrabotany.ExtraBotany;
 import com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc;
 import com.github.sokyranthedragon.mia.integrations.harvestcraft.Harvestcraft;
@@ -151,6 +153,10 @@ public class ModIntegrator
             if (AETHER_LOST_CONTENT.isLoaded)
                 modIntegrations.put(AETHER_LOST_CONTENT, new AetherLostContent());
         }
+        if (ENDER_IO.isLoaded)
+            modIntegrations.put(ENDER_IO, new EnderIo());
+        if (ENDER_IO_ZOO.isLoaded)
+            modIntegrations.put(ENDER_IO_ZOO, new EnderIoZoo());
         
         if (!modIntegrations.isEmpty())
         {
