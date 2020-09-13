@@ -1,7 +1,5 @@
 package com.github.sokyranthedragon.mia.integrations.jei.categories.lootbag;
 
-import com.github.sokyranthedragon.mia.integrations.ModIds;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashSet;
@@ -17,19 +15,13 @@ public class LootBagRegistry
     {
     }
     
-    @Nullable
     public static LootBagRegistry getInstance()
     {
-        if (ModIds.JER.isLoaded)
-        {
-            if (instance != null)
-                return instance;
-            instance = new LootBagRegistry();
-            instance.registry = new LinkedHashSet<>();
+        if (instance != null)
             return instance;
-        }
-        else
-            return null;
+        instance = new LootBagRegistry();
+        instance.registry = new LinkedHashSet<>();
+        return instance;
     }
     
     @SuppressWarnings("UnusedReturnValue")

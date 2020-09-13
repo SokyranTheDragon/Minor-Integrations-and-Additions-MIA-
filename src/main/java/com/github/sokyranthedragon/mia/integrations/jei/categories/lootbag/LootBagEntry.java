@@ -1,9 +1,9 @@
 package com.github.sokyranthedragon.mia.integrations.jei.categories.lootbag;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import com.google.common.collect.Lists;
 import jeresources.util.LootTableHelper;
-import jeresources.util.ReflectionHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.github.sokyranthedragon.mia.utilities.LootTableUtils.*;
 
 public class LootBagEntry
 {
@@ -114,31 +116,21 @@ public class LootBagEntry
     
     // Stuff related to changing ResourceLocation to BagOutputEntry
     
-    private static ResourceLocation getTable(LootEntryTable lootEntry)
+    public static void toDrops(LootTableManager manager, ResourceLocation resourceLocation, Collection<LootBagEntry.BagOutputEntry> possibleOutputs)
     {
-        return ReflectionHelper.getPrivateValue(LootEntryTable.class, lootEntry, "field_186371_a");
-    }
-    
-    private static RandomValueRange getMetaRange(SetMetadata function)
-    {
-        return ReflectionHelper.getPrivateValue(SetMetadata.class, function, "field_186573_b");
-    }
-    
-    private static void toDrops(LootTableManager manager, ResourceLocation resourceLocation, Collection<BagOutputEntry> possibleOutputs)
-    {
-        LootTableHelper.getPools(manager.getLootTableFromLocation(resourceLocation)).forEach(pool ->
-                {
-                    float totalWeight = (float) LootTableHelper.getEntries(pool).stream().mapToInt((entry) -> entry.getEffectiveWeight(0.0F)).sum();
-                    LootTableHelper.getEntries(pool).stream()
-                                   .filter(entry -> entry instanceof LootEntryItem)
-                                   .map(entry -> (LootEntryItem) entry)
-                                   .map(entry -> new BagOutputEntry(applyFunction(LootTableHelper.getItem(entry), LootTableHelper.getFunctions(entry)), (float) entry.getEffectiveWeight(0.0f) / totalWeight * 100f))
-                                   .forEach(possibleOutputs::add);
-                    LootTableHelper.getEntries(pool).stream()
-                                   .filter(entry -> entry instanceof LootEntryTable)
-                                   .map(entry -> (LootEntryTable) entry)
-                                   .forEach(entry -> toDrops(manager, getTable(entry), possibleOutputs));
-                }
+        getPools(manager.getLootTableFromLocation(resourceLocation)).forEach(pool ->
+            {
+                float totalWeight = (float) LootTableUtils.getEntries(pool).stream().mapToInt((entry) -> entry.getEffectiveWeight(0.0F)).sum();
+                LootTableUtils.getEntries(pool).stream()
+                    .filter(entry -> entry instanceof LootEntryItem)
+                    .map(entry -> (LootEntryItem) entry)
+                    .map(entry -> new LootBagEntry.BagOutputEntry(applyFunction(getItem(entry), getFunctions(entry)), (float) entry.getEffectiveWeight(0.0f) / totalWeight * 100f))
+                    .forEach(possibleOutputs::add);
+                LootTableUtils.getEntries(pool).stream()
+                    .filter(entry -> entry instanceof LootEntryTable)
+                    .map(entry -> (LootEntryTable) entry)
+                    .forEach(entry -> toDrops(manager, getTable(entry), possibleOutputs));
+            }
         );
         possibleOutputs.removeIf(entry -> entry.items.size() == 0);
     }

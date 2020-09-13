@@ -287,6 +287,12 @@ mia.jer.named=Only when named one of the following: %s
 mia.jer.adult=Only when adult
 mia.jer.not_adult=Only when not adult
 mia.jer.carrying=Only when carrying this item
+mia.jer.female_only=Female only
+mia.jer.male_only=Male only
+mia.jer.requires_bottle=Requires an empty bottle to collect
+mia.jer.depends_on_age=Max drop count depends on age
+mia.jer.depends_on_size=Max drop count affected by mob size
+mia.jer.affected_by_ancient=Max drop count significantly increased for ancient mob variant
 
 
 ### Ice and fire

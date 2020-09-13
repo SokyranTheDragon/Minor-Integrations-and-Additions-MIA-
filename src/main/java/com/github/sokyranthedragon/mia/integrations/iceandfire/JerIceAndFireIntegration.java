@@ -8,7 +8,10 @@ import com.github.alexthe666.iceandfire.world.gen.*;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.iceandfire.client.EntityCustomSnowVillager;
+import com.github.sokyranthedragon.mia.integrations.jer.ExtraConditional;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
+import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
 import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomVillagerEntry;
 import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import jeresources.api.IDungeonRegistry;
@@ -20,6 +23,7 @@ import jeresources.entry.MobEntry;
 import jeresources.registry.VillagerRegistry;
 import jeresources.util.LootTableHelper;
 import jeresources.util.MobTableBuilder;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -43,22 +47,18 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 class JerIceAndFireIntegration implements IJerIntegration
 {
     // We're not checking the setters for Myrmex and Dragons, as we're using the same class for more than a single mob type.
     // Using their base class did not work as it wasn't considered the exact class that was required, but it accepted no class.
     @SuppressWarnings("unchecked")
-    @Nonnull
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
         builder.add(EntityAmphithere.LOOT, EntityAmphithere.class);
         builder.add(EntityCockatrice.LOOT, EntityCockatrice.class);
@@ -73,14 +73,14 @@ class JerIceAndFireIntegration implements IJerIntegration
 //        builder.add(EntityDeathWorm.RED_GIANT_LOOT, EntityDeathWorm.class, new DeathWormSetter(2));
         builder.add(EntityGorgon.LOOT, EntityGorgon.class);
         // Dragons
-        builder.add(EntityFireDragon.SKELETON_LOOT, EntityFireDragon.class, new DragonSetter(-1));
-        builder.add(EntityIceDragon.SKELETON_LOOT, EntityIceDragon.class, new DragonSetter(-1));
+        builder.addWithIgnore(EntityFireDragon.SKELETON_LOOT, EntityFireDragon.class, new DragonSetter(-1));
+        builder.addWithIgnore(EntityIceDragon.SKELETON_LOOT, EntityIceDragon.class, new DragonSetter(-1));
         for (int i = 0; i <= 3; i++)
         {
             // ResourceLocation is used as a key in HashMap, so we need to create our own to prevent replacing entries,
             // leaving us with drops for only a single dragon of each type.
-            builder.add(ModIds.MIA.loadSimple("iceandfire/dragon/fire_dragon_" + i), EntityFireDragon.class, new DragonSetter(i));
-            builder.add(ModIds.MIA.loadSimple("iceandfire/dragon/ice_dragon_" + i), EntityIceDragon.class, new DragonSetter(i));
+            builder.addWithIgnore(new ResourceLocationWrapper(EntityFireDragon.FEMALE_LOOT, i), EntityFireDragon.class, new DragonSetter(i));
+            builder.addWithIgnore(new ResourceLocationWrapper(EntityIceDragon.FEMALE_LOOT, i), EntityIceDragon.class, new DragonSetter(i));
         }
         builder.add(EntityHippocampus.LOOT, EntityHippocampus.class);
         builder.add(EntityHippogryph.LOOT, EntityHippogryph.class);
@@ -97,7 +97,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         builder.add(EntityMyrmexWorker.JUNGLE_LOOT, EntityMyrmexWorker.class, new MyrmexSetter(true));
         builder.add(EntityPixie.LOOT, EntityPixie.class);
         for (int i = 0; i <= 6; i++)
-            builder.add(ModIds.MIA.loadSimple("iceandfire/seaserpent/sea_serpent_" + i), EntitySeaSerpent.class, new SeaSerpentSetter(i));
+            builder.add(new ResourceLocationWrapper(EntitySeaSerpent.LOOT, i), EntitySeaSerpent.class, new SeaSerpentSetter(i));
         builder.add(EntitySiren.LOOT, EntitySiren.class);
         builder.add(EntityStymphalianBird.LOOT, EntityStymphalianBird.class);
         builder.add(EntityTroll.FOREST_LOOT, EntityTroll.class, new TrollSetter(EnumTroll.FOREST));
@@ -112,40 +112,6 @@ class JerIceAndFireIntegration implements IJerIntegration
         builder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntityDreadQueen.class);
         builder.add(EntityDreadScuttler.LOOT, EntityDreadScuttler.class);
         builder.add(EntityDreadThrall.LOOT, EntityDreadThrall.class);
-        
-        ignoreMobOverrides.add(EntityFireDragon.class);
-        ignoreMobOverrides.add(EntityIceDragon.class);
-        
-        return Stream.of(
-            EntityAmphithere.class,
-            EntityCockatrice.class,
-            EntityCyclops.class,
-            EntityDeathWorm.class,
-            EntityGorgon.class,
-            EntityFireDragon.class,
-            EntityHippocampus.class,
-            EntityHippogryph.class,
-            EntityIceDragon.class,
-            EntityMyrmexQueen.class,
-            EntityMyrmexRoyal.class,
-            EntityMyrmexSentinel.class,
-            EntityMyrmexSoldier.class,
-            EntityMyrmexWorker.class,
-            EntityPixie.class,
-            EntitySeaSerpent.class,
-            EntitySiren.class,
-            EntityStymphalianBird.class,
-            EntityTroll.class,
-            EntityHydra.class,
-            EntityDreadBeast.class,
-            EntityDreadGhoul.class,
-            EntityDreadHorse.class,
-            EntityDreadKnight.class,
-            EntityDreadLich.class,
-            EntityDreadQueen.class,
-            EntityDreadScuttler.class,
-            EntityDreadThrall.class
-        ).collect(Collectors.toSet());
     }
     
     @Override
@@ -155,7 +121,12 @@ class JerIceAndFireIntegration implements IJerIntegration
         Set<Biome> validBiomes = new HashSet<>();
         List<LootDrop> loot = null;
         if (manager != null)
-            loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
+        {
+            if (entity instanceof EntityDragonBase || entity instanceof EntitySeaSerpent)
+                loot = LootTableUtils.toDrops(manager.getLootTableFromLocation(resource), entity);
+            else
+                loot = LootTableHelper.toDrops(manager.getLootTableFromLocation(resource));
+        }
         int experienceMin = 0;
         int experienceMax = 0;
         
@@ -294,6 +265,28 @@ class JerIceAndFireIntegration implements IJerIntegration
                 
                 if (loot != null)
                 {
+                    List<LootDrop> maleDrops = LootTableUtils.toDrops(manager.getLootTableFromLocation(isFire ? EntityFireDragon.MALE_LOOT : EntityIceDragon.MALE_LOOT), entity);
+                    List<LootDrop> finalDrops = new ArrayList<>();
+    
+                    for (LootDrop femaleDrop : loot)
+                    {
+                        List<LootDrop> matches = maleDrops.stream().filter(entry -> femaleDrop.compareTo(entry) == 0).collect(Collectors.toList());
+                        if (matches.isEmpty())
+                            femaleDrop.addConditional(ExtraConditional.femaleOnly);
+                        else
+                            maleDrops.removeAll(matches);
+                        
+                        finalDrops.add(femaleDrop);
+                    }
+                    
+                    for (LootDrop maleDrop : maleDrops)
+                    {
+                        maleDrop.addConditional(ExtraConditional.maleOnly);
+                        finalDrops.add(maleDrop);
+                    }
+                    
+                    loot = finalDrops;
+                    
                     if (IceAndFire.CONFIG.dragonDropHeart)
                         loot.add(new LootDrop(new ItemStack(isFire ? IafItemRegistry.fire_dragon_heart : IafItemRegistry.ice_dragon_heart)));
                     if (IceAndFire.CONFIG.dragonDropBlood)
@@ -494,7 +487,6 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
     }
     
-    @Nonnull
     @Override
     public ModIds getModId()
     {
