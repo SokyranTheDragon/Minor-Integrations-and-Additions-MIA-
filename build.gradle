@@ -75,6 +75,9 @@ minecraft {
 }
 
 dependencies {
+    // Any local dependencies
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
     // Actual dependency for some new features
     if (project.run_artemislib.equals("true"))
         deobfProvided "curse.maven:ArtemisLib-1.12.2-v1.0.6:2741812"
@@ -285,6 +288,21 @@ dependencies {
         compileOnly "curse.maven:Extra_Moas_v1.2.0:2646020"
         compileOnly "curse.maven:Aether_Continuation_v1.2.3:2701616"
         compileOnly "curse.maven:Lost_Aether_Content_1.12.2-v1.0.1:2960407"
+    }
+
+    // Extract META-INF/libraries/EnderCore-1.12.2-x.y.z-core.jar from Ender Core jar into libs directory
+    deobfProvided "curse.maven:Ender_Core_1.12.2-0.5.76:2972849"
+    if (project.run_enderio.equals("true")) {
+        // Same as with EnderCore, but AutoConfig and AutoSave
+        deobfProvided "curse.maven:Ender_IO_1.12.2-5.2.59:2989201"
+        if (project.run_enderzoo.equals("true"))
+            deobfProvided "curse.maven:Ender_Zoo_1.12.2-5.2.59:2989199"
+        else
+            compileOnly "curse.maven:Ender_Zoo_1.12.2-5.2.59:2989199"
+    }
+    else {
+        compileOnly "curse.maven:Ender_IO_1.12.2-5.2.59:2989201"
+        compileOnly "curse.maven:Ender_Zoo_1.12.2-5.2.59:2989199"
     }
 
 

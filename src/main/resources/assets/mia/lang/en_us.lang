@@ -34,6 +34,7 @@ mia.config.biomes_o_plenty.title=Biomes O' Plenty
 mia.config.chisel.title=Chisel
 mia.config.industrial_foregoing.title=Industrial Foregoing
 mia.config.aether.title=Aether
+mia.config.ender_io.title=Ender IO
 
 ## Tooltips
 
@@ -61,6 +62,7 @@ mia.config.biomes_o_plenty.title.tooltip=Browse and manage Biomes O' Plenty sett
 mia.config.chisel.title.tooltip=Browse and manage Chisel settings
 mia.config.industrial_foregoing.title.tooltip=Browse and manage Industrial Foregoing settings
 mia.config.aether.title.tooltip=Browse and manage Aether settings
+mia.config.ender_io.title.tooltip=Browse and manage Ender IO settings
 
 ###
 ### To anyone who might be translating anything below (until TOP integrations section):
@@ -105,6 +107,7 @@ mia.config.botania.additions_enabled=Enable Botania additions
 mia.config.aether.additions_enabled=Enable Aether additions
 mia.config.aether_continuation.additions_enabled=Enable Aether Continuation additions
 mia.config.aether_lost_content.additions_enabled=Enable Aether: Lost Content additions
+mia.config.ender_io.additions_enabled=Enable Ender IO additions
 
 ## Mia specific
 
