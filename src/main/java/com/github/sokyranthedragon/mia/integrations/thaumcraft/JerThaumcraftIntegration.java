@@ -3,17 +3,19 @@ package com.github.sokyranthedragon.mia.integrations.thaumcraft;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.ExtraConditional;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
-import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
+import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
+import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
 import jeresources.api.IMobRegistry;
 import jeresources.api.conditionals.Conditional;
 import jeresources.api.conditionals.LightLevel;
 import jeresources.api.drop.LootDrop;
 import jeresources.entry.MobEntry;
 import jeresources.util.LootTableHelper;
-import jeresources.util.MobTableBuilder;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -42,22 +44,23 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.github.sokyranthedragon.mia.utilities.LootTableUtils.loadUniqueEmptyLootTable;
+import static com.github.sokyranthedragon.mia.utilities.LootTableUtils.loadUniqueLootTable;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 class JerThaumcraftIntegration implements IJerIntegration
 {
-    @Nonnull
     @Override
-    public Set<Class<? extends EntityLivingBase>> addMobs(MobTableBuilder builder, Set<Class<? extends EntityLivingBase>> ignoreMobOverrides)
+    public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
-        builder.add(LootTableList.ENTITIES_ZOMBIE, EntityBrainyZombie.class);
+        builder.add(loadUniqueLootTable(LootTableList.ENTITIES_ZOMBIE), EntityBrainyZombie.class);
         builder.add(EntityPech.LOOT, EntityPech.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/firebat"), EntityFireBat.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityFireBat.class);
         builder.add(loadUniqueEmptyLootTable(), EntityMindSpider.class);
         builder.add(loadUniqueEmptyLootTable(), EntityWisp.class);
         // Eldritch bosses
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/eldritch_golem"), EntityEldritchGolem.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/eldritch_warden"), EntityEldritchWarden.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityEldritchGolem.class);
+        builder.add(loadUniqueEmptyLootTable(), EntityEldritchWarden.class);
         // Taint
         builder.add(loadUniqueEmptyLootTable(), EntityTaintacle.class);
         builder.add(loadUniqueEmptyLootTable(), EntityTaintacleGiant.class);
@@ -66,32 +69,9 @@ class JerThaumcraftIntegration implements IJerIntegration
         builder.add(loadUniqueEmptyLootTable(), EntityTaintSeed.class);
         builder.add(loadUniqueEmptyLootTable(), EntityTaintSeedPrime.class);
         // Cultists
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/cultist_cleric"), EntityCultistCleric.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/cultist_knight"), EntityCultistKnight.class);
-        builder.add(ModIds.MIA.loadSimple("thaumcraft/cultist_leader"), EntityCultistLeader.class);
-        
-        return Stream.of(
-                EntityBrainyZombie.class,
-                EntityPech.class,
-                EntityFireBat.class,
-                EntityMindSpider.class,
-                EntityWisp.class,
-                EntityThaumicSlime.class,
-                
-                EntityEldritchGolem.class,
-                EntityEldritchWarden.class,
-                
-                EntityTaintacle.class,
-                EntityTaintacleGiant.class,
-                EntityTaintCrawler.class,
-                EntityTaintSwarm.class,
-                EntityTaintSeed.class,
-                EntityTaintSeedPrime.class,
-                
-                EntityCultistLeader.class,
-                EntityCultistCleric.class,
-                EntityCultistKnight.class
-        ).collect(Collectors.toSet());
+        builder.add(new ResourceLocationWrapper(EntityCultist.LOOT, 0), EntityCultistCleric.class);
+        builder.add(new ResourceLocationWrapper(EntityCultist.LOOT, 1), EntityCultistKnight.class);
+        builder.add(new ResourceLocationWrapper(EntityCultist.LOOT, 2), EntityCultistLeader.class);
     }
     
     @Override
@@ -112,17 +92,17 @@ class JerThaumcraftIntegration implements IJerIntegration
             
             //noinspection ConstantConditions
             validBiomes = Stream.of(
-                    Objects.requireNonNull(BiomeManager.getBiomes(BiomeManager.BiomeType.WARM)).stream(),
-                    Objects.requireNonNull(BiomeManager.getBiomes(BiomeManager.BiomeType.COOL)).stream(),
-                    Objects.requireNonNull(BiomeManager.getBiomes(BiomeManager.BiomeType.ICY)).stream(),
-                    Objects.requireNonNull(BiomeManager.getBiomes(BiomeManager.BiomeType.DESERT)).stream()
+                Objects.requireNonNull(BiomeManager.getBiomes(BiomeManager.BiomeType.WARM)).stream(),
+                Objects.requireNonNull(BiomeManager.getBiomes(BiomeManager.BiomeType.COOL)).stream(),
+                Objects.requireNonNull(BiomeManager.getBiomes(BiomeManager.BiomeType.ICY)).stream(),
+                Objects.requireNonNull(BiomeManager.getBiomes(BiomeManager.BiomeType.DESERT)).stream()
             )
-                                .reduce(Stream::concat)
-                                .orElseGet(Stream::empty)
-                                .map(biomeEntry -> biomeEntry.biome)
-                                .distinct()
-                                .filter(biome -> biome.getSpawnableList(EnumCreatureType.MONSTER) != null && biome.getSpawnableList(EnumCreatureType.MONSTER).size() > 0)
-                                .collect(Collectors.toSet());
+                .reduce(Stream::concat)
+                .orElseGet(Stream::empty)
+                .map(biomeEntry -> biomeEntry.biome)
+                .distinct()
+                .filter(biome -> biome.getSpawnableList(EnumCreatureType.MONSTER) != null && biome.getSpawnableList(EnumCreatureType.MONSTER).size() > 0)
+                .collect(Collectors.toSet());
             
             minExp = 5;
         }
@@ -134,19 +114,19 @@ class JerThaumcraftIntegration implements IJerIntegration
                 
                 if (entity instanceof EntityCultistCleric)
                 {
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonRobeHelm), 0, 1, 0.05f));
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonRobeChest), 0, 1, 0.05f));
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonRobeLegs), 0, 1, 0.05f));
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonBoots), 0, 1, 0.05f));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonRobeHelm), 0, 1, 0.05f, Conditional.equipmentDrop));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonRobeChest), 0, 1, 0.05f, Conditional.equipmentDrop));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonRobeLegs), 0, 1, 0.05f, Conditional.equipmentDrop));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonBoots), 0, 1, 0.05f, Conditional.equipmentDrop));
                 }
                 // Kind of pointless check, but better safe than sorry
                 else if (entity instanceof EntityCultistKnight)
                 {
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonPlateHelm), 0, 1, 0.05f));
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonRobeHelm), 0, 1, 0.05f));
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonPlateChest), 0, 1, 0.05f));
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonPlateLegs), 0, 1, 0.05f));
-                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonBoots), 0, 1, 0.05f));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonPlateHelm), 0, 1, 0.05f, Conditional.equipmentDrop));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonRobeHelm), 0, 1, 0.05f, Conditional.equipmentDrop));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonPlateChest), 0, 1, 0.05f, Conditional.equipmentDrop));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonPlateLegs), 0, 1, 0.05f, Conditional.equipmentDrop));
+                    loot.add(new LootDrop(new ItemStack(ItemsTC.crimsonBoots), 0, 1, 0.05f, Conditional.equipmentDrop));
                 }
             }
             
@@ -167,7 +147,12 @@ class JerThaumcraftIntegration implements IJerIntegration
             minExp = 5;
         }
         else if (entity instanceof EntityFireBat)
+        {
+            if (loot != null)
+                loot.add(new LootDrop(new ItemStack(Items.GUNPOWDER), 0, 2, Conditional.affectedByLooting));
+            
             validBiomes.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER));
+        }
         else if (entity instanceof EntityTaintacleGiant)
         {
             if (loot != null)
@@ -183,7 +168,15 @@ class JerThaumcraftIntegration implements IJerIntegration
         else if (entity instanceof EntityCultistLeader)
             minExp = 40;
         else if (entity instanceof EntityThaumcraftBoss)
+        {
+            if (loot != null)
+            {
+                loot.add(new LootDrop(new ItemStack(ItemsTC.primordialPearl, 1, 2), 1, 1, new Conditional[0]));
+                loot.add(new LootDrop(new ItemStack(ItemsTC.lootBag, 1, 2), 1, 1, new Conditional[0]));
+            }
+            
             minExp = 50;
+        }
         else if (entity instanceof EntityTaintCrawler)
         {
             if (loot != null)
