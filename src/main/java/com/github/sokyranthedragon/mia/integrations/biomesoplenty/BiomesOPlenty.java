@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.integrations.biomesoplenty;
 
 import biomesoplenty.api.block.BOPBlocks;
 import biomesoplenty.api.item.BOPItems;
+import biomesoplenty.common.block.BlockBOPDoor;
 import com.github.sokyranthedragon.mia.block.decorative.SandstoneEntry;
 import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
@@ -63,8 +64,11 @@ public class BiomesOPlenty implements IBaseMod
                 registerOre("dropHoney", new ItemStack(BOPItems.filled_honeycomb));
                 registerOre("listAllsugar", new ItemStack(BOPItems.filled_honeycomb));
                 
-                for (Item item : new Item[]{ BOPItems.sacred_oak_door, BOPItems.cherry_door, BOPItems.umbran_door, BOPItems.fir_door, BOPItems.ethereal_door, BOPItems.magic_door, BOPItems.mangrove_door, BOPItems.palm_door, BOPItems.redwood_door, BOPItems.willow_door, BOPItems.pine_door, BOPItems.hellbark_door, BOPItems.jacaranda_door, BOPItems.mahogany_door, BOPItems.ebony_door, BOPItems.eucalyptus_door })
-                    registerOre("doorWood", item);
+                for (Block block : new Block[]{ BOPBlocks.sacred_oak_door, BOPBlocks.cherry_door, BOPBlocks.umbran_door, BOPBlocks.fir_door, BOPBlocks.ethereal_door, BOPBlocks.magic_door, BOPBlocks.mangrove_door, BOPBlocks.palm_door, BOPBlocks.redwood_door, BOPBlocks.willow_door, BOPBlocks.pine_door, BOPBlocks.hellbark_door, BOPBlocks.jacaranda_door, BOPBlocks.mahogany_door, BOPBlocks.ebony_door, BOPBlocks.eucalyptus_door })
+                {
+                    if (block instanceof BlockBOPDoor && ((BlockBOPDoor)block).getDoorItem() != null)
+                        registerOre("doorWood", ((BlockBOPDoor)block).getDoorItem());
+                }
             }
         }
     }
