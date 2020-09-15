@@ -296,6 +296,7 @@ mia.jer.requires_bottle=Requires an empty bottle to collect
 mia.jer.depends_on_age=Max drop count depends on age
 mia.jer.depends_on_size=Max drop count affected by mob size
 mia.jer.affected_by_ancient=Max drop count significantly increased for ancient mob variant
+mia.jer.depends_on_variant=Depends on mob variant
 
 
 ### Ice and fire

@@ -2,12 +2,12 @@ package com.github.sokyranthedragon.mia.integrations.thermalfoundation;
 
 import cofh.thermalfoundation.init.TFEquipment;
 import cofh.thermalfoundation.item.ItemMaterial;
+import com.gildedgames.the_aether.api.freezables.AetherFreezableFuel;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.config.TfConfiguration;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
-import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.NonNullList;

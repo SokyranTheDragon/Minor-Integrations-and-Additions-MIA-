@@ -1,5 +1,6 @@
 package com.github.sokyranthedragon.mia.proxy;
 
+import com.gildedgames.the_aether.api.freezables.AetherFreezableFuel;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.block.decorative.BlockPackedPaper;
 import com.github.sokyranthedragon.mia.capabilities.MusicPlayerCapabilityProvider;
@@ -20,7 +21,6 @@ import com.github.sokyranthedragon.mia.network.MessageExtendedReachAttack;
 import com.github.sokyranthedragon.mia.network.MessageSyncMusicPlayer;
 import com.github.sokyranthedragon.mia.utilities.size.SizeOreDictionaryUtils;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
-import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

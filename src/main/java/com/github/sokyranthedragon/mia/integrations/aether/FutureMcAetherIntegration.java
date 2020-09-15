@@ -1,8 +1,8 @@
 package com.github.sokyranthedragon.mia.integrations.aether;
 
+import com.gildedgames.the_aether.blocks.BlocksAether;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.futuremc.IFutureMcIntegration;
-import com.legacy.aether.blocks.BlocksAether;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;

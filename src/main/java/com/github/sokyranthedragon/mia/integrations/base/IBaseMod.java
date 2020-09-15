@@ -1,7 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.base;
 
+import com.gildedgames.the_aether.api.freezables.AetherFreezableFuel;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
-import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;

@@ -1,10 +1,10 @@
 package com.github.sokyranthedragon.mia.integrations.aether;
 
 import codechicken.lib.colour.EnumColour;
+import com.gildedgames.the_aether.blocks.BlocksAether;
+import com.gildedgames.the_aether.items.ItemsAether;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.xu2.IExtraUtilsIntegration;
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.items.ItemsAether;
 import com.rwtema.extrautils2.api.machine.MachineSlotItem;
 import com.rwtema.extrautils2.api.machine.XUMachineCrusher;
 import com.rwtema.extrautils2.tile.TileTerraformerClimograph;

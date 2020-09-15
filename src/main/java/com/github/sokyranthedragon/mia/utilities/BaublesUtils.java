@@ -2,8 +2,8 @@ package com.github.sokyranthedragon.mia.utilities;
 
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
+import com.gildedgames.the_aether.api.AetherAPI;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
-import com.legacy.aether.api.AetherAPI;
 import com.meteor.extrabotany.common.item.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

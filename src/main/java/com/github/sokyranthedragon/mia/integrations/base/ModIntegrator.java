@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.integrations.base;
 
 import com.gendeathrow.morechickens.core.ChickensMore;
 import com.gendeathrow.morechickens.core.ModItems;
+import com.gildedgames.the_aether.api.freezables.AetherFreezableFuel;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.AetherConfig;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
@@ -10,7 +11,6 @@ import com.github.sokyranthedragon.mia.gui.client.ErrorToast;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.abyssalcraft.AbyssalCraft;
 import com.github.sokyranthedragon.mia.integrations.aether.Aether;
-import com.github.sokyranthedragon.mia.integrations.aether_continuation.AetherContinuation;
 import com.github.sokyranthedragon.mia.integrations.aether_lost_content.AetherLostContent;
 import com.github.sokyranthedragon.mia.integrations.biomesoplenty.BiomesOPlenty;
 import com.github.sokyranthedragon.mia.integrations.botania.Botania;
@@ -38,7 +38,6 @@ import com.github.sokyranthedragon.mia.integrations.theoneprobe.TheOneProbe;
 import com.github.sokyranthedragon.mia.integrations.thermalexpansion.ThermalExpansion;
 import com.github.sokyranthedragon.mia.integrations.thermalfoundation.ThermalFoundation;
 import com.github.sokyranthedragon.mia.integrations.xu2.ExtraUtilities2;
-import com.legacy.aether.api.freezables.AetherFreezableFuel;
 import com.setycz.chickens.ChickensMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -148,8 +147,8 @@ public class ModIntegrator
         if (AETHER.isLoaded)
         {
             modIntegrations.put(AETHER, new Aether());
-            if (AETHER_CONTINUATION.isLoaded)
-                modIntegrations.put(AETHER_CONTINUATION, new AetherContinuation());
+//            if (AETHER_CONTINUATION.isLoaded)
+//                modIntegrations.put(AETHER_CONTINUATION, new AetherContinuation());
             if (AETHER_LOST_CONTENT.isLoaded)
                 modIntegrations.put(AETHER_LOST_CONTENT, new AetherLostContent());
         }

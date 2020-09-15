@@ -1,10 +1,10 @@
 package com.github.sokyranthedragon.mia.integrations.aether;
 
+import com.gildedgames.the_aether.blocks.BlocksAether;
+import com.gildedgames.the_aether.items.ItemsAether;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.DungeonTactics;
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.IDungeonTacticsIntegration;
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.items.ItemsAether;
 import mcp.MethodsReturnNonnullByDefault;
 
 import javax.annotation.Nullable;

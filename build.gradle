@@ -278,16 +278,16 @@ dependencies {
     }
 
     if (project.run_aether.equals("true")) {
-        deobfProvided "curse.maven:Aether_Legacy_1.12.2-v1.4.4:2698950"
-        deobfProvided "curse.maven:Extra_Moas_v1.2.0:2646020"
-        deobfProvided "curse.maven:Aether_Continuation_v1.2.3:2701616"
-        deobfProvided "curse.maven:Lost_Aether_Content_1.12.2-v1.0.1:2960407"
+        deobfProvided "curse.maven:Aether_Legacy_1.12.2-v1.5.2:3055728"
+        deobfProvided "curse.maven:Extra_Moas_v1.2.1:3039636"
+//        deobfProvided "curse.maven:Aether_Continuation_v1.2.3:2701616" // Does not work with the latest version
+        deobfProvided "curse.maven:Lost_Aether_Content_1.12.2-v1.0.2:3038185"
     }
     else {
-        compileOnly "curse.maven:Aether_Legacy_1.12.2-v1.4.4:2698950"
-        compileOnly "curse.maven:Extra_Moas_v1.2.0:2646020"
-        compileOnly "curse.maven:Aether_Continuation_v1.2.3:2701616"
-        compileOnly "curse.maven:Lost_Aether_Content_1.12.2-v1.0.1:2960407"
+        compileOnly "curse.maven:Aether_Legacy_1.12.2-v1.5.2:3055728"
+        compileOnly "curse.maven:Extra_Moas_v1.2.1:3039636"
+//        compileOnly "curse.maven:Aether_Continuation_v1.2.3:2701616"
+        compileOnly "curse.maven:Lost_Aether_Content_1.12.2-v1.0.2:3038185"
     }
 
     // Extract META-INF/libraries/EnderCore-1.12.2-x.y.z-core.jar from Ender Core jar into libs directory
@@ -337,6 +337,8 @@ curseforge {
                 optionalDependency "cofh-core"
                 optionalDependency "ctm"
                 optionalDependency "dungeon-tactics"
+                optionalDependency "ender-io"
+                optionalDependency "ender-io-zoo"
                 optionalDependency "extra-utilities"
                 optionalDependency "extrabotany"
                 optionalDependency "future-mc"
@@ -356,7 +358,7 @@ curseforge {
                 optionalDependency "tinkers-construct"
 
                 optionalDependency "the-aether"
-                optionalDependency "aether-addon"
+//                optionalDependency "aether-addon"
                 optionalDependency "aether-lost-content"
             }
         }

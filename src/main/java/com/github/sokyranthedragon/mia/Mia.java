@@ -58,7 +58,7 @@ import java.util.List;
             ";after:" + ModIds.ConstantIds.INDUSTRIAL_FOREGOING +
             ";after:" + ModIds.ConstantIds.ABYSSALCRAFT +
             ";after:" + ModIds.ConstantIds.AETHER +
-            ";after:" + ModIds.ConstantIds.AETHER_CONTINUATION +
+//            ";after:" + ModIds.ConstantIds.AETHER_CONTINUATION +
             ";after:" + ModIds.ConstantIds.AETHER_LOST_CONTENT +
             // Unrelated to the project, but seemed to be causing some issues
             ";after:mystcraft" +

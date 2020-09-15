@@ -1,26 +1,28 @@
 package com.github.sokyranthedragon.mia.integrations.aether;
 
+import com.gildedgames.the_aether.api.player.util.IAetherBoss;
+import com.gildedgames.the_aether.blocks.BlocksAether;
+import com.gildedgames.the_aether.entities.bosses.EntityValkyrie;
+import com.gildedgames.the_aether.entities.bosses.slider.EntitySlider;
+import com.gildedgames.the_aether.entities.bosses.sun_spirit.EntitySunSpirit;
+import com.gildedgames.the_aether.entities.bosses.valkyrie_queen.EntityValkyrieQueen;
+import com.gildedgames.the_aether.entities.hostile.*;
+import com.gildedgames.the_aether.entities.passive.EntityAerwhale;
+import com.gildedgames.the_aether.entities.passive.EntityAetherAnimal;
+import com.gildedgames.the_aether.entities.passive.EntitySheepuff;
+import com.gildedgames.the_aether.entities.passive.mountable.EntityAerbunny;
+import com.gildedgames.the_aether.entities.passive.mountable.EntityMoa;
+import com.gildedgames.the_aether.entities.passive.mountable.EntityPhyg;
+import com.gildedgames.the_aether.entities.passive.mountable.EntitySwet;
+import com.gildedgames.the_aether.items.ItemsAether;
+import com.gildedgames.the_aether.registry.AetherLootTables;
+import com.gildedgames.the_aether.world.AetherWorld;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.integrations.jer.ExtraConditional;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.JerLightHelper;
 import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
-import com.legacy.aether.api.player.util.IAetherBoss;
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.entities.bosses.EntityValkyrie;
-import com.legacy.aether.entities.bosses.slider.EntitySlider;
-import com.legacy.aether.entities.bosses.sun_spirit.EntitySunSpirit;
-import com.legacy.aether.entities.bosses.valkyrie_queen.EntityValkyrieQueen;
-import com.legacy.aether.entities.hostile.*;
-import com.legacy.aether.entities.passive.EntityAerwhale;
-import com.legacy.aether.entities.passive.EntityAetherAnimal;
-import com.legacy.aether.entities.passive.EntitySheepuff;
-import com.legacy.aether.entities.passive.mountable.EntityAerbunny;
-import com.legacy.aether.entities.passive.mountable.EntityMoa;
-import com.legacy.aether.entities.passive.mountable.EntityPhyg;
-import com.legacy.aether.entities.passive.mountable.EntitySwet;
-import com.legacy.aether.items.ItemsAether;
-import com.legacy.aether.registry.AetherLootTables;
-import com.legacy.aether.world.AetherWorld;
+import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
@@ -34,12 +36,15 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -59,13 +64,13 @@ class JerAetherIntegration implements IJerIntegration
         builder.add(AetherLootTables.aerbunny, EntityAerbunny.class);
         builder.add(AetherLootTables.moa, EntityMoa.class);
         builder.add(AetherLootTables.phyg, EntityPhyg.class);
-        builder.add(AetherLootTables.swet, EntitySwet.class);
+        builder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntitySwet.class);
         
         // Hostile
         builder.add(AetherLootTables.aechor_plant, EntityAechorPlant.class);
         builder.add(AetherLootTables.cockatrice, EntityCockatrice.class);
         builder.add(AetherLootTables.chest_mimic, EntityMimic.class);
-        builder.add(AetherLootTables.sentry, EntitySentry.class);
+        builder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntitySentry.class);
         builder.add(AetherLootTables.zephyr, EntityZephyr.class);
         
         // Bosses
@@ -97,8 +102,23 @@ class JerAetherIntegration implements IJerIntegration
         }
         if (entity instanceof EntitySentry)
         {
+            loot = new ArrayList<>();
+            // Technically, I believe this doesn't work
+//            Block block = BlocksAether.dungeon_block.getDefaultState().withProperty(BlockDungeonBase.dungeon_stone, EnumStoneType.Sentry).getBlock();
+//            loot.add(new LootDrop(new ItemStack(block), 0.2f));
+            loot.add(new LootDrop(new ItemStack(BlocksAether.dungeon_block), 0.8f));
+            
             experienceMin = 0;
             experienceMax = 0;
+        }
+        else if (entity instanceof EntitySwet)
+        {
+            loot = new ArrayList<>();
+            loot.add(new LootDrop(ItemsAether.swetty_ball, 1));
+            loot.add(new LootDrop(new ItemStack(BlocksAether.aercloud, 1, 1), 1, 1, 1f, ExtraConditional.dependsOnVariant));
+            loot.add(new LootDrop(new ItemStack(Blocks.GLOWSTONE), 1, 1, 1f, ExtraConditional.dependsOnVariant));
+            
+            lightLevel = JerLightHelper.getLightLevelAbove(8);
         }
         else if (entity instanceof EntityAetherAnimal)
             lightLevel = JerLightHelper.getLightLevelAbove(8);
@@ -124,20 +144,20 @@ class JerAetherIntegration implements IJerIntegration
     }
     
     @Override
-    public void addDungeonLoot(IDungeonRegistry dungeonRegistry)
+    public void addDungeonLoot(IDungeonRegistry dungeonRegistry, World world)
     {
-        addDungeonLootCategory(dungeonRegistry, "aether_bronze_dungeon_reward", AetherLootTables.bronze_dungeon_reward);
-        addDungeonLootCategory(dungeonRegistry, "aether_bronze_dungeon",
+        addDungeonLootCategory(world, dungeonRegistry, "aether_bronze_dungeon_reward", AetherLootTables.bronze_dungeon_reward);
+        addDungeonLootCategory(world, dungeonRegistry, "aether_bronze_dungeon",
             AetherLootTables.bronze_dungeon_chest,
             AetherLootTables.bronze_dungeon_chest_sub0,
             AetherLootTables.bronze_dungeon_chest_sub1,
             AetherLootTables.bronze_dungeon_chest_sub2,
             AetherLootTables.bronze_dungeon_chest_sub3);
         
-        addDungeonLootCategory(dungeonRegistry, "aether_silver_dungeon_reward",
+        addDungeonLootCategory(world, dungeonRegistry, "aether_silver_dungeon_reward",
             AetherLootTables.silver_dungeon_reward,
             AetherLootTables.silver_dungeon_reward_sub0);
-        addDungeonLootCategory(dungeonRegistry, "aether_silver_dungeon",
+        addDungeonLootCategory(world, dungeonRegistry, "aether_silver_dungeon",
             AetherLootTables.silver_dungeon_chest,
             AetherLootTables.silver_dungeon_chest_sub0,
             AetherLootTables.silver_dungeon_chest_sub1,
@@ -146,7 +166,7 @@ class JerAetherIntegration implements IJerIntegration
             AetherLootTables.silver_dungeon_chest_sub4,
             AetherLootTables.silver_dungeon_chest_sub5);
         
-        addDungeonLootCategory(dungeonRegistry, "aether_gold_dungeon_reward",
+        addDungeonLootCategory(world, dungeonRegistry, "aether_gold_dungeon_reward",
             AetherLootTables.gold_dungeon_reward,
             AetherLootTables.gold_dungeon_reward_sub0,
             AetherLootTables.gold_dungeon_reward_sub1,

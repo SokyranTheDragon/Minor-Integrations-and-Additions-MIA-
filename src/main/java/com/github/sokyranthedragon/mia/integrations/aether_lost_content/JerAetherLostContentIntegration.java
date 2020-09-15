@@ -1,10 +1,10 @@
 package com.github.sokyranthedragon.mia.integrations.aether_lost_content;
 
+import com.gildedgames.the_aether.world.AetherWorld;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
 import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
 import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
-import com.legacy.aether.world.AetherWorld;
 import com.legacy.lostaether.LostLootTables;
 import com.legacy.lostaether.entities.EntityAerwhaleKing;
 import com.legacy.lostaether.entities.EntityZephyroo;

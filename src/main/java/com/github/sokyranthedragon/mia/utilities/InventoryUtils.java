@@ -2,10 +2,10 @@ package com.github.sokyranthedragon.mia.utilities;
 
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
+import com.gildedgames.the_aether.api.AetherAPI;
+import com.gildedgames.the_aether.api.player.util.IAccessoryInventory;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.google.common.collect.ImmutableSet;
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.api.player.util.IAccessoryInventory;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

@@ -7,11 +7,10 @@ import cofh.thermalexpansion.ThermalExpansion;
 import cofh.thermalfoundation.ThermalFoundation;
 import com.buuz135.industrial.api.IndustrialForegoingHelper;
 import com.gendeathrow.hatchery.Hatchery;
+import com.gildedgames.the_aether.Aether;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
-import com.legacy.aether.Aether;
-import com.legacy.aether.addon.AetherAddon;
 import com.legacy.lostaether.LostAetherContent;
 import com.meteor.extrabotany.ExtraBotany;
 import com.progwml6.natura.Natura;
@@ -71,7 +70,7 @@ public enum ModIds
     INDUSTRIAL_FOREGOING(ConstantIds.INDUSTRIAL_FOREGOING),
     ABYSSALCRAFT(ConstantIds.ABYSSALCRAFT),
     AETHER(ConstantIds.AETHER),
-    AETHER_CONTINUATION(ConstantIds.AETHER_CONTINUATION),
+//    AETHER_CONTINUATION(ConstantIds.AETHER_CONTINUATION),
     AETHER_LOST_CONTENT(ConstantIds.AETHER_LOST_CONTENT),
     ENDER_IO(ConstantIds.ENDER_IO),
     ENDER_IO_ZOO(ConstantIds.ENDER_IO_ZOO);
@@ -172,7 +171,7 @@ public enum ModIds
         public static final String INDUSTRIAL_FOREGOING = IndustrialForegoingHelper.MOD_ID;
         public static final String ABYSSALCRAFT = AbyssalCraft.modid;
         public static final String AETHER = Aether.modid;
-        public static final String AETHER_CONTINUATION = AetherAddon.modid;
+//        public static final String AETHER_CONTINUATION = AetherAddon.modid;
         public static final String AETHER_LOST_CONTENT = LostAetherContent.MODID;
         public static final String ENDER_IO = EnderIO.MODID;
         public static final String ENDER_IO_ZOO = EnderIOZoo.MODID;

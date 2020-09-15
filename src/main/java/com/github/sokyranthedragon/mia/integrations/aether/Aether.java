@@ -1,11 +1,11 @@
 package com.github.sokyranthedragon.mia.integrations.aether;
 
+import com.gildedgames.the_aether.blocks.BlocksAether;
+import com.gildedgames.the_aether.items.ItemsAether;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.items.ItemsAether;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -59,7 +59,7 @@ public class Aether implements IBaseMod
             registerOre("listAllMilk", new ItemStack(ItemsAether.skyroot_bucket, 1, 4));
             registerOre("slimeball", new ItemStack(ItemsAether.swetty_ball));
             registerOre("bookshelf", new ItemStack(BlocksAether.skyroot_bookshelf));
-            registerOre("plankWood", new ItemStack(BlocksAether.skyroot_plank));
+//            registerOre("plankWood", new ItemStack(BlocksAether.skyroot_plank));
             registerOre("grass", new ItemStack(BlocksAether.aether_grass));
             registerOre("dirt", new ItemStack(BlocksAether.aether_dirt));
             registerOre("blockMossy", new ItemStack(BlocksAether.mossy_holystone));
