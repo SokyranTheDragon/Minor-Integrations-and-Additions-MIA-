@@ -1,6 +1,7 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/minor-integrations-and-additions-mia",
   "1.12.2": {
+    "1.12.2-0.2.0e": "Added support for the most recent Aether version\nTemporarily disabled support for Aether: Continuation, as at this moment it hasn't been updated to the most recent version of Aether\nFixed JER dungeon entries for Aether\nUpdated JER dungeon entries for Ice and Fire",
     "1.12.2-0.2.0d": "Added JER entries Ender IO and Ender IO Zoo\nUpdated and improved old JER entries for Thaumcraft\nUpdated and improved old JER entries for Ice and Fire\nImproved internal handling of JER mob drops\nFixed Biomes O' Plenty ore dictionary registration, fixes log spam",
     "1.12.2-0.2.0c": "Updated FutureMC to most recent version, updated integrations to match changes\nAdded Quark's Archaeologist to JER villager trades\nAdded Quark's Witch Hat to JER mob drops\nAdded more Chisel recipes for Quark's blocks\nAdded some Quark items/blocks for Tinker's Construct smelting\nAdded more ore dictionary entries for Natura and Biomes O' Plenty\nFixed Chisel recipes for Quark's brimstone\nFixed ExtraUtilities ore dictionary entries",
     "1.12.2-0.2.0b": "Added Myrmex to JER villager trades",
@@ -19,7 +20,7 @@
     "1.12.2-0.1.5c": "Added update checking\nFixed crafting bugs"
   },
   "promos": {
-    "1.12.2-latest": "1.12.2-0.2.0d",
-    "1.12.2-recommended": "1.12.2-0.2.0d"
+    "1.12.2-latest": "1.12.2-0.2.0e",
+    "1.12.2-recommended": "1.12.2-0.2.0e"
   }
 }
