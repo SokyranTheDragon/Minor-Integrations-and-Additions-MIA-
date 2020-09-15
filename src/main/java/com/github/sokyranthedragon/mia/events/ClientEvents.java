@@ -2,6 +2,7 @@ package com.github.sokyranthedragon.mia.events;
 
 import baubles.api.BaublesApi;
 import baubles.api.cap.IBaublesItemHandler;
+import com.gildedgames.the_aether.api.AetherAPI;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.capabilities.MusicPlayerCapabilityProvider;
 import com.github.sokyranthedragon.mia.client.input.MiaKeyBindings;
@@ -12,7 +13,6 @@ import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.network.MessageSyncMusicPlayer;
 import com.github.sokyranthedragon.mia.utilities.InventoryUtils;
 import com.github.sokyranthedragon.mia.utilities.MusicUtils;
-import com.legacy.aether.api.AetherAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityPlayerSP;

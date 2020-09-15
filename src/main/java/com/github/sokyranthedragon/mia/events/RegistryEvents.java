@@ -1,12 +1,12 @@
 package com.github.sokyranthedragon.mia.events;
 
+import com.gildedgames.the_aether.api.accessories.AccessoryType;
+import com.gildedgames.the_aether.api.accessories.AetherAccessory;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.core.MiaBlocks;
 import com.github.sokyranthedragon.mia.core.MiaItems;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
-import com.legacy.aether.api.accessories.AccessoryType;
-import com.legacy.aether.api.accessories.AetherAccessory;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

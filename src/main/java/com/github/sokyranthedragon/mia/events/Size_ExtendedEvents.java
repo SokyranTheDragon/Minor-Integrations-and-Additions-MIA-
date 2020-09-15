@@ -1,5 +1,6 @@
 package com.github.sokyranthedragon.mia.events;
 
+import com.gildedgames.the_aether.items.ItemsAether;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.config.GenericAdditionsConfig;
 import com.github.sokyranthedragon.mia.enchantments.EnchantmentKobold;
@@ -9,7 +10,6 @@ import com.github.sokyranthedragon.mia.potions.BasePotion;
 import com.github.sokyranthedragon.mia.potions.ModPotions;
 import com.github.sokyranthedragon.mia.utilities.size.CollisionUtils;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
-import com.legacy.aether.items.ItemsAether;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
