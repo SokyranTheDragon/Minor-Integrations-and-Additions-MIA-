@@ -67,7 +67,7 @@ public class Mia
 {
     public static final String MODID = "mia";
     public static final String NAME = "Minor Integrations & Additions";
-    public static final String VERSION = "1.12.2-0.2.0d";
+    public static final String VERSION = "1.12.2-0.2.0e";
     
     @Mod.Instance
     public static Mia instance;
