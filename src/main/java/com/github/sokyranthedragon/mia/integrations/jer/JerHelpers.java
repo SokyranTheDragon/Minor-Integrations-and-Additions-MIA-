@@ -1,8 +1,13 @@
 package com.github.sokyranthedragon.mia.integrations.jer;
 
+import com.github.sokyranthedragon.mia.Mia;
 import jeresources.api.IDungeonRegistry;
+import jeresources.util.LootTableHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTable;
+import net.minecraft.world.storage.loot.LootTableManager;
 
 import java.util.List;
 
@@ -12,19 +17,49 @@ public class JerHelpers
     {
     }
     
-    public static void addDungeonLootCategory(IDungeonRegistry registry, String name, ResourceLocation... loot)
+    public static void addDungeonLootCategory(World world, IDungeonRegistry registry, String name, ResourceLocation... loot)
     {
-        addDungeonLootCategory(registry, name, "chests", loot);
+        addDungeonLootCategory(world, registry, name, "chests", loot);
     }
     
-    public static void addDungeonLootCategory(IDungeonRegistry registry, String name, String prefix, ResourceLocation... loot)
+    public static void addDungeonLootCategory(World world, IDungeonRegistry registry, String name, String prefix, ResourceLocation... loot)
     {
         String category = prefix + "/" + name;
         
         registry.registerCategory(category, "mia.jer.dungeon." + name);
+    
+        LootTableManager manager = null;
+        try
+        {
+            manager = LootTableHelper.getManager(world);
+        }
+        catch (Exception e)
+        {
+            Mia.LOGGER.error("Encountered an issue registering JER loot table helper! A lot of dungeon loot entries might be broken!");
+            e.printStackTrace();
+        }
         
-        for (ResourceLocation resourceLocation : loot)
-            registry.registerChest(category, resourceLocation);
+        if (manager == null)
+        {
+            for (ResourceLocation resourceLocation : loot)
+                registry.registerChest(category, resourceLocation);
+        }
+        else
+        {
+            for (ResourceLocation resourceLocation : loot)
+            {
+                try
+                {
+                    LootTable lootTableFromLocation = manager.getLootTableFromLocation(resourceLocation);
+                    registry.registerChest(category, lootTableFromLocation);
+                }
+                catch (Exception e)
+                {
+                    Mia.LOGGER.error("Encountered an issue registering JER dungeon loot entries in category: " + category);
+                    registry.registerChest(category, resourceLocation);
+                }
+            }
+        }
     }
     
     public static void removeDuplicateEntries(List<ItemStack> injectedDrops, List<ItemStack> baseDrops)

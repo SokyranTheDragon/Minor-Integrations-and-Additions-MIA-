@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.LootTableManager;
@@ -153,7 +154,7 @@ class JerQuarkIntegration implements IJerIntegration
     }
     
     @Override
-    public void addDungeonLoot(IDungeonRegistry dungeonRegistry)
+    public void addDungeonLoot(IDungeonRegistry dungeonRegistry, World world)
     {
         if (QuarkUtils.isFeatureEnabled(PirateShips.class) && !PirateShips.onlyHat)
         {

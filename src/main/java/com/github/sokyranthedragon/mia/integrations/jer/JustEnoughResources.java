@@ -187,7 +187,7 @@ public class JustEnoughResources implements IBaseMod
         } catch (Exception e)
         {
             Mia.LOGGER.error("Encountered an issue registering JER loot table helper! A lot of mob drops might be broken!");
-            Mia.LOGGER.error(e);
+            e.printStackTrace();
         }
         IDungeonRegistry dungeonRegistry = JERAPI.getInstance().getDungeonRegistry();
     
@@ -203,7 +203,7 @@ public class JustEnoughResources implements IBaseMod
             mod.addMobRenderHooks(mobRegistry);
             
             mod.addPlantDrops(plantRegistry, registers);
-            mod.addDungeonLoot(dungeonRegistry);
+            mod.addDungeonLoot(dungeonRegistry, world);
             mod.addVillagerTrades(VillagerRegistry.getInstance(), jeiIntegration.registeredVillagers);
         }
         

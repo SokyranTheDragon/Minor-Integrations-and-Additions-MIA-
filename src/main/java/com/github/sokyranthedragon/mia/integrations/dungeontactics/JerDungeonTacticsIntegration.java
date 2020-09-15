@@ -19,6 +19,7 @@ import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.LootTableManager;
 import pegbeard.dungeontactics.entities.DTEntityTowerGuardian;
@@ -90,7 +91,7 @@ class JerDungeonTacticsIntegration implements IJerIntegration
     }
     
     @Override
-    public void addDungeonLoot(IDungeonRegistry dungeonRegistry)
+    public void addDungeonLoot(IDungeonRegistry dungeonRegistry, World world)
     {
         final String dungeon = "chests/dt_dungeon";
         final String tower = "chests/dt_tower";

@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableManager;
 
 import javax.annotation.Nullable;
@@ -49,7 +50,7 @@ public interface IJerIntegration extends IModIntegration
     {
     }
     
-    default void addDungeonLoot(IDungeonRegistry dungeonRegistry)
+    default void addDungeonLoot(IDungeonRegistry dungeonRegistry, World world)
     {
     }
     

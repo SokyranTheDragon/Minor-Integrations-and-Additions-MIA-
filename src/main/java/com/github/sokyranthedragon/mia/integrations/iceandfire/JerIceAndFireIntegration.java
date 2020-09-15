@@ -8,10 +8,7 @@ import com.github.alexthe666.iceandfire.world.gen.*;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.iceandfire.client.EntityCustomSnowVillager;
-import com.github.sokyranthedragon.mia.integrations.jer.ExtraConditional;
-import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
-import com.github.sokyranthedragon.mia.integrations.jer.JustEnoughResources;
-import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
+import com.github.sokyranthedragon.mia.integrations.jer.*;
 import com.github.sokyranthedragon.mia.integrations.jer.custom.CustomVillagerEntry;
 import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import jeresources.api.IDungeonRegistry;
@@ -396,7 +393,7 @@ class JerIceAndFireIntegration implements IJerIntegration
     }
     
     @Override
-    public void addDungeonLoot(IDungeonRegistry dungeonRegistry)
+    public void addDungeonLoot(IDungeonRegistry dungeonRegistry, World world)
     {
         // Dragons
         final String iceDragon = "chests/ice_dragon";
@@ -411,9 +408,6 @@ class JerIceAndFireIntegration implements IJerIntegration
         // Hydra
         final String hydraCave = "chests/hydra_cave";
         
-        // Dragons
-        dungeonRegistry.registerCategory(fireDragon, "mia.jer.dungeon.fire_dragon");
-        dungeonRegistry.registerCategory(iceDragon, "mia.jer.dungeon.ice_dragon");
         // Myrmex
         dungeonRegistry.registerCategory(myrmexLoot, "mia.jer.dungeon.myrmex_loot");
         dungeonRegistry.registerCategory(myrmexDesertFood, "mia.jer.dungeon.myrmex_desert_food");
@@ -425,8 +419,12 @@ class JerIceAndFireIntegration implements IJerIntegration
         dungeonRegistry.registerCategory(hydraCave, "mia.jer.dungeon.hydra_cave");
         
         // Dragons
-        dungeonRegistry.registerChest(fireDragon, WorldGenFireDragonCave.FIREDRAGON_CHEST);
-        dungeonRegistry.registerChest(iceDragon, WorldGenIceDragonCave.ICEDRAGON_CHEST);
+        JerHelpers.addDungeonLootCategory(world, dungeonRegistry, fireDragon, "mia.jer.dungeon.fire_dragon",
+            WorldGenFireDragonCave.FIREDRAGON_CHEST,
+            WorldGenFireDragonCave.FIREDRAGON_MALE_CHEST);
+        JerHelpers.addDungeonLootCategory(world, dungeonRegistry, iceDragon, "mia.jer.dungeon.ice_dragon",
+            WorldGenIceDragonCave.ICEDRAGON_CHEST,
+            WorldGenIceDragonCave.ICEDRAGON_MALE_CHEST);
         // Myrmex
         dungeonRegistry.registerChest(myrmexLoot, WorldGenMyrmexDecoration.MYRMEX_GOLD_CHEST);
         dungeonRegistry.registerChest(myrmexDesertFood, WorldGenMyrmexDecoration.DESERT_MYRMEX_FOOD_CHEST);
