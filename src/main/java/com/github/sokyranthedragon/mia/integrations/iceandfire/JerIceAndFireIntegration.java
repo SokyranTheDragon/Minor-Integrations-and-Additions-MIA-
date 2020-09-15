@@ -395,9 +395,6 @@ class JerIceAndFireIntegration implements IJerIntegration
     @Override
     public void addDungeonLoot(IDungeonRegistry dungeonRegistry, World world)
     {
-        // Dragons
-        final String iceDragon = "chests/ice_dragon";
-        final String fireDragon = "chests/fire_dragon";
         // Myrmex
         final String myrmexLoot = "chest/myrmex_loot";
         final String myrmexDesertFood = "chest/myrmex_desert_food";
@@ -419,10 +416,10 @@ class JerIceAndFireIntegration implements IJerIntegration
         dungeonRegistry.registerCategory(hydraCave, "mia.jer.dungeon.hydra_cave");
         
         // Dragons
-        JerHelpers.addDungeonLootCategory(world, dungeonRegistry, fireDragon, "mia.jer.dungeon.fire_dragon",
+        JerHelpers.addDungeonLootCategory(world, dungeonRegistry, "fire_dragon",
             WorldGenFireDragonCave.FIREDRAGON_CHEST,
             WorldGenFireDragonCave.FIREDRAGON_MALE_CHEST);
-        JerHelpers.addDungeonLootCategory(world, dungeonRegistry, iceDragon, "mia.jer.dungeon.ice_dragon",
+        JerHelpers.addDungeonLootCategory(world, dungeonRegistry, "ice_dragon",
             WorldGenIceDragonCave.ICEDRAGON_CHEST,
             WorldGenIceDragonCave.ICEDRAGON_MALE_CHEST);
         // Myrmex
