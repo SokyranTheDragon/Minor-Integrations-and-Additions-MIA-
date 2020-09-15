@@ -18,6 +18,7 @@ public class ExtraConditional
     public static final Conditional dependsOnAge = new Conditional("mia.jer.depends_on_age", TextModifier.orange);
     public static final Conditional dependsOnSize = new Conditional("mia.jer.depends_on_size", TextModifier.lightGreen);
     public static final Conditional affectedByAncient = new Conditional("mia.jer.affected_by_ancient", TextModifier.purple);
+    public static final Conditional dependsOnVariant = new Conditional("mia.jer.depends_on_variant", TextModifier.lightCyan);
     
     private ExtraConditional()
     {
