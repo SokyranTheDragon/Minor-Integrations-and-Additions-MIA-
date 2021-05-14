@@ -9,8 +9,8 @@ import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.config.ThaumcraftConfiguration;
 import com.github.sokyranthedragon.mia.gui.client.ErrorToast;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
-import com.github.sokyranthedragon.mia.integrations.abyssalcraft.AbyssalCraft;
 import com.github.sokyranthedragon.mia.integrations.aether.Aether;
+import com.github.sokyranthedragon.mia.integrations.aether_continuation.AetherContinuation;
 import com.github.sokyranthedragon.mia.integrations.aether_lost_content.AetherLostContent;
 import com.github.sokyranthedragon.mia.integrations.biomesoplenty.BiomesOPlenty;
 import com.github.sokyranthedragon.mia.integrations.botania.Botania;
@@ -142,13 +142,11 @@ public class ModIntegrator
             modIntegrations.put(CHISEL, new Chisel());
         if (INDUSTRIAL_FOREGOING.isLoaded)
             modIntegrations.put(INDUSTRIAL_FOREGOING, new IndustrialForegoing());
-        if (ABYSSALCRAFT.isLoaded)
-            modIntegrations.put(ABYSSALCRAFT, new AbyssalCraft());
         if (AETHER.isLoaded)
         {
             modIntegrations.put(AETHER, new Aether());
-//            if (AETHER_CONTINUATION.isLoaded)
-//                modIntegrations.put(AETHER_CONTINUATION, new AetherContinuation());
+            if (AETHER_CONTINUATION.isLoaded)
+                modIntegrations.put(AETHER_CONTINUATION, new AetherContinuation());
             if (AETHER_LOST_CONTENT.isLoaded)
                 modIntegrations.put(AETHER_LOST_CONTENT, new AetherLostContent());
         }

@@ -56,9 +56,8 @@ import java.util.List;
             ";after:" + ModIds.ConstantIds.BIOMES_O_PLENTY +
             // ";after:" + ModIds.ConstantIds.CHISEL + // Not really needed for anything, since we're using IMC for adding blocks
             ";after:" + ModIds.ConstantIds.INDUSTRIAL_FOREGOING +
-            ";after:" + ModIds.ConstantIds.ABYSSALCRAFT +
             ";after:" + ModIds.ConstantIds.AETHER +
-//            ";after:" + ModIds.ConstantIds.AETHER_CONTINUATION +
+            ";after:" + ModIds.ConstantIds.AETHER_CONTINUATION +
             ";after:" + ModIds.ConstantIds.AETHER_LOST_CONTENT +
             // Unrelated to the project, but seemed to be causing some issues
             ";after:mystcraft" +

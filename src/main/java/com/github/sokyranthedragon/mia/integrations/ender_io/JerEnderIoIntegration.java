@@ -2,7 +2,7 @@ package com.github.sokyranthedragon.mia.integrations.ender_io;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.jer.IJerIntegration;
-import crazypants.enderio.base.config.config.BlockConfig;
+import crazypants.enderio.base.capacitor.CapacitorKey;
 import crazypants.enderio.base.init.ModObject;
 import jeresources.api.conditionals.Conditional;
 import jeresources.api.drop.LootDrop;
@@ -20,8 +20,14 @@ class JerEnderIoIntegration implements IJerIntegration
     @Override
     public void overrideExistingMobDrops(MobEntry mobEntry)
     {
-        if (mobEntry.getEntity() instanceof EntityEnderman && ModObject.blockEndermanSkull.getBlock() != null && BlockConfig.vanillaSwordSkullChance.get() > 0)
-            mobEntry.addDrop(new LootDrop(new ItemStack(ModObject.blockEndermanSkull.getBlock()), 0, 1, BlockConfig.vanillaSwordSkullLootingModifier.get(), Conditional.affectedByLooting));
+        if (mobEntry.getEntity() instanceof  EntityEnderman && ModObject.blockEndermanSkull.getBlock() != null)
+        {
+            int baseValue = CapacitorKey.HEAD_VANILLA_CHANCE_ENDERMAN.getBaseValue();
+            int lootingValue = CapacitorKey.HEAD_VANILLA_CHANCE_ENDERMAN.get(5);
+            
+            if (baseValue > 0 || lootingValue > baseValue)
+                mobEntry.addDrop(new LootDrop(new ItemStack(ModObject.blockEndermanSkull.getBlock()), 0, 1, Conditional.affectedByLooting));
+        }
     }
     
     @Override

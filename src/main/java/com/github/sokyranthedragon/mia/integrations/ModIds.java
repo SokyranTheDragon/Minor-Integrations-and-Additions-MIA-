@@ -8,14 +8,13 @@ import cofh.thermalfoundation.ThermalFoundation;
 import com.buuz135.industrial.api.IndustrialForegoingHelper;
 import com.gendeathrow.hatchery.Hatchery;
 import com.gildedgames.the_aether.Aether;
+import com.gildedgames.the_aether.addon.AetherAddon;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.jer.ResourceLocationWrapper;
 import com.legacy.lostaether.LostAetherContent;
-import com.meteor.extrabotany.ExtraBotany;
 import com.progwml6.natura.Natura;
 import com.rwtema.extrautils2.ExtraUtils2;
-import com.shinoow.abyssalcraft.AbyssalCraft;
 import crafttweaker.mc1120.CraftTweaker;
 import crazypants.enderio.base.EnderIO;
 import crazypants.enderio.zoo.EnderIOZoo;
@@ -68,9 +67,8 @@ public enum ModIds
     CONNECTED_TEXTURES(ConstantIds.CONNECTED_TEXTURES),
     CHISEL(ConstantIds.CHISEL),
     INDUSTRIAL_FOREGOING(ConstantIds.INDUSTRIAL_FOREGOING),
-    ABYSSALCRAFT(ConstantIds.ABYSSALCRAFT),
     AETHER(ConstantIds.AETHER),
-//    AETHER_CONTINUATION(ConstantIds.AETHER_CONTINUATION),
+    AETHER_CONTINUATION(ConstantIds.AETHER_CONTINUATION),
     AETHER_LOST_CONTENT(ConstantIds.AETHER_LOST_CONTENT),
     ENDER_IO(ConstantIds.ENDER_IO),
     ENDER_IO_ZOO(ConstantIds.ENDER_IO_ZOO);
@@ -160,7 +158,7 @@ public enum ModIds
         public static final String HARVESTCRAFT = com.pam.harvestcraft.Reference.MODID;
         public static final String DUNGEON_TACTICS = Reference.MOD_ID;
         public static final String BOTANIA = vazkii.botania.common.lib.LibMisc.MOD_ID;
-        public static final String EXTRABOTANY = ExtraBotany.MODID;
+        public static final String EXTRABOTANY = com.meteor.extrabotany.common.lib.Reference.MOD_ID;
         public static final String QUARK = vazkii.quark.base.lib.LibMisc.MOD_ID;
         public static final String CRAFT_TWEAKER = CraftTweaker.MODID;
         public static final String FUTURE_MC = FutureMC.ID;
@@ -169,9 +167,8 @@ public enum ModIds
         public static final String CONNECTED_TEXTURES = CTM.MOD_ID;
         public static final String CHISEL = Chisel.MOD_ID;
         public static final String INDUSTRIAL_FOREGOING = IndustrialForegoingHelper.MOD_ID;
-        public static final String ABYSSALCRAFT = AbyssalCraft.modid;
         public static final String AETHER = Aether.modid;
-//        public static final String AETHER_CONTINUATION = AetherAddon.modid;
+        public static final String AETHER_CONTINUATION = AetherAddon.modid;
         public static final String AETHER_LOST_CONTENT = LostAetherContent.MODID;
         public static final String ENDER_IO = EnderIO.MODID;
         public static final String ENDER_IO_ZOO = EnderIOZoo.MODID;
