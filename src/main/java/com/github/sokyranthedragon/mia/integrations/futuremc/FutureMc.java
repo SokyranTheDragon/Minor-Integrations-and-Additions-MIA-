@@ -54,6 +54,10 @@ public class FutureMc implements IBaseMod
             modIntegration.accept(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoingFutureMcIntegration());
         if (enableDungeonTacticsIntegration && ModIds.DUNGEON_TACTICS.isLoaded)
             modIntegration.accept(ModIds.DUNGEON_TACTICS, new DungeonTacticsFutureMcIntegration());
+        if (enableXu2Integration && ModIds.EXTRA_UTILITIES.isLoaded)
+            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsFutureMcIntegration());
+        if (enableTConstructIntegration && ModIds.TINKERS_CONSTRUCT.isLoaded)
+            modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructFutureMcIntegration());
     }
     
     @Override

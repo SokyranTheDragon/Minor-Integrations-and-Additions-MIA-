@@ -19,7 +19,7 @@ class HarvestcraftFutureMcIntegration implements IHarvestcraftIntegration
     {
         ItemStack seedCropCurrency = HarvestcraftRecipes.getCurrency(config.marketcurrencySeeds, HarvestcraftRecipes.CurrencyType.SEEDS);
         
-        HarvestcraftRecipes.addPressingRecipe(new ItemStack(FItems.INSTANCE.getSWEET_BERRIES()), new ItemStack(ItemRegistry.honeyItem), new ItemStack(ItemRegistry.beeswaxItem));
+        HarvestcraftRecipes.addPressingRecipe(new ItemStack(FItems.INSTANCE.getHONEYCOMB()), new ItemStack(ItemRegistry.honeyItem), new ItemStack(ItemRegistry.beeswaxItem));
         HarvestcraftRecipes.addPressingRecipe(new ItemStack(FItems.INSTANCE.getSWEET_BERRIES()), new ItemStack(ItemRegistry.fruitbaitItem), new ItemStack(ItemRegistry.fruitbaitItem));
         
         if (config.marketsellSeeds)
