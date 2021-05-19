@@ -60,6 +60,18 @@ public class FutureMcConfiguration
     @Config.RequiresMcRestart
     public static boolean enableDungeonTacticsIntegration = true;
     
+    @Config.Name("Enable XU2 integration")
+    @Config.Comment("Set to false to completely disable integration with XU2")
+    @Config.LangKey("mia.config.shared.enable_extra_utils_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableXu2Integration = true;
+    
+    @Config.Name("Enable Tinker's Construct integration")
+    @Config.Comment("Set to false to completely disable integration with Tinker's Construct")
+    @Config.LangKey("mia.config.shared.enable_tconstruct_integration")
+    @Config.RequiresMcRestart
+    public static boolean enableTConstructIntegration = true;
+    
     
     /**
      * Inject the new values and save to the config file when the config has been changed from the GUI.
