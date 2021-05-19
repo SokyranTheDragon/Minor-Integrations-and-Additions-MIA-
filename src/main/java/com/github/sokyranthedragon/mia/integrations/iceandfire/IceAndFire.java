@@ -97,7 +97,7 @@ public class IceAndFire implements IBaseMod
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        if (JER.isLoaded && enableJerIntegration && event.getSide() == Side.CLIENT)
+        if (enableJerIntegration && JER.isLoaded && event.getSide() == Side.CLIENT)
             registerRenderingOverride();
     }
     

@@ -56,6 +56,12 @@ public class BotaniaConfiguration
     @RequiresMcRestart
     public static boolean enableChiselIntegration = true;
     
+    @Name("Enable JER integration")
+    @Comment("Set to false to completely disable integration with JER")
+    @LangKey("mia.config.shared.enable_jer_integration")
+    @RequiresMcRestart
+    public static boolean enableJerIntegration = true;
+    
     @Name("Orechid Vacuam ore dictionary")
     @Comment({ "List of all the ore dictionary entries for ores supported by Orechid Vacuam",
                "The ore dictionary entry needs to be followed by a colon : symbol and its weight (lower = rarer)",

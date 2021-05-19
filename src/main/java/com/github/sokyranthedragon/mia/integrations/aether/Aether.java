@@ -34,7 +34,7 @@ public class Aether implements IBaseMod
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsAetherIntegration());
         if (THERMAL_EXPANSION.isLoaded && enableTeIntegration)
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionAetherIntegration());
-        if (JER.isLoaded)
+        if (enableJerIntegration && JER.isLoaded)
             modIntegration.accept(JER, new JerAetherIntegration());
         if (INDUSTRIAL_FOREGOING.isLoaded)
             modIntegration.accept(INDUSTRIAL_FOREGOING, new IndustrialForegoingAetherIntegration());
