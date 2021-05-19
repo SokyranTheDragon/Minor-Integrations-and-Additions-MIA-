@@ -5,6 +5,7 @@ import com.github.sokyranthedragon.mia.integrations.dungeontactics.DungeonTactic
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.IDungeonTacticsIntegration;
 import com.github.sokyranthedragon.mia.utilities.LootUtils;
 import mcp.MethodsReturnNonnullByDefault;
+import thedarkcolour.futuremc.registry.FBlocks;
 import thedarkcolour.futuremc.registry.FItems;
 
 import javax.annotation.Nullable;
@@ -28,7 +29,7 @@ class DungeonTacticsFutureMcIntegration implements IDungeonTacticsIntegration
                     LootUtils.addDtLoot(loot, FItems.INSTANCE.getHONEY_BOTTLE(), 1);
                     break;
                 case ORE:
-                    LootUtils.addDtLoot(loot, FItems.INSTANCE.getNETHERITE_SCRAP(), 3);
+                    LootUtils.addDtLoot(loot, FBlocks.INSTANCE.getANCIENT_DEBRIS(), 3);
                     break;
                 case RECORD:
                     LootUtils.addDtLoot(loot, FItems.INSTANCE.getRECORD_PIGSTEP());
