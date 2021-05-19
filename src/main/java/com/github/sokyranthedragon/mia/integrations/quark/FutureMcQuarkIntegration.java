@@ -412,9 +412,21 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
                         addStonecutterRecipes(inputSecond, brick);
                     addStonecutterRecipes(brick, new ItemStack(WorldStoneBricks.world_stone_chiseled, 1, value.ordinal()));
                     if (WorldStoneBricks.enableStairsAndSlabs)
+                    {
+                        if (!input.isEmpty())
+                            registerStairsAndSlabs(input, value.getName());
+                        if (!inputSecond.isEmpty())
+                            registerStairsAndSlabs(input, value.getName());
                         registerStairsAndSlabs(brick, value.getName());
+                    }
                     if (WorldStoneBricks.enableWalls)
+                    {
+                        if (!input.isEmpty())
+                            registerWalls(input, value.getName());
+                        if (!inputSecond.isEmpty())
+                            registerWalls(inputSecond, value.getName());
                         registerWalls(brick, value.getName());
+                    }
                 }
             }
         }
