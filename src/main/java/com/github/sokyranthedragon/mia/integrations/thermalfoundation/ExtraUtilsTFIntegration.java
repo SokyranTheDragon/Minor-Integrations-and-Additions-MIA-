@@ -100,7 +100,8 @@ class ExtraUtilsTFIntegration implements IExtraUtilsIntegration
         TileTerraformerClimograph.register(BlockTerraformer.Type.COOLER, ItemRef.wrap(ItemMaterial.rodBlizz), 32);
         TileTerraformerClimograph.register(BlockTerraformer.Type.COOLER, ItemRef.wrap(ItemMaterial.dustBlizz), 2);
         TileTerraformerClimograph.register(BlockTerraformer.Type.COOLER, ItemRef.wrap(ItemMaterial.dustCryotheum), 10);
-        TileTerraformerClimograph.register(BlockTerraformer.Type.COOLER, ItemRef.wrap(cryotheum), 16);
+        if (!cryotheum.isEmpty())
+            TileTerraformerClimograph.register(BlockTerraformer.Type.COOLER, ItemRef.wrap(cryotheum), 16);
         
         // Heater
         TileTerraformerClimograph.register(BlockTerraformer.Type.HEATER, ItemRef.wrap(ItemMaterial.dustPyrotheum), 2);
