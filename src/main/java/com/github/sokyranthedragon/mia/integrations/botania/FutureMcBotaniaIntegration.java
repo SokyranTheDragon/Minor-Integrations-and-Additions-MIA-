@@ -71,7 +71,7 @@ class FutureMcBotaniaIntegration implements IFutureMcIntegration
             addStonecutterRecipes(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8),
                     new ItemStack(ModFluffBlocks.biomeStoneStairs[i + 8]),
                     new ItemStack(ModFluffBlocks.biomeStoneSlabs[i + 8], 2),
-                    new ItemStack(ModFluffBlocks.biomeStoneWall, i));
+                    new ItemStack(ModFluffBlocks.biomeStoneWall, 1, i));
             addStonecutterRecipes(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i),
                     new ItemStack(ModFluffBlocks.biomeStoneB, 1, i),
                     new ItemStack(ModFluffBlocks.biomeStoneB, 1, i + 8),

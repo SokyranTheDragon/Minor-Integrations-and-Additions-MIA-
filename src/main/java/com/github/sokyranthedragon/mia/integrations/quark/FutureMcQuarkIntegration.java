@@ -99,7 +99,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
             if (VanillaWalls.prismarineBricks)
                 registerWalls(new ItemStack(Blocks.PRISMARINE, 1, 1), "prismarine_bricks");
             if (VanillaWalls.darkPrismarine)
-                registerWalls(new ItemStack(Blocks.PRISMARINE, 1, 2), "prismarine_dark");
+                registerWalls(new ItemStack(Blocks.PRISMARINE, 1, 2), "dark_prismarine");
             if (VanillaWalls.purpurBlock)
                 registerWalls(new ItemStack(Blocks.PURPUR_BLOCK), "purpur_block");
             if (VanillaWalls.endBricks)
@@ -119,7 +119,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
             if (VanillaStairsAndSlabs.andesite)
                 registerStairsAndSlabs(new ItemStack(Blocks.STONE, 1, 5), "stone_andesite");
             if (VanillaStairsAndSlabs.prismarine)
-                registerStairsAndSlabs(new ItemStack(Blocks.PRISMARINE), "prismarine_rough");
+                registerStairsAndSlabs(new ItemStack(Blocks.PRISMARINE), "prismarine");
             if (VanillaStairsAndSlabs.prismarineBricks)
                 registerStairsAndSlabs(new ItemStack(Blocks.PRISMARINE, 1, 1), "prismarine_bricks");
             if (VanillaStairsAndSlabs.darkPrismarine)
@@ -248,16 +248,16 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
                 for (BlockElderPrismarine.Variants value : BlockElderPrismarine.Variants.values())
                 {
                     if (UndergroundBiomes.enableStairsAndSlabs)
-                        registerStairsAndSlabs(new ItemStack(UndergroundBiomes.elder_prismarine, value.ordinal()), value.getName());
+                        registerStairsAndSlabs(new ItemStack(UndergroundBiomes.elder_prismarine, 1, value.ordinal()), value.getName());
                     if (UndergroundBiomes.enableWalls)
-                        registerWalls(new ItemStack(UndergroundBiomes.elder_prismarine, value.ordinal()), value.getName());
+                        registerWalls(new ItemStack(UndergroundBiomes.elder_prismarine, 1, value.ordinal()), value.getName());
                 }
             }
         }
         
         if (QuarkUtils.isFeatureEnabled(Basalt.class))
         {
-            addStonecutterRecipes(new ItemStack(Basalt.basalt), new ItemStack(Basalt.basalt));
+            addStonecutterRecipes(new ItemStack(Basalt.basalt), new ItemStack(Basalt.basalt, 1, 1));
             
             if (Basalt.enableStairsAndSlabs)
                 registerStairsAndSlabs(new ItemStack(Basalt.basalt), "stone_basalt");
@@ -372,7 +372,7 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
                             if (Basalt.basalt != null) // I'm not 100% sure it's actually checked in Quark for that
                             {
                                 input = new ItemStack(Basalt.basalt);
-                                inputSecond = new ItemStack(Basalt.basalt, 1, 2);
+                                inputSecond = new ItemStack(Basalt.basalt, 1, 1);
                             }
                             break;
                         case STONE_MARBLE_BRICKS:

@@ -15,7 +15,7 @@ class FutureMcAetherLostContentIntegration implements IFutureMcIntegration
     public void addRecipes()
     {
         addStonecutterRecipes(
-            new ItemStack(BlocksLostAether.gale_stone, 1, 4),
+            new ItemStack(BlocksLostAether.gale_stone, 1),
             new ItemStack(BlocksLostAether.gale_wall),
             new ItemStack(BlocksLostAether.gale_slab, 2),
             new ItemStack(BlocksLostAether.gale_stairs));

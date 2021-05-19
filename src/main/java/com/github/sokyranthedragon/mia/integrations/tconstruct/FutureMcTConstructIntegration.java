@@ -1,7 +1,6 @@
 package com.github.sokyranthedragon.mia.integrations.tconstruct;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
-import com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc;
 import com.github.sokyranthedragon.mia.integrations.futuremc.IFutureMcIntegration;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -12,7 +11,8 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nonnull;
 
-import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.*;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addSmokerRecipe;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
 
 class FutureMcTConstructIntegration implements IFutureMcIntegration
 {
@@ -88,7 +88,7 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
     
     private static void registerRecipe(Block block, int meta, ItemStack... outputs)
     {
-        addStonecutterRecipes(new ItemStack(block, meta), outputs);
+        addStonecutterRecipes(new ItemStack(block, 1, meta), outputs);
     }
     
     private static void registerSeared(int meta, ItemStack... outputs)
