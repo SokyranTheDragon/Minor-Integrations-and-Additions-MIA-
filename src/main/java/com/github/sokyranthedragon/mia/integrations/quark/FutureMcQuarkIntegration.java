@@ -19,6 +19,7 @@ import javax.annotation.Nonnull;
 
 import static com.github.sokyranthedragon.mia.integrations.ModIds.FUTURE_MC;
 import static com.github.sokyranthedragon.mia.integrations.ModIds.QUARK;
+import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addBlastFurnaceRecipe;
 import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
 
 class FutureMcQuarkIntegration implements IFutureMcIntegration
@@ -133,6 +134,8 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
         
         if (QuarkUtils.isFeatureEnabled(Biotite.class))
         {
+            addBlastFurnaceRecipe(new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite));
+            
             addStonecutterRecipes(new ItemStack(Biotite.biotite_block),
                 new ItemStack(Biotite.biotite_block, 1, 1),
                 new ItemStack(Biotite.biotite_block, 1, 2));
