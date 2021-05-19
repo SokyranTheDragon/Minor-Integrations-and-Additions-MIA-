@@ -14,12 +14,6 @@ import static net.minecraftforge.common.config.Config.*;
 @Mod.EventBusSubscriber(modid = Mia.MODID)
 public class AetherConfig
 {
-    @Name("Enable external integrations")
-    @Comment("Set to false to prevent other mods from integrating with Aether")
-    @LangKey("mia.config.shared.enable_external_integrations")
-    @RequiresMcRestart
-    public static boolean externalIntegrationsEnabled = true;
-
     @Config.Name("Enable Aether additions")
     @Config.Comment("Set to false to completely disable new Aether additions")
     @Config.LangKey("mia.config.aether.additions_enabled")
