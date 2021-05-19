@@ -36,7 +36,7 @@ public class ThermalFoundation implements IBaseMod
             modIntegration.accept(ModIds.FUTURE_MC, new FutureMcTFIntegration());
         if (enableQuarkIntegration && ModIds.QUARK.isLoaded)
             modIntegration.accept(ModIds.QUARK, new QuarkTFIntegration());
-        if (false && ModIds.TINKERS_CONSTRUCT.isLoaded)
+        if (enableTConstructIntegration && ModIds.TINKERS_CONSTRUCT.isLoaded)
             modIntegration.accept(ModIds.TINKERS_CONSTRUCT, new TConstructTFIntegration());
     }
     
