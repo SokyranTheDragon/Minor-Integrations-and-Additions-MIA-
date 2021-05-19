@@ -2,7 +2,6 @@ package com.github.sokyranthedragon.mia.integrations.biomesoplenty;
 
 import biomesoplenty.api.block.BOPBlocks;
 import biomesoplenty.api.enums.BOPFlowers;
-import biomesoplenty.api.item.BOPItems;
 import biomesoplenty.common.block.BlockBOPFlower;
 import biomesoplenty.common.util.block.VariantPagingHelper;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
@@ -14,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addBlastFurnaceRecipe;
 import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
 
 @MethodsReturnNonnullByDefault
@@ -23,9 +21,6 @@ class FutureMcBopIntegration implements IFutureMcIntegration
     @Override
     public void addRecipes()
     {
-        for (int meta = 0; meta <= 7; meta++)
-            addBlastFurnaceRecipe(new ItemStack(BOPBlocks.gem_ore, 1, meta), new ItemStack(BOPItems.gem, 1, meta));
-        
         addStonecutterRecipes(new ItemStack(BOPBlocks.white_sandstone, 1, 0),
                 new ItemStack(BOPBlocks.white_sandstone, 1, 1),
                 new ItemStack(BOPBlocks.white_sandstone, 1, 1),

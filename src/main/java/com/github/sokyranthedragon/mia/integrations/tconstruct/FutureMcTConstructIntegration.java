@@ -20,12 +20,7 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
     public void addRecipes()
     {
         if (TConstruct.pulseManager.isPulseLoaded(TinkerCommons.PulseId))
-        {
-            addBlastFurnaceRecipe(TinkerCommons.oreCobalt, TinkerCommons.ingotCobalt);
-            addBlastFurnaceRecipe(TinkerCommons.oreArdite, TinkerCommons.ingotArdite);
-            
             addStonecutterRecipes(TinkerCommons.mudBrickBlock, new ItemStack(TinkerCommons.slabDecoGround, 2), new ItemStack(TinkerCommons.stairsMudBrick));
-        }
         
         if (TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId))
         {

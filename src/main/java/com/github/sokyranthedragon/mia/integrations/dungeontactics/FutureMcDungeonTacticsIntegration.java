@@ -20,14 +20,6 @@ class FutureMcDungeonTacticsIntegration implements IFutureMcIntegration
     public void addRecipes()
     {
         // Same order as mod IDs
-        addBlastFurnaceRecipe(new ItemStack(DTBlocks.ORE_SILVER), new ItemStack(DTItems.INGOT_SILVER));
-        addBlastFurnaceRecipe(new ItemStack(DTBlocks.ORE_MITHRIL), new ItemStack(DTItems.INGOT_MITHRIL));
-        addBlastFurnaceRecipe(new ItemStack(DTBlocks.NETHER_GOLD), new ItemStack(Items.GOLD_INGOT));
-        addBlastFurnaceRecipe(new ItemStack(DTBlocks.STONE_QUARTZ), new ItemStack(Items.QUARTZ));
-        addBlastFurnaceRecipe(new ItemStack(DTBlocks.END_DIAMOND), new ItemStack(Items.DIAMOND));
-        addBlastFurnaceRecipe(new ItemStack(DTBlocks.END_LAPIS), new ItemStack(Items.DYE, 1, 4));
-        
-        // Same order as mod IDs
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_TIN, "ingotTin");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_COPPER, "ingotCopper");
         oreDictBlastFurnaceRecipe(DTItems.CLUSTER_ALUMINIUM, "ingotAluminium", "ingotAluminum");

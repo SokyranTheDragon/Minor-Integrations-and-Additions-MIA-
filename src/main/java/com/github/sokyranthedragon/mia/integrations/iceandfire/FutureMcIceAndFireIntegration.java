@@ -17,9 +17,6 @@ class FutureMcIceAndFireIntegration implements IFutureMcIntegration
     @Override
     public void addRecipes()
     {
-        addBlastFurnaceRecipe(new ItemStack(IafBlockRegistry.silverOre), new ItemStack(IafItemRegistry.silverIngot));
-        addBlastFurnaceRecipe(new ItemStack(IafBlockRegistry.sapphireOre), new ItemStack(IafItemRegistry.sapphireGem));
-        
         addStonecutterRecipes(new ItemStack(IafBlockRegistry.dread_stone),
             new ItemStack(IafBlockRegistry.dread_stone_bricks),
             new ItemStack(IafBlockRegistry.dread_stone_bricks_chiseled),

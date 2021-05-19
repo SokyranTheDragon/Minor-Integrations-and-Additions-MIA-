@@ -16,10 +16,6 @@ class FutureMcThaumcraftIntegration implements IFutureMcIntegration
     @Override
     public void addRecipes()
     {
-        addBlastFurnaceRecipe(new ItemStack(BlocksTC.oreAmber), new ItemStack(ItemsTC.amber));
-        addBlastFurnaceRecipe(new ItemStack(BlocksTC.oreCinnabar), new ItemStack(ItemsTC.quicksilver));
-        addBlastFurnaceRecipe(new ItemStack(BlocksTC.oreQuartz), new ItemStack(Items.QUARTZ));
-        
         addBlastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1, 0), new ItemStack(Items.IRON_INGOT, 2));
         addBlastFurnaceRecipe(new ItemStack(ItemsTC.clusters, 1, 1), new ItemStack(Items.GOLD_INGOT, 2));
         oreDictBlastFurnaceRecipe(ItemsTC.clusters, 2, 2, "ingotCopper");
