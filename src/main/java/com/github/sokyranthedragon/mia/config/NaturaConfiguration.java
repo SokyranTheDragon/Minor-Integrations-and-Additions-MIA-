@@ -55,12 +55,6 @@ public class NaturaConfiguration
     @Config.LangKey("mia.config.shared.enable_extra_utils_integration")
     @Config.RequiresMcRestart
     public static boolean enableXu2Integration = true;
-    
-    @Name("Enable Industrial Foregoing integration")
-    @Comment("Set to false to completely disable integration with Industrial Foregoing")
-    @LangKey("mia.config.shared.enable_if_integration")
-    @RequiresMcRestart
-    public static boolean enableIFIntegration = true;
 
 
     /**

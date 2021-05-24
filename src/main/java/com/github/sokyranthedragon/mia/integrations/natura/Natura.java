@@ -34,10 +34,7 @@ public class Natura implements IBaseMod
         if (enableHatcheryIntegration && ModIds.HATCHERY.isLoaded)
             modIntegration.accept(ModIds.HATCHERY, new HatcheryNaturaIntegration());
         if (enableXu2Integration && ModIds.EXTRA_UTILITIES.isLoaded)
-            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsNaturaIntegration());
-        if (enableIFIntegration && ModIds.INDUSTRIAL_FOREGOING.isLoaded)
-            modIntegration.accept(ModIds.INDUSTRIAL_FOREGOING, new IndustrialForegoingNaturaIntegration());
-    }
+            modIntegration.accept(ModIds.EXTRA_UTILITIES, new ExtraUtilsNaturaIntegration());    }
     
     @Override
     public void init(FMLInitializationEvent event)
