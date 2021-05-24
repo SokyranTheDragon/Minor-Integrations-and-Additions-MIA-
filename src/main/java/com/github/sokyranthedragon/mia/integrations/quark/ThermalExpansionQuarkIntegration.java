@@ -57,7 +57,6 @@ class ThermalExpansionQuarkIntegration implements IThermalExpansionIntegration
         {
             FactorizerManager.addDefaultRecipe(new ItemStack(Biotite.biotite), new ItemStack(Biotite.biotite_block), 4);
             PulverizerManager.addRecipe(3_000, new ItemStack(Biotite.biotite_block, 1, 2), new ItemStack(Biotite.biotite));
-            FurnaceManager.addRecipe(2_000, new ItemStack(Biotite.biotite_ore), new ItemStack(Biotite.biotite));
         }
         
         if (QuarkUtils.isFeatureEnabled(SoulSandstone.class))
