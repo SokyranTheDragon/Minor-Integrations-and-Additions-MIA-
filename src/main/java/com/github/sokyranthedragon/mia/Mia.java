@@ -59,6 +59,7 @@ import java.util.List;
             ";after:" + ModIds.ConstantIds.AETHER +
             ";after:" + ModIds.ConstantIds.AETHER_CONTINUATION +
             ";after:" + ModIds.ConstantIds.AETHER_LOST_CONTENT +
+            ";after:" + ModIds.ConstantIds.CHARM +
             // Unrelated to the project, but seemed to be causing some issues
             ";after:mystcraft" +
             ";")

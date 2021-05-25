@@ -14,6 +14,7 @@ import com.github.sokyranthedragon.mia.integrations.aether_continuation.AetherCo
 import com.github.sokyranthedragon.mia.integrations.aether_lost_content.AetherLostContent;
 import com.github.sokyranthedragon.mia.integrations.biomesoplenty.BiomesOPlenty;
 import com.github.sokyranthedragon.mia.integrations.botania.Botania;
+import com.github.sokyranthedragon.mia.integrations.charm.Charm;
 import com.github.sokyranthedragon.mia.integrations.chisel.Chisel;
 import com.github.sokyranthedragon.mia.integrations.cofhcore.CofhCore;
 import com.github.sokyranthedragon.mia.integrations.dungeontactics.DungeonTactics;
@@ -154,6 +155,8 @@ public class ModIntegrator
             modIntegrations.put(ENDER_IO, new EnderIo());
         if (ENDER_IO_ZOO.isLoaded)
             modIntegrations.put(ENDER_IO_ZOO, new EnderIoZoo());
+        if (CHARM.isLoaded)
+            modIntegrations.put(CHARM, new Charm());
         
         if (!modIntegrations.isEmpty())
         {

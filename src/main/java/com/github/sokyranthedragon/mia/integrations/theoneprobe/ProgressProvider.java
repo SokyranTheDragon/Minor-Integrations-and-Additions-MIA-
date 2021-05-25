@@ -5,7 +5,6 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexEgg;
 import com.github.alexthe666.iceandfire.entity.tile.*;
 import com.github.sokyranthedragon.mia.Mia;
-import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.pam.harvestcraft.HarvestCraft;
 import com.pam.harvestcraft.tileentities.*;
 import drzhark.mocreatures.entity.item.MoCEntityEgg;
@@ -20,15 +19,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import svenhjol.charm.crafting.block.BlockComposter;
 import thaumcraft.common.blocks.devices.BlockVisBattery;
 import thaumcraft.common.tiles.crafting.TileVoidSiphon;
 import thaumcraft.common.tiles.devices.TileJarBrain;
 import thaumcraft.common.tiles.devices.TileVisGenerator;
+import thedarkcolour.futuremc.block.villagepillage.ComposterBlock;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import static com.github.sokyranthedragon.mia.integrations.ModIds.*;
 
 @SuppressWarnings("UnnecessaryReturnStatement")
 public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityProvider
@@ -51,7 +54,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
         Method harvestWaterTrapMethod = null;
         Method iceFireDragonforgeBrick = null;
         
-        if (ModIds.MO_CREATURES.isLoaded)
+        if (MO_CREATURES.isLoaded)
         {
             try
             {
@@ -62,7 +65,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 Mia.LOGGER.error("Cannot access MoCEntityEgg tCounter field, no hatching progress will be displayed");
             }
         }
-        if (ModIds.ICE_AND_FIRE.isLoaded)
+        if (ICE_AND_FIRE.isLoaded)
         {
             try
             {
@@ -81,7 +84,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 Mia.LOGGER.error("Cannot access TileEntityDragonforgeBrick getConnectedTileEntity() method, no smelting progress will be displayed");
             }
         }
-        if (ModIds.HARVESTCRAFT.isLoaded)
+        if (HARVESTCRAFT.isLoaded)
         {
             try
             {
@@ -136,7 +139,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             return;
         }
         
-        if (ModIds.THAUMCRAFT.isLoaded)
+        if (THAUMCRAFT.isLoaded)
         {
             if (blockState.getBlock() instanceof BlockVisBattery)
             {
@@ -163,7 +166,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             }
         }
         
-        if (ModIds.ICE_AND_FIRE.isLoaded)
+        if (ICE_AND_FIRE.isLoaded)
         {
             if (tile instanceof TileEntityJar)
             {
@@ -231,7 +234,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             }
         }
         
-        if (ModIds.HARVESTCRAFT.isLoaded)
+        if (HARVESTCRAFT.isLoaded)
         {
             if (tile instanceof TileEntityApiary)
             {
@@ -344,12 +347,34 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 return;
             }
         }
+        
+        if (CHARM.isLoaded)
+        {
+            if (tile instanceof svenhjol.charm.crafting.tile.TileComposter)
+            {
+                svenhjol.charm.crafting.tile.TileComposter composter = (svenhjol.charm.crafting.tile.TileComposter)tile;
+                int level = composter.getBlockState().getValue(BlockComposter.LEVEL);
+                addProgressData(probeInfo, level, 8, 0xA5682A, 0x945D25);
+                return;
+            }
+        }
+        
+        if (FUTURE_MC.isLoaded)
+        {
+            if (tile instanceof thedarkcolour.futuremc.tile.TileComposter)
+            {
+                IBlockState state = world.getBlockState(tile.getPos());
+                int level = state.getValue(ComposterBlock.Companion.getLEVEL());
+                addProgressData(probeInfo, level, 8, 0xA5682A, 0x945D25);
+                return;
+            }
+        }
     }
     
     @Override
     public void addProbeEntityInfo(ProbeMode probeMode, IProbeInfo probeInfo, EntityPlayer entityPlayer, World world, Entity entity, IProbeHitEntityData iProbeHitEntityData)
     {
-        if (ModIds.MO_CREATURES.isLoaded)
+        if (MO_CREATURES.isLoaded)
         {
             if (entity instanceof MoCEntityEgg)
             {
@@ -368,7 +393,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 return;
             }
         }
-        if (ModIds.ICE_AND_FIRE.isLoaded)
+        if (ICE_AND_FIRE.isLoaded)
         {
             if (entity instanceof EntityDragonEgg)
             {

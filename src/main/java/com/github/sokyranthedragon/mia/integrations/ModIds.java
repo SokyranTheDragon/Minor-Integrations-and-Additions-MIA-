@@ -29,6 +29,7 @@ import net.minecraftforge.fml.common.versioning.VersionParser;
 import net.minecraftforge.fml.common.versioning.VersionRange;
 import pegbeard.dungeontactics.reference.Reference;
 import slimeknights.tconstruct.TConstruct;
+import svenhjol.charm.Charm;
 import team.chisel.Chisel;
 import team.chisel.ctm.CTM;
 import thaumcraft.Thaumcraft;
@@ -71,7 +72,8 @@ public enum ModIds
     AETHER_CONTINUATION(ConstantIds.AETHER_CONTINUATION),
     AETHER_LOST_CONTENT(ConstantIds.AETHER_LOST_CONTENT),
     ENDER_IO(ConstantIds.ENDER_IO),
-    ENDER_IO_ZOO(ConstantIds.ENDER_IO_ZOO);
+    ENDER_IO_ZOO(ConstantIds.ENDER_IO_ZOO),
+    CHARM(ConstantIds.CHARM);
     
     public final String modId;
     public final boolean isLoaded;
@@ -172,5 +174,6 @@ public enum ModIds
         public static final String AETHER_LOST_CONTENT = LostAetherContent.MODID;
         public static final String ENDER_IO = EnderIO.MODID;
         public static final String ENDER_IO_ZOO = EnderIOZoo.MODID;
+        public static final String CHARM = Charm.MOD_ID;
     }
 }
