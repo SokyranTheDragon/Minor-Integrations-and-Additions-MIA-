@@ -25,6 +25,7 @@ import thaumcraft.common.tiles.crafting.TileVoidSiphon;
 import thaumcraft.common.tiles.devices.TileJarBrain;
 import thaumcraft.common.tiles.devices.TileVisGenerator;
 import thedarkcolour.futuremc.block.villagepillage.ComposterBlock;
+import thedarkcolour.futuremc.tile.BeeHiveTile;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
@@ -366,6 +367,13 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
                 IBlockState state = world.getBlockState(tile.getPos());
                 int level = state.getValue(ComposterBlock.Companion.getLEVEL());
                 addProgressData(probeInfo, level, 8, 0xFFA5682A, 0xFF945D25);
+                return;
+            }
+            else if (tile instanceof BeeHiveTile)
+            {
+                BeeHiveTile hive = (BeeHiveTile)tile;
+                addProgressData(probeInfo, hive.getHoneyLevel(), 5, 0xFFC98702, 0xFFB47901, "Honey progress");
+                probeInfo.text("Bees inside: " + hive.getBeeCount());
                 return;
             }
         }
