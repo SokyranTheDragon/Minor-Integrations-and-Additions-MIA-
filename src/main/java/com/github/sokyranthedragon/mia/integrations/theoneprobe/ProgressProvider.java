@@ -354,7 +354,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             {
                 svenhjol.charm.crafting.tile.TileComposter composter = (svenhjol.charm.crafting.tile.TileComposter)tile;
                 int level = composter.getBlockState().getValue(BlockComposter.LEVEL);
-                addProgressData(probeInfo, level, 8, 0xA5682A, 0x945D25);
+                addProgressData(probeInfo, level, 8, 0xFFA5682A, 0xFF945D25);
                 return;
             }
         }
@@ -365,7 +365,7 @@ public class ProgressProvider implements IProbeInfoProvider, IProbeInfoEntityPro
             {
                 IBlockState state = world.getBlockState(tile.getPos());
                 int level = state.getValue(ComposterBlock.Companion.getLEVEL());
-                addProgressData(probeInfo, level, 8, 0xA5682A, 0x945D25);
+                addProgressData(probeInfo, level, 8, 0xFFA5682A, 0xFF945D25);
                 return;
             }
         }
