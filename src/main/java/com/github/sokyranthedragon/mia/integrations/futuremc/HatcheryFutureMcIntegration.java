@@ -29,9 +29,9 @@ class HatcheryFutureMcIntegration implements IHatcheryIntegration
     @Override
     public void registerShredder()
     {
-        ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(FBlocks.INSTANCE.getLILY_OF_THE_VALLEY()), new ItemStack(FItems.INSTANCE.getDYES(), 2, 0)));
-        ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(FBlocks.INSTANCE.getCORNFLOWER()), new ItemStack(FItems.INSTANCE.getDYES(), 2, 1)));
-        ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE()), new ItemStack(FItems.INSTANCE.getDYES(), 2, 3)));
+        ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(FBlocks.LILY_OF_THE_VALLEY), new ItemStack(FItems.INSTANCE.getDYES(), 2, 0)));
+        ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(FBlocks.CORNFLOWER), new ItemStack(FItems.INSTANCE.getDYES(), 2, 1)));
+        ShredderTileEntity.shredderRecipes.add(new ShredderRecipe(new ItemStack(FBlocks.WITHER_ROSE), new ItemStack(FItems.INSTANCE.getDYES(), 2, 3)));
     }
     
     @Override

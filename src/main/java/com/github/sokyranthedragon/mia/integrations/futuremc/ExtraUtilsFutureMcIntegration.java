@@ -22,9 +22,9 @@ class ExtraUtilsFutureMcIntegration implements IExtraUtilsIntegration
         // Crusher
         XUMachineCrusher.addRecipe(new ItemStack(FBlocks.INSTANCE.getANCIENT_DEBRIS()), new ItemStack(FItems.INSTANCE.getNETHERITE_SCRAP(), 2));
         
-        XUMachineCrusher.addRecipe(new ItemStack(FBlocks.INSTANCE.getLILY_OF_THE_VALLEY()), new ItemStack(FItems.INSTANCE.getDYES(), 2, 0));
-        XUMachineCrusher.addRecipe(new ItemStack(FBlocks.INSTANCE.getCORNFLOWER()), new ItemStack(FItems.INSTANCE.getDYES(), 2, 1));
-        XUMachineCrusher.addRecipe(new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE()), new ItemStack(FItems.INSTANCE.getDYES(), 2, 3));
+        XUMachineCrusher.addRecipe(new ItemStack(FBlocks.LILY_OF_THE_VALLEY), new ItemStack(FItems.INSTANCE.getDYES(), 2, 0));
+        XUMachineCrusher.addRecipe(new ItemStack(FBlocks.CORNFLOWER), new ItemStack(FItems.INSTANCE.getDYES(), 2, 1));
+        XUMachineCrusher.addRecipe(new ItemStack(FBlocks.WITHER_ROSE), new ItemStack(FItems.INSTANCE.getDYES(), 2, 3));
         
         // Cooler
         TileTerraformerClimograph.register(BlockTerraformer.Type.COOLER, ItemRef.wrap(new ItemStack(FBlocks.INSTANCE.getBLUE_ICE())), 16);

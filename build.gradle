@@ -235,10 +235,10 @@ dependencies {
 
     if (project.run_future_mc.equals("true")) {
         kotlinSupport = true
-        deobfProvided "curse.maven:FutureMC_0.2.6.1-310059:3194413"
+        deobfProvided "curse.maven:FutureMC_0.2.7.4-310059:3510765"
     }
     else
-        compileOnly "curse.maven:FutureMC_0.2.6.1-310059:3194413"
+        compileOnly "curse.maven:FutureMC_0.2.7.4-310059:3510765"
 
     if (project.run_biomes_o_plenty.equals("true"))
         deobfProvided "curse.maven:Biomes_O_Plenty_7.0.1.2444-220318:2842510"

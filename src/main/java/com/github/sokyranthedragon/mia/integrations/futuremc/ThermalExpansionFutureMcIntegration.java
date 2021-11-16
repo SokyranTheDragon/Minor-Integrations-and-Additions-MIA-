@@ -24,20 +24,20 @@ class ThermalExpansionFutureMcIntegration implements IThermalExpansionIntegratio
         
         // Phytogenic Insolator
         InsolatorManager.addDefaultRecipe(new ItemStack(FItems.INSTANCE.getBAMBOO()), new ItemStack(FItems.INSTANCE.getBAMBOO(), 3), ItemStack.EMPTY, 0);
-        InsolatorManager.addDefaultRecipe(new ItemStack(FBlocks.INSTANCE.getLILY_OF_THE_VALLEY()), new ItemStack(FBlocks.INSTANCE.getLILY_OF_THE_VALLEY(), 2), ItemStack.EMPTY, 0);
-        InsolatorManager.addDefaultRecipe(new ItemStack(FBlocks.INSTANCE.getCORNFLOWER()), new ItemStack(FBlocks.INSTANCE.getCORNFLOWER(), 2), ItemStack.EMPTY, 0);
-        InsolatorManager.addDefaultRecipe(new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE()), new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE(), 2), ItemStack.EMPTY, 0);
+        InsolatorManager.addDefaultRecipe(new ItemStack(FBlocks.LILY_OF_THE_VALLEY), new ItemStack(FBlocks.LILY_OF_THE_VALLEY, 2), ItemStack.EMPTY, 0);
+        InsolatorManager.addDefaultRecipe(new ItemStack(FBlocks.CORNFLOWER), new ItemStack(FBlocks.CORNFLOWER, 2), ItemStack.EMPTY, 0);
+        InsolatorManager.addDefaultRecipe(new ItemStack(FBlocks.WITHER_ROSE), new ItemStack(FBlocks.WITHER_ROSE, 2), ItemStack.EMPTY, 0);
         
         // Arcane Enscroller
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FItems.INSTANCE.getBAMBOO(), 64), "futuremc:impaling", 0);
-        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE(), 32), "futuremc:channeling", 3);
+        EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.WITHER_ROSE, 32), "futuremc:channeling", 3);
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getHONEY_BLOCK(), 8), "futuremc:loyalty", 2);
         EnchanterManager.addDefaultEnchantmentRecipe(new ItemStack(FBlocks.INSTANCE.getBLUE_ICE(), 1), "futuremc:riptide", 3);
     
         // Pulverizer
-        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.INSTANCE.getLILY_OF_THE_VALLEY()), new ItemStack(FItems.INSTANCE.getDYES(), 4, 0));
-        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.INSTANCE.getCORNFLOWER()), new ItemStack(FItems.INSTANCE.getDYES(), 4, 1));
-        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.INSTANCE.getWITHER_ROSE()), new ItemStack(FItems.INSTANCE.getDYES(), 4, 2));
+        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.LILY_OF_THE_VALLEY), new ItemStack(FItems.INSTANCE.getDYES(), 4, 0));
+        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.CORNFLOWER), new ItemStack(FItems.INSTANCE.getDYES(), 4, 1));
+        PulverizerManager.addRecipe(2_000, new ItemStack(FBlocks.WITHER_ROSE), new ItemStack(FItems.INSTANCE.getDYES(), 4, 2));
     
         PulverizerManager.addRecipe(3_000, new ItemStack(FBlocks.INSTANCE.getBRICK_WALL()), new ItemStack(Items.BRICK, 4));
         PulverizerManager.addRecipe(3_000, new ItemStack(FBlocks.INSTANCE.getNETHER_BRICK_WALL()), new ItemStack(Items.NETHERBRICK, 4));
