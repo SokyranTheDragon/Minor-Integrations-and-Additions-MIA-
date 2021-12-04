@@ -31,7 +31,7 @@ public class BlockGoldenTorch extends BlockBaseMetaTorch<PropertyInteger, Intege
     @Override
     protected Integer getValue(int meta)
     {
-        return meta;
+        return Math.min(meta & 0b0001, 1);
     }
     
     @Override

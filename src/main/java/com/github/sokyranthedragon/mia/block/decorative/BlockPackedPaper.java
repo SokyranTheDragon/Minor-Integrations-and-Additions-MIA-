@@ -32,7 +32,7 @@ public class BlockPackedPaper extends BlockBaseMeta<PropertyInteger, Integer>
     @Override
     protected Integer getValue(int meta)
     {
-        return meta;
+        return Math.min(meta, getMaxMeta());
     }
     
     @Override
