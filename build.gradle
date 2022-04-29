@@ -33,7 +33,7 @@ def parseConfig(File config) {
 }
 
 
-version = "1.12.2-0.2.1c"
+version = "1.12.2-0.2.1d"
 group = "com.github.sokyranthedragon.mia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mia"
 
@@ -235,10 +235,10 @@ dependencies {
 
     if (project.run_future_mc.equals("true")) {
         kotlinSupport = true
-        deobfProvided "curse.maven:FutureMC_0.2.7.4-310059:3510765"
+        deobfProvided "curse.maven:FutureMC_0.2.9-310059:3722997"
     }
     else
-        compileOnly "curse.maven:FutureMC_0.2.7.4-310059:3510765"
+        compileOnly "curse.maven:FutureMC_0.2.9-310059:3722997"
 
     if (project.run_biomes_o_plenty.equals("true"))
         deobfProvided "curse.maven:Biomes_O_Plenty_7.0.1.2444-220318:2842510"
@@ -260,14 +260,14 @@ dependencies {
         deobfProvided "curse.maven:IndustrialForegoing_1.12.2-1.12.13-237_deobf-266515:2745324"
 
         deobfProvided "curse.maven:GunpowderLib-1.12.2-1.1-356646:3168863"
-        deobfProvided "curse.maven:IntegrationForegoing_1.12.2-1.11-3200529:3200529"
+        deobfProvided "curse.maven:IntegrationForegoing_1.12.2-1.11-277938:3200529"
     } else {
         compileOnly "curse.maven:Tesla_1.12.2-1.0.63_deobf-244651:2487962"
         compileOnly "curse.maven:TeslaCoreLib_1.12.2-1.0.17.25_deobf-254602:2891843"
         compileOnly "curse.maven:IndustrialForegoing_1.12.2-1.12.13-237_deobf-266515:2745324"
 
         compileOnly "curse.maven:GunpowderLib-1.12.2-1.1-356646:3168863"
-        compileOnly "curse.maven:IntegrationForegoing_1.12.2-1.11-3200529:3200529"
+        compileOnly "curse.maven:IntegrationForegoing_1.12.2-1.11-277938:3200529"
     }
 
     if (project.run_aether.equals("true")) {

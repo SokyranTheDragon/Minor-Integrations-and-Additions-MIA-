@@ -9,6 +9,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -125,7 +126,7 @@ public class FutureMc implements IBaseMod
             if (!ores.isEmpty())
             {
                 ItemStack ore = ores.get(0);
-                BlastFurnaceRecipes.INSTANCE.addRecipe(input, new ItemStack(ore.getItem(), count, ore.getMetadata()));
+                BlastFurnaceRecipes.INSTANCE.addRecipe(Ingredient.fromStacks(input), new ItemStack(ore.getItem(), count, ore.getMetadata()));
                 return;
             }
         }
@@ -149,7 +150,7 @@ public class FutureMc implements IBaseMod
     public static void addBlastFurnaceRecipe(ItemStack input, ItemStack output)
     {
         if (BlastFurnaceRecipes.INSTANCE.getRecipe(input) != null)
-            BlastFurnaceRecipes.INSTANCE.addRecipe(input, output);
+            BlastFurnaceRecipes.INSTANCE.addRecipe(Ingredient.fromStacks(input), output);
         else
             Mia.LOGGER.warn("Tried to add existing FutureMc blast furnace recipe, input: " + input.toString() + " output: " + output.toString());
     }
@@ -157,7 +158,7 @@ public class FutureMc implements IBaseMod
     public static void addSmokerRecipe(ItemStack input, ItemStack output)
     {
         if (SmokerRecipes.INSTANCE.getRecipe(input) != null)
-            SmokerRecipes.INSTANCE.addRecipe(input, output);
+            SmokerRecipes.INSTANCE.addRecipe(Ingredient.fromStacks(input), output);
         else
             Mia.LOGGER.warn("Tried to add existing FutureMc smoker recipe, input: " + input.toString() + " output: " + output.toString());
     }
@@ -172,7 +173,7 @@ public class FutureMc implements IBaseMod
         for (ItemStack item : output)
         {
             if (recipes.stream().noneMatch(existing -> existing.getOutput().isItemEqualIgnoreDurability(input)))
-                StonecutterRecipes.INSTANCE.addRecipe(input, item);
+                StonecutterRecipes.INSTANCE.addRecipe(Ingredient.fromStacks(input), item);
             else
                 Mia.LOGGER.warn("Tried to add existing FutureMc stonecutter recipe, input: " + input.toString() + " output: " + item.toString());
         }
@@ -181,7 +182,7 @@ public class FutureMc implements IBaseMod
     public static void addCampfireRecipe(ItemStack input, ItemStack output, int duration)
     {
         if (CampfireRecipes.INSTANCE.getRecipe(input) != null)
-            CampfireRecipes.INSTANCE.addRecipe(input, output, duration);
+            CampfireRecipes.INSTANCE.addRecipe(Ingredient.fromStacks(input), output, duration);
         else
             Mia.LOGGER.warn("Tried to add existing FutureMc campfire recipe, input: " + input.toString() + " output: " + output.toString());
     }
