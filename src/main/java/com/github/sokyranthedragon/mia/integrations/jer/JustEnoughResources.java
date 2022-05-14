@@ -229,8 +229,8 @@ public class JustEnoughResources implements IBaseMod
     @Override
     public void loadCompleted(FMLLoadCompleteEvent event)
     {
-        mobOverrideSet.jer = null;
-        villagerOverrideList.jer = null;
+        //mobOverrideSet.jer = null;
+        //villagerOverrideList.jer = null;
     }
 
 //    @Override
