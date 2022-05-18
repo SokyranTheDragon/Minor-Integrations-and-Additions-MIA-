@@ -51,7 +51,8 @@ class ThermalExpansionCharmIntegration implements IThermalExpansionIntegration
         if (Charm.hasFeature(EnderPearlBlock.class))
         {
             CrucibleManager.addRecipe(20_000 * 9, new ItemStack(EnderPearlBlock.block), new FluidStack(TFFluids.fluidEnder, 250 * 9));
-            addTinkerSmelting(new ItemStack(EnderPearlBlock.block), TFFluids.fluidEnder, 250 * 9);
+            if (ModIds.TINKERS_CONSTRUCT.isLoaded)
+                addTinkerSmelting(new ItemStack(EnderPearlBlock.block), TFFluids.fluidEnder, 250 * 9);
         }
         
         if (Charm.hasFeature(Barrel.class))
