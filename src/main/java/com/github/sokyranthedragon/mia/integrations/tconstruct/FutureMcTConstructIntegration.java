@@ -11,7 +11,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nonnull;
 
-import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addSmokerRecipe;
 import static com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc.addStonecutterRecipes;
 
 class FutureMcTConstructIntegration implements IFutureMcIntegration
@@ -21,38 +20,9 @@ class FutureMcTConstructIntegration implements IFutureMcIntegration
     {
         if (TConstruct.pulseManager.isPulseLoaded(TinkerCommons.PulseId))
             addStonecutterRecipes(TinkerCommons.mudBrickBlock, new ItemStack(TinkerCommons.slabDecoGround, 2), new ItemStack(TinkerCommons.stairsMudBrick));
-        
-        if (TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId))
-        {
-            registerSeared(0,
-                new ItemStack(TinkerSmeltery.searedStairsStone),
-                new ItemStack(TinkerSmeltery.searedSlab, 2, 0),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 2),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 3),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 5),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 6),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 7),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 8),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 9),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 10),
-                new ItemStack(TinkerSmeltery.searedBlock, 1, 11));
-            registerSeared(1, new ItemStack(TinkerSmeltery.searedSlab, 2, 1), new ItemStack(TinkerSmeltery.searedStairsCobble));
-            registerDoubleSeared(2, new ItemStack(TinkerSmeltery.searedSlab, 2, 2), new ItemStack(TinkerSmeltery.searedStairsPaver));
-            registerDoubleSeared(3, new ItemStack(TinkerSmeltery.searedSlab, 2, 3), new ItemStack(TinkerSmeltery.searedStairsBrick));
-            registerSeared(4, new ItemStack(TinkerSmeltery.searedSlab, 2, 4), new ItemStack(TinkerSmeltery.searedStairsBrickCracked));
-            registerDoubleSeared(5, new ItemStack(TinkerSmeltery.searedSlab, 2, 5), new ItemStack(TinkerSmeltery.searedStairsBrickFancy));
-            registerDoubleSeared(6, new ItemStack(TinkerSmeltery.searedSlab, 2, 6), new ItemStack(TinkerSmeltery.searedStairsBrickSquare));
-            registerDoubleSeared(7, new ItemStack(TinkerSmeltery.searedSlab, 2, 7), new ItemStack(TinkerSmeltery.searedStairsRoad));
-            registerDoubleSeared(8, new ItemStack(TinkerSmeltery.searedSlab2, 2, 0), new ItemStack(TinkerSmeltery.searedStairsCreeper));
-            registerDoubleSeared(9, new ItemStack(TinkerSmeltery.searedSlab2, 2, 1), new ItemStack(TinkerSmeltery.searedStairsBrickTriangle));
-            registerDoubleSeared(10, new ItemStack(TinkerSmeltery.searedSlab2, 2, 2), new ItemStack(TinkerSmeltery.searedStairsBrickSmall));
-            registerDoubleSeared(11, new ItemStack(TinkerSmeltery.searedSlab2, 2, 3), new ItemStack(TinkerSmeltery.searedStairsTile));
-        }
-        
+
         if (TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId))
         {
-            addSmokerRecipe(new ItemStack(TinkerGadgets.spaghetti, 1, 2), new ItemStack(TinkerGadgets.momsSpaghetti));
-            
             addStonecutterRecipes(new ItemStack(TinkerGadgets.driedClay, 1, 0),
                 new ItemStack(TinkerGadgets.driedClaySlab, 2, 0),
                 new ItemStack(TinkerGadgets.driedClayStairs));

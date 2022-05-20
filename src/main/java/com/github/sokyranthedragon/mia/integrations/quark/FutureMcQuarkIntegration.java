@@ -35,7 +35,6 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
                 new ItemStack(SoulSandstone.soul_sandstone, 1, 1),
                 new ItemStack(SoulSandstone.soul_sandstone, 1, 2));
 
-//            registerSlabs(new ItemStack(SoulSandstone.soul_sandstone), "soul_sandstone");
             if (SoulSandstone.enableStairs)
                 registerStairs(new ItemStack(SoulSandstone.soul_sandstone), "soul_sandstone");
             if (SoulSandstone.enableWalls)
