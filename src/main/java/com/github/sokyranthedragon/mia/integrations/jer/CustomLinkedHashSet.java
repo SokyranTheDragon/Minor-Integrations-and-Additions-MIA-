@@ -13,7 +13,7 @@ class CustomLinkedHashSet<T> extends LinkedHashSet<T>
     {
         boolean add = super.add(entry);
         
-        if (add && entry instanceof MobEntry)
+        if (add && jer != null && entry instanceof MobEntry)
             jer.overrideMobDrop((MobEntry)entry);
         
         return add;

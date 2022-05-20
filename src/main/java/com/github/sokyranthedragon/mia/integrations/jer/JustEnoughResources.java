@@ -47,8 +47,6 @@ public class JustEnoughResources implements IBaseMod
 {
     private final Map<ModIds, IJerIntegration> modIntegrations = new HashMap<>();
     private final Set<Class<? extends EntityLivingBase>> ignoreMobOverrides = new HashSet<>();
-    private CustomLinkedHashSet<MobEntry> mobOverrideSet;
-    private CustomLinkedList<MobEntry> villagerOverrideList;
     private JeiJerIntegration jeiIntegration;
     private boolean insertedEarly;
     
@@ -58,8 +56,8 @@ public class JustEnoughResources implements IBaseMod
         {
             Field field = MobRegistry.getInstance().getClass().getDeclaredField("registry");
             field.setAccessible(true);
-            
-            mobOverrideSet = new CustomLinkedHashSet<>();
+
+            CustomLinkedHashSet<MobEntry> mobOverrideSet = new CustomLinkedHashSet<>();
             mobOverrideSet.jer = this;
             
             field.set(MobRegistry.getInstance(), mobOverrideSet);
@@ -72,14 +70,14 @@ public class JustEnoughResources implements IBaseMod
         {
             Field field = VillagerRegistry.getInstance().getClass().getDeclaredField("villagers");
             field.setAccessible(true);
-    
-            villagerOverrideList = new CustomLinkedList<>();
+
+            CustomLinkedList<MobEntry> villagerOverrideList = new CustomLinkedList<>();
             villagerOverrideList.jer = this;
     
             field.set(VillagerRegistry.getInstance(), villagerOverrideList);
         } catch (NoSuchFieldException | IllegalAccessException e)
         {
-            Mia.LOGGER.error("Could not access MobRegistry.registry, mob loot overrides won't work.");
+            Mia.LOGGER.error("Could not access VillagerRegistry.villagers, villager trade overrides won't work.");
         }
     }
     

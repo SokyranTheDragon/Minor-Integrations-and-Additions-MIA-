@@ -14,7 +14,7 @@ public class CustomLinkedList<T> extends LinkedList<T>
     {
         boolean add = super.add(entry);
         
-        if (add && entry instanceof VillagerEntry)
+        if (add && jer != null && entry instanceof VillagerEntry)
             jer.overrideVillagerTrades((VillagerEntry) entry);
         
         return add;
