@@ -4,11 +4,13 @@ import com.github.sokyranthedragon.mia.config.HatcheryConfiguration;
 import com.github.sokyranthedragon.mia.config.IceAndFireConfiguration;
 import com.github.sokyranthedragon.mia.config.MiaConfig;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.utilities.QuarkUtils;
 import com.github.sokyranthedragon.mia.utilities.size.SizeUtils;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.crafting.IConditionFactory;
 import net.minecraftforge.common.crafting.JsonContext;
+import vazkii.quark.automation.feature.ChainLinkage;
 import vazkii.quark.building.feature.MoreSandstone;
 
 import java.util.function.BooleanSupplier;
@@ -108,6 +110,11 @@ public class AreRecipesEnabledFactory implements IConditionFactory
         }
         else if (MiaConfig.disableAllRecipes)
             return () -> false;
+        else if (JsonUtils.hasField(json, "config"))
+        {
+            if (JsonUtils.getString(json, "config").equals("quark:ChainLinkage:craftsArmor"))
+                isEnabled = QuarkUtils.isFeatureEnabled(ChainLinkage.class) && ChainLinkage.craftsArmor && ChainLinkage.chain != null;
+        }
 //        if (JsonUtils.hasField(json, "oredicted"))
 //        {
 //            if (JsonUtils.getBoolean(json, "oredicted"))

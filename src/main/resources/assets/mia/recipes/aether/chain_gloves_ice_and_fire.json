@@ -1,0 +1,25 @@
+{
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "iceandfire"
+    },
+    {
+      "type": "mia:are_recipes_enabled"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c c"
+  ],
+  "key": {
+    "c": {
+      "item": "iceandfire:chain_link",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aether_legacy:chain_gloves",
+    "count": 1
+  }
+}

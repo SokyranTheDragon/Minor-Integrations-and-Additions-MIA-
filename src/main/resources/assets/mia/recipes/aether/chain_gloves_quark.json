@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "mia:is_mod_loaded",
+      "modid": "quark"
+    },
+    {
+      "type": "mia:are_recipes_enabled",
+      "config": "quark:ChainLinkage:craftsArmor"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c c"
+  ],
+  "key": {
+    "c": {
+      "item": "quark:chain",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aether_legacy:chain_gloves",
+    "count": 1
+  }
+}
