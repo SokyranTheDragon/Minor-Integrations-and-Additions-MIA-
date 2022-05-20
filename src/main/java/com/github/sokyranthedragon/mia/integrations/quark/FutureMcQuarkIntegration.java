@@ -1,6 +1,7 @@
 package com.github.sokyranthedragon.mia.integrations.quark;
 
 import com.github.sokyranthedragon.mia.integrations.ModIds;
+import com.github.sokyranthedragon.mia.integrations.futuremc.FutureMc;
 import com.github.sokyranthedragon.mia.integrations.futuremc.IFutureMcIntegration;
 import com.github.sokyranthedragon.mia.utilities.ItemStackUtils;
 import com.github.sokyranthedragon.mia.utilities.QuarkUtils;
@@ -10,10 +11,7 @@ import vazkii.quark.building.block.BlockWorldStoneBricks;
 import vazkii.quark.building.block.BlockWorldStonePavement;
 import vazkii.quark.building.feature.*;
 import vazkii.quark.world.block.BlockElderPrismarine;
-import vazkii.quark.world.feature.Basalt;
-import vazkii.quark.world.feature.Biotite;
-import vazkii.quark.world.feature.RevampStoneGen;
-import vazkii.quark.world.feature.UndergroundBiomes;
+import vazkii.quark.world.feature.*;
 
 import javax.annotation.Nonnull;
 
@@ -429,6 +427,12 @@ class FutureMcQuarkIntegration implements IFutureMcIntegration
                 }
             }
         }
+
+        if (QuarkUtils.isFeatureEnabled(Crabs.class))
+            FutureMc.addFoodRecipe(new ItemStack(Crabs.crabLeg), new ItemStack(Crabs.cookedCrabLeg));
+
+        if (QuarkUtils.isFeatureEnabled(Frogs.class))
+            FutureMc.addFoodRecipe(new ItemStack(Frogs.frogLeg), new ItemStack(Frogs.cookedFrogLeg));
     }
     
     private static void registerStairsAndSlabs(ItemStack input, String name)
