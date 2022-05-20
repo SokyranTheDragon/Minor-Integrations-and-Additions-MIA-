@@ -91,6 +91,11 @@ public class EntityEvents
                     replaceItemDrop(event.getDrops(), Items.FISH, ItemRegistry.bassrawItem);
                     return;
                 }
+                else if (event.getEntityLiving() instanceof MoCEntitySalmon)
+                {
+                    replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.COOKED_FISH, 1, event.getEntityLiving().isBurning());
+                    return;
+                }
                 // Add new loot
                 else if (event.getEntityLiving() instanceof MoCEntityJellyFish)
                 {
@@ -99,18 +104,12 @@ public class EntityEvents
                 }
                 else if (event.getEntityLiving() instanceof MoCEntityDuck)
                 {
-                    if (MiaConfig.addCookedDrops)
-                        dropFewItems(ItemRegistry.duckrawItem, ItemRegistry.duckcookedItem, event);
-                    else
-                        dropFewItems(ItemRegistry.duckrawItem, event);
+                    dropFewItems(ItemRegistry.duckrawItem, ItemRegistry.duckcookedItem, event);
                     return;
                 }
                 else if (event.getEntityLiving() instanceof MoCEntityDeer)
                 {
-                    if (MiaConfig.addCookedDrops)
-                        dropFewItems(ItemRegistry.venisonrawItem, ItemRegistry.venisoncookedItem, event);
-                    else
-                        dropFewItems(ItemRegistry.venisonrawItem, event);
+                    dropFewItems(ItemRegistry.venisonrawItem, ItemRegistry.venisoncookedItem, event);
                     return;
                 }
             }
@@ -122,15 +121,25 @@ public class EntityEvents
         if (ModIds.QUARK.isLoaded && registerQuarkDrops(event))
             return;
     }
-    
+
     private static void replaceItemDrop(List<EntityItem> drops, Item itemToReplace, Item targetItem)
     {
         replaceItemDrop(drops, itemToReplace, Items.AIR, targetItem, 0, false);
     }
+
+    private static void replaceItemDrop(List<EntityItem> drops, Item itemToReplace, Item targetItem, int meta, boolean onFire)
+    {
+        replaceItemDrop(drops, itemToReplace, Items.AIR, targetItem, meta, false);
+    }
+
+    private static void replaceItemDrop(List<EntityItem> drops, Item itemToReplace, Item targetItem, Item cookedItem, boolean onFire)
+    {
+        replaceItemDrop(drops, itemToReplace, targetItem, cookedItem, 0, onFire);
+    }
     
     private static void replaceItemDrop(List<EntityItem> drops, Item itemToReplace, Item targetItem, Item cookedItem, int meta, boolean onFire)
     {
-        if (onFire)
+        if (targetItem == Items.AIR || (onFire && MiaConfig.addCookedDrops && cookedItem != Items.AIR))
             targetItem = cookedItem;
         
         final Item finalTargetItem = targetItem;
@@ -158,17 +167,13 @@ public class EntityEvents
     {
         int i = entity.world.rand.nextInt(3);
         if (lootingLevel > 0)
-        {
             i += entity.world.rand.nextInt(lootingLevel + 1);
-        }
         
-        if (onFire)
+        if (item == null || (onFire && MiaConfig.addCookedDrops && cooked != Items.AIR))
             item = cooked;
         
         for (int j = 0; j < i; ++j)
-        {
             entity.dropItem(item, 1);
-        }
     }
     
     @Optional.Method(modid = ModIds.ConstantIds.MO_CREATURES)
@@ -183,7 +188,7 @@ public class EntityEvents
             }
             else if (event.getEntityLiving() instanceof MoCEntityClownFish)
             {
-                replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, Items.FISH, 2, false);
+                replaceItemDrop(event.getDrops(), Items.FISH, Items.FISH, 2, event.getEntityLiving().isBurning());
                 return true;
             }
         }
