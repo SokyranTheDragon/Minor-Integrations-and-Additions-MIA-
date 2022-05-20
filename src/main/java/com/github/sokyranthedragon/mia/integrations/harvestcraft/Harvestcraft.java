@@ -39,8 +39,6 @@ public class Harvestcraft implements IBaseMod
             modIntegration.accept(ModIds.JER, new JerHarvestcraftIntegration());
         if (ModIds.JEI.isLoaded)
             modIntegration.accept(ModIds.JEI, new JeiHarvestcraftIntegration());
-        if (enableFutureMcIntegration && ModIds.FUTURE_MC.isLoaded)
-            modIntegration.accept(ModIds.FUTURE_MC, new FutureMcHarvestcraftIntegration());
     }
     
     @Override
