@@ -1,6 +1,7 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/minor-integrations-and-additions-mia",
   "1.12.2": {
+    "1.12.2-0.2.2a": "Fixed compatibility with most recent Future MC version (thanks to @kappa-maintainer on GitHub)\nAdded new Future MC smoker and campfire recipes\nFixed Future MC recipes being only registered if duplicate, and disallowed if non-duplicate\nRemoved Future MC recipes which already existed, removes duplicate errors\nAdded Aether chain gloves recipes with mods that allow crafting of chain armor\nFixed Tinkers Construct/Thermal Expansion/Charm integration issue, should fix errors\nOnly register Thaumcraft aspects for XU2 items if they're enabled, should fix errors\nChanged the way Harvestcraft and Wither loot is added to JER to no longer use dummy loot tables, should fix issues with LootTweaker\nA handful of changes on the technical side (both by me and @kappa-maintainer on GitHub)",
     "1.12.2-0.2.1c": "Fixed crash with Better Builder's Wands\nSlight change to prevent unlikely crash",
     "1.12.2-0.2.1b": "Fixed crash with most recent Future MC versions",
     "1.12.2-0.2.1a": "Updated all mods to their most recent versions\nAdded support for Charm\nAdded FutureMC/Charm composter support for The One Probe display\nAdded FutureMC Bee Nest/Beehive support for The One Probe display\nRe-enabled Aether Continuation integration\nUpdated FutureMC integrations\nMade it possible to disable JER from more mods, and made sure all check for it correctly\nFixed a lot of broken FutureMC Stonecutter recipes\nRemoved duplicate FutureMC Blast Furnace recipes\nRemoved duplicate integrations with Integration Foregoing that it added in updates\nRemoved the (mostly pointless) AbyssalCraft integration\nSome minor fixes",
@@ -23,7 +24,7 @@
     "1.12.2-0.1.5c": "Added update checking\nFixed crafting bugs"
   },
   "promos": {
-    "1.12.2-latest": "1.12.2-0.2.1c",
-    "1.12.2-recommended": "1.12.2-0.2.1c"
+    "1.12.2-latest": "1.12.2-0.2.2a",
+    "1.12.2-recommended": "1.12.2-0.2.2a"
   }
 }
