@@ -36,7 +36,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.BiomeDictionary;
-import vazkii.quark.world.entity.EntityCrab;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -530,7 +529,7 @@ class JerMoCreaturesIntegration implements IJerIntegration
 
 
         // Ambient
-        else if (entity instanceof EntityCrab)
+        else if (entity instanceof MoCEntityCrab)
         {
             LootDrop drop = new LootDrop(MoCItems.crabraw, 0, 2, Conditional.affectedByLooting);
             drops.add(drop);
