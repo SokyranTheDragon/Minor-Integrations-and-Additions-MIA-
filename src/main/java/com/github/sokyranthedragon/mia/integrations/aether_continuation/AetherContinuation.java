@@ -28,6 +28,8 @@ public class AetherContinuation implements IBaseMod
             modIntegration.accept(DUNGEON_TACTICS, new DungeonTacticsAetherContinuationIntegration());
         if (THERMAL_EXPANSION.isLoaded && enableTeIntegration)
             modIntegration.accept(THERMAL_EXPANSION, new ThermalExpansionAetherContinuationIntegration());
+        if (FUTURE_MC.isLoaded && enableFutureMcIntegration)
+            modIntegration.accept(FUTURE_MC, new FutureMcAetherContinuationIntegration());
     }
 
     @Override
