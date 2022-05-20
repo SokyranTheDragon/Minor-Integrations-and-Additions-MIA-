@@ -45,7 +45,7 @@ public class ClientProxy extends CommonProxy
     
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onEntityRenderPre(@SuppressWarnings("rawtypes") RenderLivingEvent.Pre event)
+    public static void onEntityRenderPre(RenderLivingEvent.Pre<?> event)
     {
         if (!SizeUtils.isSizeComponentEnabled)
             return;
@@ -92,7 +92,7 @@ public class ClientProxy extends CommonProxy
     
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onLivingRenderPost(@SuppressWarnings("rawtypes") RenderLivingEvent.Post event)
+    public static void onLivingRenderPost(RenderLivingEvent.Post<?> event)
     {
         if (renderingStarted)
         {
@@ -103,7 +103,7 @@ public class ClientProxy extends CommonProxy
     
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onLivingRenderSpecialPre(@SuppressWarnings("rawtypes") RenderLivingEvent.Specials.Pre event)
+    public static void onLivingRenderSpecialPre(RenderLivingEvent.Specials.Pre<?> event)
     {
         if (!SizeUtils.isSizeComponentEnabled)
             return;
@@ -126,7 +126,7 @@ public class ClientProxy extends CommonProxy
     
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onLivingRenderSpecialPre(@SuppressWarnings("rawtypes") RenderLivingEvent.Specials.Post event)
+    public static void onLivingRenderSpecialPre(RenderLivingEvent.Specials.Post<?> event)
     {
         if (renderingSpecialStarted)
         {

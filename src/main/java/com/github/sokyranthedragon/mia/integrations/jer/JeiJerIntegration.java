@@ -33,7 +33,7 @@ class JeiJerIntegration implements IJeiIntegration
 {
     boolean registeredPlants = false;
     boolean registeredVillagers = false;
-    
+
     @SuppressWarnings("unchecked")
     public boolean initializePlugins(JustEnoughResources jer)
     {
@@ -94,8 +94,8 @@ class JeiJerIntegration implements IJeiIntegration
         if (!registeredVillagers)
             registeredVillagers = registerCustomVillagers(registry);
     }
-    
-    @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
+
+    @SuppressWarnings({ "unchecked", "deprecation" })
     public static boolean registerCustomPlants(IModRegistry registry)
     {
         try
@@ -106,8 +106,8 @@ class JeiJerIntegration implements IJeiIntegration
             recipeHandlerClassesField.setAccessible(true);
             recipeHandlersField.setAccessible(true);
             
-            SetMultiMap<String, Class> recipeHandlerClasses = (SetMultiMap<String, Class>) recipeHandlerClassesField.get(registry);
-            ListMultiMap<String, IRecipeHandler> recipeHandlers = (ListMultiMap<String, IRecipeHandler>) recipeHandlersField.get(registry);
+            SetMultiMap<String, Class<?>> recipeHandlerClasses = (SetMultiMap<String, Class<?>>) recipeHandlerClassesField.get(registry);
+            ListMultiMap<String, IRecipeHandler<?>> recipeHandlers = (ListMultiMap<String, IRecipeHandler<?>>) recipeHandlersField.get(registry);
             
             if (!recipeHandlerClasses.contains(JEIConfig.PLANT, PlantEntry.class))
                 recipeHandlerClasses.put(JEIConfig.PLANT, PlantEntry.class);
@@ -141,7 +141,7 @@ class JeiJerIntegration implements IJeiIntegration
                 }
             };
             
-            List<IRecipeHandler> plantHandlers = recipeHandlers.get(JEIConfig.PLANT);
+            List<IRecipeHandler<?>> plantHandlers = recipeHandlers.get(JEIConfig.PLANT);
             
             if (plantHandlers.size() > 0)
                 //noinspection ConstantConditions
@@ -157,7 +157,7 @@ class JeiJerIntegration implements IJeiIntegration
         return false;
     }
     
-    @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
+    @SuppressWarnings({ "unchecked", "deprecation" })
     public static boolean registerCustomVillagers(IModRegistry registry)
     {
         try
@@ -168,8 +168,8 @@ class JeiJerIntegration implements IJeiIntegration
             recipeHandlerClassesField.setAccessible(true);
             recipeHandlersField.setAccessible(true);
             
-            SetMultiMap<String, Class> recipeHandlerClasses = (SetMultiMap<String, Class>) recipeHandlerClassesField.get(registry);
-            ListMultiMap<String, IRecipeHandler> recipeHandlers = (ListMultiMap<String, IRecipeHandler>) recipeHandlersField.get(registry);
+            SetMultiMap<String, Class<?>> recipeHandlerClasses = (SetMultiMap<String, Class<?>>) recipeHandlerClassesField.get(registry);
+            ListMultiMap<String, IRecipeHandler<?>> recipeHandlers = (ListMultiMap<String, IRecipeHandler<?>>) recipeHandlersField.get(registry);
             
             if (!recipeHandlerClasses.contains(JEIConfig.VILLAGER, VillagerEntry.class))
                 recipeHandlerClasses.put(JEIConfig.VILLAGER, VillagerEntry.class);
@@ -203,7 +203,7 @@ class JeiJerIntegration implements IJeiIntegration
                 }
             };
             
-            List<IRecipeHandler> villagerHandlers = recipeHandlers.get(JEIConfig.VILLAGER);
+            List<IRecipeHandler<?>> villagerHandlers = recipeHandlers.get(JEIConfig.VILLAGER);
             
             if (villagerHandlers.size() > 0)
                 //noinspection ConstantConditions

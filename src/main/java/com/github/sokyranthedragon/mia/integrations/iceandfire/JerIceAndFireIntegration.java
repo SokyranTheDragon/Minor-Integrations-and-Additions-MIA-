@@ -53,7 +53,6 @@ class JerIceAndFireIntegration implements IJerIntegration
 {
     // We're not checking the setters for Myrmex and Dragons, as we're using the same class for more than a single mob type.
     // Using their base class did not work as it wasn't considered the exact class that was required, but it accepted no class.
-    @SuppressWarnings("unchecked")
     @Override
     public void addMobs(JustEnoughResources.CustomMobTableBuilder builder)
     {
@@ -70,28 +69,28 @@ class JerIceAndFireIntegration implements IJerIntegration
 //        builder.add(EntityDeathWorm.RED_GIANT_LOOT, EntityDeathWorm.class, new DeathWormSetter(2));
         builder.add(EntityGorgon.LOOT, EntityGorgon.class);
         // Dragons
-        builder.addWithIgnore(EntityFireDragon.SKELETON_LOOT, EntityFireDragon.class, new DragonSetter(-1));
-        builder.addWithIgnore(EntityIceDragon.SKELETON_LOOT, EntityIceDragon.class, new DragonSetter(-1));
+        builder.addWithIgnore(EntityFireDragon.SKELETON_LOOT, EntityFireDragon.class, new DragonSetter<>(-1));
+        builder.addWithIgnore(EntityIceDragon.SKELETON_LOOT, EntityIceDragon.class, new DragonSetter<>(-1));
         for (int i = 0; i <= 3; i++)
         {
             // ResourceLocation is used as a key in HashMap, so we need to create our own to prevent replacing entries,
             // leaving us with drops for only a single dragon of each type.
-            builder.addWithIgnore(new ResourceLocationWrapper(EntityFireDragon.FEMALE_LOOT, i), EntityFireDragon.class, new DragonSetter(i));
-            builder.addWithIgnore(new ResourceLocationWrapper(EntityIceDragon.FEMALE_LOOT, i), EntityIceDragon.class, new DragonSetter(i));
+            builder.addWithIgnore(new ResourceLocationWrapper(EntityFireDragon.FEMALE_LOOT, i), EntityFireDragon.class, new DragonSetter<>(i));
+            builder.addWithIgnore(new ResourceLocationWrapper(EntityIceDragon.FEMALE_LOOT, i), EntityIceDragon.class, new DragonSetter<>(i));
         }
         builder.add(EntityHippocampus.LOOT, EntityHippocampus.class);
         builder.add(EntityHippogryph.LOOT, EntityHippogryph.class);
         // Myrmex
-        builder.add(EntityMyrmexQueen.DESERT_LOOT, EntityMyrmexQueen.class, new MyrmexSetter(false));
-        builder.add(EntityMyrmexQueen.JUNGLE_LOOT, EntityMyrmexQueen.class, new MyrmexSetter(true));
-        builder.add(EntityMyrmexRoyal.DESERT_LOOT, EntityMyrmexRoyal.class, new MyrmexSetter(false));
-        builder.add(EntityMyrmexRoyal.JUNGLE_LOOT, EntityMyrmexRoyal.class, new MyrmexSetter(true));
-        builder.add(EntityMyrmexSentinel.DESERT_LOOT, EntityMyrmexSentinel.class, new MyrmexSetter(false));
-        builder.add(EntityMyrmexSentinel.JUNGLE_LOOT, EntityMyrmexSentinel.class, new MyrmexSetter(true));
-        builder.add(EntityMyrmexSoldier.DESERT_LOOT, EntityMyrmexSoldier.class, new MyrmexSetter(false));
-        builder.add(EntityMyrmexSoldier.JUNGLE_LOOT, EntityMyrmexSoldier.class, new MyrmexSetter(true));
-        builder.add(EntityMyrmexWorker.DESERT_LOOT, EntityMyrmexWorker.class, new MyrmexSetter(false));
-        builder.add(EntityMyrmexWorker.JUNGLE_LOOT, EntityMyrmexWorker.class, new MyrmexSetter(true));
+        builder.add(EntityMyrmexQueen.DESERT_LOOT, EntityMyrmexQueen.class, new MyrmexSetter<>(false));
+        builder.add(EntityMyrmexQueen.JUNGLE_LOOT, EntityMyrmexQueen.class, new MyrmexSetter<>(true));
+        builder.add(EntityMyrmexRoyal.DESERT_LOOT, EntityMyrmexRoyal.class, new MyrmexSetter<>(false));
+        builder.add(EntityMyrmexRoyal.JUNGLE_LOOT, EntityMyrmexRoyal.class, new MyrmexSetter<>(true));
+        builder.add(EntityMyrmexSentinel.DESERT_LOOT, EntityMyrmexSentinel.class, new MyrmexSetter<>(false));
+        builder.add(EntityMyrmexSentinel.JUNGLE_LOOT, EntityMyrmexSentinel.class, new MyrmexSetter<>(true));
+        builder.add(EntityMyrmexSoldier.DESERT_LOOT, EntityMyrmexSoldier.class, new MyrmexSetter<>(false));
+        builder.add(EntityMyrmexSoldier.JUNGLE_LOOT, EntityMyrmexSoldier.class, new MyrmexSetter<>(true));
+        builder.add(EntityMyrmexWorker.DESERT_LOOT, EntityMyrmexWorker.class, new MyrmexSetter<>(false));
+        builder.add(EntityMyrmexWorker.JUNGLE_LOOT, EntityMyrmexWorker.class, new MyrmexSetter<>(true));
         builder.add(EntityPixie.LOOT, EntityPixie.class);
         for (int i = 0; i <= 6; i++)
             builder.add(new ResourceLocationWrapper(EntitySeaSerpent.LOOT, i), EntitySeaSerpent.class, new SeaSerpentSetter(i));
@@ -503,9 +502,8 @@ class JerIceAndFireIntegration implements IJerIntegration
             entityDeathWorm.setVariant(variant);
         }
     }
-    
-    @SuppressWarnings("rawtypes")
-    private static class DragonSetter implements MobTableBuilder.EntityPropertySetter
+
+    private static class DragonSetter<T extends EntityLivingBase> implements MobTableBuilder.EntityPropertySetter<T>
     {
         private final int variant;
         
@@ -544,8 +542,7 @@ class JerIceAndFireIntegration implements IJerIntegration
         }
     }
     
-    @SuppressWarnings("rawtypes")
-    private static class MyrmexSetter implements MobTableBuilder.EntityPropertySetter
+    private static class MyrmexSetter<T extends EntityLivingBase> implements MobTableBuilder.EntityPropertySetter<T>
     {
         private final boolean jungle;
         
@@ -577,30 +574,26 @@ class JerIceAndFireIntegration implements IJerIntegration
             entity.setType(variant);
         }
     }
-    
-    @SuppressWarnings("rawtypes")
-    private static final IMobRenderHook RENDER_HOOK_DRAGON = ((renderInfo, entityLivingBase) ->
+
+    private static final IMobRenderHook<?> RENDER_HOOK_DRAGON = ((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, 1f, 0f);
         return renderInfo;
     });
-    
-    @SuppressWarnings("rawtypes")
-    private static final IMobRenderHook RENDER_HOOK_SEA_SERPENT = ((renderInfo, entityLivingBase) ->
+
+    private static final IMobRenderHook<?> RENDER_HOOK_SEA_SERPENT = ((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, 0.5f, 0f);
         return renderInfo;
     });
-    
-    @SuppressWarnings("rawtypes")
-    private static final IMobRenderHook RENDER_HOOK_TROLL = (((renderInfo, entityLivingBase) ->
+
+    private static final IMobRenderHook<?> RENDER_HOOK_TROLL = (((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, -1f, 0f);
         return renderInfo;
     }));
-    
-    @SuppressWarnings("rawtypes")
-    private static final IMobRenderHook RENDER_HOOK_CYCLOPS = (((renderInfo, entityLivingBase) ->
+
+    private static final IMobRenderHook<?> RENDER_HOOK_CYCLOPS = (((renderInfo, entityLivingBase) ->
     {
         GlStateManager.translate(0f, -2f, 0f);
         return renderInfo;
