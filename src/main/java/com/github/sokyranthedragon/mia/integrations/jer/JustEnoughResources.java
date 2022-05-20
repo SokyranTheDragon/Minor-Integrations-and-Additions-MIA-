@@ -4,10 +4,12 @@ import com.github.sokyranthedragon.mia.Mia;
 import com.github.sokyranthedragon.mia.integrations.ModIds;
 import com.github.sokyranthedragon.mia.integrations.base.IBaseMod;
 import com.github.sokyranthedragon.mia.integrations.base.IModIntegration;
+import com.github.sokyranthedragon.mia.utilities.LootTableUtils;
 import jeresources.api.IDungeonRegistry;
 import jeresources.api.IMobRegistry;
 import jeresources.api.IPlantRegistry;
 import jeresources.api.conditionals.LightLevel;
+import jeresources.api.drop.LootDrop;
 import jeresources.api.drop.PlantDrop;
 import jeresources.compatibility.JERAPI;
 import jeresources.entry.MobEntry;
@@ -175,9 +177,9 @@ public class JustEnoughResources implements IBaseMod
                     new PlantDrop(new ItemStack(Items.NETHER_WART), 2, 4));
         }
         
-        vanillaMobTableBuilder.add(loadResource("minecraft/wither"), EntityWither.class);
+        vanillaMobTableBuilder.add(LootTableUtils.loadUniqueEmptyLootTable(), EntityWither.class);
         Optional<Map.Entry<ResourceLocation, EntityLivingBase>> wither = vanillaMobTableBuilder.getMobTables().entrySet().stream().findAny();
-        wither.ifPresent(entry -> mobRegistry.register(entry.getValue(), LightLevel.any, 50, entry.getKey()));
+        wither.ifPresent(entry -> mobRegistry.register(entry.getValue(), LightLevel.any, 50, new LootDrop(new ItemStack(Items.NETHER_STAR), 1, 1, 1, 0)));
         
         LootTableManager manager = null;
         try
