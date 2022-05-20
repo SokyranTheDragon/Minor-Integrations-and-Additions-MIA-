@@ -149,7 +149,7 @@ public class FutureMc implements IBaseMod
     
     public static void addBlastFurnaceRecipe(ItemStack input, ItemStack output)
     {
-        if (BlastFurnaceRecipes.INSTANCE.getRecipe(input) != null)
+        if (BlastFurnaceRecipes.INSTANCE.getRecipe(input) == null)
             BlastFurnaceRecipes.INSTANCE.addRecipe(Ingredient.fromStacks(input), output);
         else
             Mia.LOGGER.warn("Tried to add existing FutureMc blast furnace recipe, input: " + input.toString() + " output: " + output.toString());
@@ -157,7 +157,7 @@ public class FutureMc implements IBaseMod
     
     public static void addSmokerRecipe(ItemStack input, ItemStack output)
     {
-        if (SmokerRecipes.INSTANCE.getRecipe(input) != null)
+        if (SmokerRecipes.INSTANCE.getRecipe(input) == null)
             SmokerRecipes.INSTANCE.addRecipe(Ingredient.fromStacks(input), output);
         else
             Mia.LOGGER.warn("Tried to add existing FutureMc smoker recipe, input: " + input.toString() + " output: " + output.toString());
@@ -181,7 +181,7 @@ public class FutureMc implements IBaseMod
     
     public static void addCampfireRecipe(ItemStack input, ItemStack output, int duration)
     {
-        if (CampfireRecipes.INSTANCE.getRecipe(input) != null)
+        if (CampfireRecipes.INSTANCE.getRecipe(input) == null)
             CampfireRecipes.INSTANCE.addRecipe(Ingredient.fromStacks(input), output, duration);
         else
             Mia.LOGGER.warn("Tried to add existing FutureMc campfire recipe, input: " + input.toString() + " output: " + output.toString());
