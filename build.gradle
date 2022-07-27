@@ -1,18 +1,56 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven { url = "https://files.minecraftforge.net/maven" }
-        maven { url = "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
-        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
-    }
+plugins {
+    id "dev.architectury.loom" version "0.12.0.9999"
+    id "com.matthewprenger.cursegradle" version "1.4.0"
 }
 
-apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: "com.matthewprenger.cursegradle"
-//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+archivesBaseName = project.archives_base_name
+version = "${project.minecraft_version}-${project.mod_version}"
+group = project.maven_group
+
+loom {
+    setIntermediaryUrl("https://maven.legacyfabric.net/net/legacyfabric/intermediary-old/${minecraft_version}/intermediary-old-${minecraft_version}-v2.jar")
+    customMinecraftManifest.set("https://meta.legacyfabric.net/v2/manifest/${minecraft_version}")
+
+    // since loom 0.10, you are **required** to use the
+    // "forge" block to configure forge-specific features,
+    // such as the mixinConfigs array or datagen
+    forge {
+        // specify the mixin configs used in this mod
+        // this will be added to the jar manifest as well!
+//        mixinConfigs = [
+//                "examplemod.mixins.json"
+//        ]
+
+        // missing access transformers?
+        // don't worry, you can still use them!
+        // note that your AT *MUST* be located at
+        // src/main/resources/META-INF/accesstransformer.cfg
+        // to work as there is currently no config option to change this.
+        // also, any names used in your access transformer will need to be
+        // in SRG mapped ("func_" / "field_" with MCP class names) to work!
+        // (both of these things may be subject to change in the future)
+
+        // this will create a data generator configuration
+        // that you can use to automatically generate assets and data
+        // using architectury loom. Note that this currently *only* works
+        // for forge projects made with architectury loom!
+        dataGen {
+            mod project.mod_id
+        }
+    }
+
+    // This allows you to modify your launch configurations,
+    // for example to add custom arguments. In this case, we want
+    // the data generator to check our resources directory for
+    // existing files. (see Forge's ExistingFileHelper for more info)
+    launches {
+        data {
+            arg "--existing", file("src/main/resources").absolutePath
+        }
+    }
+}
 
 parseConfig(file("private.properties"))
 
@@ -32,14 +70,18 @@ def parseConfig(File config) {
     }
 }
 
+def includeMod(String shouldRun, String... modIds) {
+    return includeMod(Boolean.parseBoolean(shouldRun), modIds)
+}
 
-version = "1.12.2-0.2.2a"
-group = "com.github.sokyranthedragon.mia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "mia"
+def includeMod(boolean shouldRun, String... modIds) {
+    for (String modId : modIds) {
+        if (shouldRun)
+            dependencies.modRuntimeOnly(modId)
+        dependencies.modCompileOnly(modId)
+    }
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
+    return shouldRun
 }
 
 repositories {
@@ -47,267 +89,157 @@ repositories {
         url = "https://www.cursemaven.com"
     }
     maven {
-        // Using CurseForge did not work for me, so I'm using this maven repo instead.
-        name = "EnderCore"
-        url = "http://maven.tterrag.com"
-    }
-    maven {
         name = "ilexiconn" // LLibrary, had issues with CurseForge, it seems to require llibrary-core
         url = "https://maven.mcmoddev.com"
     }
 }
 
-minecraft {
-    version = "1.12.2-14.23.5.2847"
-    runDir = "run"
-
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "stable_39"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-}
-
 dependencies {
-    // Any local dependencies
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // to change the versions see the gradle.properties file
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    // Actual dependency for some new features
-    if (project.run_artemislib.equals("true"))
-        deobfProvided "curse.maven:ArtemisLib_1.12.2_v1.0.6-313590:2741812"
-    else
-        compileOnly "curse.maven:ArtemisLib_1.12.2_v1.0.6-313590:2741812"
+    // choose what mappings you want to use here
+    mappings "de.oceanlabs.mcp:mcp_stable:39-1.12@zip"
+
+    // your forge dependency, this is **required** when using Forge Loom in forge mode!
+    forge "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
+
+    // Any local dependencies
+//    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Actual dependencies for some new features
+    includeMod(project.run_artemislib, "curse.maven:ArtemisLib_1.12.2_v1.0.6-313590:2741812")
+    includeMod(project.run_fluidlogged, "curse.maven:FluidloggedAPI_1.8.1c-485654:3851192")
 
     //  The One Probe
-    deobfProvided "curse.maven:TheOneProbe_1.4.28-245211:2667280"
+    includeMod(true, "curse.maven:TheOneProbe_1.4.28-245211:2667280")
 
     boolean kotlinSupport = false
     boolean runBaubles = false
+    boolean runMantle = false
+    boolean runPatchouli = false
+    boolean runCtm = false
 
     // Extra Utilities 2
-    if (project.run_xu2.equals("true"))
-        deobfProvided "curse.maven:ExtraUtilities_1.9.9-225561:2678374"
-    else
-        compileOnly "curse.maven:ExtraUtilities_1.9.9-225561:2678374"
+    includeMod(project.run_xu2, "curse.maven:ExtraUtilities_1.9.9-225561:2678374")
 
     // Hatchery and chickens
-    if (project.run_chickens.equals("true")) {
-        deobfProvided "curse.maven:Hatchery_2.2.2-251138:2715498"
-        deobfProvided "curse.maven:Chickens_6.1.0-241941:2545467"
-        deobfProvided "curse.maven:MoreChickens_3.1.0-251786:2521137"
-    } else {
-        compileOnly "curse.maven:Hatchery_2.2.2-251138:2715498"
-        compileOnly "curse.maven:Chickens_6.1.0-241941:2545467"
-        compileOnly "curse.maven:MoreChickens_3.1.0-251786:2521137"
-    }
+    includeMod(project.run_chickens,
+            "curse.maven:Hatchery_2.2.2-251138:2715498",
+            "curse.maven:Chickens_6.1.0-241941:2545467",
+            "curse.maven:MoreChickens_3.1.0-251786:2521137")
 
     // Thaumcraft
-    if (project.run_thaumcraft.equals("true")) {
+    if (includeMod(project.run_thaumcraft,
+            "curse.maven:Thaumcraft_6.1.BETA26-223628:2629023",
+            "curse.maven:Thaumic_Jei_1.6.0-27-285492:2705304"))
         runBaubles = true
-        deobfProvided "curse.maven:Thaumcraft_6.1.BETA26-223628:2629023"
-        deobfProvided "curse.maven:Thaumic_Jei_1.6.0-27-285492:2705304"
-    } else {
-        compileOnly "curse.maven:Thaumcraft_6.1.BETA26-223628:2629023"
-        compileOnly "curse.maven:Thaumic_Jei_1.6.0-27-285492:2705304"
-    }
 
     // JEI and addons
-    deobfProvided "curse.maven:JEI_4.15.0.302-238222:3043174"
-    deobfProvided "curse.maven:JER_0.9.2.60-240630:2728585"
+    includeMod(true,
+            "curse.maven:JEI_4.15.0.302-238222:3043174",
+            "curse.maven:JER_0.9.2.60-240630:2728585")
 
-    // Mantle, Tinker, Tinker's submods, and mods requiring mantle
-    if (project.run_tinkers.equals("true") || project.run_natura.equals("true"))
-        deobfProvided "curse.maven:Mantle_1.3.3.55-74924:2713386"
-    else
-        compileOnly "curse.maven:Mantle_1.3.3.55-74924:2713386"
+    // Tinker, Tinker's submods, and mods requiring mantle
+    includeMod(project.run_tinkers,
+            "curse.maven:TinkersConstruct_12.0.183-74072:2902483")
 
-    if (project.run_tinkers.equals("true"))
-        deobfProvided "curse.maven:TinkersConstruct_12.0.183-74072:2902483"
-    else
-        compileOnly "curse.maven:TinkersConstruct_12.0.183-74072:2902483"
-
-    if (project.run_natura.equals("true"))
-        deobfProvided "curse.maven:Natura_4.3.2.69-74120:2711439"
-    else
-        compileOnly "curse.maven:Natura_4.3.2.69-74120:2711439"
+    includeMod(project.run_natura,
+            "curse.maven:Natura_4.3.2.69-74120:2711439")
 
     // Ice and Fire
-//    deobfProvided "llibrary:llibrary-1.7.18:1.12.2:dev"
-    if (project.run_iceandfire.equals("true") || true) {
-        // Temporarily always run no matter what, it won't work otherwise
-        deobfProvided "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
-        deobfProvided "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
-        deobfProvided "curse.maven:iceandfire-1.9.1-264231:2939529"
-    } else {
-        compileOnly "net.ilexiconn:llibrary:1.7.19-1.12.2:dev"
-        compileOnly "net.ilexiconn:llibrary-core:1.0.11-1.12.2"
-        compileOnly "curse.maven:iceandfire-1.9.1-264231:2803425"
-    }
-
-    // Ender IO
-//    deobfProvided "curse.maven:EnderCore_1.12.2-0.5.73:2822401"
-//    deobfProvided "curse.maven:EnderCore_1.12.2-0.5.73-api:2822402"
-//    deobfProvided "endercore:EnderCore:1.12.2:0.5.57"
-//    deobfdeobfProvided "ender-io:EnderIO:1.12.2:5.0.43"
+    includeMod(project.run_iceandfire,
+            "net.ilexiconn:llibrary:1.7.19-1.12.2:dev",
+            "net.ilexiconn:llibrary-core:1.0.11-1.12.2",
+            "curse.maven:iceandfire-1.9.1-264231:2939529")
 
     // Thermal Expansion and dependencies
-    if (project.run_thermal.equals("true")) {
-        deobfProvided "curse.maven:CodeChickenLib_3.2.3.358-242818:2779848"
-        deobfProvided "curse.maven:RedstoneFlux_2.1.1.1-270789:2920436"
+    includeMod(project.run_thermal,
+            "curse.maven:CodeChickenLib_3.2.3.358-242818:2779848",
+            "curse.maven:RedstoneFlux_2.1.1.1-270789:2920436",
 
-        deobfProvided "curse.maven:CoFHCore_4.6.6.1-69162:2920433"
-        deobfProvided "curse.maven:CoFHWorld_1.4.0.1-271384:2920434"
+            "curse.maven:CoFHCore_4.6.6.1-69162:2920433",
+            "curse.maven:CoFHWorld_1.4.0.1-271384:2920434",
 
-        deobfProvided "curse.maven:ThermalDynamics_2.5.6.1-227443:2920505"
-        deobfProvided "curse.maven:ThermalFoundation_2.6.7.1-222880:2926428"
-        deobfProvided "curse.maven:ThermalExpansion_5.5.7.1-69163:2926431"
-    } else {
-        compileOnly "curse.maven:CodeChickenLib_3.2.3.358-242818:2779848"
-        compileOnly "curse.maven:RedstoneFlux_2.1.1.1-270789:2920436"
-
-        compileOnly "curse.maven:CoFHCore_4.6.6.1-69162:2920433"
-        compileOnly "curse.maven:CoFHWorld_1.4.0.1-271384:2920434"
-
-        compileOnly "curse.maven:ThermalDynamics_2.5.6.1-227443:2920505"
-        compileOnly "curse.maven:ThermalFoundation_2.6.7.1-222880:2926428"
-        compileOnly "curse.maven:ThermalExpansion_5.5.7.1-69163:2926431"
-    }
+            "curse.maven:ThermalDynamics_2.5.6.1-227443:2920505",
+            "curse.maven:ThermalFoundation_2.6.7.1-222880:2926428",
+            "curse.maven:ThermalExpansion_5.5.7.1-69163:2926431")
 
     // Mo' Creatures
-    if (project.run_mocreatures.equals("true")) {
-        provided "curse.maven:CustomMobSpawner-3.11.5-229261:2859433"
-        provided "curse.maven:MoCreatures_12.0.5-229260:2628698"
-    }
-    else {
-        compileOnly "curse.maven:CustomMobSpawner-3.11.5-229261:2859433"
-        compileOnly "curse.maven:MoCreatures_12.0.5-229260:2628698"
-    }
+    includeMod(project.run_mocreatures,
+            "curse.maven:CustomMobSpawner-3.11.5-229261:2859433",
+            "curse.maven:MoCreatures_12.0.5-229260:2628698")
 
     // Dungeon tactics
-    if (project.run_dungeon_tactics.equals("true"))
-        deobfProvided "curse.maven:DungeonTactics_0.16.9-242500:3008088"
-    else
-        compileOnly "curse.maven:DungeonTactics_0.16.9-242500:3008088"
+    includeMod(project.run_dungeon_tactics, "curse.maven:DungeonTactics_0.16.9-242500:3008088")
 
     // Harvestcraft
-    // For use with deobfuscated code, provide the original source for IntelliJ Idea
-    // https://github.com/MatrexsVigil/harvestcraft
-    if (project.run_harvestcraft.equals("true")) {
-        provided "curse.maven:PamsHarvestcraft_1.12.2zg-221857:2904825"
-        deobfProvided "curse.maven:JustEnoughHarvestcraft_1.12.2-1.7.2-267939:2997129"
-    } else {
-        compileOnly "curse.maven:PamsHarvestcraft_1.12.2zg-221857:2904825"
-        compileOnly "curse.maven:JustEnoughHarvestcraft_1.12.2-1.7.2-267939:2997129"
-    }
+    includeMod(project.run_dungeon_tactics,
+            "curse.maven:PamsHarvestcraft_1.12.2zg-221857:2904825",
+            "curse.maven:JustEnoughHarvestcraft_1.12.2-1.7.2-267939:2997129")
 
     // Botania and friends
-    if (project.run_botania.equals("true")) {
+    if (includeMod(run_botania,
+            "curse.maven:Bontina_r1.10-363-225643:2846950",
+            "curse.maven:ExtraBontina_r1.1-60-beta-hotfix-299086:3112313"))
         runBaubles = true
-        deobfProvided "curse.maven:Bontina_r1.10-363-225643:2846950"
-        deobfProvided "curse.maven:ExtraBontina_r1.1-60-beta-hotfix-299086:3112313"
-    } else {
-        compileOnly "curse.maven:Bontina_r1.10-363-225643:2846950"
-        compileOnly "curse.maven:ExtraBontina_r1.1-60-beta-hotfix-299086:3112313"
-    }
 
     // Quark
-    if (project.run_quark.equals("true")) {
-        deobfProvided "curse.maven:AutoRegLib_1.3-32-250363:2746011"
-        deobfProvided "curse.maven:Quark_r1.6-179-243121:2924091"
-    } else {
-        compileOnly "curse.maven:AutoRegLib_1.3-32-250363:2746011"
-        compileOnly "curse.maven:Quark_r1.6-179-243121:2924091"
-    }
+    includeMod(project.run_quark,
+            "curse.maven:AutoRegLib_1.3-32-250363:2746011",
+            "curse.maven:Quark_r1.6-179-243121:2924091")
 
     // Charm
-    if (project.run_charm.equals("true"))
-        deobfProvided "curse.maven:Charm-1.12.2-1.4.1-318872:3146596"
-    else
-        compileOnly "curse.maven:Charm-1.12.2-1.4.1-318872:3146596"
+    includeMod(project.run_charm, "curse.maven:Charm-1.12.2-1.4.1-318872:3146596")
 
     // Craft Tweaker
-    if (project.run_craft_tweaker.equals("true"))
-        provided "curse.maven:CraftTweaker2_1.12-4.1.20.646-239197:3294372"
-    else
-        compileOnly "curse.maven:CraftTweaker2_1.12-4.1.20.646-239197:3294372"
+    includeMod(project.run_craft_tweaker, "curse.maven:CraftTweaker2_1.12-4.1.20.646-239197:3294372")
 
-    if (project.run_future_mc.equals("true")) {
+    // FutureMC
+    if (includeMod(project.run_future_mc, "curse.maven:FutureMC_0.2.10.1-310059:3842790"))
         kotlinSupport = true
-        deobfProvided "curse.maven:FutureMC_0.2.9-310059:3722997"
-    }
-    else
-        compileOnly "curse.maven:FutureMC_0.2.9-310059:3722997"
 
-    if (project.run_biomes_o_plenty.equals("true"))
-        deobfProvided "curse.maven:Biomes_O_Plenty_7.0.1.2444-220318:2842510"
-    else
-        compileOnly "curse.maven:Biomes_O_Plenty_7.0.1.2444-220318:2842510"
+    // Biomes o' Plenty
+    includeMod(project.run_biomes_o_plenty, "curse.maven:Biomes_O_Plenty_7.0.1.2444-220318:2842510")
 
-    if (project.run_ctm_chisel.equals("true")) {
-        deobfProvided "curse.maven:CTM_1.0.1.31-267602:2915363"
-        deobfProvided "curse.maven:Chisel_1.0.2.45-235279:2915375"
-    } else {
-        compileOnly "curse.maven:CTM_1.0.1.31-267602:2915363"
-        compileOnly "curse.maven:Chisel_1.0.2.45-235279:2915375"
-    }
+    // Chisel and CTM
+    if (includeMod(project.run_ctm_chisel, "curse.maven:Chisel_1.0.2.45-235279:2915375"))
+        runCtm = true
 
-    if (project.run_industrial_foregoing.equals("true")) {
+    // Industrial Foregoing
+    if (includeMod(project.run_industrial_foregoing,
+            "curse.maven:Tesla_1.12.2-1.0.63_deobf-244651:2487962",
+            "curse.maven:TeslaCoreLib_1.12.2-1.0.17.25_deobf-254602:2891843",
+            "curse.maven:IndustrialForegoing_1.12.2-1.12.13-237_deobf-266515:2745324",
+
+            "curse.maven:GunpowderLib-1.12.2-1.1-356646:3168863",
+            "curse.maven:IntegrationForegoing_1.12.2-1.11-277938:3200529"))
         kotlinSupport = true
-        deobfProvided "curse.maven:Tesla_1.12.2-1.0.63_deobf-244651:2487962"
-        deobfProvided "curse.maven:TeslaCoreLib_1.12.2-1.0.17.25_deobf-254602:2891843"
-        deobfProvided "curse.maven:IndustrialForegoing_1.12.2-1.12.13-237_deobf-266515:2745324"
 
-        deobfProvided "curse.maven:GunpowderLib-1.12.2-1.1-356646:3168863"
-        deobfProvided "curse.maven:IntegrationForegoing_1.12.2-1.11-277938:3200529"
-    } else {
-        compileOnly "curse.maven:Tesla_1.12.2-1.0.63_deobf-244651:2487962"
-        compileOnly "curse.maven:TeslaCoreLib_1.12.2-1.0.17.25_deobf-254602:2891843"
-        compileOnly "curse.maven:IndustrialForegoing_1.12.2-1.12.13-237_deobf-266515:2745324"
-
-        compileOnly "curse.maven:GunpowderLib-1.12.2-1.1-356646:3168863"
-        compileOnly "curse.maven:IntegrationForegoing_1.12.2-1.11-277938:3200529"
-    }
-
-    if (project.run_aether.equals("true")) {
-        deobfProvided "curse.maven:Aether_Legacy_1.12.2-v1.5.3.2-255308:3280119"
-        deobfProvided "curse.maven:Extra_Moas_v1.2.1-299061:3039636"
-        deobfProvided "curse.maven:Aether_Continuation_v1.3.0-294269:3070803"
-        deobfProvided "curse.maven:Lost_Aether_Content_1.12.2-v1.0.2-318602:3038185"
-    }
-    else {
-        compileOnly "curse.maven:Aether_Legacy_1.12.2-v1.5.3.2-255308:3280119"
-        compileOnly "curse.maven:Extra_Moas_v1.2.1-299061:3039636"
-        compileOnly "curse.maven:Aether_Continuation_v1.3.0-294269:3070803"
-        compileOnly "curse.maven:Lost_Aether_Content_1.12.2-v1.0.2-318602:3038185"
-    }
+    // Aether and addons
+    includeMod(project.run_aether,
+            "curse.maven:Aether_Legacy_1.12.2-v1.5.3.2-255308:3280119",
+            "curse.maven:Extra_Moas_v1.2.1-299061:3039636",
+            "curse.maven:Aether_Continuation_v1.3.0-294269:3070803",
+            "curse.maven:Lost_Aether_Content_1.12.2-v1.0.2-318602:3038185")
 
     // Extract META-INF/libraries/EnderCore-1.12.2-x.y.z-core.jar from Ender Core jar into libs directory
-    deobfProvided "curse.maven:Ender_Core_1.12.2-0.5.76-231868:2972849"
-    if (project.run_enderio.equals("true")) {
-        // Same as with EnderCore, but AutoConfig and AutoSave
-        deobfProvided "curse.maven:Ender_IO_1.12.2-5.2.66-64578:3124452"
-        if (project.run_enderzoo.equals("true"))
-            deobfProvided "curse.maven:Ender_Zoo_1.12.2-5.2.59-303001:2989199"
-        else
-            compileOnly "curse.maven:Ender_Zoo_1.12.2-5.2.66-303001:3124449"
-    }
-    else {
-        compileOnly "curse.maven:Ender_IO_1.12.2-5.2.66-64578:3124452"
-        compileOnly "curse.maven:Ender_Zoo_1.12.2-5.2.66-303001:3124449"
+    includeMod(true, "curse.maven:Ender_Core_1.12.2-0.5.76-231868:2972849")
+    // Same as with EnderCore, but AutoConfig and AutoSave
+    if (includeMod(project.run_enderio, "curse.maven:Ender_IO_1.12.2-5.2.66-64578:3124452"))
+        includeMod(project.run_enderzoo, "curse.maven:Ender_Zoo_1.12.2-5.2.59-303001:2989199")
+
+    if (includeMod(project.run_twilight_forest, "curse.maven:TwilightForest_3.11.1021-227639:3051450")) {
+        runPatchouli = true
+        runCtm = true
     }
 
-
-    if (kotlinSupport)
-        deobfProvided "curse.maven:Forgelin_1.8.4-1.12.2-248453:2785465"
-    else
-        compileOnly "curse.maven:Forgelin_1.8.4-1.12.2-248453:2785465"
-
-    if (runBaubles || project.run_baubles.equals("true"))
-        deobfProvided "curse.maven:Baubles_1.5.2-227083:2518667"
-    else
-        compileOnly "curse.maven:Baubles_1.5.2-227083:2518667"
+    // Dependencies of multiple mods
+    includeMod(kotlinSupport, "curse.maven:Forgelin_1.8.4-1.12.2-248453:2785465")
+    includeMod(runBaubles || Boolean.parseBoolean(project.run_baubles), "curse.maven:Baubles_1.5.2-227083:2518667")
+    includeMod(runMantle, "curse.maven:Mantle_1.3.3.55-74924:2713386")
+    includeMod(runPatchouli, "curse.maven:Patchouli_1.0-23.6-306770:3162874")
+    includeMod(runCtm, "curse.maven:CTM_1.0.1.31-267602:2915363")
 }
 
 curseforge {
@@ -364,20 +296,50 @@ curseforge {
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    // define properties that can be used during resource processing
+    inputs.property "modVersion", project.version
+    inputs.property "shortName", project.archivesBaseName
+    inputs.property "full", project.full_name
+    inputs.property "mcVersion", project.minecraft_version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-
-    // copy everything else except the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+    // this will replace the property "${modVersion}" in your mcmod.info
+    // with the version you've defined in your gradle.properties
+    filesMatching("mcmod.info") {
+        expand "modVersion": project.version,
+                "shortName": project.archivesBaseName,
+                "fullName": project.full_name,
+                "mcVersion": project.minecraft_version
     }
 }
+
+tasks.withType(JavaCompile) {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
+    options.encoding = "UTF-8"
+    options.release = 8
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+}
+
+jar {
+    // add some additional metadata to the jar manifest
+    manifest {
+        attributes([
+                "Specification-Title"     : project.mod_id,
+                "Specification-Vendor"    : project.mod_author,
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : version,
+                "Implementation-Vendor"   : project.mod_author,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+

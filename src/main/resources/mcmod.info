@@ -1,10 +1,10 @@
 [
 {
-  "modid": "mia",
-  "name": "Minor Integrations and Additions",
+  "modid": "${shortName}",
+  "name": "${fullName}",
   "description": "This mod add small integrations between existing mods as well as minor additions to them.",
-  "version": "1.12.2-0.2.2a",
-  "mcversion": "1.12.2",
+  "version": "${modVersion}",
+  "mcversion": "${mcVersion}",
   "url": "https://github.com/SokyranTheDragon/Minor-Integrations-and-Additions-MIA-",
   "updateJSON": "",
   "authorList": ["Main developer - Sokyran", "Icon and support artist - Quilveor", "Original EVTP artist - MDP"],
